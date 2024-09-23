@@ -8,6 +8,7 @@
     @include('frontend.components.top-nav')
     <div id="header" class="relative w-full">
         @include('frontend.components.navbar')
+
     </div>
     <main>
         @yield('content')

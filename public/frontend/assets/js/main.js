@@ -721,6 +721,8 @@ var swiperSlider = new Swiper(".swiper-slider", {
   },
 });
 
+
+
 // Slider Toys kid
 if (document.querySelector(".slider-toys-kid")) {
   $(".slider-toys-kid").slick({

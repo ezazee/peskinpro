@@ -5,58 +5,61 @@
 <!-- Slider -->
 <div class="slider-block style-two bg-linear 2xl:h-[800px] xl:h-[740px] lg:h-[680px] md:h-[580px] sm:h-[500px] h-[420px] w-full">
     <div class="slider-main h-full w-full">
-        <div class="swiper swiper-slider h-full relative">
+        <div class="swiper swiper-slider-custom h-full relative">
             <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <div class="slider-item h-full w-full relative overflow-hidden">
-                        <div class="container w-full h-full flex flex-col text-center items-center justify-center">
-                            <div class="text-content sm:w-[55%] w-2/3">
-                                <div class="text-sub-display text-center text-white">Sale! Up To 50% Off!</div>
-                                <div class="text-display text-center text-white md:mt-5 mt-2">Discover the Secrets of Effective Skincare</div>
-                                <a href="shop-breadcrumb-img.html" class="button-main bg-white text-black md:mt-8 mt-3"> Shop Now</a>
-                            </div>
-                            <div class="sub-img absolute left-0 top-0 w-full h-full z-[-1]">
-                                <img src="{{ asset('frontend/assets/images/slider/bg-cos3-1.png') }}" alt="bg-cos3-1" class="w-full h-full object-cover" />
-                            </div>
+
+                <!-- Slide 1 -->
+                <div class="swiper-slide slider-item h-full w-full relative overflow-hidden">
+                    <div class="overlay absolute top-0 left-0 w-full h-full z-10"></div> <!-- Overlay gradient -->
+                    <div class="container w-full h-full flex flex-col text-center items-center justify-center relative z-20">
+                        <div class="text-content sm:w-[55%] w-2/3">
+                            <div class="text-sub-display text-center text-white">Sale! Up To 50% Off!</div>
+                            <div class="text-display text-center text-white md:mt-5 mt-2">Discover the Secrets of Effective Skincare</div>
+                            <a href="shop-breadcrumb-img.html" class="button-main bg-white text-black md:mt-8 mt-3">Shop Now</a>
                         </div>
                     </div>
-                </div>
-                <div class="swiper-slide">
-                    <div class="slider-item h-full w-full relative overflow-hidden">
-                        <div class="container w-full h-full flex flex-col text-center items-center justify-center">
-                            <div class="text-content sm:w-[55%] w-2/3">
-                                <div class="text-sub-display text-center text-white">Sale! Up To 50% Off!</div>
-                                <div class="text-display text-center text-white md:mt-5 mt-2">Experience the Beauty of Effective Skincare</div>
-                                <a href="shop-breadcrumb-img.html" class="button-main bg-white text-black md:mt-8 mt-3"> Shop Now</a>
-                            </div>
-                            <div class="sub-img absolute left-0 top-0 w-full h-full z-[-1]">
-                                <img src="{{ asset('frontend/assets/images/slider/bg-cos3-2.png') }}" alt="bg-cos3-2" class="w-full h-full object-cover" />
-                            </div>
-                        </div>
+                    <div class="sub-img absolute left-0 top-0 w-full h-full z-[-1]">
+                        <img src="{{ asset('frontend/assets/images/slider/bg-cos3-1.png') }}" alt="bg-cos3-1" class="w-full h-full object-cover" />
                     </div>
                 </div>
-                <div class="swiper-slide">
-                    <div class="slider-item h-full w-full relative overflow-hidden">
-                        <div class="container w-full h-full flex flex-col text-center items-center justify-center">
-                            <div class="text-content sm:w-[55%] w-2/3">
-                                <div class="text-sub-display text-center text-white">Sale! Up To 50% Off!</div>
-                                <div class="text-display text-center text-white md:mt-5 mt-2">Elevate Your Skincare Journey</div>
-                                <a href="shop-breadcrumb-img.html" class="button-main bg-white text-black md:mt-8 mt-3"> Shop Now</a>
-                            </div>
-                            <div class="sub-img absolute left-0 top-0 w-full h-full z-[-1]">
-                                <img src="{{ asset('frontend/assets/images/slider/bg-cos3-3.png') }}" alt="bg-cos3-3" class="w-full h-full object-cover" />
-                            </div>
+
+                <!-- Slide 2 -->
+                <div class="swiper-slide slider-item h-full w-full relative overflow-hidden">
+                    <div class="overlay absolute top-0 left-0 w-full h-full z-10"></div> <!-- Overlay gradient -->
+                    <div class="container w-full h-full flex flex-col text-center items-center justify-center relative z-20">
+                        <div class="text-content sm:w-[55%] w-2/3">
+                            <div class="text-sub-display text-center text-white">Sale! Up To 50% Off!</div>
+                            <div class="text-display text-center text-white md:mt-5 mt-2">Experience the Beauty of Effective Skincare</div>
+                            <a href="shop-breadcrumb-img.html" class="button-main bg-white text-black md:mt-8 mt-3">Shop Now</a>
                         </div>
                     </div>
+                    <div class="sub-img absolute left-0 top-0 w-full h-full z-[-1]">
+                        <img src="{{ asset('frontend/assets/images/slider/bg-cos3-2.png') }}" alt="bg-cos3-2" class="w-full h-full object-cover" />
+                    </div>
                 </div>
+
+                <!-- Slide 3 -->
+                <div class="swiper-slide slider-item h-full w-full relative overflow-hidden">
+                    <div class="overlay absolute top-0 left-0 w-full h-full z-10"></div> <!-- Overlay gradient -->
+                    <div class="container w-full h-full flex flex-col text-center items-center justify-center relative z-20">
+                        <div class="text-content sm:w-[55%] w-2/3">
+                            <div class="text-sub-display text-center text-white">Sale! Up To 50% Off!</div>
+                            <div class="text-display text-center text-white md:mt-5 mt-2">Elevate Your Skincare Journey</div>
+                            <a href="shop-breadcrumb-img.html" class="button-main bg-white text-black md:mt-8 mt-3">Shop Now</a>
+                        </div>
+                    </div>
+                    <div class="sub-img absolute left-0 top-0 w-full h-full z-[-1]">
+                        <img src="{{ asset('frontend/assets/images/slider/bg-cos3-3.png') }}" alt="bg-cos3-3" class="w-full h-full object-cover" />
+                    </div>
+                </div>
+
             </div>
-            <!-- <div class="swiper-pagination"></div> -->
         </div>
     </div>
 </div>
 
 <!-- Marquee -->
-<div class="banner-top bg-[#F4C6A5] md:py-8 py-4">
+<div class="banner-top bg-primary text-white md:py-8 py-4">
     <div class="marquee-block swiper-container flex items-center whitespace-nowrap">
         <div class="swiper-wrapper">
             <div class="swiper-slide">
@@ -127,61 +130,6 @@
     </div>
 </div>
 
-{{-- <div class="tab-features-block filter-product-block md:pt-20 pt-10">
-    <div class="container">
-        <div class="heading3 text-center">Hot product skincare</div>
-        <div class="list-product six-product hide-product-sold relative section-swiper-navigation style-outline style-small-border md:mt-10 mt-6">
-            <div class="swiper-button-prev2 sm:left-10 left-6">
-                <i class="ph-bold ph-caret-left text-xl"></i>
-            </div>
-            <div class="swiper swiper-list-product h-full relative">
-                <div class="swiper-wrapper" data-type="cosmetic">
-                    <div class="swiper-wrapper" data-type="cosmetic">
-                        <div class="swiper-slide">
-                            <div class="product-item">
-                                <div class="product-img">
-                                    <img src="{{ asset('frontend/assets/images/product/cosmetic/1-1.png') }}" alt="Product 1">
-                                </div>
-                                <div class="product-info">
-                                    <h5 class="product-name">Brightening Serum</h5>
-                                    <div class="product-price">$25.00</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <div class="product-item">
-                                <div class="product-img">
-                                    <img src="{{ asset('frontend/assets/images/product/cosmetic/1-.png') }}" alt="Product 2">
-                                </div>
-                                <div class="product-info">
-                                    <h5 class="product-name">Hydrating Toner</h5>
-                                    <div class="product-price">$30.00</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <div class="product-item">
-                                <div class="product-img">
-                                    <img src="{{ asset('frontend/assets/images/product/product3.jpg') }}" alt="Product 3">
-                                </div>
-                                <div class="product-info">
-                                    <h5 class="product-name">Moisturizing Cream</h5>
-                                    <div class="product-price">$40.00</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <div class="swiper-button-next2 sm:right-10 right-6">
-                <i class="ph-bold ph-caret-right text-xl"></i>
-            </div>
-        </div>
-    </div>
-</div> --}}
 
 <div class="lookbook-block cos1 bg-surface md:py-20 py-10 md:mt-20 mt-10">
             <div class="container lg:flex items-center">
@@ -207,8 +155,8 @@
                                     </div>
                                 </div>
                                 <div class="product-img w-full h-full aspect-[3/4]">
-                                    <img class="w-full h-full object-cover duration-700" src="{{ asset('frontend/assets/images/product/cosmetic/3-1.png') }}" alt="img" />
-                                    <img class="w-full h-full object-cover duration-700" src="{{ asset('frontend/assets/images/product/cosmetic/3-2.png') }}" alt="img" />
+                                    <img class="w-full h-full object-cover duration-700" src="{{ asset('frontend/assets/images/product/cosmetic/1-1.png') }}" alt="img" />
+                                    <img class="w-full h-full object-cover duration-700" src="{{ asset('frontend/assets/images/product/cosmetic/1-2.png') }}" alt="img" />
                                 </div>
                                 {{-- <div class="countdown-time-block py-1.5 flex items-center justify-center">
                                     <div class="text-xs font-semibold uppercase text-red">
@@ -254,15 +202,15 @@
 
                                 <div class="list-color list-color-image max-md:hidden flex items-center gap-3 flex-wrap duration-500">
                                     <div class="color-item w-12 h-12 rounded-xl duration-300 relative">
-                                        <img src="assets/images/product/cosmetic/2-2.png" alt="color" class="rounded-xl w-full h-full object-cover" />
+                                        <img src="{{ asset('frontend/assets/images/product/cosmetic/2-2.png') }}" alt="color" class="rounded-xl w-full h-full object-cover" />
                                         <div class="tag-action bg-black text-white caption2 capitalize px-1.5 py-0.5 rounded-sm">Yellow</div>
                                     </div>
                                     <div class="color-item w-12 h-12 rounded-xl duration-300 relative">
-                                        <img src="assets/images/product/cosmetic/9-2.png" alt="color" class="rounded-xl w-full h-full object-cover" />
+                                        <img src="{{ asset('frontend/assets/images/product/cosmetic/9-2.png') }}" alt="color" class="rounded-xl w-full h-full object-cover" />
                                         <div class="tag-action bg-black text-white caption2 capitalize px-1.5 py-0.5 rounded-sm">Red</div>
                                     </div>
                                     <div class="color-item w-12 h-12 rounded-xl duration-300 relative">
-                                        <img src="assets/images/product/cosmetic/7-2.png" alt="color" class="rounded-xl w-full h-full object-cover" />
+                                        <img src="{{ asset('frontend/assets/images/product/cosmetic/7-2.png') }}" alt="color" class="rounded-xl w-full h-full object-cover" />
                                         <div class="tag-action bg-black text-white caption2 capitalize px-1.5 py-0.5 rounded-sm">Green</div>
                                     </div>
                                 </div>
@@ -294,8 +242,8 @@
                                     </div>
                                 </div>
                                 <div class="product-img w-full h-full aspect-[3/4]">
-                                    <img class="w-full h-full object-cover duration-700" src="assets/images/product/cosmetic/6-1.png" alt="img" />
-                                    <img class="w-full h-full object-cover duration-700" src="assets/images/product/cosmetic/6-2.png" alt="img" />
+                                    <img class="w-full h-full object-cover duration-700" src="{{ asset('frontend/assets/images/product/cosmetic/6-1.png') }}" alt="img" />
+                                    <img class="w-full h-full object-cover duration-700" src="{{ asset('frontend/assets/images/product/cosmetic/6-2.png') }}" alt="img" />
                                 </div>
                                 <div class="list-action grid grid-cols-2 gap-3 px-5 absolute w-full bottom-5 max-lg:hidden">
                                     <div class="quick-view-btn w-full text-button-uppercase py-2 text-center rounded-full duration-300 bg-white hover:bg-black hover:text-white">Quick View</div>
@@ -358,8 +306,8 @@
                                     </div>
                                 </div>
                                 <div class="product-img w-full h-full aspect-[3/4]">
-                                    <img class="w-full h-full object-cover duration-700" src="assets/images/product/cosmetic/7-1.png" alt="img" />
-                                    <img class="w-full h-full object-cover duration-700" src="assets/images/product/cosmetic/7-2.png" alt="img" />
+                                    <img class="w-full h-full object-cover duration-700" src="{{ asset('frontend/assets/images/product/cosmetic/7-1.png') }}" alt="img" />
+                                    <img class="w-full h-full object-cover duration-700" src="{{ asset('frontend/assets/images/product/cosmetic/7-2.png') }}" alt="img" />
                                 </div>
                                 <div class="countdown-time-block py-1.5 flex items-center justify-center">
                                     <div class="text-xs font-semibold uppercase text-red">
@@ -405,15 +353,15 @@
 
                                 <div class="list-color list-color-image max-md:hidden flex items-center gap-3 flex-wrap duration-500">
                                     <div class="color-item w-12 h-12 rounded-xl duration-300 relative">
-                                        <img src="assets/images/product/cosmetic/2-2.png" alt="color" class="rounded-xl w-full h-full object-cover" />
+                                        <img src="{{ asset('frontend/assets/images/product/cosmetic/2-2.png') }}" alt="color" class="rounded-xl w-full h-full object-cover" />
                                         <div class="tag-action bg-black text-white caption2 capitalize px-1.5 py-0.5 rounded-sm">Yellow</div>
                                     </div>
                                     <div class="color-item w-12 h-12 rounded-xl duration-300 relative">
-                                        <img src="assets/images/product/cosmetic/9-2.png" alt="color" class="rounded-xl w-full h-full object-cover" />
+                                        <img src="{{ asset('frontend/assets/images/product/cosmetic/9-2.png') }}" alt="color" class="rounded-xl w-full h-full object-cover" />
                                         <div class="tag-action bg-black text-white caption2 capitalize px-1.5 py-0.5 rounded-sm">Red</div>
                                     </div>
                                     <div class="color-item w-12 h-12 rounded-xl duration-300 relative">
-                                        <img src="assets/images/product/cosmetic/7-2.png" alt="color" class="rounded-xl w-full h-full object-cover" />
+                                        <img src="{{ asset('frontend/assets/images/product/cosmetic/7-2.png') }}" alt="color" class="rounded-xl w-full h-full object-cover" />
                                         <div class="tag-action bg-black text-white caption2 capitalize px-1.5 py-0.5 rounded-sm">Green</div>
                                     </div>
                                 </div>
@@ -445,8 +393,8 @@
                                     </div>
                                 </div>
                                 <div class="product-img w-full h-full aspect-[3/4]">
-                                    <img class="w-full h-full object-cover duration-700" src="assets/images/product/cosmetic/5-1.png" alt="img" />
-                                    <img class="w-full h-full object-cover duration-700" src="assets/images/product/cosmetic/5-2.png" alt="img" />
+                                    <img class="w-full h-full object-cover duration-700" src="{{ asset('frontend/assets/images/product/cosmetic/5-1.png') }}" alt="img" />
+                                    <img class="w-full h-full object-cover duration-700" src="{{ asset('frontend/assets/images/product/cosmetic/5-2.png') }}" alt="img" />
                                 </div>
                                 <div class="list-action grid grid-cols-2 gap-3 px-5 absolute w-full bottom-5 max-lg:hidden">
                                     <div class="quick-view-btn w-full text-button-uppercase py-2 text-center rounded-full duration-300 bg-white hover:bg-black hover:text-white">Quick View</div>

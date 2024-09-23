@@ -532,7 +532,7 @@ input[type=file]::-webkit-file-upload-button {
   font-weight: 600;
   text-transform: uppercase;
   color: var(--white);
-  background-color: var(--black);
+  background-color: var(--primary);
   padding: 16px 40px;
   border-radius: 12px;
   display: inline-block;
@@ -540,8 +540,9 @@ input[type=file]::-webkit-file-upload-button {
   transition: all ease 0.4s;
 }
 .button-main:hover {
-  background-color: var(--primary);
-  color: var(--black);
+  background-color: var(--white);
+  color: var(--primary);
+  border: 1px solid var(--primary);
 }
 .button-main:hover svg path {
   fill: var(--black);
