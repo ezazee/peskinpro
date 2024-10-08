@@ -9,7 +9,7 @@
 
                  <a href="index.html" class="logo-light">
                       <img src="{{ asset('backend/assets/images/logo-sm.png')}}" class="logo-sm" alt="logo sm">
-                      <img src="{{ asset('backend/assets/images/logo-light.png')}}" class="logo-lg" alt="logo light">
+                      <img src="{{ asset('backend/assets/images/peskin.png')}}" class="logo-lg" alt="logo light">
                  </a>
             </div>
 
@@ -122,7 +122,7 @@
                                      </li>
                                      <li class="sub-nav-item">
                                           <a class="sub-nav-link" href="invoice-details.html">Details</a>
-                                     </li>                            
+                                     </li>
                                      <li class="sub-nav-item">
                                           <a class="sub-nav-link" href="invoice-add.html">Create</a>
                                      </li>
