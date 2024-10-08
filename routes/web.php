@@ -56,13 +56,15 @@ Route::delete('/banner/delete/s{id}', [SettingsController::class, 'deletebanner'
 //     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 // });
 
-
+// nologin
 // shop
 Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
 
-Route::get('/detail', function() {
-    return view('frontend.pages.detail');
-});
+Route::get('/detail/{slug}', [ShopController::class, 'detail'])->name('shop.detail');
+
+// Route::get('/detail', function() {
+//     return view('frontend.pages.detail');
+// });
 
 
 Route::get('/checkout', function() {
