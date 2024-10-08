@@ -91,7 +91,7 @@
                                 <div class="mb-3">
                                     <label for="description" class="form-label">Description</label>
                                     <textarea class="form-control bg-light-subtle" id="description" name="description"
-                                        rows="7" placeholder="Short description about the product" required>{{ $product->description }}</textarea>
+                                        rows="7" placeholder="Short description about the product" >{{ $product->description }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -101,7 +101,7 @@
                                 <div class="mb-3">
                                     <label for="product-stock" class="form-label">Stock</label>
                                     <input type="number" id="product-stock" name="stock" class="form-control"
-                                        placeholder="Quantity" value="{{ $product->stock }}" required>
+                                        placeholder="Quantity" value="{{ $product->stock }}">
                                 </div>
                             </div>
                             <div class="col-lg-4">
@@ -109,7 +109,7 @@
                                 <div class="input-group mb-3">
                                     <span class="input-group-text fs-20"><i class='bx bx-dollar'></i></span>
                                     <input type="number" id="product-price" name="price" class="form-control"
-                                        placeholder="Price" value="{{ $product->price }}" required>
+                                        placeholder="Price" value="{{ $product->price }}">
                                 </div>
                             </div>
                             <div class="col-lg-4">
@@ -118,6 +118,36 @@
                                     <span class="input-group-text fs-20"><i class='bx bxs-discount'></i></span>
                                     <input type="number" id="product-discount" name="discount" class="form-control"
                                         placeholder="Discount" value="{{ $product->discount }}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="mb-3">
+                                    <label for="description" class="form-label">Full Description</label>
+                                    <textarea class="form-control bg-light-subtle" id="description" name="longdescription"
+                                        rows="7" placeholder="Full description about the product">{{ $product->longdescription }}</textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="mb-3">
+                                    <label for="description" class="form-label">Ingrediens</label>
+                                    <textarea class="form-control bg-light-subtle" id="description" name="ingrediens"
+                                        rows="7" placeholder="Ingrediens the product">{{ $product->ingrediens }}</textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="mb-3">
+                                    <label for="description" class="form-label">HoW To use</label>
+                                    <textarea class="form-control bg-light-subtle" id="description" name="howtouse"
+                                        rows="7" placeholder="How to use the product">{{ $product->howtouse }}</textarea>
                                 </div>
                             </div>
                         </div>

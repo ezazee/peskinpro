@@ -104,6 +104,36 @@
                             </div>
                         </div>
 
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="mb-3">
+                                    <label for="description" class="form-label">Full Description</label>
+                                    <textarea class="form-control bg-light-subtle" id="description" name="longdescription"
+                                        rows="7" placeholder="Full description about the product" required></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="mb-3">
+                                    <label for="description" class="form-label">Ingrediens</label>
+                                    <textarea class="form-control bg-light-subtle" id="description" name="ingrediens"
+                                        rows="7" placeholder="Ingrediens the product" required></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="mb-3">
+                                    <label for="description" class="form-label">HoW To use</label>
+                                    <textarea class="form-control bg-light-subtle" id="description" name="howtouse"
+                                        rows="7" placeholder="How to use the product" required></textarea>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="p-3 bg-light mb-3 rounded">
                             <div class="row justify-content-end g-2">
                                 <div class="col-lg-2">

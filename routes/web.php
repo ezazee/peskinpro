@@ -4,7 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CheckOngkirController;
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CategoryController; 
+use App\Http\Controllers\SettingsController; 
+use App\Http\Controllers\HomeController; 
+use App\Http\Controllers\ShopController; 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,10 +19,7 @@ use App\Http\Controllers\CategoryController;
 |
 */
 
-Route::get('/', function () {
-    return view('frontend.index');
-});
-
+Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
@@ -38,22 +38,30 @@ Route::post('/category/update/{id}', [CategoryController::class, 'update'])->nam
 Route::delete('/category/delete/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
 
 
-
 // ongkir
 Route::get('/ongkir', [CheckOngkirController::class, 'index'])->name('index');
 Route::post('/ongkir', [CheckOngkirController::class, 'check_ongkir'])->name('check_ongkir');
 Route::get('/cities/{province_id}', [CheckOngkirController::class, 'getCities'])->name('getCities');
 
-
-
 // settings
+Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');
+Route::post('/banner', [SettingsController::class, 'banner'])->name('settings.banner');
+Route::delete('/banner/delete/s{id}', [SettingsController::class, 'deletebanner'])->name('deletebanner');
+
+// Route::middleware(['guest'])->group(function () {
+//     // Route for adding items to the cart for guest users
+//     Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+
+//     // Route for viewing the cart
+//     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+// });
+
+
+// shop
+Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
 
 Route::get('/detail', function() {
     return view('frontend.pages.detail');
-});
-
-Route::get('/shop', function() {
-    return view('frontend.pages.shop');
 });
 
 

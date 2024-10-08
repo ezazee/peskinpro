@@ -131,7 +131,7 @@
                       </li>
 
                       <li class="nav-item">
-                           <a class="nav-link" href="settings.html">
+                           <a class="nav-link" href="{{ route('settings.index') }}">
                                 <span class="nav-icon">
                                      <iconify-icon icon="solar:settings-bold-duotone"></iconify-icon>
                                 </span>

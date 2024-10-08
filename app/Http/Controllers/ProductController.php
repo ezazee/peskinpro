@@ -51,8 +51,12 @@ class ProductController extends Controller
             'price' => $request->price,
             'discount' => $request->discount,
             'front_image' => $frontImage,
-            'back_image' => $backImage
+            'back_image' => $backImage,
+            'longdescription' => $request->longdescription,
+            'ingrediens' => $request->ingrediens,
+            'howtouse' => $request->howtouse
         ]);
+
 
         if ($request->hasfile('imagedetail')) {
             foreach ($request->file('imagedetail') as $image) {
@@ -111,7 +115,10 @@ class ProductController extends Controller
             'description' => $request->description,
             'stock' => $request->stock,
             'price' => $request->price,
-            'discount' => $request->discount
+            'discount' => $request->discount,
+            'longdescription' => $request->longdescription,
+            'ingrediens' => $request->ingrediens,
+            'howtouse' => $request->howtouse
         ]);
 
         if ($request->hasfile('imagedetail')) {

@@ -18,7 +18,10 @@ class Product extends Model
         'price',
         'discount',
         'front_image',
-        'back_image'
+        'back_image',
+        'longdescription',
+        'ingrediens',
+        'howtouse'
     ];
 
     public function images()

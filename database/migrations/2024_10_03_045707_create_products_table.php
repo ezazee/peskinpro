@@ -22,7 +22,10 @@ return new class extends Migration
             $table->decimal('price', 10, 2); 
             $table->decimal('discount', 10, 2)->nullable();
             $table->string('front_image'); 
-            $table->string('back_image'); 
+            $table->string('back_image');
+            $table->text('longdescription');
+            $table->text('ingrediens');
+            $table->text('howtouse');
             $table->timestamps(); 
         });
     }
