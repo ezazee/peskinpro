@@ -2425,6 +2425,11 @@ input[type=file]::-webkit-file-upload-button {
 .swiper-slide .sub-img img {
   transition: all ease 0.5s;
 }
+
+.sub-img img {
+
+}
+
 .swiper-slide .slider-item {
   opacity: 0;
   transition: all ease 0.5s;

@@ -303,29 +303,7 @@ if (productDetail) {
 }
 
 
-// desc-tab
-const descTabItem = document.querySelectorAll('.desc-tab .tab-item')
-const descItem = document.querySelectorAll('.desc-tab .desc-block .desc-item')
 
-descTabItem.forEach(tabItems => {
-    const handleOpen = () => {
-        let dataItem = tabItems.innerHTML.replace(/\s+/g, '')
-
-        descItem.forEach(item => {
-            if (item.getAttribute('data-item') === dataItem) {
-                item.classList.add('open')
-            } else {
-                item.classList.remove('open')
-            }
-        })
-    }
-
-    if (tabItems.classList.contains('active')) {
-        handleOpen()
-    }
-
-    tabItems.addEventListener('click', handleOpen)
-})
 
 
 // list-img on-sale
