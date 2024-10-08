@@ -474,3 +474,24 @@
         });
     }
 </script>
+
+
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+        const items = document.querySelectorAll('.item-faq');
+
+        items.forEach(item => {
+            item.querySelector('.title').addEventListener('click', () => {
+                // Toggle the open class
+                item.classList.toggle('open');
+
+                // Optionally: Close other items when one is opened
+                items.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('open');
+                    }
+                });
+            });
+        });
+    });
+</script>

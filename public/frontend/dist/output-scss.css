@@ -4957,3 +4957,67 @@ input[type="file"]::-webkit-file-upload-button {
     width: 100%;
     height: 80%;
 }
+
+
+.wrapper-faq {
+    max-width: 700px;
+    margin: 150px auto;
+}
+
+.item-faq {
+    margin-bottom: 1rem;
+    border: 1px solid var(--primary);
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.title {
+    padding: 1rem;
+    font-weight: bold;
+    color: var(--black);
+    background-color: #f9f9f9;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s ease;
+}
+
+.title:hover {
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+
+.open .title{
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+.title:after {
+    content: "▼";
+    font-size: 12px;
+    transition: transform 0.3s ease;
+}
+
+.open .title:after {
+    transform: rotate(180deg);
+}
+
+.content-faq {
+    padding: 0 1rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+    background-color: #fff;
+}
+
+.open .content-faq {
+    max-height: 300px; /* Adjust based on content size */
+}
+
+.content-faq p {
+    margin: 1rem 0;
+    color: var(--black);
+    line-height: 1.6;
+}

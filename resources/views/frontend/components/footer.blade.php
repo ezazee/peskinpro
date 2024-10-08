@@ -45,7 +45,7 @@
                         <!-- Customer Service Links -->
                         <div class="item flex flex-col basis-1/2">
                             <div class="text-button-uppercase pb-3">Customer Services</div>
-                            <a class="caption1 has-line-before duration-300 w-fit" href="#">FAQ</a>
+                            <a class="caption1 has-line-before duration-300 w-fit" href="/faq">FAQ</a>
                             <a class="caption1 has-line-before duration-300 w-fit pt-2" href="#">Shipping</a>
                             <a class="caption1 has-line-before duration-300 w-fit pt-2" href="#">Privacy
                                 Policy</a>

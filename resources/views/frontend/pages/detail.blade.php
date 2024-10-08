@@ -102,12 +102,8 @@
                                 <i class="ph-bold ph-plus cursor-pointer body1"></i>
                             </div>
                             <div
-                                class="add-cart-btn button-main whitespace-nowrap w-full text-center bg-white text-black border border-primary">
+                                class="add-cart-btn button-main whitespace-nowrap w-full text-center bg-primary text-white border border-primary">
                                 Tambah Keranjang</div>
-                        </div>
-                        <div class="button-block mt-5">
-                            <a href="https://wa.me/6282123167895?text=Saya%20ingin%20membeli%20produk%20anda%20yang%20ini%20{link}"
-                                class="button-main w-full text-center">Beli Sekarang</a>
                         </div>
                         <div class="more-infor mt-6">
                             {{-- <div class="flex items-center gap-1 mt-3">
@@ -199,7 +195,7 @@
                         <div class="grid md:grid-cols-2 items-center gap-8 gap-y-5">
                             <div class="left">
                                 <div class="heading6">Ingredients</div>
-                                <div class="list-feature grid grid-cols-1 sm:grid-cols-2 gap-y-2">
+                                <div class="list-feature grid grid-cols-1 sm:grid-cols-2 gap-y-2 py-3">
                                     <div class="item flex gap-1 text-secondary mt-1">
                                         <i class="ph ph-dot text-2xl"></i>
                                         <p>Aqua</p>
@@ -290,6 +286,36 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="right">
+                                <div class="heading6">Cara Penggunaan</div>
+                                <div class="list-feature grid grid-cols-1 sm:grid-cols-2 gap-y-2 py-3">
+                                    <div class="item flex gap-1 text-secondary mt-1">
+                                        <i class="ph ph-dot text-2xl"></i>
+                                        <p>Bersihkan wajah dengan *cleanser* yang sesuai, lalu bilas dan keringkan dengan lembut.</p>
+                                    </div>
+                                    <div class="item flex gap-1 text-secondary mt-1">
+                                        <i class="ph ph-dot text-2xl"></i>
+                                        <p>Gunakan toner untuk menghidrasi dan menyeimbangkan pH kulit (opsional).</p>
+                                    </div>
+                                    <div class="item flex gap-1 text-secondary mt-1">
+                                        <i class="ph ph-dot text-2xl"></i>
+                                        <p>Ambil *moisturizer* secukupnya (sekitar seukuran kacang polong) di ujung jari.</p>
+                                    </div>
+                                    <div class="item flex gap-1 text-secondary mt-1">
+                                        <i class="ph ph-dot text-2xl"></i>
+                                        <p>Aplikasikan ke wajah dengan gerakan memutar lembut, mulai dari tengah wajah ke luar.</p>
+                                    </div>
+                                    <div class="item flex gap-1 text-secondary mt-1">
+                                        <i class="ph ph-dot text-2xl"></i>
+                                        <p>Pijat lembut kulit agar *moisturizer* terserap sempurna.</p>
+                                    </div>
+                                    <div class="item flex gap-1 text-secondary mt-1">
+                                        <i class="ph ph-dot text-2xl"></i>
+                                        <p>Gunakan di pagi dan malam hari untuk hasil yang optimal.</p>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
