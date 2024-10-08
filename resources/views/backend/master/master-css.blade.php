@@ -1,5 +1,5 @@
      <!-- App favicon -->
-     <link rel="shortcut icon" href="{{ asset('backend/assets/images/favicon.ico')}}">
+     <link rel="shortcut icon" href="{{ asset('backend/assets/images/peskin.ico')}}">
 
      <!-- Vendor css (Require in all Page) -->
      <link href="{{ asset('backend/assets/css/vendor.min.css')}}" rel="stylesheet" type="text/css" />
