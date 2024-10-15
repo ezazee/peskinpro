@@ -7,7 +7,8 @@ use App\Http\Controllers\CheckOngkirController;
 use App\Http\Controllers\CategoryController; 
 use App\Http\Controllers\SettingsController; 
 use App\Http\Controllers\HomeController; 
-use App\Http\Controllers\ShopController; 
+use App\Http\Controllers\ShopController;
+use App\Http\Controllers\CartController; 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -48,13 +49,11 @@ Route::get('/settings', [SettingsController::class, 'index'])->name('settings.in
 Route::post('/banner', [SettingsController::class, 'banner'])->name('settings.banner');
 Route::delete('/banner/delete/s{id}', [SettingsController::class, 'deletebanner'])->name('deletebanner');
 
-// Route::middleware(['guest'])->group(function () {
-//     // Route for adding items to the cart for guest users
-//     Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
-
-//     // Route for viewing the cart
-//     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-// });
+Route::middleware(['guest'])->group(function () {
+    Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+    Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+});
 
 // nologin
 // shop
@@ -70,11 +69,6 @@ Route::get('/detail/{slug}', [ShopController::class, 'detail'])->name('shop.deta
 Route::get('/checkout', function() {
     return view('frontend.pages.checkout');
 });
-
-Route::get('/cart', function() {
-    return view('frontend.pages.cart');
-});
-
 
 Route::get('/about-us', function() {
     return view('frontend.pages.about-us');

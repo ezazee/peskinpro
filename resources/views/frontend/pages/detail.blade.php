@@ -63,21 +63,27 @@
                         <div class="product-description text-secondary mt-3">{{ $products->description }}</div>
                     </div>
                     <div class="list-action mt-6">
+                        <form action="{{ route('cart.add') }}" method="POST">
+                            @csrf
+                        <input type="hidden" name="product_id" value="{{ $products->id }}">
                         <div class="choose-size mt-5">
                             <div class="heading flex items-center justify-between">
-                                <div class="text-title">Ukuran: 50ML<span class="text-title size"></span></div>
+                                <div class="text-title">Ukuran:</div>
                             </div>
                             <div class="list-size flex items-center gap-2 flex-wrap mt-3">
-                                <!-- size-item -->
-                                <div
-                                    class="size-item w-12 h-12 flex items-center justify-center text-xs text-button rounded-full bg-white border text-primary border-primary border-line active">
-                                    50ML</div>
-                                <div
-                                    class="size-item w-12 h-12 flex items-center justify-center text-xs text-button rounded-full bg-white border border-primary text-primary border-line">
-                                    100ML</div>
-
+                                @foreach($products->size as $size)
+                                    <div class="size-item">
+                                        <input type="checkbox" id="size{{ $size->id }}" name="sizes[]" value="{{ $size->name }}" class="hidden peer" onclick="toggleActive(this)">
+                                        <label for="size{{ $size->id }}"
+                                               class="w-12 h-12 flex items-center justify-center text-xs text-button rounded-full bg-white border text-primary border-primary border-line cursor-pointer transition duration-300"
+                                               onclick="toggleActive(document.getElementById('size{{ $size->id }}'))">
+                                            {{ $size->name }}
+                                        </label>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
+                        
                         <div class="text-title mt-5">Quantity:</div>
                         <div class="choose-quantity flex items-center max-xl:flex-wrap lg:justify-between gap-5 mt-3">
                             <div
@@ -86,10 +92,10 @@
                                 <div class="quantity body1 font-semibold">1</div>
                                 <i class="ph-bold ph-plus cursor-pointer body1"></i>
                             </div>
-                            <div
-                                class="add-cart-btn button-main whitespace-nowrap w-full text-center bg-primary text-white border border-primary">
-                                Tambah Keranjang</div>
+                            <button class="add-cart-btn button-main whitespace-nowrap w-full text-center bg-primary text-white border border-primary">Tambah Keranjang</button>
                         </div>
+                    </form>
+
                         <div class="more-infor mt-6">
                             <div class="flex items-center gap-1 mt-3">
                                 <div class="text-title">SKU:</div>
@@ -97,7 +103,7 @@
                             </div>
                             <div class="flex items-center gap-1 mt-3">
                                 <div class="text-title">Categories:</div>
-                                <div class="list-category text-secondary">Face Care, Moisurizer</div>
+                                <div class="list-category text-secondary">{{ $products->category->name }}</div>
                             </div>
                         </div>
                         <div class="list-payment mt-7">
@@ -257,4 +263,16 @@
             </div>
         </div>
     </div>
+    <script>
+        function toggleActive(checkbox) {
+            const label = document.querySelector(`label[for="${checkbox.id}"]`);
+            if (checkbox.checked) {
+                label.classList.add('bg-blue-500', 'text-black');
+                label.classList.remove('border-primary', 'border-line');
+            } else {
+                label.classList.remove('bg-blue-500', 'text-white');
+                label.classList.add('border-primary', 'border-line');
+            }
+        }
+        </script>
 @endsection

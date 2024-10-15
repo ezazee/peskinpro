@@ -78,12 +78,13 @@
                                 </select>
                             </div>
                             <div class="col-lg-4">
-                                <div class="mb-3">
-                                    <label for="product-weight" class="form-label">Weight</label>
-                                    <input type="text" id="product-weight" name="weight" class="form-control"
-                                        placeholder="Weight" value="{{ $product->weight }}" required>
-                                </div>
+                                <label for="product-stock" class="form-label">Size</label>
+                                <select class="form-control" name="sizes[]" id="choices-multiple-remove-button" data-choices data-choices-removeItem multiple>
+                                    <option value="50" {{ in_array('50', $product->size->pluck('name')->toArray()) ? 'selected' : '' }}>50 ml</option>
+                                    <option value="100" {{ in_array('100', $product->size->pluck('name')->toArray()) ? 'selected' : '' }}>100 ml</option>
+                                </select>
                             </div>
+                            
                         </div>
 
                         <div class="row">

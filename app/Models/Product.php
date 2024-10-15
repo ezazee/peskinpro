@@ -12,7 +12,6 @@ class Product extends Model
         'name',
         'slug',
         'category_id',
-        'weight',
         'description',
         'stock',
         'price',
@@ -37,6 +36,11 @@ class Product extends Model
     public function imagedetail()
     {
         return $this->hasMany(ProductImage::class);
+    }
+
+    public function size()
+    {
+        return $this->hasMany(Size::class);
     }
 
 }

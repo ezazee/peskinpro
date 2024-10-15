@@ -25,96 +25,40 @@
                             </div>
                         </div>
                         <div class="list-product-main w-full mt-3">
+                            @foreach ($cart as $item)
                             <div class="item flex md:mt-7 md:pb-7 mt-5 pb-5 border-b border-line w-full">
                                 <div class="w-1/2">
                                     <div class="flex items-center gap-6">
                                         <div class="bg-img md:w-[100px] w-20 aspect-[3/4]">
-                                            <img src="{{ asset('frontend/assets/images/product/peskin/contoh1.png') }}" alt="img" class="w-full h-full object-cover rounded-lg">
+                                            <img src="{{ asset('storage/' . $item['image']) }}" alt="img" class="w-full h-full object-cover rounded-lg">
                                         </div>
                                         <div>
-                                            <div class="text-title">Nama Produk Skincare</div>
+                                            <div class="text-title">{{ $item['name']}}</div>
                                             <div class="list-select mt-3"></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="w-1/12 price flex items-center justify-center">
-                                    <div class="text-title text-center">Rp.150.000</div>
+                                    <div class="text-title text-center">Rp{{ number_format($item['price'], 0, ',', '.') }}</div>
                                 </div>
                                 <div class="w-1/6 flex items-center justify-center">
                                     <div class="quantity-block bg-surface md:p-3 p-2 flex items-center justify-between rounded-lg border border-line md:w-[100px] flex-shrink-0 w-20">
                                         <i class="ph-bold ph-minus cursor-pointer text-base max-md:text-sm"></i>
-                                        <div class="text-button quantity">1</div>
+                                        <div class="text-button quantity">{{ $item['quantity'] }}</div>
                                         <i class="ph-bold ph-plus cursor-pointer text-base max-md:text-sm"></i>
                                     </div>
                                 </div>
                                 <div class="w-1/6 flex total-price items-center justify-center">
-                                    <div class="text-title text-center">Rp.150.000
+                                    <div class="text-title text-center">Rp{{ number_format($item['price'] * $item['quantity'], 0, ',', '.') }}
                                     </div>
                                 </div>
-                                <div class="w-1/12 flex items-center justify-center">
-                                    <i class="remove-btn ph ph-x-circle text-xl max-md:text-base text-red cursor-pointer hover:text-black duration-300"></i>
-                                </div>
+                                <form action="{{ route('cart.remove') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="product_id" value="{{ $item['id'] }}">
+                                    <button type="submit" class="remove-btn ph ph-x-circle text-xl max-md:text-base text-red cursor-pointer hover:text-black duration-300"></button>
+                                </form>
                             </div>
-                            <div class="item flex md:mt-7 md:pb-7 mt-5 pb-5 border-b border-line w-full">
-                                <div class="w-1/2">
-                                    <div class="flex items-center gap-6">
-                                        <div class="bg-img md:w-[100px] w-20 aspect-[3/4]">
-                                            <img src="{{ asset('frontend/assets/images/product/peskin/contoh1.png') }}" alt="img" class="w-full h-full object-cover rounded-lg">
-                                        </div>
-                                        <div>
-                                            <div class="text-title">Nama Produk Skincare</div>
-                                            <div class="list-select mt-3"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="w-1/12 price flex items-center justify-center">
-                                    <div class="text-title text-center">Rp.150.000</div>
-                                </div>
-                                <div class="w-1/6 flex items-center justify-center">
-                                    <div class="quantity-block bg-surface md:p-3 p-2 flex items-center justify-between rounded-lg border border-line md:w-[100px] flex-shrink-0 w-20">
-                                        <i class="ph-bold ph-minus cursor-pointer text-base max-md:text-sm"></i>
-                                        <div class="text-button quantity">1</div>
-                                        <i class="ph-bold ph-plus cursor-pointer text-base max-md:text-sm"></i>
-                                    </div>
-                                </div>
-                                <div class="w-1/6 flex total-price items-center justify-center">
-                                    <div class="text-title text-center">Rp.150.000
-                                    </div>
-                                </div>
-                                <div class="w-1/12 flex items-center justify-center">
-                                    <i class="remove-btn ph ph-x-circle text-xl max-md:text-base text-red cursor-pointer hover:text-black duration-300"></i>
-                                </div>
-                            </div>
-                            <div class="item flex md:mt-7 md:pb-7 mt-5 pb-5 border-b border-line w-full">
-                                <div class="w-1/2">
-                                    <div class="flex items-center gap-6">
-                                        <div class="bg-img md:w-[100px] w-20 aspect-[3/4]">
-                                            <img src="{{ asset('frontend/assets/images/product/peskin/contoh1.png') }}" alt="img" class="w-full h-full object-cover rounded-lg">
-                                        </div>
-                                        <div>
-                                            <div class="text-title">Nama Produk Skincare</div>
-                                            <div class="list-select mt-3"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="w-1/12 price flex items-center justify-center">
-                                    <div class="text-title text-center">Rp.150.000</div>
-                                </div>
-                                <div class="w-1/6 flex items-center justify-center">
-                                    <div class="quantity-block bg-surface md:p-3 p-2 flex items-center justify-between rounded-lg border border-line md:w-[100px] flex-shrink-0 w-20">
-                                        <i class="ph-bold ph-minus cursor-pointer text-base max-md:text-sm"></i>
-                                        <div class="text-button quantity">1</div>
-                                        <i class="ph-bold ph-plus cursor-pointer text-base max-md:text-sm"></i>
-                                    </div>
-                                </div>
-                                <div class="w-1/6 flex total-price items-center justify-center">
-                                    <div class="text-title text-center">Rp.150.000
-                                    </div>
-                                </div>
-                                <div class="w-1/12 flex items-center justify-center">
-                                    <i class="remove-btn ph ph-x-circle text-xl max-md:text-base text-red cursor-pointer hover:text-black duration-300"></i>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -168,30 +112,6 @@
                         <div class="text-title">Discounts</div>
                         <div class="text-title">Rp.0</div>
                     </div>
-                    {{-- <div class="ship-block py-5 flex justify-between border-b border-line">
-                        <div class="text-title">Pengiriman</div>
-                        <div class="choose-type flex gap-12">
-                            <div class="left">
-                                <div class="type">
-                                    <input id="shipping" type="radio" name="ship" />
-                                    <label class="pl-1" for="shipping">Free Shipping:</label>
-                                </div>
-                                <div class="type mt-1">
-                                    <input id="local" type="radio" name="ship" value="{30}" />
-                                    <label class="text-on-surface-variant1 pl-1" for="local">Local:</label>
-                                </div>
-                                <div class="type mt-1">
-                                    <input id="flat" type="radio" name="ship" value="{40}" />
-                                    <label class="text-on-surface-variant1 pl-1" for="flat">Flat Rate:</label>
-                                </div>
-                            </div>
-                            <div class="right">
-                                <div class="ship">$0.00</div>
-                                <div class="local text-on-surface-variant1 mt-1">$30.00</div>
-                                <div class="flat text-on-surface-variant1 mt-1">$40.00</div>
-                            </div>
-                        </div>
-                    </div> --}}
                     <div class="total-cart-block pt-4 pb-4 flex justify-between">
                         <div class="heading5">Total</div>
                         <div class="heading5">Rp.150.000</div>

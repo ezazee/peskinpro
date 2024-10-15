@@ -9,7 +9,7 @@ use App\Models\CartItem;
 class Cart extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id'];
+    protected $fillable = ['user_id','guest_id'];
 
     public function items()
     {

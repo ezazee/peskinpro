@@ -277,7 +277,7 @@
                     {{-- Productt --}}
                     @foreach ($products as $prod)
                     <div class="product-item grid-type style-5">
-                        <a href="/detail"><div class="product-main cursor-pointer block">
+                        <a href="{{ route('shop.detail', ['slug' => $prod->slug]) }}"><div class="product-main cursor-pointer block">
                             <div class="product-thumb bg-white relative overflow-hidden rounded-2xl">
                                 @if($prod->discount && $prod->discount > 0)
                                 <div

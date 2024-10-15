@@ -13,7 +13,7 @@ class HomeController extends Controller
     public function index(){
         $banners = Banner::all();
         $productsfacialcare = Product::whereHas('category', function ($query) {
-            $query->where('name', 'Face Care');
+            $query->where('name', 'Facial Care');
         })->take(3)->get();
         $products = Product::orderby('created_at', 'desc')->get();
         // dd($products);

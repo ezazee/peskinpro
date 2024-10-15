@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Size;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -14,11 +15,12 @@ class ProductController extends Controller
     public function index()
     {   
         $categories = Category::all();
-        return view('backend.pages.product.create',compact('categories'));
+        $sizes = Size::all();
+        return view('backend.pages.product.create',compact('categories','sizes'));
     }
 
     public function list(){
-        $products = Product::with(['category', 'imagedetail'])->paginate(10);
+        $products = Product::with(['category', 'imagedetail','size'])->paginate(10);
         $categories = Category::all();
         return view('backend.pages.product.list',compact('products','categories'));
     }
@@ -28,7 +30,7 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
-            'weight' => 'required|numeric',
+            // 'size_id' => 'required|numeric',
             'description' => 'required|string',
             'stock' => 'required|integer',
             'price' => 'required|numeric',
@@ -45,7 +47,6 @@ class ProductController extends Controller
             'name' => $request->name,
             'slug' => Str::slug($request->name),
             'category_id' => $request->category_id,
-            'weight' => $request->weight,
             'description' => $request->description,
             'stock' => $request->stock,
             'price' => $request->price,
@@ -57,6 +58,14 @@ class ProductController extends Controller
             'howtouse' => $request->howtouse
         ]);
 
+        if ($request->input('sizes')) {
+            foreach ($request->input('sizes') as $size) {
+                Size::create([
+                    'product_id' => $product->id,
+                    'name' => $size,
+                ]);
+            }
+        }
 
         if ($request->hasfile('imagedetail')) {
             foreach ($request->file('imagedetail') as $image) {
@@ -79,7 +88,7 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
-            'weight' => 'required|numeric',
+            // 'weight' => 'required|numeric',
             'description' => 'required|string',
             'stock' => 'required|integer',
             'price' => 'required|numeric',
@@ -111,7 +120,6 @@ class ProductController extends Controller
             'name' => $request->name,
             'slug' => Str::slug($request->name),
             'category_id' => $request->category_id,
-            'weight' => $request->weight,
             'description' => $request->description,
             'stock' => $request->stock,
             'price' => $request->price,
@@ -120,6 +128,17 @@ class ProductController extends Controller
             'ingrediens' => $request->ingrediens,
             'howtouse' => $request->howtouse
         ]);
+
+        $product->size()->delete();
+
+        if ($request->input('sizes')) {
+            foreach ($request->input('sizes') as $size) {
+                Size::create([
+                    'product_id' => $product->id,
+                    'name' => $size,
+                ]);
+            }
+        }
 
         if ($request->hasfile('imagedetail')) {
             foreach ($product->imagedetail as $image) {
