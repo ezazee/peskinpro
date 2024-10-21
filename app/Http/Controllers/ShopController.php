@@ -14,7 +14,7 @@ class ShopController extends Controller
     }
 
     public function detail($slug){
-        $products = Product::with(['category', 'imagedetail','size'])->where('slug', $slug)->firstOrFail();
+        $products = Product::with(['category', 'imagedetail','sizes'])->where('slug', $slug)->firstOrFail();
         $produkserupa = Product::with(['category', 'imagedetail'])
         ->where('category_id', $products->category_id)
         ->where('slug', '!=', $slug)

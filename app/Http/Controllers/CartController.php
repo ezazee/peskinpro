@@ -13,88 +13,137 @@ class CartController extends Controller
 {
     public function index()
     {
+        $cartItems = [];
+
         if (Auth::check()) {
-            $cart = Auth::user()->cart ? Auth::user()->cart->items : [];
+            $cartItems = Auth::user()->cart ? Auth::user()->cart->items()->with(['product', 'productSize'])->get() : [];
         } else {
-            $cart = session()->get('cart', []);
+            $guestCartId = session()->getId();
+            $cart = Cart::where('guest_id', $guestCartId)->first();
+            $cartItems = $cart ? $cart->items()->with(['product', 'productSize'])->get() : [];
         }
-    
-        dd($cart);
-    
-        return view('frontend.pages.cart', compact('cart'));
+            $cartCollection = collect($cartItems);    
+        return view('frontend.pages.cart', compact('cartCollection'));
     }
-
+    
     public function add(Request $request)
-{
-    $product = Product::findOrFail($request->product_id);
+    {    
 
-    if (Auth::check()) {
-        $cart = Auth::user()->cart ?? Cart::create(['user_id' => Auth::id()]);
-        $cartItem = CartItem::where('cart_id', $cart->id)
-                             ->where('product_id', $product->id)
-                             ->first();
-
-        if ($cartItem) {
-            $cartItem->quantity += 1;
-            $cartItem->save();
-        } else {
-            $cart->items()->create([
-                'product_id' => $product->id,
-                'quantity' => 1,
-            ]);
-        }
-    } else {
-        $guestCartId = session()->getId(); 
-        $cart = Cart::firstOrCreate(['guest_id' => $guestCartId]); 
-
-        $cartItem = CartItem::where('cart_id', $cart->id)
-                             ->where('product_id', $product->id)
-                             ->first();
-
-        if ($cartItem) {
-            $cartItem->quantity += 1;
-            $cartItem->save();
-        } else {
-            $cart->items()->create([
-                'id' => $product->id,
-                'name' => $product->name,
-                'quantity' => 1,
-                'price' => $product->price,
-                'image' => $product->front_image,
-            ]);
-        }
-        session()->put('cart', $cart);
-    }
-
-    return redirect()->back()->with('success', 'Product added to cart successfully!');
-}
-
-
-    public function remove(Request $request)
-{
-    $request->validate([
-        'product_id' => 'required|integer',
-    ]);
-
-    if (Auth::check()) {
-        $cart = Auth::user()->cart;
-        if ($cart) {
+        // dd($request);
+        $product = Product::findOrFail($request->product_id);
+        $productSizeId = $request->selected_size;
+    
+        if (Auth::check()) {
+            $cart = Auth::user()->cart ?? Cart::create(['user_id' => Auth::id()]);
+    
             $cartItem = CartItem::where('cart_id', $cart->id)
-                                ->where('product_id', $request->product_id)
+                                ->where('product_size_id', $request->product_size_id)
                                 ->first();
-
+    
             if ($cartItem) {
-                $cartItem->delete();
+                $cartItem->quantity += $request->quantity;
+                $cartItem->save();
+            } else {
+                $cart->items()->create([
+                    'product_id' => $product->id, 
+                    'product_size_id' => $productSizeId, 
+                    'quantity' => $request->quantity,
+                ]);
+            }
+        } else {
+            $guestCartId = session()->getId();
+            $cart = Cart::firstOrCreate(['guest_id' => $guestCartId]);
+    
+            $cartItem = CartItem::where('cart_id', $cart->id)
+                                ->where('product_size_id', $request->product_size_id)
+                                ->first();
+    
+            if ($cartItem) {
+                $cartItem->quantity += $request->quantity;
+                $cartItem->save();
+            } else {
+                $cart->items()->create([
+                    'product_id' => $product->id, 
+                    'product_size_id' => $productSizeId,
+                    'quantity' => $request->quantity,
+                ]);
             }
         }
-    } else {
-        $cart = session()->get('cart', []);
-        if (isset($cart[$request->product_id])) {
-            unset($cart[$request->product_id]); 
-            session()->put('cart', $cart); 
+    
+        return redirect()->back()->with('success', 'Product added to cart successfully!');
+    }
+    
+    
+    public function remove(Request $request)
+    {
+        $product = Product::findOrFail($request->product_id);
+
+        if (Auth::check()) {
+            $cart = Auth::user()->cart;
+
+            if ($cart) {
+                $cartItem = CartItem::where('cart_id', $cart->id)
+                                    ->where('product_id', $product->id)
+                                    ->first();
+
+                if ($cartItem) {
+                    $cartItem->delete();
+                }
+            }
+
+        } else {
+            $guestCartId = session()->getId();
+            $cart = Cart::where('guest_id', $guestCartId)->first();
+
+            if ($cart) {
+                $cartItem = CartItem::where('cart_id', $cart->id)
+                                    ->where('product_id', $product->id)
+                                    ->first();
+
+                if ($cartItem) {
+                    $cartItem->delete();
+                }
+            }
         }
+
+        return redirect()->back()->with('success', 'Product removed from cart successfully!');
     }
 
-    return redirect()->back()->with('success', 'Product removed from cart successfully!');
-}
+
+    public function increaseQuantity(Request $request)
+    {
+        $cartItem = CartItem::find($request->cart_item_id);
+
+        if ($cartItem) {
+            $cartItem->quantity += 1;
+            $cartItem->save();
+
+            return response()->json([
+                'status' => 'success',
+                'quantity' => $cartItem->quantity
+            ]);
+        }
+
+        return response()->json(['status' => 'error'], 404);
+    }
+
+    public function decreaseQuantity(Request $request)
+    {
+        $cartItem = CartItem::find($request->cart_item_id);
+
+        if ($cartItem && $cartItem->quantity > 1) {
+            $cartItem->quantity -= 1;
+            $cartItem->save();
+
+            return response()->json([
+                'status' => 'success',
+                'quantity' => $cartItem->quantity
+            ]);
+        }
+
+        return response()->json(['status' => 'error'], 404);
+    }
+
+
+
 }
