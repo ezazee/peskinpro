@@ -330,5 +330,59 @@
             </div>
         </div>
     </div>
-    @include('frontend.components.modal-landing')
+
+    <div class="shop-product py-10">
+        <div class="container">
+            <div class="heading3 text-center py-10">Hot product skincare</div>
+            <div class="list-product hide-product-sold grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 sm:gap-[30px] gap-5">
+                @foreach ($products as $prod)
+                <div class="product-item grid-type style-5">
+                    <a href="{{ route('shop.detail', ['slug' => $prod->slug]) }}"><div class="product-main cursor-pointer block">
+                        <div class="product-thumb bg-white relative overflow-hidden rounded-2xl">
+                            @if($prod->discount && $prod->discount > 0)
+                            <div
+                                class="product-tag text-button-uppercase text-white bg-red px-3 py-0.5 inline-block rounded-full absolute top-3 left-3 z-[1]">
+                                Diskon
+                            </div>
+                            @endif
+                            <div class="product-img w-full h-full aspect-[3/4]">
+                                <img class="w-full h-full object-cover duration-700"
+                                    src="{{ asset('storage/' . $prod->front_image) }}"
+                                    alt="img" />
+                                <img class="w-full h-full object-cover duration-700"
+                                    src="{{ asset('storage/' . $prod->back_image) }}"
+                                    alt="img" />
+                            </div>
+                        </div>
+                        <div class="product-infor mt-4 lg:mb-7">
+                            <div class="product-name text-title duration-300">
+                                {{ $prod->name }}
+                                <div class="product-price-block flex items-center gap-2 flex-wrap mt-1 duration-300 relative z-[1]">
+                                    <div class="product-price text-title">
+                                        @if($prod->discount && $prod->discount > 0)
+                                            Rp {{ number_format($prod->price - $prod->discount, 0, ',', '.') }}
+                                        @else
+                                            Rp {{ number_format($prod->price, 0, ',', '.') }}
+                                        @endif
+                                    </div>
+
+                                    @if($prod->discount && $prod->discount > 0)
+                                        <div class="product-origin-price caption1 text-secondary2 line-through">
+                                            <del>Rp {{ number_format($prod->price, 0, ',', '.') }}</del>
+                                        </div>
+                                        <div class="product-sale caption1 text-white font-medium bg-primary px-3 py-0.5 inline-block rounded-full">
+                                            -{{ number_format(100 * ($prod->discount / $prod->price), 0) }}%
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div></a>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+
+@include('frontend.components.modal-landing')
 @endsection

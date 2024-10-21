@@ -7,7 +7,7 @@
                     data-item="1">
                     <div class="infor flex items-center gap-5">
                         <div class="bg-img">
-                            <img src="assets/images/product/fashion/1-2.png" alt="img"
+                            <img src="" alt="img"
                                 class="w-[100px] aspect-square flex-shrink-0 rounded-lg" />
                         </div>
                         <div class="">
@@ -28,7 +28,7 @@
                     data-item="2">
                     <div class="infor flex items-center gap-5">
                         <div class="bg-img">
-                            <img src="assets/images/product/fashion/2-2.png" alt="img"
+                            <img src="" alt="img"
                                 class="w-[100px] aspect-square flex-shrink-0 rounded-lg" />
                         </div>
                         <div class="">
@@ -49,7 +49,7 @@
                     data-item="3">
                     <div class="infor flex items-center gap-5">
                         <div class="bg-img">
-                            <img src="assets/images/product/fashion/3-3.png" alt="img"
+                            <img src="" alt="img"
                                 class="w-[100px] aspect-square flex-shrink-0 rounded-lg" />
                         </div>
                         <div class="">
@@ -69,7 +69,7 @@
                 <div class="product-item item py-5 flex items-center justify-between gap-3" data-item="4">
                     <div class="infor flex items-center gap-5">
                         <div class="bg-img">
-                            <img src="assets/images/product/fashion/4-2.png" alt="img"
+                            <img src="" alt="img"
                                 class="w-[100px] aspect-square flex-shrink-0 rounded-lg" />
                         </div>
                         <div class="">
