@@ -9,6 +9,7 @@ use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\HomeController; 
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\CartController; 
+use App\Http\Controllers\ChekoutController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -53,6 +54,8 @@ Route::middleware(['guest'])->group(function () {
     Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
     Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+    Route::post('/cart/increase', [CartController::class, 'increaseQuantity'])->name('cart.increase');
+    Route::post('/cart/decrease', [CartController::class, 'decreaseQuantity'])->name('cart.decrease');
 });
 
 // nologin
@@ -64,11 +67,8 @@ Route::get('/detail/{slug}', [ShopController::class, 'detail'])->name('shop.deta
 // Route::get('/detail', function() {
 //     return view('frontend.pages.detail');
 // });
+Route::get('/checkout', [ChekoutController::class, 'index'])->name('chekout.index');
 
-
-Route::get('/checkout', function() {
-    return view('frontend.pages.checkout');
-});
 
 Route::get('/about-us', function() {
     return view('frontend.pages.about-us');

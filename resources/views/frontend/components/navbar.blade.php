@@ -303,13 +303,11 @@
                     <div class="line absolute bg-line w-px h-6 -right-6"></div>
                 </div>
                 <div class="list-action flex items-center gap-4">
-                    <a href="/cart">
-                        <div class="max-md:hidden cart-icon flex items-center relative cursor-pointer">
-                            <i class="ph-bold ph-handbag text-2xl"></i>
-                            <span
-                                class="quantity cart-quantity absolute -right-1.5 -top-1.5 text-xs text-white bg-primary w-4 h-4 flex items-center justify-center rounded-full">1</span>
-                        </div>
-                    </a>
+                    <a href="/cart"><div class="max-md:hidden cart-icon flex items-center relative cursor-pointer">
+                        <i class="ph-bold ph-handbag text-2xl"></i>
+                        <span
+                            class="quantity cart-quantity absolute -right-1.5 -top-1.5 text-xs text-white bg-primary w-4 h-4 flex items-center justify-center rounded-full"> 1</span>
+                    </div></a>
                 </div>
             </div>
         </div>

@@ -14,9 +14,11 @@ class HomeController extends Controller
         $banners = Banner::all();
         $productsfacialcare = Product::whereHas('category', function ($query) {
             $query->where('name', 'Facial Care');
-        })->take(3)->get();
-        $products = Product::orderby('created_at', 'desc')->get();
-        // dd($products);
+        })->with(['category', 'sizes'])->take(3)->get();
+        
+    
+        $products = Product::with('category','sizes')->orderby('created_at', 'desc')->get();
+        // dd($productsfacialcare);
         return view('frontend.index',compact('banners','productsfacialcare','products'));
     }
 }

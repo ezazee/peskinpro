@@ -13,13 +13,11 @@ class Product extends Model
         'slug',
         'category_id',
         'description',
-        'stock',
-        'price',
         'discount',
         'front_image',
         'back_image',
         'longdescription',
-        'ingrediens',
+        'ingredients',
         'howtouse'
     ];
 
@@ -38,9 +36,13 @@ class Product extends Model
         return $this->hasMany(ProductImage::class);
     }
 
-    public function size()
+    public function sizes()
     {
-        return $this->hasMany(Size::class);
+        return $this->hasMany(ProductSize::class);
     }
-
+    
+    public function cartItems()
+    {
+        return $this->hasMany(CartItem::class);
+    }
 }

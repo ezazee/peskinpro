@@ -16,14 +16,11 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug');
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
-            $table->text('description'); 
-            $table->integer('stock')->unsigned(); 
-            $table->decimal('price', 10, 2); 
-            $table->decimal('discount', 10, 2)->nullable();
+            $table->text('description');
             $table->string('front_image'); 
             $table->string('back_image');
             $table->text('longdescription');
-            $table->text('ingrediens');
+            $table->text('ingredients');
             $table->text('howtouse');
             $table->timestamps(); 
         });

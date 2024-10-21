@@ -9,21 +9,21 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create('sizes', function (Blueprint $table) {
+        Schema::create('product_sizes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
-            $table->string('name')->unique();
+            $table->string('size');  
+            $table->integer('stock')->unsigned(); 
+            $table->decimal('price', 10, 2);
+            $table->decimal('discount', 10, 2)->nullable();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('sizes');
+        Schema::dropIfExists('product_sizes');
     }
 };

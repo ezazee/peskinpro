@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Product;
-use App\Models\Size;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -14,58 +13,36 @@ class ProductController extends Controller
 {
     public function index()
     {   
+        $products = Product::with('sizes', 'category')->get();
         $categories = Category::all();
-        $sizes = Size::all();
-        return view('backend.pages.product.create',compact('categories','sizes'));
+        return view('backend.pages.product.create',compact('products','categories'));
     }
 
     public function list(){
-        $products = Product::with(['category', 'imagedetail','size'])->paginate(10);
+        $products = Product::with(['category', 'imagedetail','sizes'])->paginate(10);
         $categories = Category::all();
         return view('backend.pages.product.list',compact('products','categories'));
     }
 
     public function create(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'category_id' => 'required|exists:categories,id',
-            // 'size_id' => 'required|numeric',
-            'description' => 'required|string',
-            'stock' => 'required|integer',
-            'price' => 'required|numeric',
-            'discount' => 'nullable|numeric',
-            // 'front_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            // 'back_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            // 'imagedetail.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
-        ]);
+        // dd($request);
 
-        $frontImage = $request->file('front_image')->store('products', 'public');
-        $backImage = $request->file('back_image')->store('products', 'public');
+        $frontImagePath = $request->file('front_image')->store('product_images', 'public');
+        $backImagePath = $request->file('back_image')->store('product_images', 'public');
 
         $product = Product::create([
             'name' => $request->name,
             'slug' => Str::slug($request->name),
             'category_id' => $request->category_id,
             'description' => $request->description,
-            'stock' => $request->stock,
-            'price' => $request->price,
-            'discount' => $request->discount,
-            'front_image' => $frontImage,
-            'back_image' => $backImage,
+            'front_image' => $frontImagePath,
+            'back_image' => $backImagePath,
             'longdescription' => $request->longdescription,
-            'ingrediens' => $request->ingrediens,
+            'ingredients' => $request->ingredients,
             'howtouse' => $request->howtouse
         ]);
 
-        if ($request->input('sizes')) {
-            foreach ($request->input('sizes') as $size) {
-                Size::create([
-                    'product_id' => $product->id,
-                    'name' => $size,
-                ]);
-            }
-        }
 
         if ($request->hasfile('imagedetail')) {
             foreach ($request->file('imagedetail') as $image) {
@@ -74,6 +51,15 @@ class ProductController extends Controller
             }
         }
 
+        foreach ($request->sizes as $index => $size) {
+            $product->sizes()->create([
+                'size' => $size,
+                'price' => $request->price[$index],
+                'stock' => $request->stock[$index],
+                'discount' => $request->discount[$index] ?? 0,
+            ]);
+        }
+    
         return redirect()->route('product.index')->with('success', 'Product created successfully!');
     }
 
