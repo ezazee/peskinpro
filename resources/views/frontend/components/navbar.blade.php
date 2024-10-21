@@ -18,162 +18,282 @@
                     </li>
 
                     <li class="h-full">
-                        <a href="/shop"
-                            class="text-button-uppercase duration-300 h-full flex items-center justify-center"> Product
+                        <a href="#!"
+                            class="text-button-uppercase duration-300 h-full flex items-center justify-center"> Best
+                            Seller Product
                         </a>
                         <div class="mega-menu absolute top-[74px] left-0 bg-white w-screen">
                             <div class="container">
-                                <div class="nav-link w-full flex justify-between py-8">
-                                    <div class="nav-item">
-                                        <div class="text-button-uppercase pb-2">Kategori</div>
-                                        <ul>
-                                            <li>
-                                                <a href="#"
-                                                    class="link text-secondary duration-300 cursor-pointer">
-                                                    Face Care </a>
-                                            </li>
-                                            <li>
-                                                <a href="#"
-                                                    class="link text-secondary duration-300 cursor-pointer"> Body
-                                                    Care </a>
-                                            </li>
-                                            <li>
-                                                <a href="#"
-                                                    class="link text-secondary duration-300 cursor-pointer"> Hair
-                                                    Care </a>
-                                            </li>
-                                            <li>
-                                                <a href="#"
-                                                    class="link text-secondary duration-300 cursor-pointer"> Mani &
-                                                    Pedi </a>
-                                            </li>
-                                            <li>
-                                                <a href="#"
-                                                    class="link text-secondary duration-300 cursor-pointer view-all-btn">
-                                                    View All </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="nav-item">
-                                        <div class="text-button-uppercase pb-2">Series</div>
-                                        <ul>
-                                            <li>
-                                                <a href="/shpp"
-                                                    class="link text-secondary duration-300 cursor-pointer">Remover/Cleanser</a>
-                                            </li>
-                                            <li>
-                                                <a href="/shpp"
-                                                    class="link text-secondary duration-300 cursor-pointer">Eksfoliasi</a>
-                                            </li>
-                                            <li>
-                                                <a href="/shpp"
-                                                    class="link text-secondary duration-300 cursor-pointer">Toner</a>
-                                            </li>
-                                            <li>
-                                                <a href="/shpp"
-                                                    class="link text-secondary duration-300 cursor-pointer">Ampoule</a>
-                                            </li>
-                                            <li>
-                                                <a href="/shpp"
-                                                    class="link text-secondary duration-300 cursor-pointer">Serum</a>
-                                            </li>
-                                            <li>
-                                                <a href="/shpp" class="link text-secondary duration-300 view-all-btn">
-                                                    View All
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="nav-item">
-                                        <div class="text-button-uppercase pb-2">Sensifitas Kulit</div>
-                                        <ul>
-                                            <li>
-                                                <a href="/shpp"
-                                                    class="link text-secondary duration-300 cursor-pointer">Normal</a>
-                                            </li>
-                                            <li>
-                                                <a href="/shpp"
-                                                    class="link text-secondary duration-300 cursor-pointer">Sensitif</a>
-                                            </li>
-                                            <li>
-                                                <a href="/shpp"
-                                                    class="link text-secondary duration-300 cursor-pointer"> Oily
-                                                    Acne Prone
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="/shpp"
-                                                    class="link text-secondary duration-300 cursor-pointer">Dry
-                                                    Skin</a>
-                                            </li>
-                                            <li>
-                                                <a href="/shpp"
-                                                    class="link text-secondary duration-300 cursor-pointer">Anti
-                                                    Aging</a>
-                                            </li>
-                                            <li>
-                                                <a href="/shpp"
-                                                    class="link text-secondary duration-300 cursor-pointer">Whitening</a>
-                                            </li>
-                                            <li>
-                                                <a href="/shpp" class="link text-secondary duration-300 view-all-btn">
-                                                    View All
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="nav-item">
-                                        <div class="text-button-uppercase pb-2">Sensifitas Kulit</div>
-                                        <ul>
-                                            <li>
-                                                <a href="/shpp"
-                                                    class="link text-secondary duration-300 cursor-pointer">Normal</a>
-                                            </li>
-                                            <li>
-                                                <a href="/shpp"
-                                                    class="link text-secondary duration-300 cursor-pointer">Sensitif</a>
-                                            </li>
-                                            <li>
-                                                <a href="/shpp"
-                                                    class="link text-secondary duration-300 cursor-pointer"> Oily
-                                                    Acne Prone
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="/shpp"
-                                                    class="link text-secondary duration-300 cursor-pointer">Dry
-                                                    Skin</a>
-                                            </li>
-                                            <li>
-                                                <a href="/shpp"
-                                                    class="link text-secondary duration-300 cursor-pointer">Anti
-                                                    Aging</a>
-                                            </li>
-                                            <li>
-                                                <a href="/shpp"
-                                                    class="link text-secondary duration-300 cursor-pointer">Whitening</a>
-                                            </li>
-                                            <li>
-                                                <a href="/shpp" class="link text-secondary duration-300 view-all-btn">
-                                                    View All
-                                                </a>
-                                            </li>
-                                        </ul>
+                                <div class="flex justify-around py-8">
+                                    <div class="recent-product">
+                                        <div class="text-button-uppercase pb-2">Best Seller</div>
+                                        <div class="list-product hide-product-sold flex overflow-x-auto mt-3 gap-2">
+                                            <div class="product-item grid-type w-32">
+                                                <!-- Ubah width menjadi lebih kecil -->
+                                                <div class="product-main cursor-pointer block">
+                                                    <div
+                                                        class="product-thumb bg-white relative overflow-hidden rounded-lg">
+                                                        <!-- Kurangi ukuran border-radius -->
+                                                        <div class="product-img w-full h-32">
+                                                            <!-- Sesuaikan tinggi produk -->
+                                                            <img class="w-full h-full object-cover duration-300"
+                                                                src="{{ asset('frontend/assets/images/product/peskin/contoh1.png') }}"
+                                                                alt="img" />
+                                                            <img class="w-full h-full object-cover duration-300"
+                                                                src="{{ asset('frontend/assets/images/product/peskin/contoh-hover1.jpg') }}"
+                                                                alt="img" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="product-infor mt-2">
+                                                        <div class="product-name text-sm">Faux-leather trousers</div>
+                                                        <!-- Ukuran teks lebih kecil -->
+                                                        <div class="product-price-block flex items-center gap-1 mt-1">
+                                                            <div class="product-price text-sm">Rp.5150</div>
+                                                            <!-- Ukuran harga lebih kecil -->
+                                                            <div class="product-origin-price text-xs text-secondary2">
+                                                                <del>$50.00</del>
+                                                            </div>
+                                                            <div
+                                                                class="product-sale text-xs bg-primary text-white px-2 py-0.5 rounded-full">
+                                                                -20%
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Tambahkan produk lainnya -->
+                                            <div class="product-item grid-type w-32">
+                                                <!-- Ubah width menjadi lebih kecil -->
+                                                <div class="product-main cursor-pointer block">
+                                                    <div
+                                                        class="product-thumb bg-white relative overflow-hidden rounded-lg">
+                                                        <!-- Kurangi ukuran border-radius -->
+                                                        <div class="product-img w-full h-32">
+                                                            <!-- Sesuaikan tinggi produk -->
+                                                            <img class="w-full h-full object-cover duration-300"
+                                                                src="{{ asset('frontend/assets/images/product/peskin/contoh1.png') }}"
+                                                                alt="img" />
+                                                            <img class="w-full h-full object-cover duration-300"
+                                                                src="{{ asset('frontend/assets/images/product/peskin/contoh-hover1.jpg') }}"
+                                                                alt="img" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="product-infor mt-2">
+                                                        <div class="product-name text-sm">Faux-leather trousers</div>
+                                                        <!-- Ukuran teks lebih kecil -->
+                                                        <div class="product-price-block flex items-center gap-1 mt-1">
+                                                            <div class="product-price text-sm">Rp.5150</div>
+                                                            <!-- Ukuran harga lebih kecil -->
+                                                            <div class="product-origin-price text-xs text-secondary2">
+                                                                <del>$50.00</del>
+                                                            </div>
+                                                            <div
+                                                                class="product-sale text-xs bg-primary text-white px-2 py-0.5 rounded-full">
+                                                                -20%
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Tambahkan produk lainnya -->
+                                            <div class="product-item grid-type w-32">
+                                                <!-- Ubah width menjadi lebih kecil -->
+                                                <div class="product-main cursor-pointer block">
+                                                    <div
+                                                        class="product-thumb bg-white relative overflow-hidden rounded-lg">
+                                                        <!-- Kurangi ukuran border-radius -->
+                                                        <div class="product-img w-full h-32">
+                                                            <!-- Sesuaikan tinggi produk -->
+                                                            <img class="w-full h-full object-cover duration-300"
+                                                                src="{{ asset('frontend/assets/images/product/peskin/contoh1.png') }}"
+                                                                alt="img" />
+                                                            <img class="w-full h-full object-cover duration-300"
+                                                                src="{{ asset('frontend/assets/images/product/peskin/contoh-hover1.jpg') }}"
+                                                                alt="img" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="product-infor mt-2">
+                                                        <div class="product-name text-sm">Faux-leather trousers</div>
+                                                        <!-- Ukuran teks lebih kecil -->
+                                                        <div class="product-price-block flex items-center gap-1 mt-1">
+                                                            <div class="product-price text-sm">Rp.5150</div>
+                                                            <!-- Ukuran harga lebih kecil -->
+                                                            <div class="product-origin-price text-xs text-secondary2">
+                                                                <del>$50.00</del>
+                                                            </div>
+                                                            <div
+                                                                class="product-sale text-xs bg-primary text-white px-2 py-0.5 rounded-full">
+                                                                -20%
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Tambahkan produk lainnya -->
+                                            <div class="product-item grid-type w-32">
+                                                <!-- Ubah width menjadi lebih kecil -->
+                                                <div class="product-main cursor-pointer block">
+                                                    <div
+                                                        class="product-thumb bg-white relative overflow-hidden rounded-lg">
+                                                        <!-- Kurangi ukuran border-radius -->
+                                                        <div class="product-img w-full h-32">
+                                                            <!-- Sesuaikan tinggi produk -->
+                                                            <img class="w-full h-full object-cover duration-300"
+                                                                src="{{ asset('frontend/assets/images/product/peskin/contoh1.png') }}"
+                                                                alt="img" />
+                                                            <img class="w-full h-full object-cover duration-300"
+                                                                src="{{ asset('frontend/assets/images/product/peskin/contoh-hover1.jpg') }}"
+                                                                alt="img" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="product-infor mt-2">
+                                                        <div class="product-name text-sm">Faux-leather trousers</div>
+                                                        <!-- Ukuran teks lebih kecil -->
+                                                        <div class="product-price-block flex items-center gap-1 mt-1">
+                                                            <div class="product-price text-sm">Rp.5150</div>
+                                                            <!-- Ukuran harga lebih kecil -->
+                                                            <div class="product-origin-price text-xs text-secondary2">
+                                                                <del>$50.00</del>
+                                                            </div>
+                                                            <div
+                                                                class="product-sale text-xs bg-primary text-white px-2 py-0.5 rounded-full">
+                                                                -20%
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Tambahkan produk lainnya -->
+                                            <div class="product-item grid-type w-32">
+                                                <!-- Ubah width menjadi lebih kecil -->
+                                                <div class="product-main cursor-pointer block">
+                                                    <div
+                                                        class="product-thumb bg-white relative overflow-hidden rounded-lg">
+                                                        <!-- Kurangi ukuran border-radius -->
+                                                        <div class="product-img w-full h-32">
+                                                            <!-- Sesuaikan tinggi produk -->
+                                                            <img class="w-full h-full object-cover duration-300"
+                                                                src="{{ asset('frontend/assets/images/product/peskin/contoh1.png') }}"
+                                                                alt="img" />
+                                                            <img class="w-full h-full object-cover duration-300"
+                                                                src="{{ asset('frontend/assets/images/product/peskin/contoh-hover1.jpg') }}"
+                                                                alt="img" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="product-infor mt-2">
+                                                        <div class="product-name text-sm">Faux-leather trousers</div>
+                                                        <!-- Ukuran teks lebih kecil -->
+                                                        <div class="product-price-block flex items-center gap-1 mt-1">
+                                                            <div class="product-price text-sm">Rp.5150</div>
+                                                            <!-- Ukuran harga lebih kecil -->
+                                                            <div class="product-origin-price text-xs text-secondary2">
+                                                                <del>$50.00</del>
+                                                            </div>
+                                                            <div
+                                                                class="product-sale text-xs bg-primary text-white px-2 py-0.5 rounded-full">
+                                                                -20%
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Tambahkan produk lainnya -->
+                                            <div class="product-item grid-type w-32">
+                                                <!-- Ubah width menjadi lebih kecil -->
+                                                <div class="product-main cursor-pointer block">
+                                                    <div
+                                                        class="product-thumb bg-white relative overflow-hidden rounded-lg">
+                                                        <!-- Kurangi ukuran border-radius -->
+                                                        <div class="product-img w-full h-32">
+                                                            <!-- Sesuaikan tinggi produk -->
+                                                            <img class="w-full h-full object-cover duration-300"
+                                                                src="{{ asset('frontend/assets/images/product/peskin/contoh1.png') }}"
+                                                                alt="img" />
+                                                            <img class="w-full h-full object-cover duration-300"
+                                                                src="{{ asset('frontend/assets/images/product/peskin/contoh-hover1.jpg') }}"
+                                                                alt="img" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="product-infor mt-2">
+                                                        <div class="product-name text-sm">Faux-leather trousers</div>
+                                                        <!-- Ukuran teks lebih kecil -->
+                                                        <div class="product-price-block flex items-center gap-1 mt-1">
+                                                            <div class="product-price text-sm">Rp.5150</div>
+                                                            <!-- Ukuran harga lebih kecil -->
+                                                            <div class="product-origin-price text-xs text-secondary2">
+                                                                <del>$50.00</del>
+                                                            </div>
+                                                            <div
+                                                                class="product-sale text-xs bg-primary text-white px-2 py-0.5 rounded-full">
+                                                                -20%
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Tambahkan produk lainnya -->
+                                            <div class="product-item grid-type w-32">
+                                                <!-- Ubah width menjadi lebih kecil -->
+                                                <div class="product-main cursor-pointer block">
+                                                    <div
+                                                        class="product-thumb bg-white relative overflow-hidden rounded-lg">
+                                                        <!-- Kurangi ukuran border-radius -->
+                                                        <div class="product-img w-full h-32">
+                                                            <!-- Sesuaikan tinggi produk -->
+                                                            <img class="w-full h-full object-cover duration-300"
+                                                                src="{{ asset('frontend/assets/images/product/peskin/contoh1.png') }}"
+                                                                alt="img" />
+                                                            <img class="w-full h-full object-cover duration-300"
+                                                                src="{{ asset('frontend/assets/images/product/peskin/contoh-hover1.jpg') }}"
+                                                                alt="img" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="product-infor mt-2">
+                                                        <div class="product-name text-sm">Faux-leather trousers</div>
+                                                        <!-- Ukuran teks lebih kecil -->
+                                                        <div class="product-price-block flex items-center gap-1 mt-1">
+                                                            <div class="product-price text-sm">Rp.5150</div>
+                                                            <!-- Ukuran harga lebih kecil -->
+                                                            <div class="product-origin-price text-xs text-secondary2">
+                                                                <del>$50.00</del>
+                                                            </div>
+                                                            <div
+                                                                class="product-sale text-xs bg-primary text-white px-2 py-0.5 rounded-full">
+                                                                -20%
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Tambahkan produk lainnya -->
+                                        </div>
+
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </li>
 
                     <li class="h-full relative">
-                        <a href="/about-us"
+                        <a href="#"
                             class="text-button-uppercase duration-300 h-full flex items-center justify-center gap-1">
-                            About Us </a>
+                            Toner </a>
                     </li>
                     <li class="h-full relative">
-                        <a href="/contact-us"
+                        <a href="#"
                             class="text-button-uppercase duration-300 h-full flex items-center justify-center gap-1">
-                            Contact Us </a>
+                            Serum </a>
+                    </li>
+                    <li class="h-full relative">
+                        <a href="#"
+                            class="text-button-uppercase duration-300 h-full flex items-center justify-center gap-1">
+                            Facial Wash </a>
+                    </li>
+                    <li class="h-full relative">
+                        <a href="#"
+                            class="text-button-uppercase duration-300 h-full flex items-center justify-center gap-1">
+                            Moisturizer </a>
                     </li>
                 </ul>
             </div>
@@ -183,11 +303,13 @@
                     <div class="line absolute bg-line w-px h-6 -right-6"></div>
                 </div>
                 <div class="list-action flex items-center gap-4">
-                    <a href="/cart"><div class="max-md:hidden cart-icon flex items-center relative cursor-pointer">
-                        <i class="ph-bold ph-handbag text-2xl"></i>
-                        <span
-                            class="quantity cart-quantity absolute -right-1.5 -top-1.5 text-xs text-white bg-primary w-4 h-4 flex items-center justify-center rounded-full">1</span>
-                    </div></a>
+                    <a href="/cart">
+                        <div class="max-md:hidden cart-icon flex items-center relative cursor-pointer">
+                            <i class="ph-bold ph-handbag text-2xl"></i>
+                            <span
+                                class="quantity cart-quantity absolute -right-1.5 -top-1.5 text-xs text-white bg-primary w-4 h-4 flex items-center justify-center rounded-full">1</span>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>

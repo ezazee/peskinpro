@@ -221,20 +221,6 @@
     handleItemModalCart();
 </script> --}}
 
-{{-- Modal Scroll To Top Sticky -> Whatsapp --}}
-<script>
-    // Scroll to top
-    const scrollTopBtn = document.querySelector(".scroll-to-top-btn");
-
-    window.addEventListener("scroll", () => {
-        if (window.scrollY > 600) {
-            scrollTopBtn.classList.add("active");
-        } else {
-            scrollTopBtn.classList.remove("active");
-        }
-    });
-</script>
-
 {{-- Modal Promosi Utama --}}
 <script>
     // Modal Newsletter
