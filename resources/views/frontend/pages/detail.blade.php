@@ -11,25 +11,27 @@
                             <div class="swiper-wrapper">
                                 @foreach ($products->imagedetail as $image)
                                     <div class="swiper-slide">
-                                        <img class="w-full h-full object-cover duration-700" src="{{ asset('storage/' . $image->image_path) }}" alt="img" />
+                                        <img class="w-full h-full object-cover duration-700"
+                                            src="{{ asset('storage/' . $image->image_path) }}" alt="img" />
                                     </div>
                                 @endforeach
                             </div>
                         </div>
-                        
+
                         <!-- Thumbnail Swiper -->
                         <div class="swiper mySwiper mt-4">
                             <div class="swiper-wrapper">
                                 @foreach ($products->imagedetail as $image)
                                     <div class="swiper-slide">
-                                        <img class="w-full h-full object-cover" src="{{ asset('storage/' . $image->image_path) }}" alt="img" />
+                                        <img class="w-full h-full object-cover"
+                                            src="{{ asset('storage/' . $image->image_path) }}" alt="img" />
                                     </div>
                                 @endforeach
                             </div>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="product-infor md:w-1/2 w-full lg:pl-[15px] md:pl-2">
                     <div class="flex justify-between">
                         <div>
@@ -44,58 +46,67 @@
                     </div>
                     <div class="flex items-center gap-3 flex-wrap mt-5 pb-6 border-b border-line">
                         <div class="product-price heading5" id="product-price">
-                            Rp {{ number_format($products->sizes[0]->price - ($products->sizes[0]->discount ?? 0), 0, ',', '.') }}
+                            Rp
+                            {{ number_format($products->sizes[0]->price - ($products->sizes[0]->discount ?? 0), 0, ',', '.') }}
                         </div>
-                    
+
                         <div class="w-px h-4 bg-line"></div>
-                    
-                        @if($products->sizes[0]->discount && $products->sizes[0]->discount > 0)
+
+                        @if ($products->sizes[0]->discount && $products->sizes[0]->discount > 0)
                             <div class="product-origin-price font-normal text-secondary2">
                                 <del>Rp {{ number_format($products->sizes[0]->price, 0, ',', '.') }}</del>
                             </div>
-                    
-                            <div class="product-sale caption2 font-semibold bg-primary text-white px-3 py-0.5 inline-block rounded-full">
+
+                            <div
+                                class="product-sale caption2 font-semibold bg-primary text-white px-3 py-0.5 inline-block rounded-full">
                                 -{{ number_format(100 * ($products->sizes[0]->discount / $products->sizes[0]->price), 0) }}%
                             </div>
                         @endif
-                    
+
                         <div class="product-description text-secondary mt-3">{{ $products->description }}</div>
                     </div>
                     <div class="list-action mt-6">
                         <form action="{{ route('cart.add') }}" method="POST">
                             @csrf
-                        <input type="hidden" name="product_id" value="{{ $products->id }}">
-                        <input type="hidden" name="quantity" id="quantityInput" value="1">
-                        <div class="choose-size mt-5">
-                            <div class="heading flex items-center justify-between">
-                                <div class="text-title">Ukuran:</div>
-                            </div>
-                            <div class="list-size flex items-center gap-2 flex-wrap mt-3">
-                                @if($products->sizes && $products->sizes->count() > 0)
-                                @foreach($products->sizes as $size)
-                                <div class="size-item">
-                                    <input type="radio" id="size{{ $size->id }}" name="selected_size" value="{{ $size->id }}" class="hidden peer" onclick="updatePrice({{ $size->id }})">
-                                    <label for="size{{ $size->id }}"
-                                           class="w-12 h-12 flex items-center justify-center text-xs text-button rounded-full bg-white border text-primary border-primary border-line cursor-pointer transition duration-300">
-                                        {{ $size->size }}
-                                    </label>
+                            <input type="hidden" name="product_id" value="{{ $products->id }}">
+                            <input type="hidden" name="quantity" id="quantityInput" value="1">
+                            <div class="choose-size mt-5">
+                                <div class="heading flex items-center justify-between">
+                                    <div class="text-title">Ukuran:</div>
                                 </div>
-                                @endforeach
+                                <div class="list-size flex items-center gap-2 flex-wrap mt-3">
+                                    @if ($products->sizes && $products->sizes->count() > 0)
+                                        @foreach ($products->sizes as $size)
+                                            <div class="size-item">
+                                                <input type="radio" id="size{{ $size->id }}" name="selected_size"
+                                                    value="{{ $size->id }}" class="hidden peer"
+                                                    onclick="updatePrice({{ $size->id }}); setActive(this)">
+                                                <label for="size{{ $size->id }}"
+                                                    class="size-item w-20 h-12 flex rounded-md items-center justify-center text-button bg-white border border-line">
+                                                    {{ $size->size }}
+                                                </label>
+
+                                            </div>
+                                        @endforeach
                                     @else
                                         <p>No sizes available for this product.</p>
                                     @endif
-                            </div> 
-                        </div>
-                        
-                        <div class="text-title mt-5">Quantity:</div>
-                        <div class="choose-quantity flex items-center max-xl:flex-wrap lg:justify-between gap-5 mt-3">
-                            <div class="quantity-block md:p-3 max-md:py-1.5 max-md:px-3 flex items-center justify-between rounded-lg border border-line sm:w-[140px] w-[120px] flex-shrink-0">
-                                <i class="ph-bold ph-minus cursor-pointer body1 decrease-quantity"></i>
-                                <div class="quantity body1 font-semibold quantity-display">1</div>
-                                <i class="ph-bold ph-plus cursor-pointer body1 increase-quantity"></i>
+                                </div>
                             </div>
-                            <button class="add-cart-btn button-main whitespace-nowrap w-full text-center bg-primary text-white border border-primary">Tambah Keranjang</button>                        </div>
-                    </form>
+
+                            <div class="text-title mt-5">Quantity:</div>
+                            <div class="choose-quantity flex items-center max-xl:flex-wrap lg:justify-between gap-5 mt-3">
+                                <div
+                                    class="quantity-block md:p-3 max-md:py-1.5 max-md:px-3 flex items-center justify-between rounded-lg border border-line sm:w-[140px] w-[120px] flex-shrink-0">
+                                    <i class="ph-bold ph-minus cursor-pointer body1 decrease-quantity"></i>
+                                    <div class="quantity body1 font-semibold quantity-display">1</div>
+                                    <i class="ph-bold ph-plus cursor-pointer body1 increase-quantity"></i>
+                                </div>
+                                <button
+                                    class="add-cart-btn button-main whitespace-nowrap w-full text-center bg-primary text-white border border-primary">Tambah
+                                    Keranjang</button>
+                            </div>
+                        </form>
 
                         <div class="more-infor mt-6">
                             <div class="flex items-center gap-1 mt-3">
@@ -181,23 +192,23 @@
                             <div class="left">
                                 <div class="heading6">Ingredients</div>
                                 <div class="list-feature grid grid-cols-1 sm:grid-cols-2 gap-y-2 py-3">
-                                        @foreach(explode("\n", $products->ingredients) as $ingredient)
+                                    @foreach (explode("\n", $products->ingredients) as $ingredient)
                                         <div class="item flex gap-1 text-secondary mt-1">
                                             <i class="ph ph-dot text-2xl"></i>
                                             <p>{{ trim($ingredient) }}</p>
                                         </div>
-                                        @endforeach
+                                    @endforeach
                                 </div>
                             </div>
                             <div class="right">
                                 <div class="heading6">Cara Penggunaan</div>
                                 <div class="list-feature grid grid-cols-1 sm:grid-cols-2 gap-y-2 py-3">
-                                        @foreach(explode("\n", $products->howtouse) as $howtouse)
+                                    @foreach (explode("\n", $products->howtouse) as $howtouse)
                                         <div class="item flex gap-1 text-secondary mt-1">
                                             <i class="ph ph-dot text-2xl"></i>
                                             <p>{{ trim($howtouse) }}</p>
                                         </div>
-                                        @endforeach
+                                    @endforeach
                                 </div>
                             </div>
 
@@ -213,52 +224,56 @@
         <div class="shop-product">
             <div class="container">
                 <div class="heading3 text-center pb-10">Produk Serupa</div>
-                <div class="list-product hide-product-sold grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 sm:gap-[30px] gap-5">
+                <div
+                    class="list-product hide-product-sold grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 sm:gap-[30px] gap-5">
                     @foreach ($produkserupa as $item)
-                    <div class="product-item grid-type style-5">
-                        <a href="{{ route('shop.detail', ['slug' => $item->slug]) }}"><div class="product-main cursor-pointer block">
-                            <div class="product-thumb bg-white relative overflow-hidden rounded-2xl">
-                                @if($item->discount && $item->discount > 0)
-                                <div
-                                    class="product-tag text-button-uppercase text-white bg-red px-3 py-0.5 inline-block rounded-full absolute top-3 left-3 z-[1]">
-                                    Diskon
-                                </div>
-                               @endif 
-                                <div class="product-img w-full h-full aspect-[3/4]">
-                                    <img class="w-full h-full object-cover duration-700"
-                                        src="{{ asset('storage/' . $item->front_image) }}"
-                                        alt="img" />
-                                    <img class="w-full h-full object-cover duration-700"
-                                        src="{{ asset('storage/' . $item->back_image) }}"
-                                        alt="img" />
-                                </div>
-                            </div>
-    
-                            <div class="product-infor mt-4 lg:mb-7">
-                                <div class="product-name text-title duration-300">
-                                    {{ $item->name }}
-                                    <div class="product-price-block flex items-center gap-2 flex-wrap mt-1 duration-300 relative z-[1]">
-                                        <div class="product-price text-title">
-                                            @if($item->discount && $item->discount > 0)
-                                                Rp {{ number_format($item->price - $item->discount, 0, ',', '.') }}
-                                            @else
-                                                Rp {{ number_format($item->price, 0, ',', '.') }}
-                                            @endif
-                                        </div>
-                                        
-                                        @if($item->discount && $item->discount > 0)
-                                            <div class="product-origin-price caption1 text-secondary2 line-through">
-                                                <del>Rp {{ number_format($item->price, 0, ',', '.') }}</del>
-                                            </div>
-                                            <div class="product-sale caption1 text-white font-medium bg-primary px-3 py-0.5 inline-block rounded-full">
-                                                -{{ number_format(100 * ($item->discount / $item->price), 0) }}%
+                        <div class="product-item grid-type style-5">
+                            <a href="{{ route('shop.detail', ['slug' => $item->slug]) }}">
+                                <div class="product-main cursor-pointer block">
+                                    <div class="product-thumb bg-white relative overflow-hidden rounded-2xl">
+                                        @if ($item->discount && $item->discount > 0)
+                                            <div
+                                                class="product-tag text-button-uppercase text-white bg-red px-3 py-0.5 inline-block rounded-full absolute top-3 left-3 z-[1]">
+                                                Diskon
                                             </div>
                                         @endif
-                                    </div>                                
+                                        <div class="product-img w-full h-full aspect-[3/4]">
+                                            <img class="w-full h-full object-cover duration-700"
+                                                src="{{ asset('storage/' . $item->front_image) }}" alt="img" />
+                                            <img class="w-full h-full object-cover duration-700"
+                                                src="{{ asset('storage/' . $item->back_image) }}" alt="img" />
+                                        </div>
+                                    </div>
+
+                                    <div class="product-infor mt-4 lg:mb-7">
+                                        <div class="product-name text-title duration-300">
+                                            {{ $item->name }}
+                                            <div
+                                                class="product-price-block flex items-center gap-2 flex-wrap mt-1 duration-300 relative z-[1]">
+                                                <div class="product-price text-title">
+                                                    @if ($item->discount && $item->discount > 0)
+                                                        Rp {{ number_format($item->price - $item->discount, 0, ',', '.') }}
+                                                    @else
+                                                        Rp {{ number_format($item->price, 0, ',', '.') }}
+                                                    @endif
+                                                </div>
+
+                                                @if ($item->discount && $item->discount > 0)
+                                                    <div
+                                                        class="product-origin-price caption1 text-secondary2 line-through">
+                                                        <del>Rp {{ number_format($item->price, 0, ',', '.') }}</del>
+                                                    </div>
+                                                    <div
+                                                        class="product-sale caption1 text-white font-medium bg-primary px-3 py-0.5 inline-block rounded-full">
+                                                        -{{ number_format(100 * ($item->discount / $item->price), 0) }}%
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div></a>
-                    </div>
+                            </a>
+                        </div>
                     @endforeach
                 </div>
             </div>
@@ -275,66 +290,75 @@
                 label.classList.add('border-primary', 'border-line');
             }
         }
-        </script>
-        <script>
+    </script>
+    <script>
+        function setActive(selectedInput) {
+            const labels = document.querySelectorAll('.list-size .size-item label');
+            labels.forEach(label => label.classList.remove('active')); // Remove 'active' from all labels
+
+            const selectedLabel = selectedInput.nextElementSibling;
+            selectedLabel.classList.add('active'); // Add 'active' to the clicked label
+        }
+    </script>
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
             const increaseButtons = document.querySelectorAll('.increase-quantity');
             const decreaseButtons = document.querySelectorAll('.decrease-quantity');
-            
+
             increaseButtons.forEach(button => {
                 button.addEventListener('click', function() {
                     const quantityDisplay = this.parentNode.querySelector('.quantity-display');
                     const quantityInput = document.getElementById('quantityInput');
                     let currentQuantity = parseInt(quantityDisplay.textContent.trim());
-                    currentQuantity + 1; 
+                    currentQuantity + 1;
                     quantityDisplay.textContent = currentQuantity;
                     quantityInput.value = currentQuantity;
                 });
             });
-            
+
             decreaseButtons.forEach(button => {
                 button.addEventListener('click', function() {
                     const quantityDisplay = this.parentNode.querySelector('.quantity-display');
                     const quantityInput = document.getElementById('quantityInput');
                     let currentQuantity = parseInt(quantityDisplay.textContent.trim());
                     if (currentQuantity > 1) {
-                        currentQuantity - 1; 
+                        currentQuantity - 1;
                         quantityDisplay.textContent = currentQuantity;
-                        quantityInput.value = currentQuantity; 
+                        quantityInput.value = currentQuantity;
                     }
                 });
             });
         });
-        </script>
-        <script>
-            function updatePrice(sizeId) {
-                // Assuming you're sending an AJAX request to get the size details
-                const sizeData = @json($products->sizes);
-                const selectedSize = sizeData.find(size => size.id === sizeId);
-                
-                if (selectedSize) {
-                    const price = selectedSize.price - (selectedSize.discount || 0);
-                    
-                    // Update the displayed price
-                    document.getElementById('product-price').innerText = 'Rp ' + new Intl.NumberFormat().format(price);
-                    
-                    // Update the original price and discount if available
-                    if (selectedSize.discount && selectedSize.discount > 0) {
-                        const originalPriceElement = document.querySelector('.product-origin-price');
-                        const saleElement = document.querySelector('.product-sale');
-                        const originalPrice = selectedSize.price;
-            
-                        originalPriceElement.innerHTML = `<del>Rp ${new Intl.NumberFormat().format(originalPrice)}</del>`;
-                        saleElement.innerText = `-${Math.round(100 * (selectedSize.discount / originalPrice))}%`;
-                        originalPriceElement.style.display = 'block';
-                        saleElement.style.display = 'inline-block';
-                    } else {
-                        // Hide original price and sale if no discount
-                        document.querySelector('.product-origin-price').style.display = 'none';
-                        document.querySelector('.product-sale').style.display = 'none';
-                    }
+    </script>
+    <script>
+        function updatePrice(sizeId) {
+            // Assuming you're sending an AJAX request to get the size details
+            const sizeData = @json($products->sizes);
+            const selectedSize = sizeData.find(size => size.id === sizeId);
+
+            if (selectedSize) {
+                const price = selectedSize.price - (selectedSize.discount || 0);
+
+                // Update the displayed price
+                document.getElementById('product-price').innerText = 'Rp ' + new Intl.NumberFormat().format(price);
+
+                // Update the original price and discount if available
+                if (selectedSize.discount && selectedSize.discount > 0) {
+                    const originalPriceElement = document.querySelector('.product-origin-price');
+                    const saleElement = document.querySelector('.product-sale');
+                    const originalPrice = selectedSize.price;
+
+                    originalPriceElement.innerHTML = `<del>Rp ${new Intl.NumberFormat().format(originalPrice)}</del>`;
+                    saleElement.innerText = `-${Math.round(100 * (selectedSize.discount / originalPrice))}%`;
+                    originalPriceElement.style.display = 'block';
+                    saleElement.style.display = 'inline-block';
+                } else {
+                    // Hide original price and sale if no discount
+                    document.querySelector('.product-origin-price').style.display = 'none';
+                    document.querySelector('.product-sale').style.display = 'none';
                 }
             }
-            </script>
-            
+        }
+    </script>
+
 @endsection
