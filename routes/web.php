@@ -68,6 +68,7 @@ Route::get('/detail/{slug}', [ShopController::class, 'detail'])->name('shop.deta
 //     return view('frontend.pages.detail');
 // });
 Route::get('/checkout', [ChekoutController::class, 'index'])->name('chekout.index');
+Route::post('/checkout/process', [ChekoutController::class, 'processCheckout'])->name('checkout.process');
 
 
 Route::get('/about-us', function() {

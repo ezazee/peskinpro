@@ -51,6 +51,7 @@
                                     <div class="">
                                         <input class="border-line px-4 py-3 w-full rounded-lg" id="postal" type="text" placeholder="Kode Pos" required />
                                     </div>
+                                    
                                 </div>
                                 <div class="block-button md:mt-10 mt-6">
                                     <button class="button-main w-full">Bayar Sekarang</button>
@@ -63,26 +64,28 @@
                     <div class="checkout-block">
                         <div class="heading5 pb-3">List Orderan</div>
                         <div class="list-product-checkout">
+                            @foreach ($cartItems as $item)
                             <div class="item flex items-center justify-between w-full pb-5 border-b border-line gap-6 mt-5">
                                 <div class="bg-img w-[100px] aspect-square flex-shrink-0 rounded-lg overflow-hidden">
                                     <img src="{{ asset('frontend/assets/images/product/peskin/contoh1.png') }}" alt="img" class="w-full h-full">
                                 </div>
                                 <div class="flex items-center justify-between w-full">
                                     <div>
-                                        <div class="name text-title">Nama Produk Skincare</div>
+                                        <div class="name text-title">{{ $item->product->name }}</div>
                                         <div class="caption1 text-secondary mt-2">
-                                            <span class="capitalize">50ML</span>
+                                            <span class="capitalize">{{$item->productSize->size}}ML</span>
                                         </div>
                                     </div>
                                     <div class="text-title">
-                                        <span class="quantity">1</span>
+                                        <span class="quantity">{{ $item->quantity }}</span>
                                         <span class="px-1">x</span>
                                         <span>
-                                            Rp.150.000
+                                            {{ ($item->productSize->price) - ($item->productSize->discount) }}
                                         </span>
                                     </div>
                                 </div>
                             </div>
+                            @endforeach
                         </div>
                         <div class="discount-block py-5 flex justify-between border-b border-line">
                             <div class="text-title">Diskon</div>

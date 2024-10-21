@@ -66,6 +66,7 @@ class ProductController extends Controller
     public function edit($id){
         $product = Product::with(['category', 'imagedetail'])->findOrFail($id);
         $categories = Category::all();
+        // dd($product);
         return view('backend.pages.product.edit', compact('product', 'categories'));
     }
 
