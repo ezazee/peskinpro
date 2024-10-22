@@ -306,7 +306,7 @@
                     <a href="/cart"><div class="max-md:hidden cart-icon flex items-center relative cursor-pointer">
                         <i class="ph-bold ph-handbag text-2xl"></i>
                         <span
-                            class="quantity cart-quantity absolute -right-1.5 -top-1.5 text-xs text-white bg-primary w-4 h-4 flex items-center justify-center rounded-full"> 1</span>
+                            class="quantity cart-quantity absolute -right-1.5 -top-1.5 text-xs text-white bg-primary w-4 h-4 flex items-center justify-center rounded-full">{{$cartItemCount}}</span>
                     </div></a>
                 </div>
             </div>
@@ -524,7 +524,7 @@
             <div class="cart-icon relative">
                 <span class="ph-bold ph-handbag text-2xl block"></span>
                 <span
-                    class="quantity cart-quantity absolute -right-1.5 -top-1.5 text-xs text-white bg-primary w-4 h-4 flex items-center justify-center rounded-full">1</span>
+                    class="quantity cart-quantity absolute -right-1.5 -top-1.5 text-xs text-white bg-primary w-4 h-4 flex items-center justify-center rounded-full">{{$cartItemCount}}</span>
             </div>
             <span class="menu_bar-title caption2 font-semibold">Cart</span>
         </a>

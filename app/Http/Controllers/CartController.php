@@ -22,7 +22,7 @@ class CartController extends Controller
             $cart = Cart::where('guest_id', $guestCartId)->first();
             $cartItems = $cart ? $cart->items()->with(['product', 'productSize'])->get() : [];
         }
-            $cartCollection = collect($cartItems);    
+        $cartCollection = collect($cartItems);  
         return view('frontend.pages.cart', compact('cartCollection'));
     }
     
