@@ -10,7 +10,7 @@
                     <div class="w-full">
                         <div class="heading bg-surface bora-4 pt-4 pb-4">
                             <div class="flex">
-                                <div class="w-1/2 flex items-center">
+                                <div class="w-1/2 flex items-center px-5">
                                     <input type="checkbox" id="check-all" class="px-3" />
                                     <label for="check-all" class="text-button ml-2">Check All</label>
                                 </div>
@@ -30,9 +30,9 @@
                             <div class="item flex md:mt-7 md:pb-7 mt-5 pb-5 border-b border-line w-full">
                                 <div class="w-1/2 flex items-center">
                                     <input type="checkbox" class="product-checkbox mr-2" data-id="{{ $item->id }}"
-                                    data-price="{{ ($item->productSize->price * $item->quantity) - ($item->productSize->discount * $item->quantity) }}" 
+                                    data-price="{{ ($item->productSize->price * $item->quantity) - ($item->productSize->discount * $item->quantity) }}"
                                     data-discount="{{ $item->productSize->discount * $item->quantity }}" />
-                                    <div class="flex items-center gap-6">
+                                    <div class="flex items-center px-5 gap-6">
                                         <div class="bg-img md:w-[100px] w-20 aspect-[3/4]">
                                             <img src="{{ asset('storage/' . $item->product->front_image) }}" alt="img"
                                                 class="w-full h-full object-cover rounded-lg">
@@ -70,13 +70,16 @@
                                         Rp{{ number_format(($item->productSize->price * $item->quantity) - ($item->productSize->discount * $item->quantity), 0, ',', '.') }}
                                     </div>
                                 </div>
-                                <form action="{{ route('cart.remove') }}" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="product_id"
-                                        value="{{ $item->product->id ?? $item->id }}">
-                                    <button type="submit"
-                                        class="remove-btn ph ph-x-circle text-xl max-md:text-base text-red cursor-pointer hover:text-black duration-300"></button>
-                                </form>
+                                <div class="flex items-center justify-center">
+                                    <form action="{{ route('cart.remove') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="product_id" value="{{ $item->product->id ?? $item->id }}">
+                                        <button type="submit"
+                                            class="remove-btn ph ph-x-circle text-2xl text-red cursor-pointer hover:text-black duration-300">
+                                        </button>
+                                    </form>
+                                </div>
+
                             </div>
                             @endforeach
                         </div>
@@ -146,14 +149,14 @@
                             <form id="checkout-form" action="{{ route('checkout.process') }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="cart_items" id="cart-items" value="">
-                        
+
                                 <button class="checkout-btn button-main text-center w-full bg-primary border-primary">
                                     Checkout Sekarang
                                 </button>
                             </form>
                             <a class="text-button hover-underline" href="{{ route('home.index') }}">Lanjutkan Berbelanja</a>
                         </div>
-                        
+
                     @else
                     <div class="empty-cart-message py-5 text-center">
                         <p>Keranjang kosong, silakan lanjutkan berbelanja.</p>
@@ -234,14 +237,14 @@
 
             checkboxes.forEach(checkbox => {
                 if (checkbox.checked) {
-                    const itemPrice = parseFloat(checkbox.getAttribute('data-price')) || 0; 
+                    const itemPrice = parseFloat(checkbox.getAttribute('data-price')) || 0;
                     const itemId = checkbox.getAttribute('data-id');
 
                     subtotal += itemPrice;
-                    selectedItems.push(itemId); 
+                    selectedItems.push(itemId);
 
-                    const itemDiscount = parseFloat(checkbox.getAttribute('data-discount')) || 0; 
-                    totalDiscount += itemDiscount; 
+                    const itemDiscount = parseFloat(checkbox.getAttribute('data-discount')) || 0;
+                    totalDiscount += itemDiscount;
                 }
             });
 
@@ -249,7 +252,7 @@
             discountElement.textContent = formatRupiah(totalDiscount);
             totalSelectedPriceElement.textContent = formatRupiah(subtotal);
 
-            cartItemsInput.value = selectedItems.join(','); 
+            cartItemsInput.value = selectedItems.join(',');
         };
 
         checkboxes.forEach(checkbox => {
