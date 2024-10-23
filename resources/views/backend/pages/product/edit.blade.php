@@ -49,10 +49,16 @@
                         
                         <!-- Product Details -->
                         <div class="row mt-3">
-                            <div class="col-lg-8">
+                            <div class="col-lg-5">
                                 <div class="mb-3">
                                     <label for="product-name" class="form-label">Product Name</label>
                                     <input type="text" id="product-name" name="name" class="form-control" value="{{ old('name', $product->name) }}" placeholder="Items Name" >
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="mb-3">
+                                    <label class="form-label">SKU</label>
+                                    <input type="text" name="sku" value="{{ old('sku', $product->sku) }}" class="form-control" placeholder="SKU">
                                 </div>
                             </div>
                             <div class="col-lg-4">
@@ -121,6 +127,15 @@
                                 <div class="mb-3">
                                     <label for="full-description" class="form-label">Full Description</label>
                                     <textarea class="form-control bg-light-subtle" id="full-description" name="longdescription" rows="7" placeholder="Full description about the product" >{{ old('longdescription', $product->longdescription) }}</textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="mb-3">
+                                    <label for="full-description" class="form-label">Effect</label>
+                                    <textarea class="form-control bg-light-subtle" id="full-description" name="effect" rows="7" placeholder="Effect of the product">{{ old('effect', $product->effect) }}</textarea>
                                 </div>
                             </div>
                         </div>

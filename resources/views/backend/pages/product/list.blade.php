@@ -21,8 +21,7 @@
                                        <tr>
                                             <th style="width: 20px;">
                                                  <div class="form-check ms-1">
-                                                      <input type="checkbox" class="form-check-input" id="customCheck1">
-                                                      <label class="form-check-label" for="customCheck1"></label>
+                                                    No
                                                  </div>
                                             </th>
                                             <th>Product Name</th>
@@ -34,12 +33,11 @@
                                        </tr>
                                   </thead>
                                   <tbody>
-                                    @foreach($products as $prod)
+                                    @foreach($products as $index => $prod)
                                        <tr>
                                             <td>
                                                  <div class="form-check ms-1">
-                                                      <input type="checkbox" class="form-check-input" id="customCheck2">
-                                                      <label class="form-check-label" for="customCheck2">&nbsp;</label>
+                                                    {{ $index+1 }}
                                                  </div>
                                             </td>
                                             <td>
@@ -56,14 +54,14 @@
                                                       </div>
                                                  </div>
                                             </td>
-                                            <td class="mb-1 text-muted"><span class="text-dark fw-medium">Rp {{ number_format($prod->price, 0, ',', '.') }}</td>
+                                            <td class="mb-1 text-muted"><span class="text-dark fw-medium">Rp {{ number_format($prod->sizes[0]->price - $prod->sizes[0]->discount, 0, ',', '.') }}</td>
                                             <td>
-                                                 <p class="mb-1 text-muted"><span class="text-dark fw-medium">{{ $prod->stock }} Item</span></p>
+                                                 <p class="mb-1 text-muted"><span class="text-dark fw-medium">{{ $prod->sizes[0]->stock }}</span></p>
                                             </td>
                                             <td>{{ $prod->category->name ?? 'N/A' }}</td>
                                             <td>
                                                 @if($prod->imagedetail->isNotEmpty())
-                                                    <div class="rounded bg-light avatar-md d-flex align-items-center justify-content-center">
+                                                    <div class="avatar-md d-flex align-items-center justify-content-center">
                                                         @foreach($prod->imagedetail as $image)
                                                             <img src="{{ asset('storage/' . $image->image_path) }}" alt="Product Image" class="avatar-md">
                                                         @endforeach
@@ -74,9 +72,9 @@
                                             </td>                                            
                                             <td>
                                                  <div class="d-flex gap-2">
-                                                      <a href="#!" class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
+                                                      <a href="{{ route('product.detail', $prod->slug) }}" class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
                                                       <a href="{{ route('product.edit', $prod->id) }}" class="btn btn-soft-primary btn-sm"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                                      <form action="{{ route('product.destroy', $prod->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this category?');">
+                                                      <form action="{{ route('product.destroy', $prod->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this product?');">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn btn btn-danger btn-sm"><iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon></button>
@@ -88,12 +86,10 @@
                                   </tbody>
                              </table>
                         </div>
-                        <!-- end table-responsive -->
                    </div>
                    <div class="card-footer border-top">
                     <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-end mb-0">
-                            {{-- Laravel Pagination Links --}}
                             {{ $products->onEachSide(1)->links('pagination::bootstrap-5') }}
                         </ul>
                     </nav>

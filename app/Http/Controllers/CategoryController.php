@@ -10,8 +10,9 @@ class CategoryController extends Controller
 {
     public function index()
     {   
+        $welcomeMessage = 'Categories Products'; 
         $categories = Category::paginate(10);
-        return view('backend.pages.category.create',compact('categories'));
+        return view('backend.pages.category.create',compact('categories','welcomeMessage'));
     }
 
     public function create(Request $request)
@@ -31,9 +32,10 @@ class CategoryController extends Controller
 
     public function edit($id)
     {
+        $welcomeMessage = 'Edit Categories Products'; 
         $category = Category::findOrFail($id);
         $categories = Category::paginate(10);
-        return view('backend.pages.category.create', compact('category', 'categories'));
+        return view('backend.pages.category.create', compact('category', 'categories','welcomeMessage'));
     }
 
     public function update(Request $request, $id)

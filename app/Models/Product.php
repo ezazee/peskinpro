@@ -13,10 +13,11 @@ class Product extends Model
         'slug',
         'category_id',
         'description',
-        'discount',
         'front_image',
         'back_image',
         'longdescription',
+        'effect',
+        'sku',
         'ingredients',
         'howtouse'
     ];

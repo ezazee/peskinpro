@@ -28,11 +28,12 @@
                         <div class="list-product-main w-full mt-3">
                             @foreach ($cartCollection as $item)
                             <div class="item flex md:mt-7 md:pb-7 mt-5 pb-5 border-b border-line w-full">
-                                <div class="w-1/2 flex items-center">
-                                    <input type="checkbox" class="product-checkbox mr-2" data-id="{{ $item->id }}"
-                                    data-price="{{ ($item->productSize->price * $item->quantity) - ($item->productSize->discount * $item->quantity) }}"
-                                    data-discount="{{ $item->productSize->discount * $item->quantity }}" />
-                                    <div class="flex items-center px-5 gap-6">
+                                <div class="w-1/2 flex items-center cursor-pointer">
+                                    <input type="checkbox" id="product-checkbox-{{ $item->id }}" class="product-checkbox mr-2"
+                                        data-id="{{ $item->id }}"
+                                        data-price="{{ ($item->productSize->price * $item->quantity) - ($item->productSize->discount * $item->quantity) }}"
+                                        data-discount="{{ $item->productSize->discount * $item->quantity }}" />
+                                    <label for="product-checkbox-{{ $item->id }}" class="flex items-center px-5 gap-6 w-full">
                                         <div class="bg-img md:w-[100px] w-20 aspect-[3/4]">
                                             <img src="{{ asset('storage/' . $item->product->front_image) }}" alt="img"
                                                 class="w-full h-full object-cover rounded-lg">
@@ -41,8 +42,8 @@
                                             <div class="text-title">{{ $item->product->name }}</div>
                                             <div class="list-select mt-3">{{ $item->productSize->size }}ml</div>
                                         </div>
-                                    </div>
-                                </div>
+                                    </label>
+                                </div>                                
                                 <div class="w-1/12 price flex items-center justify-center">
                                     <div class="text-title text-center">
                                         Rp{{ number_format($item->productSize->price - $item->productSize->discount, 0, ',', '.') }}
@@ -79,7 +80,6 @@
                                         </button>
                                     </form>
                                 </div>
-
                             </div>
                             @endforeach
                         </div>

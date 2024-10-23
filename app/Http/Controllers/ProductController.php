@@ -13,15 +13,25 @@ class ProductController extends Controller
 {
     public function index()
     {   
+        $welcomeMessage = 'Create Products'; 
         $products = Product::with('sizes', 'category')->get();
         $categories = Category::all();
-        return view('backend.pages.product.create',compact('products','categories'));
+        return view('backend.pages.product.create',compact('products','categories','welcomeMessage'));
     }
 
     public function list(){
+        $welcomeMessage = 'List Products'; 
         $products = Product::with(['category', 'imagedetail','sizes'])->paginate(10);
         $categories = Category::all();
-        return view('backend.pages.product.list',compact('products','categories'));
+        return view('backend.pages.product.list',compact('products','categories','welcomeMessage'));
+    }
+
+    public function detail($slug){
+        $welcomeMessage = 'Detail Products'; 
+        $product = Product::with(['category', 'imagedetail', 'sizes'])
+        ->where('slug', $slug)
+        ->firstOrFail();
+        return view('backend.pages.product.detail', compact('product','welcomeMessage'));
     }
 
     public function create(Request $request)
@@ -36,6 +46,8 @@ class ProductController extends Controller
             'slug' => Str::slug($request->name),
             'category_id' => $request->category_id,
             'description' => $request->description,
+            'effect' => $request->effect,
+            'sku' => $request->sku,
             'front_image' => $frontImagePath,
             'back_image' => $backImagePath,
             'longdescription' => $request->longdescription,
@@ -64,10 +76,11 @@ class ProductController extends Controller
     }
 
     public function edit($id){
+        $welcomeMessage = 'Edit Products'; 
         $product = Product::with(['category', 'imagedetail'])->findOrFail($id);
         $categories = Category::all();
         // dd($product);
-        return view('backend.pages.product.edit', compact('product', 'categories'));
+        return view('backend.pages.product.edit', compact('product', 'categories','welcomeMessage'));
     }
 
     public function update(Request $request, $id)
@@ -108,6 +121,8 @@ class ProductController extends Controller
             'slug' => Str::slug($request->name),
             'category_id' => $request->category_id,
             'description' => $request->description,
+            'effect' => $request->effect,
+            'sku' => $request->sku,
             'stock' => $request->stock,
             'price' => $request->price,
             'discount' => $request->discount,
