@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('front_image'); 
             $table->string('back_image');
             $table->text('longdescription');
+            $table->text('effect');
+            $table->string('sku');
             $table->text('ingredients');
             $table->text('howtouse');
             $table->timestamps(); 

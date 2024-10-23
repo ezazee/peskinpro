@@ -41,10 +41,16 @@
                         
                         <!-- Product Details -->
                         <div class="row mt-3">
-                            <div class="col-lg-8">
+                            <div class="col-lg-5">
                                 <div class="mb-3">
                                     <label for="product-name" class="form-label">Product Name</label>
                                     <input type="text" id="product-name" name="name" class="form-control" placeholder="Items Name" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="mb-3">
+                                    <label class="form-label">SKU</label>
+                                    <input type="text" name="sku" class="form-control" placeholder="SKU" required>
                                 </div>
                             </div>
                             <div class="col-lg-4">
@@ -110,7 +116,14 @@
                                 </div>
                             </div>
                         </div>
-
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="mb-3">
+                                    <label for="full-description" class="form-label">Effect</label>
+                                    <textarea class="form-control bg-light-subtle" id="full-description" name="effect" rows="7" placeholder="Effect of the product" required></textarea>
+                                </div>
+                            </div>
+                        </div>
                         <!-- Ingredients -->
                         <div class="row">
                             <div class="col-lg-12">

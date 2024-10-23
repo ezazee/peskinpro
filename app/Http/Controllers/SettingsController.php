@@ -10,8 +10,9 @@ class SettingsController extends Controller
 {
 
     public function index(){
+        $welcomeMessage = 'Settings'; 
         $banners = Banner::all();
-        return view('backend.pages.settings.settings',compact('banners'));
+        return view('backend.pages.settings.settings',compact('banners','welcomeMessage'));
     }
 
     public function banner(Request $request){

@@ -10,6 +10,11 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\CartController; 
 use App\Http\Controllers\ChekoutController;
+use App\Http\Controllers\OrdersController;
+use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\UsersController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,6 +35,7 @@ Route::post('/product/create', [ProductController::class, 'create'])->name('prod
 Route::get('/product/list', [ProductController::class, 'list'])->name('product.list');
 Route::get('/products/{id}/edit', [ProductController::class, 'edit'])->name('product.edit');
 Route::put('/products/{id}', [ProductController::class, 'update'])->name('product.update');
+Route::get('/products/detail/{slug}', [ProductController::class, 'detail'])->name('product.detail');
 Route::delete('/product/delete{id}', [ProductController::class, 'destroy'])->name('product.destroy');
 
 // category
@@ -58,10 +64,8 @@ Route::middleware(['guest'])->group(function () {
     Route::post('/cart/decrease', [CartController::class, 'decreaseQuantity'])->name('cart.decrease');
 });
 
-// nologin
 // shop
 Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
-
 Route::get('/detail/{slug}', [ShopController::class, 'detail'])->name('shop.detail');
 
 // Route::get('/detail', function() {
@@ -69,6 +73,22 @@ Route::get('/detail/{slug}', [ShopController::class, 'detail'])->name('shop.deta
 // });
 Route::get('/checkout', [ChekoutController::class, 'index'])->name('chekout.index');
 Route::post('/checkout/process', [ChekoutController::class, 'processCheckout'])->name('checkout.process');
+
+// orders
+Route::get('/orders/list', [OrdersController::class, 'list'])->name('orders.list');
+Route::get('/orders/detail', [OrdersController::class, 'detail'])->name('orders.detail');
+
+// invoice
+Route::get('/invoice', [InvoiceController::class, 'index'])->name('invoice.index');
+Route::get('/invoice/detail', [InvoiceController::class, 'detail'])->name('invoice.detail');
+
+// users
+Route::get('/users/list', [UsersController::class, 'index'])->name('users.index');
+Route::get('/customers/list', [UsersController::class, 'customers'])->name('customers.index');
+
+
+
+
 
 
 Route::get('/about-us', function() {

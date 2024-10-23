@@ -13,8 +13,8 @@
 
                           <!-- Menu Toggle Button -->
                           <div class="topbar-item">
-                              <h4 class="fw-bold topbar-button pe-none text-uppercase mb-0">Welcome!</h4>
-                          </div>
+                            <h4 class="fw-bold topbar-button pe-none text-uppercase mb-0">{{ $welcomeMessage ?? 'Welcome!' }}</h4>
+                        </div>                        
                       </div>
 
                       <div class="d-flex align-items-center gap-1">

@@ -15,8 +15,8 @@
 
               <!-- Menu Toggle Button (sm-hover) -->
               <button type="button" class="button-sm-hover" aria-label="Show Full Sidebar">
-                  <iconify-icon icon="solar:double-alt-arrow-right-bold-duotone"
-                      class="button-sm-hover-icon"></iconify-icon>
+                  <iconify-icon icon="solar:double-alt-arrow-right-bold-duotone" class="button-sm-hover-icon">
+                  </iconify-icon>
               </button>
 
               <div class="scrollbar" data-simplebar>
@@ -34,8 +34,8 @@
                       </li>
 
                       <li class="nav-item">
-                          <a class="nav-link menu-arrow" href="#sidebarProducts" data-bs-toggle="collapse"
-                              role="button" aria-expanded="false" aria-controls="sidebarProducts">
+                          <a class="nav-link menu-arrow" href="#sidebarProducts" data-bs-toggle="collapse" role="button"
+                              aria-expanded="false" aria-controls="sidebarProducts">
                               <span class="nav-icon">
                                   <iconify-icon icon="solar:t-shirt-bold-duotone"></iconify-icon>
                               </span>
@@ -75,10 +75,7 @@
                               <ul class="nav sub-navbar-nav">
 
                                   <li class="sub-nav-item">
-                                      <a class="sub-nav-link" href="#">List</a>
-                                  </li>
-                                  <li class="sub-nav-item">
-                                      <a class="sub-nav-link" href="#">Details</a>
+                                      <a class="sub-nav-link" href="{{ route('orders.list') }}">List</a>
                                   </li>
                                   <li class="sub-nav-item">
                                       <a class="sub-nav-link" href="#">Cart</a>
@@ -91,48 +88,12 @@
                       </li>
 
                       <li class="nav-item">
-                          <a class="nav-link menu-arrow" href="#sidebarPurchases" data-bs-toggle="collapse"
-                              role="button" aria-expanded="false" aria-controls="sidebarPurchases">
-                              <span class="nav-icon">
-                                  <iconify-icon icon="solar:card-send-bold-duotone"></iconify-icon>
-                              </span>
-                              <span class="nav-text"> Purchases </span>
-                          </a>
-                          <div class="collapse" id="sidebarPurchases">
-                              <ul class="nav sub-navbar-nav">
-                                  <li class="sub-nav-item">
-                                      <a class="sub-nav-link" href="#">List</a>
-                                  </li>
-                                  <li class="sub-nav-item">
-                                      <a class="sub-nav-link" href="#">Order</a>
-                                  </li>
-                                  <li class="sub-nav-item">
-                                      <a class="sub-nav-link" href="#">Return</a>
-                                  </li>
-                              </ul>
-                          </div>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link menu-arrow" href="#sidebarInvoice" data-bs-toggle="collapse"
-                              role="button" aria-expanded="false" aria-controls="sidebarInvoice">
+                          <a class="nav-link" href="{{ route('invoice.index') }}">
                               <span class="nav-icon">
                                   <iconify-icon icon="solar:bill-list-bold-duotone"></iconify-icon>
                               </span>
                               <span class="nav-text"> Invoices </span>
                           </a>
-                          <div class="collapse" id="sidebarInvoice">
-                              <ul class="nav sub-navbar-nav">
-                                  <li class="sub-nav-item">
-                                      <a class="sub-nav-link" href="#">List</a>
-                                  </li>
-                                  <li class="sub-nav-item">
-                                      <a class="sub-nav-link" href="#">Details</a>
-                                  </li>
-                                  <li class="sub-nav-item">
-                                      <a class="sub-nav-link" href="#">Create</a>
-                                  </li>
-                              </ul>
-                          </div>
                       </li>
 
                       <li class="nav-item">
@@ -147,37 +108,12 @@
                       <li class="menu-title mt-2">Users</li>
 
                       <li class="nav-item">
-                          <a class="nav-link" href="#">
-                              <span class="nav-icon">
-                                  <iconify-icon icon="solar:chat-square-like-bold-duotone"></iconify-icon>
-                              </span>
-                              <span class="nav-text"> Profile </span>
-                          </a>
-                      </li>
-
-                      <li class="nav-item">
-                          <a class="nav-link menu-arrow" href="#sidebarRoles" data-bs-toggle="collapse"
-                              role="button" aria-expanded="false" aria-controls="sidebarRoles">
+                          <a class="nav-link" href="{{ route('users.index') }}">
                               <span class="nav-icon">
                                   <iconify-icon icon="solar:user-speak-rounded-bold-duotone"></iconify-icon>
                               </span>
                               <span class="nav-text"> Users </span>
                           </a>
-                          <div class="collapse" id="sidebarRoles">
-                              <ul class="nav sub-navbar-nav">
-                                  <ul class="nav sub-navbar-nav">
-                                      <li class="sub-nav-item">
-                                          <a class="sub-nav-link" href="#">List</a>
-                                      </li>
-                                      <li class="sub-nav-item">
-                                          <a class="sub-nav-link" href="#">Edit</a>
-                                      </li>
-                                      <li class="sub-nav-item">
-                                          <a class="sub-nav-link" href="#">Create</a>
-                                      </li>
-                                  </ul>
-                              </ul>
-                          </div>
                       </li>
 
                       <li class="nav-item">
@@ -192,37 +128,14 @@
                               <ul class="nav sub-navbar-nav">
 
                                   <li class="sub-nav-item">
-                                      <a class="sub-nav-link" href="#">List</a>
+                                      <a class="sub-nav-link" href="{{ route('customers.index') }}">List</a>
                                   </li>
                                   <li class="sub-nav-item">
-                                      <a class="sub-nav-link" href="#">Details</a>
-                                  </li>
-                              </ul>
-                          </div>
-                      </li>
-
-                      <li class="nav-item">
-                          <a class="nav-link menu-arrow" href="#sidebarSellers" data-bs-toggle="collapse"
-                              role="button" aria-expanded="false" aria-controls="sidebarSellers">
-                              <span class="nav-icon">
-                                  <iconify-icon icon="solar:shop-bold-duotone"></iconify-icon>
-                              </span>
-                              <span class="nav-text"> Sellers </span>
-                          </a>
-                          <div class="collapse" id="sidebarSellers">
-                              <ul class="nav sub-navbar-nav">
-                                  <li class="sub-nav-item">
-                                      <a class="sub-nav-link" href="#">List</a>
+                                      <a class="sub-nav-link" href="#">Affiliate</a>
                                   </li>
                                   <li class="sub-nav-item">
-                                      <a class="sub-nav-link" href="#">Details</a>
-                                  </li>
-                                  <li class="sub-nav-item">
-                                      <a class="sub-nav-link" href="#">Edit</a>
-                                  </li>
-                                  <li class="sub-nav-item">
-                                      <a class="sub-nav-link" href="#">Create</a>
-                                  </li>
+                                    <a class="sub-nav-link" href="#">Sellers</a>
+                                </li>
                               </ul>
                           </div>
                       </li>
@@ -230,8 +143,8 @@
                       <li class="menu-title mt-2">Other</li>
 
                       <li class="nav-item">
-                          <a class="nav-link menu-arrow" href="#sidebarCoupons" data-bs-toggle="collapse"
-                              role="button" aria-expanded="false" aria-controls="sidebarCoupons">
+                          <a class="nav-link menu-arrow" href="#sidebarCoupons" data-bs-toggle="collapse" role="button"
+                              aria-expanded="false" aria-controls="sidebarCoupons">
                               <span class="nav-icon">
                                   <iconify-icon icon="solar:leaf-bold-duotone"></iconify-icon>
                               </span>
@@ -247,15 +160,6 @@
                                   </li>
                               </ul>
                           </div>
-                      </li>
-
-                      <li class="nav-item">
-                          <a class="nav-link" href="#">
-                              <span class="nav-icon">
-                                  <iconify-icon icon="solar:chat-square-like-bold-duotone"></iconify-icon>
-                              </span>
-                              <span class="nav-text"> Reviews </span>
-                          </a>
                       </li>
 
                       <li class="menu-title mt-2">Other Apps</li>
