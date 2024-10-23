@@ -4,11 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CheckOngkirController;
-use App\Http\Controllers\CategoryController; 
-use App\Http\Controllers\SettingsController; 
-use App\Http\Controllers\HomeController; 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ShopController;
-use App\Http\Controllers\CartController; 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ChekoutController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\InvoiceController;
@@ -107,5 +107,9 @@ Route::get('/faq', function() {
 
 Route::get('/search-result', function() {
     return view('frontend.pages.search-result');
+});
+
+Route::get('/return-and-refunds', function() {
+    return view('frontend.pages.return-and-refunds');
 });
 

@@ -51,7 +51,7 @@
                                     <div class="">
                                         <input class="border-line px-4 py-3 w-full rounded-lg" id="postal" type="text" placeholder="Kode Pos" required />
                                     </div>
-                                    
+
                                 </div>
                                 <div class="block-button md:mt-10 mt-6">
                                     <button class="button-main w-full">Bayar Sekarang</button>
