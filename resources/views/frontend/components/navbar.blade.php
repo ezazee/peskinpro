@@ -213,7 +213,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="right flex gap-12">
+            <div class="right flex gap-5">
                 <div class="max-md:hidden search-icon flex items-center cursor-pointer relative">
                     <i class="ph-bold ph-magnifying-glass text-2xl"></i>
                     <div class="line absolute bg-line w-px h-6 -right-6"></div>
@@ -227,6 +227,36 @@
                         </div>
                     </a>
                 </div>
+                <div class="user-icon flex items-center justify-center cursor-pointer">
+                    <i class="ph-bold ph-user text-2xl"></i>
+                    <div class="login-popup absolute top-[74px] w-[320px] p-7 rounded-xl bg-white box-shadow-sm">
+                        <a href="/login" class="button-main w-full text-center">Login</a>
+                        <div class="text-secondary text-center mt-3 pb-4">
+                            Don’t have an account?
+                            <a href="/register" class="text-black pl-1 hover:underline">Register </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- After user login -->
+                <div class="user-info flex items-center justify-center cursor-pointer relative">
+                    <div class="avatar w-10 h-10 rounded-full bg-gray-300 overflow-hidden">
+                        <img src="https://media.istockphoto.com/id/517998264/vector/male-user-icon.jpg?b=1&s=612x612&w=0&k=20&c=XQPO5sxBVwANqHTIVNli3gnXLCbmcpOn-23biJPkO3E=" alt="User Avatar" class="w-full h-full object-cover">
+                    </div>
+                    <div class="user-name px-3">
+                        <span class="text-lg font-semibold">Demo User</span>
+                    </div>
+                    <!-- Dropdown for logged-in user -->
+                    <div class="user-popup absolute top-[74px] right-[200px] w-[320px] p-7 rounded-xl bg-white shadow-lg">
+                        <a href="/profile" class="button-main w-full text-center">Profile</a>
+                        <div class="text-secondary text-center mt-3 pb-4">
+                            Want to log out?
+                            <a href="/logout" class="text-black pl-1 hover:underline">Logout</a>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
         </div>
     </div>

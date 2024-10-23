@@ -75,7 +75,7 @@
                                         @csrf
                                         <input type="hidden" name="product_id" value="{{ $item->product->id ?? $item->id }}">
                                         <button type="submit"
-                                            class="remove-btn ph ph-x-circle text-2xl text-red cursor-pointer hover:text-black duration-300">
+                                            class="remove-btn ph ph-trash text-2xl text-red cursor-pointer hover:text-black duration-300">
                                         </button>
                                     </form>
                                 </div>

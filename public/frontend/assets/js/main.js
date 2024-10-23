@@ -176,12 +176,22 @@ if (searchIcon) {
 
 
 
+
+
 // Modal login
 const loginIcon = document.querySelector(".user-icon i");
 const loginPopup = document.querySelector(".login-popup");
 
 loginIcon?.addEventListener("click", () => {
     loginPopup.classList.toggle("open");
+});
+
+// Modal User After Login
+const userIcon = document.querySelector(".user-info");
+const userPopup = document.querySelector(".user-popup");
+
+userIcon.addEventListener("click", () => {
+    userPopup.classList.toggle("open");
 });
 
 // initialize the variable(cart, wishlist, compare) in local storage
