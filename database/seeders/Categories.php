@@ -16,7 +16,7 @@ class Categories extends Seeder
     {
         Category::create([
             'name' => 'Facial Care',
-            'slug' => Str::slug('name'),
+            'slug' => Str::slug('Facial Care'),
         ]);
 
     }

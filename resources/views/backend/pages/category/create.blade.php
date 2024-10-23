@@ -53,7 +53,7 @@
                                 <td>{{ $index+1 }}</td>
                                 <td>{{ $item->name }}</td>
                                 <td class="d-flex gap-2">
-                                    <a href="{{ route('category.edit', $item->id) }}" class="btn btn-primary btn-sm">Edit</a>
+                                    <a href="{{ route('category.edit', $item->slug) }}" class="btn btn-primary btn-sm">Edit</a>
                                     
                                     <form action="{{ route('category.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this category?');">
                                         @csrf

@@ -106,9 +106,7 @@
                                                                      <p class="text-muted mb-0 mt-1 fs-13"><span>Size : </span>M</p>
                                                                 </div>
                                                            </div>
-
                                                       </td>
-
                                                       <td>
                                                            <span class="badge bg-success-subtle text-success  px-2 py-1 fs-13">Ready</span>
                                                       </td>
@@ -117,82 +115,6 @@
                                                       <td> $3.00</td>
                                                       <td>
                                                            $83.00
-                                                      </td>
-                                                 </tr>
-
-
-                                                 <tr>
-                                                      <td>
-                                                           <div class="d-flex align-items-center gap-2">
-                                                                <div class="rounded bg-light avatar-md d-flex align-items-center justify-content-center">
-                                                                     <img src="assets/images/product/p-5.png" alt="" class="avatar-md">
-                                                                </div>
-                                                                <div>
-                                                                     <a href="#!" class="text-dark fw-medium fs-15">Dark Green Cargo Pent</a>
-                                                                     <p class="text-muted mb-0 mt-1 fs-13"><span>Size : </span>M</p>
-                                                                </div>
-                                                           </div>
-
-                                                      </td>
-
-                                                      <td>
-                                                           <span class="badge bg-light text-dark  px-2 py-1 fs-13">Packaging</span>
-                                                      </td>
-                                                      <td> 3</td>
-                                                      <td>$330.00</td>
-                                                      <td> $4.00</td>
-                                                      <td>
-                                                           $334.00
-                                                      </td>
-                                                 </tr>
-
-                                                 <tr>
-                                                      <td>
-                                                           <div class="d-flex align-items-center gap-2">
-                                                                <div class="rounded bg-light avatar-md d-flex align-items-center justify-content-center">
-                                                                     <img src="assets/images/product/p-8.png" alt="" class="avatar-md">
-                                                                </div>
-                                                                <div>
-                                                                     <a href="#!" class="text-dark fw-medium fs-15">Men Dark Brown Wallet</a>
-                                                                     <p class="text-muted mb-0 mt-1 fs-13"><span>Size : </span>S</p>
-                                                                </div>
-                                                           </div>
-
-                                                      </td>
-
-                                                      <td>
-                                                           <span class="badge bg-success-subtle text-success  px-2 py-1 fs-13">Ready</span>
-                                                      </td>
-                                                      <td> 1</td>
-                                                      <td>$132.00</td>
-                                                      <td> $5.00</td>
-                                                      <td>
-                                                           $137.00
-                                                      </td>
-                                                 </tr>
-
-                                                 <tr>
-                                                      <td>
-                                                           <div class="d-flex align-items-center gap-2">
-                                                                <div class="rounded bg-light avatar-md d-flex align-items-center justify-content-center">
-                                                                     <img src="assets/images/product/p-10.png" alt="" class="avatar-md">
-                                                                </div>
-                                                                <div>
-                                                                     <a href="#!" class="text-dark fw-medium fs-15">Kid's Yellow T-shirt</a>
-                                                                     <p class="text-muted mb-0 mt-1 fs-13"><span>Size : </span>S </p>
-                                                                </div>
-                                                           </div>
-
-                                                      </td>
-
-                                                      <td>
-                                                           <span class="badge bg-light text-dark  px-2 py-1 fs-13">Packaging</span>
-                                                      </td>
-                                                      <td> 2</td>
-                                                      <td>$220.00</td>
-                                                      <td> $3.00</td>
-                                                      <td>
-                                                           $223.00
                                                       </td>
                                                  </tr>
                                             </tbody>
@@ -376,13 +298,6 @@
                                             </td>
                                             <td class="text-end text-dark fw-medium px-0">$00.00</td>
                                        </tr>
-                                       <tr>
-                                            <td class="px-0">
-                                                 <p class="d-flex mb-0 align-items-center gap-1"><iconify-icon icon="solar:calculator-minimalistic-broken" class="align-middle"></iconify-icon> Estimated Tax (15.5%) : </p>
-                                            </td>
-                                            <td class="text-end text-dark fw-medium px-0">$20.00</td>
-                                       </tr>
-
                                   </tbody>
                              </table>
                         </div>
@@ -433,17 +348,11 @@
                         </div>
                         <div class="d-flex justify-content-between mt-3">
                              <h5 class="">Contact Number</h5>
-                             <div>
-                                  <a href="#!"><i class='bx bx-edit-alt fs-18'></i></a>
-                             </div>
                         </div>
                         <p class="mb-1">(723) 732-760-5760</p>
 
                         <div class="d-flex justify-content-between mt-3">
                              <h5 class="">Shipping Address</h5>
-                             <div>
-                                  <a href="#!"><i class='bx bx-edit-alt fs-18'></i></a>
-                             </div>
                         </div>
 
                         <div>
@@ -456,19 +365,9 @@
 
                         <div class="d-flex justify-content-between mt-3">
                              <h5 class="">Billing Address</h5>
-                             <div>
-                                  <a href="#!"><i class='bx bx-edit-alt fs-18'></i></a>
-                             </div>
                         </div>
 
                         <p class="mb-1">Same as shipping address</p>
-                   </div>
-              </div>
-              <div class="card">
-                   <div class="card-body">
-                        <div class="mapouter">
-                             <div class="gmap_canvas"><iframe class="gmap_iframe rounded" width="100%" style="height: 418px;" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=1980&amp;height=400&amp;hl=en&amp;q=University%20of%20Oxford&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe></div>
-                        </div>
                    </div>
               </div>
          </div>

@@ -13,6 +13,7 @@ use App\Http\Controllers\ChekoutController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\CouponsController;
 
 
 /*
@@ -33,7 +34,7 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 Route::get('/product/create', [ProductController::class, 'index'])->name('product.index');
 Route::post('/product/create', [ProductController::class, 'create'])->name('product.create');
 Route::get('/product/list', [ProductController::class, 'list'])->name('product.list');
-Route::get('/products/{id}/edit', [ProductController::class, 'edit'])->name('product.edit');
+Route::get('/products/{slug}/edit', [ProductController::class, 'edit'])->name('product.edit');
 Route::put('/products/{id}', [ProductController::class, 'update'])->name('product.update');
 Route::get('/products/detail/{slug}', [ProductController::class, 'detail'])->name('product.detail');
 Route::delete('/product/delete{id}', [ProductController::class, 'destroy'])->name('product.destroy');
@@ -41,7 +42,7 @@ Route::delete('/product/delete{id}', [ProductController::class, 'destroy'])->nam
 // category
 Route::get('/category', [CategoryController::class, 'index'])->name('category.index');
 Route::post('/category', [CategoryController::class, 'create'])->name('category.create');
-Route::get('/category/edit/{id}', [CategoryController::class, 'edit'])->name('category.edit');
+Route::get('/category/edit/{slug}', [CategoryController::class, 'edit'])->name('category.edit');
 Route::post('/category/update/{id}', [CategoryController::class, 'update'])->name('category.update');
 Route::delete('/category/delete/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
 
@@ -84,7 +85,22 @@ Route::get('/invoice/detail', [InvoiceController::class, 'detail'])->name('invoi
 
 // users
 Route::get('/users/list', [UsersController::class, 'index'])->name('users.index');
+Route::get('/users/create', [UsersController::class, 'create'])->name('users.create');
+Route::post('/users/add', [UsersController::class, 'add_admin'])->name('users.add_admin');
+Route::get('/users/{slug}/edit', [UsersController::class, 'edit_admin'])->name('users.edit_admin');
+Route::put('/users/update/{id}', [UsersController::class, 'update_admin'])->name('users.update_admin');
+Route::delete('/users/delete/{id}', [UsersController::class, 'destroy'])->name('users.destroy');
+
+
+
 Route::get('/customers/list', [UsersController::class, 'customers'])->name('customers.index');
+
+
+
+// coupons
+Route::get('/coupons/list', [CouponsController::class, 'index'])->name('coupons.index');
+Route::get('/coupons/create', [CouponsController::class, 'create'])->name('coupons.create');
+
 
 
 

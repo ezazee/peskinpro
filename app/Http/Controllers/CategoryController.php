@@ -30,10 +30,10 @@ class CategoryController extends Controller
 
     }
 
-    public function edit($id)
+    public function edit($slug)
     {
         $welcomeMessage = 'Edit Categories Products'; 
-        $category = Category::findOrFail($id);
+        $category = Category::where('slug', $slug)->firstOrFail();
         $categories = Category::paginate(10);
         return view('backend.pages.category.create', compact('category', 'categories','welcomeMessage'));
     }
@@ -52,9 +52,9 @@ class CategoryController extends Controller
     }
 
 
-    public function destroy($id)
+    public function destroy($slug)
     {
-        $category = Category::findOrFail($id); 
+        $category = Category::findOrFail($slug); 
         $category->delete();
 
         return redirect()->route('category.index')->with('success', 'Category deleted successfully.');

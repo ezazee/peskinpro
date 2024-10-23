@@ -75,11 +75,10 @@ class ProductController extends Controller
         return redirect()->route('product.index')->with('success', 'Product created successfully!');
     }
 
-    public function edit($id){
+    public function edit($slug){
         $welcomeMessage = 'Edit Products'; 
-        $product = Product::with(['category', 'imagedetail'])->findOrFail($id);
+        $product = Product::with(['category', 'imagedetail'])->where('slug', $slug)->firstOrFail();
         $categories = Category::all();
-        // dd($product);
         return view('backend.pages.product.edit', compact('product', 'categories','welcomeMessage'));
     }
 
