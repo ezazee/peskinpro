@@ -298,10 +298,11 @@
 
 /* Main color */
 :root {
-    --primary: #009cde;
+    --primary: #1D99D2;
+    --light-primary: #6db0cf;
     --gradient-primary: linear-gradient(128deg, rgba(78,137,255,1) 0%, rgba(122,216,255,1) 50%, rgba(0,156,222,1) 100%);
-    --secondary: #005580;
-    --tersiary: #0087ca;
+    --secondary: #4C83C3;
+    --tersiary: #F39E1E;
     --white: #ffffff;
     --black: #1f1f1f;
     --surface: #f7f7f7;
@@ -393,6 +394,14 @@ input[type="file"]::-webkit-file-upload-button {
 
 .bg-primary {
     background-color: var(--primary);
+}
+
+.bg-light-primary{
+    background-color: var(--light-primary);
+}
+
+.bg-secondary{
+    background-color: var(--secondary) !important;
 }
 
 .text-primary{
@@ -5020,4 +5029,9 @@ input[type="file"]::-webkit-file-upload-button {
     margin: 1rem 0;
     color: var(--black);
     line-height: 1.6;
+}
+
+.ul-list-refund li {
+    list-style: decimal !important;
+    padding: 10px 0 5px 0;
 }

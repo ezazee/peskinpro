@@ -12,15 +12,15 @@
                     <div class="flex gap-3 mt-3">
                         <div class="flex flex-col">
                             <span class="text-button text-sm">Email:</span>
-                            <span class="text-button mt-3 text-sm">No Hp:</span>
-                            <span class="text-button mt-3 text-sm">Alamat:</span>
+                            <span class="text-button mt-3 text-sm">No Whatsapp:</span>
+                            {{-- <span class="text-button mt-3 text-sm">Alamat:</span> --}}
                         </div>
                         <div class="flex flex-col">
                             <span class="text-sm">
                                 <a href="https://mail.google.com/mail/?view=cm&fs=1&to=adm.peskinproid@gmail.com" target="_blank">adm.peskinproid@gmail.com</a>
                             </span>
                             <span class="mt-[14px] text-sm"><a href="https://wa.me/6282123167895">0821-2316-7895</a></span>
-                            <span class="mt-3 pt-1 text-sm"><a href="https://www.google.com/maps/place/Ps.+Minggu,+Kota+Jakarta+Selatan,+Daerah+Khusus+Ibukota+Jakarta/@-6.2758611,106.8208611,15z/data=!4m16!1m9!3m8!1s0x2e69f20d0da8dec1:0x2ed1af546a9b32d3!2sPs.+Minggu,+Kota+Jakarta+Selatan,+Daerah+Khusus+Ibukota+Jakarta!3b1!8m2!3d-6.2896105!4d106.8399623!10e5!16zL20vMGc5d3d4!3m5!1s0x2e69f20d0da8dec1:0x2ed1af546a9b32d3!8m2!3d-6.2896105!4d106.8399623!16zL20vMGc5d3d4?entry=ttu&g_ep=EgoyMDI0MTAwMi4xIKXMDSoASAFQAw%3D%3D">Pasar Minggu (Kalibata), Jakarta Selatan, DKI Jakarta</a></span>
+                            {{-- <span class="mt-3 pt-1 text-sm"><a href="https://www.google.com/maps/place/Ps.+Minggu,+Kota+Jakarta+Selatan,+Daerah+Khusus+Ibukota+Jakarta/@-6.2758611,106.8208611,15z/data=!4m16!1m9!3m8!1s0x2e69f20d0da8dec1:0x2ed1af546a9b32d3!2sPs.+Minggu,+Kota+Jakarta+Selatan,+Daerah+Khusus+Ibukota+Jakarta!3b1!8m2!3d-6.2896105!4d106.8399623!10e5!16zL20vMGc5d3d4!3m5!1s0x2e69f20d0da8dec1:0x2ed1af546a9b32d3!8m2!3d-6.2896105!4d106.8399623!16zL20vMGc5d3d4?entry=ttu&g_ep=EgoyMDI0MTAwMi4xIKXMDSoASAFQAw%3D%3D">Pasar Minggu (Kalibata), Jakarta Selatan, DKI Jakarta</a></span> --}}
                         </div>
                     </div>
                 </div>
@@ -30,7 +30,7 @@
                     <div class="list-nav flex justify-between basis-1/2 max-md:basis-full gap-4">
                         <!-- Quick Shop Links -->
                         <div class="item flex flex-col basis-1/2">
-                            <div class="text-button-uppercase pb-3">Pintasan</div>
+                            <div class="text-button-uppercase pb-3">Shortcut</div>
                             <a class="caption1 has-line-before duration-300 w-fit"
                                 href="/shop">Sensifitas Kulit</a>
                             <a class="caption1 has-line-before duration-300 w-fit pt-2"
@@ -44,13 +44,13 @@
                         </div>
                         <!-- Customer Service Links -->
                         <div class="item flex flex-col basis-1/2">
-                            <div class="text-button-uppercase pb-3">Customer Services</div>
+                            <div class="text-button-uppercase pb-3">Services</div>
                             <a class="caption1 has-line-before duration-300 w-fit" href="/faq">FAQ</a>
                             <a class="caption1 has-line-before duration-300 w-fit pt-2" href="#">Shipping</a>
                             <a class="caption1 has-line-before duration-300 w-fit pt-2" href="#">Privacy
                                 Policy</a>
                             <a class="caption1 has-line-before duration-300 w-fit pt-2"
-                                href="#">Return &amp; Refund</a>
+                                href="/return-and-refunds">Return &amp; Refund</a>
                         </div>
                     </div>
 
@@ -71,22 +71,7 @@
                                     alt="Blibli" class="w-12">
                             </a>
                         </div>
-                        <div class="text-button-uppercase mt-5">Pembayaran</div>
-                        <div class="list-ecommerce flex items-center gap-6 mt-4">
-                            <a href="https://shopee.co.id/" target="_blank" aria-label="Shopee">
-                                <img src="{{ asset('frontend/assets/images/payment/mandiri.png') }}" alt="payment"
-                                    class="w-10"> </a>
-                            <a href="https://www.tokopedia.com/" target="_blank" aria-label="Tokopedia">
-                                <img src="{{ asset('frontend/assets/images/payment/gopay.png') }}" alt="payment"
-                                    class="w-10"> </a>
-                            <a href="https://www.blibli.com/" target="_blank" aria-label="Blibli">
-                                <img src="{{ asset('frontend/assets/images/payment/bca.webp') }}" alt="payment"
-                                    class="w-10"> </a>
-                            <a href="https://www.blibli.com/" target="_blank" aria-label="Blibli">
-                                <img src="{{ asset('frontend/assets/images/payment/qris.png') }}" alt="payment"
-                                    class="w-10"> </a>
-                        </div>
-                        <div class="text-button-uppercase mt-5">Ikuti Kami</div>
+                        <div class="text-button-uppercase mt-5">Temukan Kami</div>
                         <div class="list-social flex items-center gap-6 mt-4">
                             <a href="https://www.facebook.com/" target="_blank">
                                 <div class="icon-facebook text-2xl text-primary"></div>

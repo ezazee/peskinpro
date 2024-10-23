@@ -83,7 +83,7 @@
                                                     onclick="updatePrice({{ $size->id }}); setActive(this)">
                                                 <label for="size{{ $size->id }}"
                                                     class="size-item w-20 h-12 flex rounded-md items-center justify-center text-button bg-white border border-line">
-                                                    {{ $size->size }}
+                                                    {{ $size->size }} ML
                                                 </label>
 
                                             </div>
