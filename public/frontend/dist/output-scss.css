@@ -444,6 +444,10 @@ input[type="file"]::-webkit-file-upload-button {
     background-color: #a1a2af;
 }
 
+.bg-readonly{
+    background-color: var(--line);
+}
+
 .bg-linear {
     background: linear-gradient(238deg, #faf8f1 0%, #f6f3ef 99.66%);
 }
@@ -708,6 +712,33 @@ input[type="file"]::-webkit-file-upload-button {
     }
 }
 
+/* Modal */
+.user-popup {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(30px);
+    box-shadow: 0px 5px 10px 0px rgba(43, 52, 74, 0.2);
+    transition: all ease 0.4s;
+}
+
+.user-popup.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+@media (max-width: 1490px) {
+    .user-popup {
+        right: 16px;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .user-popup {
+        top: 56px !important;
+    }
+}
+
 .modal-newsletter,
 .modal-video-block,
 .modal-sizeguide-block,
@@ -715,7 +746,8 @@ input[type="file"]::-webkit-file-upload-button {
 .modal-order-detail-block,
 .modal-cart-block,
 .modal-wishlist-block,
-.modal-search-block {
+.modal-search-block
+.modal-alamat-block {
     position: fixed;
     top: 0;
     left: 0;

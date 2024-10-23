@@ -129,3 +129,18 @@ Route::get('/return-and-refunds', function() {
     return view('frontend.pages.return-and-refunds');
 });
 
+Route::get('/login', function() {
+    return view('frontend.pages.auth.login');
+});
+
+Route::get('/register', function() {
+    return view('frontend.pages.auth.regist');
+});
+
+Route::get('/profile', function() {
+    return view('frontend.pages.profile.profile');
+});
+
+Route::get('/address', function() {
+    return view('frontend.pages.profile.addres');
+});
