@@ -153,10 +153,10 @@
                           <div class="collapse" id="sidebarCoupons">
                               <ul class="nav sub-navbar-nav">
                                   <li class="sub-nav-item">
-                                      <a class="sub-nav-link" href="#">List</a>
+                                      <a class="sub-nav-link" href="{{ route('coupons.index') }}">List</a>
                                   </li>
                                   <li class="sub-nav-item">
-                                      <a class="sub-nav-link" href="#">Add</a>
+                                      <a class="sub-nav-link" href="{{ route('coupons.create') }}">Create</a>
                                   </li>
                               </ul>
                           </div>

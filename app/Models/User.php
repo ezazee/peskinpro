@@ -18,9 +18,16 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'first_name',
+        'last_name',
         'name',
+        'slug',
         'email',
+        'no_telp',
         'password',
+        'role_id',
+        'status',
+        'images',
     ];
 
     /**
@@ -33,6 +40,16 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function hasRole($role)
+    {
+        return $this->role->name === $role;
+    }
+
     /**
      * The attributes that should be cast.
      *
@@ -41,4 +58,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function alamat()
+    {
+        return $this->hasMany(Alamat::class);
+    }
+
 }

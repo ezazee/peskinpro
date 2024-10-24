@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Province extends Model
 {
     protected $guarded = [];
+    public function alamat()
+{
+    return $this->hasMany(Alamat::class);
+}
+
 }

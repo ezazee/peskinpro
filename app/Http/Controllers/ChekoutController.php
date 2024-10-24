@@ -23,7 +23,7 @@ class ChekoutController extends Controller
 
     public function processCheckout(Request $request)
     { 
-            $cartItemsInput = $request->input('cart_items');
+        $cartItemsInput = $request->input('cart_items');
 
         if (empty($cartItemsInput)) {
             return redirect()->back()->with('error', 'Tidak ada item yang dipilih.');
@@ -42,7 +42,6 @@ class ChekoutController extends Controller
             }
 
             $provinces = Province::pluck('name', 'province_id');
-            // dd($cartItems);
             return view('frontend.pages.checkout', compact('cartItems', 'provinces'));
         } else {
             return redirect()->back()->with('error', 'Tidak ada item yang dipilih.');

@@ -73,7 +73,7 @@
                                             <td>
                                                  <div class="d-flex gap-2">
                                                       <a href="{{ route('product.detail', $prod->slug) }}" class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
-                                                      <a href="{{ route('product.edit', $prod->id) }}" class="btn btn-soft-primary btn-sm"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
+                                                      <a href="{{ route('product.edit', $prod->slug) }}" class="btn btn-soft-primary btn-sm"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
                                                       <form action="{{ route('product.destroy', $prod->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this product?');">
                                                         @csrf
                                                         @method('DELETE')
