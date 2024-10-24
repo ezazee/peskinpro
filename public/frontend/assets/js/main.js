@@ -157,23 +157,22 @@ backMenuBtns.forEach((btn) => {
 const searchIcon = document.querySelector(".search-icon");
 const modalSearch = document.querySelector(".modal-search-block");
 const modalSearchMain = document.querySelector(
-    ".modal-search-block .modal-search-main"
+  ".modal-search-block .modal-search-main"
 );
 
 if (searchIcon) {
-    searchIcon.addEventListener("click", () => {
-        modalSearchMain.classList.add("open");
-    });
+  searchIcon.addEventListener("click", () => {
+    modalSearchMain.classList.add("open");
+  });
 
-    modalSearch.addEventListener("click", () => {
-        modalSearchMain.classList.remove("open");
-    });
+  modalSearch.addEventListener("click", () => {
+    modalSearchMain.classList.remove("open");
+  });
 
-    modalSearchMain.addEventListener("click", (e) => {
-        e.stopPropagation();
-    });
+  modalSearchMain.addEventListener("click", (e) => {
+    e.stopPropagation();
+  });
 }
-
 
 
 

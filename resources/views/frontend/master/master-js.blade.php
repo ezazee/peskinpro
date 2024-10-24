@@ -463,7 +463,7 @@
 
 
 <script>
-        document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         const items = document.querySelectorAll('.item-faq');
 
         items.forEach(item => {
@@ -479,5 +479,32 @@
                 });
             });
         });
+    });
+</script>
+
+
+{{-- Backdrop Modal New Address --}}
+<script>
+    // JavaScript untuk menampilkan/menyembunyikan modal
+    const modal = document.getElementById('customModal');
+    const backdrop = document.getElementById('backdrop');
+    const openModalButton = document.getElementById('addAddressButton');
+    const closeModalButtons = document.querySelectorAll('.modal-addres-close');
+
+    openModalButton.addEventListener('click', function() {
+        modal.classList.remove('hidden');
+        backdrop.classList.remove('hidden');
+    });
+
+    closeModalButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            modal.classList.add('hidden');
+            backdrop.classList.add('hidden');
+        });
+    });
+
+    backdrop.addEventListener('click', function() {
+        modal.classList.add('hidden');
+        backdrop.classList.add('hidden');
     });
 </script>

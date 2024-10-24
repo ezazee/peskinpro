@@ -746,8 +746,7 @@ input[type="file"]::-webkit-file-upload-button {
 .modal-order-detail-block,
 .modal-cart-block,
 .modal-wishlist-block,
-.modal-search-block
-.modal-alamat-block {
+.modal-search-block {
     position: fixed;
     top: 0;
     left: 0;
@@ -5067,3 +5066,47 @@ input[type="file"]::-webkit-file-upload-button {
     list-style: decimal !important;
     padding: 10px 0 5px 0;
 }
+
+    /* Modal Styling */
+    .modal-address {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        z-index: 1001;
+        width: 90%;
+        max-width: 500px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Close Button Styling */
+    .modal-addres-close {
+        cursor: pointer;
+        font-size: 1.5rem;
+        background: none;
+        border: none;
+        color: #333;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+
+    /* Backdrop Styling */
+    .modal-address-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(10px);
+        z-index: 1000;
+    }
+
+    /* Hiding Modal and Backdrop Initially */
+    .hidden {
+        display: none;
+    }
