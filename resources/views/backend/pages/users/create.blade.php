@@ -27,13 +27,13 @@
                             <div class="col-lg-4">
                                 <div class="mb-3">
                                     <label class="form-label">First Name</label>
-                                    <input type="text" name="first_name" class="form-control" placeholder="First name">
+                                    <input type="text" name="first_name" class="form-control" placeholder="First name" required>
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="mb-3">
                                     <label class="form-label">Last Name</label>
-                                    <input type="text" name="last_name" class="form-control" placeholder="Last name">
+                                    <input type="text" name="last_name" class="form-control" placeholder="Last name" required>
                                 </div>
                             </div>
                             <div class="col-lg-4">
@@ -49,7 +49,7 @@
                             <div class="col-lg-6">
                                 <div class="mb-3">
                                     <label for="role-tag" class="form-label">Email</label>
-                                    <input type="email" name="email" class="form-control" placeholder="Email">
+                                    <input type="email" name="email" class="form-control" placeholder="Email" required>
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -60,15 +60,18 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="mb-3">
-                                    <label for="role-tag" class="form-label">Password</label>
-                                    <input type="password" name="password" class="form-control" placeholder="Password">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+                                    @error('password')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Confirm Password</label>
-                                    <input type="password" name="password" class="form-control"
-                                        placeholder="Confirm Password">
+                                    <label for="confirm_password" class="form-label">Confirm Password</label>
+                                    <input type="password" id="password_confirmation" name="password_confirmation" class="form-control" placeholder="Confirm Password" required>
+                                    <small id="passwordError" class="text-danger" style="display:none;">Passwords do not match!</small>
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -102,4 +105,17 @@
     </form>
 </div>
 
+<script>
+    document.getElementById('password_confirmation').addEventListener('input', function() {
+        const password = document.getElementById('password').value;
+        const confirmPassword = this.value;
+        const errorText = document.getElementById('passwordError');
+        
+        if (password !== confirmPassword) {
+            errorText.style.display = 'block';
+        } else {
+            errorText.style.display = 'none';
+        }
+    });
+</script>
 @endsection

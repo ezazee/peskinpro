@@ -1,5 +1,9 @@
 @extends('backend.master.master-app')
-@section('title', 'Edit Users')
+    @if($users->role->name == 'user') 
+        @section('title', 'Edit Customers')
+    @else
+        @section('title', 'Edit Users')
+    @endif
 @section('content')
 
 <div class="container-xxl">
@@ -14,7 +18,11 @@
                             <label class="form-label">Image</label>
                             <input class="form-control form-control-sm" type="file" name="images">
                         </div>
+                        @if($users->images)
                         <img src="{{ asset('storage/' . $users->images) }}" alt="User Image" class="img-fluid rounded bg-light">
+                        @else
+                        <img src="{{ asset('/backend/assets/images/blank-profile.png') }}" alt="User Image" class="img-fluid rounded bg-light">
+                        @endif
                     </div>
                 </div>
             </div>
@@ -94,8 +102,12 @@
                     </div>
                     <div class="card-footer border-top">
                         <button type="submit" class="btn btn-secondary">Update Users</button>
-                        <a href="{{ route('users.index') }}" class="btn btn-danger">Cancel</a>
-                    </div>
+                        @if($users->role->name == 'user') <!-- Check if the user's role is 'user' -->
+                            <a href="{{ route('customers.index') }}" class="btn btn-danger">Cancel</a>
+                        @else
+                            <a href="{{ route('users.index') }}" class="btn btn-danger">Cancel</a>
+                        @endif
+                    </div>                    
                 </div>
             </div>
         </div>

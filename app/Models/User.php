@@ -49,6 +49,12 @@ class User extends Authenticatable
     {
         return $this->role->name === $role;
     }
+    
+    public function alamat()
+    {
+        return $this->hasMany(Alamat::class);
+    }
+
 
     /**
      * The attributes that should be cast.
@@ -59,9 +65,5 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function alamat()
-    {
-        return $this->hasMany(Alamat::class);
-    }
 
 }

@@ -15,7 +15,8 @@ class UsersController extends Controller
         $welcomeMessage = 'List Users';
         $users = User::whereDoesntHave('role', function($query) {
             $query->where('name', 'user');
-        })->paginate(5);
+        })->paginate(5);     
+        // dd($users);
         return view('backend.pages.users.list',compact('welcomeMessage','users'));
     }
 
@@ -26,7 +27,10 @@ class UsersController extends Controller
     }
 
     public function add_admin(Request $request){
-        // dd($request);
+        $request->validate([
+            'password' => 'required|min:8|confirmed',
+        ]);
+        
         $imagePath = null;
         if ($request->hasFile('images')) {
             $directory = 'profile';
@@ -37,7 +41,7 @@ class UsersController extends Controller
     
             $imagePath = $request->file('images')->store($directory, 'public'); 
         } else {
-            $imagePath = 'images/profile.png';
+            $imagePath = '';
         }
 
         User::create([
@@ -57,8 +61,14 @@ class UsersController extends Controller
     }
 
     public function edit_admin($slug){
-        $welcomeMessage = 'Edit Users'; 
+
         $users = User::where('slug', $slug)->firstOrFail();
+        if ($users->role->name === 'user') {
+            $welcomeMessage = 'Edit Customers';
+        }else {
+            $welcomeMessage = 'Edit Users';
+        }
+
         $roles = Role::all();
         return view('backend.pages.users.edit', compact('users','welcomeMessage','roles'));
     }
@@ -97,6 +107,10 @@ class UsersController extends Controller
             'status' => $request->input('status'),
             'images' => $imagePath,
         ]);
+
+        if ($users->role->name === 'user') {
+            return redirect()->route('customers.index')->with('success', 'Users updated successfully.');
+        }
     
         return redirect()->route('users.index')->with('success', 'Users updated successfully.');
     }
@@ -109,7 +123,16 @@ class UsersController extends Controller
     }
 
     public function customers(){
-        $welcomeMessage = 'List Customers'; 
-        return view('backend.pages.users.customers',compact('welcomeMessage'));
+        $welcomeMessage = 'List Customers';
+        $users = User::whereHas('role', function($query) {
+            $query->where('name', 'user');
+        })->with('alamat')->paginate(5);
+
+        $totalcustomers = User::whereHas('role', function($query) {
+            $query->where('name', 'user');
+        })->count();
+        // dd($totalcustomers);
+        
+        return view('backend.pages.users.customers',compact('welcomeMessage','users','totalcustomers'));
     }
 }

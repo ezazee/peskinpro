@@ -15,26 +15,25 @@
                         <div class="col-lg-4">
                             <div class="d-flex gap-2 align-items-center">
                                 <div class="form-check">
-                                     <input class="form-check-input" type="radio" name="flexRadioDefault5" id="flexRadioDefault9" checked="">
-                                     <label class="form-check-label" for="flexRadioDefault9">
+                                     <input class="form-check-input" type="radio" name="status" value="active" checked>
+                                     <label class="form-check-label">
                                           Active
                                      </label>
                                 </div>
-                                
                            </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault5" id="flexRadioDefault10">
-                                <label class="form-check-label" for="flexRadioDefault10">
+                                <input class="form-check-input" type="radio" name="status" value="inactive">
+                                <label class="form-check-label">
                                      In Active
                                 </label>
                            </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault5" id="flexRadioDefault11">
-                                <label class="form-check-label" for="flexRadioDefault11">
+                                <input class="form-check-input" type="radio" name="status" value="sheduled">
+                                <label class="form-check-label">
                                     Future Plan
                                 </label>
                            </div>
@@ -69,7 +68,7 @@
                         <div class="col-lg-4">
                             <div class="mb-3">
                                 <label for="coupons-code" class="form-label">Coupons Code</label>
-                                <input type="text" id="coupons-code" name="coupons-code" class="form-control" placeholder="Code enter">
+                                <input type="text" id="coupons-code" name="coupons-code" class="form-control" placeholder="Enter Code">
                            </div>
                         </div>
                         <div class="col-lg-4">
