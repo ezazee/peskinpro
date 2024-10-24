@@ -7,9 +7,24 @@
                 <div class="left md:w-1/2 w-full lg:pr-[60px] md:pr-[40px] md:border-r border-line">
                     <div class="heading4">Register</div>
                     <form class="md:mt-7 mt-4">
-                        <div class="email">
+                        <div class="grid sm:grid-cols-2 gap-4 gap-y-5">
+                            <div>
+                                <input class="border-line px-4 py-3 w-full rounded-lg" id="modalFirstName" type="text"
+                                    placeholder="Nama Depan" required />
+                            </div>
+                            <div>
+                                <input class="border-line px-4 py-3 w-full rounded-lg" id="modalLastName" type="text"
+                                    placeholder="Nama Belakang" required />
+                            </div>
+                            <!-- Form Lainnya Seperti Sebelumnya -->
+                        </div>
+                        <div class="email mt-5">
                             <input class="border-line px-4 pt-3 pb-3 w-full rounded-lg" id="username" type="email"
-                                placeholder="Username or email address *" required />
+                                placeholder="Masukan Email *" required />
+                        </div>
+                        <div class="wa mt-5">
+                            <input class="border-line px-4 pt-3 pb-3 w-full rounded-lg" id="whatsapp" type="number"
+                                placeholder="Masukan Nomor Whatsapp *" required />
                         </div>
                         <div class="pass mt-5">
                             <input class="border-line px-4 pt-3 pb-3 w-full rounded-lg" id="password" type="password"
@@ -17,7 +32,7 @@
                         </div>
                         <div class="confirm-pass mt-5">
                             <input class="border-line px-4 pt-3 pb-3 w-full rounded-lg" id="confirmPassword" type="password"
-                                placeholder="Confirm Password *" required />
+                                placeholder="Masukan Ulang Password *" required />
                         </div>
                         <div class="flex items-center mt-5">
                             <div class="block-input">
