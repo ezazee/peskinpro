@@ -5,19 +5,26 @@
             <div class="content-main flex gap-y-8 max-md:flex-col">
                 <div class="left md:w-1/2 w-full lg:pr-[60px] md:pr-[40px] md:border-r border-line">
                     <div class="heading4">Login</div>
-                    <form class="md:mt-7 mt-4">
+                    <form class="md:mt-7 mt-4" action="{{ route('userLogin') }}" method="POST">
+                        @csrf
                         <div class="email">
-                            <input class="border-line px-4 pt-3 pb-3 w-full rounded-lg" id="username" type="email"
+                            <input class="border-line px-4 pt-3 pb-3 w-full rounded-lg" name="email" type="email"
                                 placeholder="Username or email address *" required />
+                                @error('email')
+                                    <span class="text-sm text-red">{{ $message }}</span>
+                                @enderror
                         </div>
                         <div class="pass mt-5">
-                            <input class="border-line px-4 pt-3 pb-3 w-full rounded-lg" id="password" type="password"
+                            <input class="border-line px-4 pt-3 pb-3 w-full rounded-lg" name="password" type="password"
                                 placeholder="Password *" required />
+                                @error('password')
+                                    <span class="text-sm text-red">{{ $message }}</span>
+                                @enderror
                         </div>
                         <div class="flex items-center justify-between mt-5">
                             <div class="flex items-center">
                                 <div class="block-input">
-                                    <input type="checkbox" name="remember" id="remember" />
+                                    <input type="checkbox" name="remember" />
                                     <i class="ph-fill ph-check-square icon-checkbox text-2xl"></i>
                                 </div>
                                 <label for="remember" class="pl-2 cursor-pointer">Remember me</label>

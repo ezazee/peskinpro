@@ -14,6 +14,7 @@ use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\CouponsController;
+use App\Http\Controllers\AuthenticationController;
 
 
 /*
@@ -29,24 +30,6 @@ use App\Http\Controllers\CouponsController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
-
-Route::get('/product/create', [ProductController::class, 'index'])->name('product.index');
-Route::post('/product/create', [ProductController::class, 'create'])->name('product.create');
-Route::get('/product/list', [ProductController::class, 'list'])->name('product.list');
-Route::get('/products/{slug}/edit', [ProductController::class, 'edit'])->name('product.edit');
-Route::put('/products/{id}', [ProductController::class, 'update'])->name('product.update');
-Route::get('/products/detail/{slug}', [ProductController::class, 'detail'])->name('product.detail');
-Route::delete('/product/delete{id}', [ProductController::class, 'destroy'])->name('product.destroy');
-
-// category
-Route::get('/category', [CategoryController::class, 'index'])->name('category.index');
-Route::post('/category', [CategoryController::class, 'create'])->name('category.create');
-Route::get('/category/edit/{slug}', [CategoryController::class, 'edit'])->name('category.edit');
-Route::post('/category/update/{id}', [CategoryController::class, 'update'])->name('category.update');
-Route::delete('/category/delete/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
-
-
 // ongkir
 Route::get('/ongkir', [CheckOngkirController::class, 'index'])->name('index');
 Route::post('/ongkir', [CheckOngkirController::class, 'check_ongkir'])->name('check_ongkir');
@@ -57,52 +40,74 @@ Route::get('/settings', [SettingsController::class, 'index'])->name('settings.in
 Route::post('/banner', [SettingsController::class, 'banner'])->name('settings.banner');
 Route::delete('/banner/delete/s{id}', [SettingsController::class, 'deletebanner'])->name('deletebanner');
 
-Route::middleware(['guest'])->group(function () {
+Route::middleware(['userOrGuest'])->group(function () {
     Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
     Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart/increase', [CartController::class, 'increaseQuantity'])->name('cart.increase');
     Route::post('/cart/decrease', [CartController::class, 'decreaseQuantity'])->name('cart.decrease');
+    Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
+    Route::get('/detail/{slug}', [ShopController::class, 'detail'])->name('shop.detail');
 });
 
-// shop
-Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
-Route::get('/detail/{slug}', [ShopController::class, 'detail'])->name('shop.detail');
+Route::middleware(['auth', 'role:user'])->group(function () {
+    Route::get('/checkout', [ChekoutController::class, 'index'])->name('chekout.index');
+    Route::post('/checkout/process', [ChekoutController::class, 'processCheckout'])->name('checkout.process');
+});
 
-// Route::get('/detail', function() {
-//     return view('frontend.pages.detail');
-// });
-Route::get('/checkout', [ChekoutController::class, 'index'])->name('chekout.index');
-Route::post('/checkout/process', [ChekoutController::class, 'processCheckout'])->name('checkout.process');
 
-// orders
-Route::get('/orders/list', [OrdersController::class, 'list'])->name('orders.list');
-Route::get('/orders/detail', [OrdersController::class, 'detail'])->name('orders.detail');
+Route::get('/login', [AuthenticationController::class, 'index'])->name('login');
+Route::post('/login/user', [AuthenticationController::class, 'userLogin'])->name('userLogin');
 
-// invoice
-Route::get('/invoice', [InvoiceController::class, 'index'])->name('invoice.index');
-Route::get('/invoice/detail', [InvoiceController::class, 'detail'])->name('invoice.detail');
+Route::get('/pskinpro', [AuthenticationController::class, 'showadminLogin'])->name('showadminLogin');
 
-// users
-Route::get('/users/list', [UsersController::class, 'index'])->name('users.index');
-Route::get('/users/create', [UsersController::class, 'create'])->name('users.create');
-Route::post('/users/add', [UsersController::class, 'add_admin'])->name('users.add_admin');
-Route::get('/users/{slug}/edit', [UsersController::class, 'edit_admin'])->name('users.edit_admin');
-Route::put('/users/update/{id}', [UsersController::class, 'update_admin'])->name('users.update_admin');
-Route::delete('/users/delete/{id}', [UsersController::class, 'destroy'])->name('users.destroy');
+Route::get('/register', [AuthenticationController::class, 'show_register'])->name('show_register');
+Route::post('/register', [AuthenticationController::class, 'register'])->name('register');
+Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logout');
 
 
 
-Route::get('/customers/list', [UsersController::class, 'customers'])->name('customers.index');
+Route::middleware(['auth', 'role:Administrator'])->group(function () {
 
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('/product/create', [ProductController::class, 'index'])->name('product.index');
+    Route::post('/product/create', [ProductController::class, 'create'])->name('product.create');
+    Route::get('/product/list', [ProductController::class, 'list'])->name('product.list');
+    Route::get('/products/{slug}/edit', [ProductController::class, 'edit'])->name('product.edit');
+    Route::put('/products/{id}', [ProductController::class, 'update'])->name('product.update');
+    Route::get('/products/detail/{slug}', [ProductController::class, 'detail'])->name('product.detail');
+    Route::delete('/product/delete{id}', [ProductController::class, 'destroy'])->name('product.destroy');
 
+    // category
+    Route::get('/category', [CategoryController::class, 'index'])->name('category.index');
+    Route::post('/category', [CategoryController::class, 'create'])->name('category.create');
+    Route::get('/category/edit/{slug}', [CategoryController::class, 'edit'])->name('category.edit');
+    Route::post('/category/update/{id}', [CategoryController::class, 'update'])->name('category.update');
+    Route::delete('/category/delete/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
 
-// coupons
-Route::get('/coupons/list', [CouponsController::class, 'index'])->name('coupons.index');
-Route::get('/coupons/create', [CouponsController::class, 'create'])->name('coupons.create');
+    // orders
+    Route::get('/orders/list', [OrdersController::class, 'list'])->name('orders.list');
+    Route::get('/orders/detail', [OrdersController::class, 'detail'])->name('orders.detail');
 
+    // invoice
+    Route::get('/invoice', [InvoiceController::class, 'index'])->name('invoice.index');
+    Route::get('/invoice/detail', [InvoiceController::class, 'detail'])->name('invoice.detail');
 
+        // users
+    Route::get('/users/list', [UsersController::class, 'index'])->name('users.index');
+    Route::get('/users/create', [UsersController::class, 'create'])->name('users.create');
+    Route::post('/users/add', [UsersController::class, 'add_admin'])->name('users.add_admin');
+    Route::get('/users/{slug}/edit', [UsersController::class, 'edit_admin'])->name('users.edit_admin');
+    Route::put('/users/update/{id}', [UsersController::class, 'update_admin'])->name('users.update_admin');
+    Route::delete('/users/delete/{id}', [UsersController::class, 'destroy'])->name('users.destroy');
 
+    Route::get('/customers/list', [UsersController::class, 'customers'])->name('customers.index');
+
+    // coupons
+    Route::get('/coupons/list', [CouponsController::class, 'index'])->name('coupons.index');
+    Route::get('/coupons/create', [CouponsController::class, 'create'])->name('coupons.create');
+
+});
 
 
 
@@ -127,14 +132,6 @@ Route::get('/search-result', function() {
 
 Route::get('/return-and-refunds', function() {
     return view('frontend.pages.return-and-refunds');
-});
-
-Route::get('/login', function() {
-    return view('frontend.pages.auth.login');
-});
-
-Route::get('/register', function() {
-    return view('frontend.pages.auth.regist');
 });
 
 Route::get('/profile', function() {

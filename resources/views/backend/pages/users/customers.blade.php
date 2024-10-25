@@ -150,11 +150,18 @@
                                     </td>
                                     <td>{{ $item->email }}</td>
                                     <td> {{ $item->no_telp }} </td>
-                                    @foreach ($item->alamat as $alam)
-                                    <td> {{ $alam->street }} </td>
-                                    <td> {{ $alam->city->name ?? 'N/A' }} </td>
-                                    <td> {{ $alam->province->name ?? 'N/A' }} </td>
-                                    @endforeach
+                                    @if ($item->alamat->isEmpty())
+                                    <td>N/A</td>
+                                    <td>N/A</td>
+                                    <td>N/A</td>
+                                    @else
+                                        @foreach ($item->alamat as $alam)
+                                            <td>{{ $alam->street ?? 'N/A' }}</td>
+                                            <td>{{ $alam->city->name ?? 'N/A' }}</td>
+                                            <td>{{ $alam->province->name ?? 'N/A' }}</td>
+                                        @endforeach
+                                    @endif
+                                                            
                                     <td>
                                         @if ($item->status == 'active')
                                         <span class="badge bg-success-subtle text-success py-1 px-2">Active</span>
@@ -209,6 +216,28 @@
                                                                         value="{{ $item->no_telp }}" readonly>
                                                                 </div>
                                                             </div>
+                                                            @if ($item->alamat->isEmpty())
+                                                            <div class="col-lg-4">
+                                                                <div class="mb-3">
+                                                                    <label class="form-label">Province</label>
+                                                                    <input type="text" class="form-control"
+                                                                        value="No Province" readonly>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                <div class="mb-3">
+                                                                    <label class="form-label">City</label>
+                                                                    <input type="text" class="form-control"
+                                                                        value="No City" readonly>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <div class="mb-3">
+                                                                    <label class="form-label">Address</label>
+                                                                    <textarea class="form-control bg-light-subtle" rows="5" readonly>No Address</textarea>
+                                                                </div>
+                                                            </div>
+                                                            @else
                                                             @foreach ($item->alamat as $amat)
                                                             <div class="col-lg-4">
                                                                 <div class="mb-3">
@@ -231,6 +260,7 @@
                                                                 </div>
                                                             </div>
                                                             @endforeach
+                                                            @endif
                                                             <div class="col-lg-6">
                                                                 <p>User Status : 
                                                                     @if ($item->status == 'active')

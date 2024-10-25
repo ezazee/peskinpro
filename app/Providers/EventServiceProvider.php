@@ -17,9 +17,9 @@ class EventServiceProvider extends ServiceProvider
      * @var array<class-string, array<int, class-string>>
      */
     protected $listen = [
-        Authenticated::class => [
-            MergeCart::class,
-        ],
+        // Authenticated::class => [
+        //     MergeCart::class,
+        // ],
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],

@@ -29,7 +29,6 @@ class CartController extends Controller
     public function add(Request $request)
     {    
 
-        // dd($request);
         $product = Product::findOrFail($request->product_id);
         $productSizeId = $request->selected_size;
     

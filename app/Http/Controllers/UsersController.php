@@ -16,7 +16,6 @@ class UsersController extends Controller
         $users = User::whereDoesntHave('role', function($query) {
             $query->where('name', 'user');
         })->paginate(5);     
-        // dd($users);
         return view('backend.pages.users.list',compact('welcomeMessage','users'));
     }
 
