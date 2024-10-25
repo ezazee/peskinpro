@@ -18,44 +18,68 @@
                         </div>
 
                         {{-- Form Alamat Baru --}}
-                        <div class="recent_order pt-5 px-5 pb-2 mt-7 border border-line rounded-xl">
-                            <h6 class="heading6">List Alamat</h6>
-                            <div class="list overflow-x-auto w-full mt-5">
-                                <table class="w-full max-[1400px]:w-[700px] max-md:w-[700px]">
-                                    <thead class="border-b border-line">
-                                        <tr>
-                                            <th scope="col"
-                                                class="pb-3 text-left text-sm font-bold uppercase text-secondary whitespace-nowrap">
-                                                Label</th>
-                                            <th scope="col"
-                                                class="pb-3 text-left text-sm font-bold uppercase text-secondary whitespace-nowrap">
-                                                Alamat</th>
-                                            <th scope="col"
-                                                class="pb-3 text-left text-sm font-bold uppercase text-secondary whitespace-nowrap">
-                                                No Whatsapp</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="item duration-300 border-b border-line">
-                                            <th scope="row" class="py-3 text-left">
-                                                <strong class="text-title">Rumah Patra</strong>
-                                            </th>
-                                            <td class="py-3">
-                                                <div class="product flex items-center gap-3">
-                                                    <div class="info flex flex-col">
-                                                        <strong class="product_name text-button">Reza</strong>
-                                                        <span class="product_tag caption1 text-secondary">JL.Patra Keras</span>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>081321347634756</td>
-                                            <td class="py-3 text-right">
-                                                <span
-                                                    class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-success text-success caption1 font-semibold">Default</span>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                        <div class="recent_order px-5 pb-2 mt-7 border border-line rounded-xl">
+                            <h6 class="heading6 mt-5">List Alamat</h6>
+                            <div class="list-container-outline rounded-frame border-frame p-4">
+                                <div class="address-item rounded-frame relative p-4 mb-4 active">
+                                    <strong class="address-title block mb-2">Office Patra</strong>
+                                    <p class="name-text">Reza</p>
+                                    <p class="address-description text-secondary py-3">Jl. Dukuh Patra No.75 RT.01/RW.13 Menteng dalam, Tebet</p>
+                                    <p class="contact-text">6281313711180</p>
+                                    <div class="action-list mt-3 flex gap-3">
+                                        <a href="#" class="link-text">Edit Address</a>
+                                        <a href="#" class="link-text">Delete</a>
+                                    </div>
+                                    <span class="check-badge absolute top-4 right-4">Default</span>
+                                </div>
+
+                                <div class="address-item rounded-frame relative p-4 mb-4">
+                                    <strong class="address-title block mb-2">Garut House</strong>
+                                    <p class="name-text">Reza</p>
+                                    <p class="address-description text-secondary py-3">Jl. Pembangunan (Gang Haji Usman, near Al-usman Mosque)</p>
+                                    <p class="contact-text">6281313711180</p>
+                                    <div class="action-list mt-3 flex gap-3">
+                                        <a href="#" class="link-text">Edit Address</a>
+                                        <a href="#" class="link-text">Delete</a>
+                                    </div>
+                                    <button class="default-badge absolute top-4 right-4">Pilih</button>
+                                </div>
+
+                                <div class="address-item rounded-frame relative p-4 mb-4">
+                                    <strong class="address-title block mb-2">Garut House</strong>
+                                    <p class="name-text">Reza</p>
+                                    <p class="address-description text-secondary py-3">Jl. Pembangunan (Gang Haji Usman, near Al-usman Mosque)</p>
+                                    <p class="contact-text">6281313711180</p>
+                                    <div class="action-list mt-3 flex gap-3">
+                                        <a href="#" class="link-text">Edit Address</a>
+                                        <a href="#" class="link-text">Delete</a>
+                                    </div>
+                                    <button class="default-badge absolute top-4 right-4">Pilih</button>
+                                </div>
+
+                                <div class="address-item rounded-frame relative p-4 mb-4">
+                                    <strong class="address-title block mb-2">Garut House</strong>
+                                    <p class="name-text">Reza</p>
+                                    <p class="address-description text-secondary py-3">Jl. Pembangunan (Gang Haji Usman, near Al-usman Mosque)</p>
+                                    <p class="contact-text">6281313711180</p>
+                                    <div class="action-list mt-3 flex gap-3">
+                                        <a href="#" class="link-text">Edit Address</a>
+                                        <a href="#" class="link-text">Delete</a>
+                                    </div>
+                                    <button class="default-badge absolute top-4 right-4">Pilih</button>
+                                </div>
+
+                                <div class="address-item rounded-frame relative p-4 mb-4">
+                                    <strong class="address-title block mb-2">Garut House</strong>
+                                    <p class="name-text">Reza</p>
+                                    <p class="address-description text-secondary py-3">Jl. Pembangunan (Gang Haji Usman, near Al-usman Mosque)</p>
+                                    <p class="contact-text">6281313711180</p>
+                                    <div class="action-list mt-3 flex gap-3">
+                                        <a href="#" class="link-text">Edit Address</a>
+                                        <a href="#" class="link-text">Delete</a>
+                                    </div>
+                                    <button class="default-badge absolute top-4 right-4">Pilih</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -82,7 +106,7 @@
                     <!-- Form Lainnya Seperti Sebelumnya -->
                 </div>
                 <div class="modal-footer mt-5">
-                    <button type="submit" class="button-main text-white text-xs py-1 rounded-lg flex items-center">Simpan
+                    <button type="submit" class="button-main text-xs py-1 rounded-lg flex items-center">Simpan
                         Alamat</button>
                 </div>
             </form>

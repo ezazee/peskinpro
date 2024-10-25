@@ -299,7 +299,7 @@
 /* Main color */
 :root {
     --primary: #1D99D2;
-    --light-primary: #6db0cf;
+    --light-primary: #d9f4ff;
     --gradient-primary: linear-gradient(128deg, rgba(78,137,255,1) 0%, rgba(122,216,255,1) 50%, rgba(0,156,222,1) 100%);
     --secondary: #4C83C3;
     --tersiary: #F39E1E;
@@ -393,7 +393,7 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 .bg-primary {
-    background-color: var(--primary);
+    background-color: var(--primary) !important;
 }
 
 .bg-light-primary{
@@ -405,7 +405,7 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 .text-primary{
-    color: var(--primary);
+    color: var(--primary) !important;
 }
 
 .bg-gradient-primary{
@@ -561,8 +561,8 @@ input[type="file"]::-webkit-file-upload-button {
     line-height: 20px;
     font-weight: 600;
     text-transform: uppercase;
-    color: var(--white);
-    background-color: var(--primary);
+    color: var(--white) !important;
+    background-color: var(--primary) !important;
     padding: 16px 20px;
     border-radius: 12px;
     display: inline-block;
@@ -570,9 +570,9 @@ input[type="file"]::-webkit-file-upload-button {
     transition: all ease 0.4s;
 }
 .button-main:hover {
-    background-color: var(--white);
-    color: var(--primary);
-    border: 1px solid var(--primary);
+    background-color: var(--white) !important;
+    color: var(--primary) !important;
+    border: 1px solid var(--primary) !important;
 }
 .button-main:hover svg path {
     fill: var(--black);
@@ -5109,4 +5109,85 @@ input[type="file"]::-webkit-file-upload-button {
     /* Hiding Modal and Backdrop Initially */
     .hidden {
         display: none;
+    }
+
+
+    .list-container-outline {
+        max-width: 100%;
+        background-color: #fff;
+    }
+
+    .address-item {
+        position: relative;
+        padding: 16px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        margin-bottom: 16px;
+    }
+
+    .address-title {
+        font-size: 1.125rem;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .name-text, .contact-text {
+        font-size: 1rem;
+        color: #333;
+    }
+
+    .address-description {
+        font-size: 0.875rem;
+        color: #666;
+    }
+
+    .link-text {
+        color: var(--primary);
+        font-size: 0.875rem;
+        text-decoration: none;
+    }
+
+    .link-text:hover {
+        text-decoration: underline;
+    }
+
+    .action-list {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+
+    .rounded-frame {
+        border-radius: 8px;
+    }
+
+    .check-badge, .default-badge {
+        position: absolute;
+        font-size: 1.125rem;
+        font-weight: bold;
+    }
+
+    .default-badge {
+        top: 10px;
+        right: 10px;
+        color: #fff;
+        background-color: var(--primary);
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.75rem;
+    }
+
+    .icon-location {
+        font-size: 1rem;
+        color: var(--primary);
+    }
+
+    /* Style for active address box */
+    .address-item.active {
+        border: 1px solid var(--primary);
+        background-color: var(--light-primary);
+    }
+
+    .address-item.active .check-badge {
+        color: var(--primary);
     }

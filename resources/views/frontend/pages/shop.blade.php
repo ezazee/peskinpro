@@ -6,7 +6,7 @@
             <div class="container py-16 relative">
                 <div class="main-content w-full h-full flex flex-col items-center justify-center relative z-[1]">
                     <div class="text-content">
-                        <div class="heading2 text-center text-white">Our Product</div>
+                        <div class="heading2 text-center text-primary">Our Product</div>
                     </div>
                 </div>
             </div>

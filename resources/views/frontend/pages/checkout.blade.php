@@ -7,9 +7,18 @@
         <div class="container">
             <div class="content-main flex max-lg:flex-col-reverse gap-y-10 justify-between">
                 <div class="left lg:w-1/2">
+                    <div class="heading5 pb-3">Informasi Pengiriman</div>
+                    <div class="address-item rounded-frame relative p-4 mb-4">
+                        <strong class="address-title block mb-2">Garut House</strong>
+                        <p class="name-text">Reza</p>
+                        <p class="address-description text-secondary py-2">Jl. Pembangunan (Gang Haji Usman, near Al-usman Mosque)</p>
+                        <p class="contact-text">6281313711180</p>
+                        <div class="action-list mt-3 flex gap-3">
+                            <a href="#" class="link-text">Pilih Alamat Lain</a>
+                        </div>
+                    </div>
                     <div class="information mt-5">
-                        <div class="heading5">Informasi Pengiriman</div>
-                        <div class="form-checkout mt-5">
+                        {{-- <div class="form-checkout mt-5">
                             <form>
                                 <div class="grid sm:grid-cols-2 gap-4 gap-y-5 flex-wrap">
                                     <div class="">
@@ -57,36 +66,44 @@
                                     <button class="button-main w-full">Bayar Sekarang</button>
                                 </div>
                             </form>
+                        </div> --}}
+                        <div class="recent_order px-5 pb-2 mt-7 border border-line rounded-xl">
+                            <div class="list-product-checkout">
+                                @foreach ($cartItems as $item)
+                                <div class="item flex items-center justify-between w-full pb-5 gap-6 mt-5">
+                                    <div class="bg-img w-[100px] aspect-square flex-shrink-0 rounded-lg overflow-hidden">
+                                        <img src="{{ asset('frontend/assets/images/product/peskin/contoh1.png') }}" alt="img" class="w-full h-full">
+                                    </div>
+                                    <div class="flex items-center justify-between w-full">
+                                        <div>
+                                            <div class="name text-title">{{ $item->product->name }}</div>
+                                            <div class="caption1 text-secondary mt-2">
+                                                <span class="capitalize">{{$item->productSize->size}}ML</span>
+                                            </div>
+                                        </div>
+                                        <div class="text-title">
+                                            <span class="quantity">{{ $item->quantity }}</span>
+                                            <span class="px-0.5">x</span>
+                                            <span>
+                                                {{ ($item->productSize->price) - ($item->productSize->discount) }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-span-full select-block">
+                                    <select class="border border-line px-4 py-3 w-full rounded-lg" id="region" name="region">
+                                        <option value="default" readonly>Cek Ongkir</option>
+                                    </select>
+                                    <i class="ph ph-caret-down arrow-down"></i>
+                                </div>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="right lg:w-5/12">
                     <div class="checkout-block">
                         <div class="heading5 pb-3">List Orderan</div>
-                        <div class="list-product-checkout">
-                            @foreach ($cartItems as $item)
-                            <div class="item flex items-center justify-between w-full pb-5 border-b border-line gap-6 mt-5">
-                                <div class="bg-img w-[100px] aspect-square flex-shrink-0 rounded-lg overflow-hidden">
-                                    <img src="{{ asset('frontend/assets/images/product/peskin/contoh1.png') }}" alt="img" class="w-full h-full">
-                                </div>
-                                <div class="flex items-center justify-between w-full">
-                                    <div>
-                                        <div class="name text-title">{{ $item->product->name }}</div>
-                                        <div class="caption1 text-secondary mt-2">
-                                            <span class="capitalize">{{$item->productSize->size}}ML</span>
-                                        </div>
-                                    </div>
-                                    <div class="text-title">
-                                        <span class="quantity">{{ $item->quantity }}</span>
-                                        <span class="px-1">x</span>
-                                        <span>
-                                            {{ ($item->productSize->price) - ($item->productSize->discount) }}
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            @endforeach
-                        </div>
                         <div class="discount-block py-5 flex justify-between border-b border-line">
                             <div class="text-title">Diskon</div>
                             <div class="text-title">-Rp.<span class="discount">0</span></div>
