@@ -2336,7 +2336,7 @@ input[type="file"]::-webkit-file-upload-button {
     position: fixed;
     background-color: var(--white);
     box-shadow: 0px 10px 25px 0px rgba(43, 52, 74, 0.12);
-    top: 44px; /* Sesuaikan dengan tinggi top-nav */
+    top: 39px; /* Sesuaikan dengan tinggi top-nav */
     z-index: 998;
     animation: animateHeader ease 0.5s;
 }

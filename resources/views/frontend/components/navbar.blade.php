@@ -17,6 +17,12 @@
                             Home </a>
                     </li>
 
+                    <li class="h-full relative">
+                        <a href="/shop"
+                            class="text-button-uppercase duration-300 h-full flex items-center justify-center gap-1">
+                            Our Product </a>
+                    </li>
+
                     <li class="h-full">
                         <a href="/shop"
                             class="text-button-uppercase duration-300 h-full flex items-center justify-center"> Best
@@ -191,25 +197,184 @@
                         </div>
                     </li>
 
-                    <li class="h-full relative">
-                        <a href="#"
-                            class="text-button-uppercase duration-300 h-full flex items-center justify-center gap-1">
-                            Toner </a>
+                    <li class="h-full">
+                        <a href="/shop"
+                            class="text-button-uppercase duration-300 h-full flex items-center justify-center">
+                            Promotion
+                        </a>
+                        <div class="mega-menu absolute top-[74px] left-0 bg-white w-screen">
+                            <div class="container">
+                                <div class="flex justify-around py-8">
+                                    <div class="recent-product">
+                                        <div class="text-button-uppercase pb-2">Promotion</div>
+                                        <div class="list-product hide-product-sold flex overflow-x-auto mt-3 gap-2">
+                                            <div class="product-item grid-type w-32">
+                                                <!-- Ubah width menjadi lebih kecil -->
+                                                <div class="product-main cursor-pointer block">
+                                                    <div
+                                                        class="product-thumb bg-white relative overflow-hidden rounded-lg">
+                                                        <!-- Kurangi ukuran border-radius -->
+                                                        <div class="product-img w-full h-32">
+                                                            <!-- Sesuaikan tinggi produk -->
+                                                            <img class="w-full h-full object-cover duration-300"
+                                                                src="{{ asset('frontend/assets/images/product/peskin/contoh1.png') }}"
+                                                                alt="img" />
+                                                            <img class="w-full h-full object-cover duration-300"
+                                                                src="{{ asset('frontend/assets/images/product/peskin/contoh-hover1.jpg') }}"
+                                                                alt="img" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="product-infor mt-2">
+                                                        <div class="product-name text-sm">Faux-leather trousers</div>
+                                                        <!-- Ukuran teks lebih kecil -->
+                                                        <div class="product-price-block flex items-center gap-1 mt-1">
+                                                            <div class="product-price text-sm">Rp.5150</div>
+                                                            <!-- Ukuran harga lebih kecil -->
+                                                            <div class="product-origin-price text-xs text-secondary2">
+                                                                <del>$50.00</del>
+                                                            </div>
+                                                            <div
+                                                                class="product-sale text-xs bg-primary text-white px-2 py-0.5 rounded-full">
+                                                                -20%
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Tambahkan produk lainnya -->
+                                            <div class="product-item grid-type w-32">
+                                                <!-- Ubah width menjadi lebih kecil -->
+                                                <div class="product-main cursor-pointer block">
+                                                    <div
+                                                        class="product-thumb bg-white relative overflow-hidden rounded-lg">
+                                                        <!-- Kurangi ukuran border-radius -->
+                                                        <div class="product-img w-full h-32">
+                                                            <!-- Sesuaikan tinggi produk -->
+                                                            <img class="w-full h-full object-cover duration-300"
+                                                                src="{{ asset('frontend/assets/images/product/peskin/contoh1.png') }}"
+                                                                alt="img" />
+                                                            <img class="w-full h-full object-cover duration-300"
+                                                                src="{{ asset('frontend/assets/images/product/peskin/contoh-hover1.jpg') }}"
+                                                                alt="img" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="product-infor mt-2">
+                                                        <div class="product-name text-sm">Faux-leather trousers</div>
+                                                        <!-- Ukuran teks lebih kecil -->
+                                                        <div class="product-price-block flex items-center gap-1 mt-1">
+                                                            <div class="product-price text-sm">Rp.5150</div>
+                                                            <!-- Ukuran harga lebih kecil -->
+                                                            <div class="product-origin-price text-xs text-secondary2">
+                                                                <del>$50.00</del>
+                                                            </div>
+                                                            <div
+                                                                class="product-sale text-xs bg-primary text-white px-2 py-0.5 rounded-full">
+                                                                -20%
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Tambahkan produk lainnya -->
+                                            <div class="product-item grid-type w-32">
+                                                <!-- Ubah width menjadi lebih kecil -->
+                                                <div class="product-main cursor-pointer block">
+                                                    <div
+                                                        class="product-thumb bg-white relative overflow-hidden rounded-lg">
+                                                        <!-- Kurangi ukuran border-radius -->
+                                                        <div class="product-img w-full h-32">
+                                                            <!-- Sesuaikan tinggi produk -->
+                                                            <img class="w-full h-full object-cover duration-300"
+                                                                src="{{ asset('frontend/assets/images/product/peskin/contoh1.png') }}"
+                                                                alt="img" />
+                                                            <img class="w-full h-full object-cover duration-300"
+                                                                src="{{ asset('frontend/assets/images/product/peskin/contoh-hover1.jpg') }}"
+                                                                alt="img" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="product-infor mt-2">
+                                                        <div class="product-name text-sm">Faux-leather trousers</div>
+                                                        <!-- Ukuran teks lebih kecil -->
+                                                        <div class="product-price-block flex items-center gap-1 mt-1">
+                                                            <div class="product-price text-sm">Rp.5150</div>
+                                                            <!-- Ukuran harga lebih kecil -->
+                                                            <div class="product-origin-price text-xs text-secondary2">
+                                                                <del>$50.00</del>
+                                                            </div>
+                                                            <div
+                                                                class="product-sale text-xs bg-primary text-white px-2 py-0.5 rounded-full">
+                                                                -20%
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Tambahkan produk lainnya -->
+                                            <div class="product-item grid-type w-32">
+                                                <!-- Ubah width menjadi lebih kecil -->
+                                                <div class="product-main cursor-pointer block">
+                                                    <div
+                                                        class="product-thumb bg-white relative overflow-hidden rounded-lg">
+                                                        <!-- Kurangi ukuran border-radius -->
+                                                        <div class="product-img w-full h-32">
+                                                            <!-- Sesuaikan tinggi produk -->
+                                                            <img class="w-full h-full object-cover duration-300"
+                                                                src="{{ asset('frontend/assets/images/product/peskin/contoh1.png') }}"
+                                                                alt="img" />
+                                                            <img class="w-full h-full object-cover duration-300"
+                                                                src="{{ asset('frontend/assets/images/product/peskin/contoh-hover1.jpg') }}"
+                                                                alt="img" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="product-infor mt-2">
+                                                        <div class="product-name text-sm">Faux-leather trousers</div>
+                                                        <!-- Ukuran teks lebih kecil -->
+                                                        <div class="product-price-block flex items-center gap-1 mt-1">
+                                                            <div class="product-price text-sm">Rp.5150</div>
+                                                            <!-- Ukuran harga lebih kecil -->
+                                                            <div class="product-origin-price text-xs text-secondary2">
+                                                                <del>$50.00</del>
+                                                            </div>
+                                                            <div
+                                                                class="product-sale text-xs bg-primary text-white px-2 py-0.5 rounded-full">
+                                                                -20%
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Tambahkan produk lainnya -->
+                                            <div class="product-item grid-type w-32">
+                                                <div class="product-main cursor-pointer block">
+                                                    <div
+                                                        class="product-thumb bg-white relative overflow-hidden rounded-lg">
+                                                        <div
+                                                            class="product-img w-full h-32 flex items-center text-center justify-center">
+                                                            <!-- Gambar panah -->
+                                                            <i class="ph ph-arrow-right text-2xl text-primary"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="product-infor mt-2 text-center">
+                                                        <!-- Teks "Semua Produk" -->
+                                                        <div class="product-name text-sm font-bold text-primary">
+                                                            Semua Produk
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
                     </li>
+
                     <li class="h-full relative">
                         <a href="#"
                             class="text-button-uppercase duration-300 h-full flex items-center justify-center gap-1">
-                            Serum </a>
-                    </li>
-                    <li class="h-full relative">
-                        <a href="#"
-                            class="text-button-uppercase duration-300 h-full flex items-center justify-center gap-1">
-                            Facial Wash </a>
-                    </li>
-                    <li class="h-full relative">
-                        <a href="#"
-                            class="text-button-uppercase duration-300 h-full flex items-center justify-center gap-1">
-                            Moisturizer </a>
+                            Artikel </a>
                     </li>
                 </ul>
             </div>
@@ -228,36 +393,39 @@
                     </a>
                 </div>
                 @if (Auth::check())
-                <div class="user-info flex items-center justify-center cursor-pointer relative">
-                    <div class="avatar w-10 h-10 rounded-full bg-gray-300 overflow-hidden">
-                        <img src="https://media.istockphoto.com/id/517998264/vector/male-user-icon.jpg?b=1&s=612x612&w=0&k=20&c=XQPO5sxBVwANqHTIVNli3gnXLCbmcpOn-23biJPkO3E=" alt="User Avatar" class="w-full h-full object-cover">
-                    </div>
-                    <div class="user-name px-3">
-                        <span class="text-lg font-semibold">{{ Auth::user()->name }}</span>
-                    </div>
-                    <!-- Dropdown for logged-in user -->
-                    <div class="user-popup absolute top-[74px] right-[200px] w-[320px] p-7 rounded-xl bg-white shadow-lg">
-                        <a href="/profile" class="button-main w-full text-center">Profile</a>
-                        <div class="text-secondary text-center mt-3 pb-4">
-                            Want to log out?
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: inline;">
-                                @csrf
-                                <button type="submit" class="text-black pl-1 hover:underline">Logout</button>
-                            </form> 
+                    <div class="user-info flex items-center justify-center cursor-pointer relative">
+                        <div class="avatar w-7 h-7 rounded-full bg-gray-300 overflow-hidden">
+                            <img src="https://media.istockphoto.com/id/517998264/vector/male-user-icon.jpg?b=1&s=612x612&w=0&k=20&c=XQPO5sxBVwANqHTIVNli3gnXLCbmcpOn-23biJPkO3E="
+                                alt="User Avatar" class="w-full h-full object-cover">
+                        </div>
+                        <div class="user-name px-1">
+                            <span class="text-sm font-semibold">{{ Auth::user()->name }}</span>
+                        </div>
+                        <!-- Dropdown for logged-in user -->
+                        <div
+                            class="user-popup absolute top-[74px] right-[200px] w-[320px] p-7 rounded-xl bg-white shadow-lg">
+                            <a href="/profile" class="button-main w-full text-center">Profile</a>
+                            <div class="text-secondary text-center mt-3 pb-4">
+                                Want to log out?
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                    style="display: inline;">
+                                    @csrf
+                                    <button type="submit" class="text-black pl-1 hover:underline">Logout</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
                 @else
-                <div class="user-icon flex items-center justify-center cursor-pointer">
-                    <i class="ph-bold ph-user text-2xl"></i>
-                    <div class="login-popup absolute top-[74px] w-[320px] p-7 rounded-xl bg-white box-shadow-sm">
-                        <a href="/login" class="button-main w-full text-center">Login</a>
-                        <div class="text-secondary text-center mt-3 pb-4">
-                            Don’t have an account?
-                            <a href="/register" class="text-black pl-1 hover:underline">Register </a>
+                    <div class="user-icon flex items-center justify-center cursor-pointer">
+                        <i class="ph-bold ph-user text-2xl"></i>
+                        <div class="login-popup absolute top-[74px] w-[320px] p-7 rounded-xl bg-white box-shadow-sm">
+                            <a href="/login" class="button-main w-full text-center">Login</a>
+                            <div class="text-secondary text-center mt-3 pb-4">
+                                Don’t have an account?
+                                <a href="/register" class="text-black pl-1 hover:underline">Register </a>
+                            </div>
                         </div>
                     </div>
-                </div>
                 @endif
             </div>
         </div>

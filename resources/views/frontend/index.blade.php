@@ -168,7 +168,7 @@
     {{-- List Product --}}
     <div class="shop-product py-10">
         <div class="container">
-            <div class="heading3 text-center py-10">Hot product skincare</div>
+            <div class="heading3 text-center py-10">Hot product Face Care</div>
             <div class="list-product hide-product-sold grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 sm:gap-[30px] gap-5">
                 @foreach ($products as $item)
                     <div class="product-item grid-type style-5">

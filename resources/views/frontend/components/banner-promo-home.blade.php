@@ -18,14 +18,12 @@
                 <div class="banner-img w-full">
                     <img src="https://placehold.co/410x548" alt="bg-img" class="w-full duration-500" />
                 </div>
-                <div class="heading4 absolute top-8 left-1/2 -translate-x-1/2 whitespace-nowrap">Serum</div>
                 <div class="button-main absolute bottom-8 left-1/2 -translate-x-1/2">Belanja Sekarang</div>
             </a>
             <a href="/shop" class="banner-item relative bg-surface block rounded-[20px] overflow-hidden duration-500">
                 <div class="banner-img w-full">
                     <img src="https://placehold.co/410x548" alt="bg-img" class="w-full duration-500" />
                 </div>
-                <div class="heading4 absolute top-8 left-1/2 -translate-x-1/2 whitespace-nowrap">Bundle PE Care</div>
                 <div class="button-main absolute bottom-8 left-1/2 -translate-x-1/2">Belanja Sekarang</div>
             </a>
             <a href="/shop"
@@ -33,7 +31,6 @@
                 <div class="banner-img w-full">
                     <img src="https://placehold.co/410x548" alt="bg-img" class="w-full duration-500" />
                 </div>
-                <div class="heading4 absolute top-8 left-1/2 -translate-x-1/2 whitespace-nowrap">Cleansing Gel</div>
                 <div class="button-main absolute bottom-8 left-1/2 -translate-x-1/2">Belanja Sekarang</div>
             </a>
         </div>
