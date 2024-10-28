@@ -5,14 +5,17 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Banner;
+use Illuminate\Support\Facades\Auth;
+
 
 class SettingsController extends Controller
 {
 
     public function index(){
+        $user = Auth::user();
         $welcomeMessage = 'Settings'; 
         $banners = Banner::all();
-        return view('backend.pages.settings.settings',compact('banners','welcomeMessage'));
+        return view('backend.pages.settings.settings',compact('banners','welcomeMessage','user'));
     }
 
     public function banner(Request $request){

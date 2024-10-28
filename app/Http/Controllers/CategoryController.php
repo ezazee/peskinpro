@@ -5,14 +5,17 @@ use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
+
 
 class CategoryController extends Controller
 {
     public function index()
     {   
+        $user = Auth::user();
         $welcomeMessage = 'Categories Products'; 
         $categories = Category::paginate(10);
-        return view('backend.pages.category.create',compact('categories','welcomeMessage'));
+        return view('backend.pages.category.create',compact('categories','welcomeMessage','user'));
     }
 
     public function create(Request $request)
@@ -32,10 +35,11 @@ class CategoryController extends Controller
 
     public function edit($slug)
     {
+        $user = Auth::user();
         $welcomeMessage = 'Edit Categories Products'; 
         $category = Category::where('slug', $slug)->firstOrFail();
         $categories = Category::paginate(10);
-        return view('backend.pages.category.create', compact('category', 'categories','welcomeMessage'));
+        return view('backend.pages.category.create', compact('category', 'categories','welcomeMessage','user'));
     }
 
     public function update(Request $request, $id)

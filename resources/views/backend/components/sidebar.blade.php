@@ -108,34 +108,23 @@
                       <li class="menu-title mt-2">Users</li>
 
                       <li class="nav-item">
-                          <a class="nav-link" href="{{ route('users.index') }}">
-                              <span class="nav-icon">
-                                  <iconify-icon icon="solar:user-speak-rounded-bold-duotone"></iconify-icon>
-                              </span>
-                              <span class="nav-text"> Users </span>
-                          </a>
-                      </li>
-
-                      <li class="nav-item">
                           <a class="nav-link menu-arrow" href="#sidebarCustomers" data-bs-toggle="collapse"
                               role="button" aria-expanded="false" aria-controls="sidebarCustomers">
                               <span class="nav-icon">
                                   <iconify-icon icon="solar:users-group-two-rounded-bold-duotone"></iconify-icon>
                               </span>
-                              <span class="nav-text"> Customers </span>
+                              <span class="nav-text"> Users </span>
                           </a>
                           <div class="collapse" id="sidebarCustomers">
                               <ul class="nav sub-navbar-nav">
 
+                                    <li class="sub-nav-item">
+                                        <a class="sub-nav-link" href="{{ route('users.index') }}">Administrator</a>
+                                    </li>
+
                                   <li class="sub-nav-item">
-                                      <a class="sub-nav-link" href="{{ route('customers.index') }}">List</a>
+                                      <a class="sub-nav-link" href="{{ route('customers.index') }}">List Customers</a>
                                   </li>
-                                  <li class="sub-nav-item">
-                                      <a class="sub-nav-link" href="#">Affiliate</a>
-                                  </li>
-                                  <li class="sub-nav-item">
-                                    <a class="sub-nav-link" href="#">Sellers</a>
-                                </li>
                               </ul>
                           </div>
                       </li>

@@ -8,21 +8,25 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\User;
 use App\Models\Role;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
+
 
 class UsersController extends Controller
 {
     public function index(){
+        $user = Auth::user();
         $welcomeMessage = 'List Users';
         $users = User::whereDoesntHave('role', function($query) {
             $query->where('name', 'user');
         })->paginate(5);     
-        return view('backend.pages.users.list',compact('welcomeMessage','users'));
+        return view('backend.pages.users.list',compact('welcomeMessage','users','user'));
     }
 
     public function create(){
+        $user = Auth::user();
         $welcomeMessage = 'Create Users';
         $roles = Role::all();
-        return view('backend.pages.users.create',compact('welcomeMessage','roles'));
+        return view('backend.pages.users.create',compact('welcomeMessage','roles','user'));
     }
 
     public function add_admin(Request $request){
@@ -60,7 +64,7 @@ class UsersController extends Controller
     }
 
     public function edit_admin($slug){
-
+        $user = Auth::user();
         $users = User::where('slug', $slug)->firstOrFail();
         if ($users->role->name === 'user') {
             $welcomeMessage = 'Edit Customers';
@@ -69,7 +73,7 @@ class UsersController extends Controller
         }
 
         $roles = Role::all();
-        return view('backend.pages.users.edit', compact('users','welcomeMessage','roles'));
+        return view('backend.pages.users.edit', compact('users','welcomeMessage','roles','user'));
     }
 
     public function update_admin(Request $request, $id){
@@ -130,8 +134,9 @@ class UsersController extends Controller
         $totalcustomers = User::whereHas('role', function($query) {
             $query->where('name', 'user');
         })->count();
+        $user = Auth::user();
         // dd($totalcustomers);
         
-        return view('backend.pages.users.customers',compact('welcomeMessage','users','totalcustomers'));
+        return view('backend.pages.users.customers',compact('welcomeMessage','users','totalcustomers','user'));
     }
 }

@@ -8,30 +8,35 @@ use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
+
 
 class ProductController extends Controller
 {
     public function index()
     {   
+        $user = Auth::user();
         $welcomeMessage = 'Create Products'; 
         $products = Product::with('sizes', 'category')->get();
         $categories = Category::all();
-        return view('backend.pages.product.create',compact('products','categories','welcomeMessage'));
+        return view('backend.pages.product.create',compact('products','categories','welcomeMessage','user'));
     }
 
     public function list(){
+        $user = Auth::user();
         $welcomeMessage = 'List Products'; 
         $products = Product::with(['category', 'imagedetail','sizes'])->paginate(10);
         $categories = Category::all();
-        return view('backend.pages.product.list',compact('products','categories','welcomeMessage'));
+        return view('backend.pages.product.list',compact('products','categories','welcomeMessage','user'));
     }
 
     public function detail($slug){
+        $user = Auth::user();
         $welcomeMessage = 'Detail Products'; 
         $product = Product::with(['category', 'imagedetail', 'sizes'])
         ->where('slug', $slug)
         ->firstOrFail();
-        return view('backend.pages.product.detail', compact('product','welcomeMessage'));
+        return view('backend.pages.product.detail', compact('product','welcomeMessage','user'));
     }
 
     public function create(Request $request)
@@ -76,10 +81,11 @@ class ProductController extends Controller
     }
 
     public function edit($slug){
+        $user = Auth::user();
         $welcomeMessage = 'Edit Products'; 
         $product = Product::with(['category', 'imagedetail'])->where('slug', $slug)->firstOrFail();
         $categories = Category::all();
-        return view('backend.pages.product.edit', compact('product', 'categories','welcomeMessage'));
+        return view('backend.pages.product.edit', compact('product', 'categories','welcomeMessage','user'));
     }
 
     public function update(Request $request, $id)

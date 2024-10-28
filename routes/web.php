@@ -15,6 +15,7 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\CouponsController;
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\ProfileController;
 
 
 /*
@@ -53,6 +54,11 @@ Route::middleware(['userOrGuest'])->group(function () {
 Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('/checkout', [ChekoutController::class, 'index'])->name('chekout.index');
     Route::post('/checkout/process', [ChekoutController::class, 'processCheckout'])->name('checkout.process');
+
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::put('/profile/update/{id}', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/address', [ProfileController::class, 'address'])->name('profile.address');
+    
 });
 
 
@@ -132,12 +138,4 @@ Route::get('/search-result', function() {
 
 Route::get('/return-and-refunds', function() {
     return view('frontend.pages.return-and-refunds');
-});
-
-Route::get('/profile', function() {
-    return view('frontend.pages.profile.profile');
-});
-
-Route::get('/address', function() {
-    return view('frontend.pages.profile.addres');
 });
