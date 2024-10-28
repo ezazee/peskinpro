@@ -1,10 +1,10 @@
 {{-- TopNav --}}
-<div id="top-nav" class="top-nav style-one w-full">
-   <div class="mx-auto h-full">
-    <div class="top-nav-main flex justify-center items-center h-full">
-        <a href="#" class="w-full">
-            <img src="https://www.beautyhaul.com/assets/uploads/sticky1.gif" alt="Banner" class="w-full object-cover">
-        </a>
+<div id="top-nav" class="top-nav style-one">
+    <div class="mx-auto">
+        <div class="top-nav-main flex justify-center items-center">
+          <a href="#">
+            <img src="https://www.beautyhaul.com/assets/uploads/sticky1.gif" alt="">
+          </a>
+        </div>
     </div>
-   </div>
 </div>
