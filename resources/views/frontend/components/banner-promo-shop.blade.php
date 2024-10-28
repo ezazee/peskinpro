@@ -1,5 +1,8 @@
 {{-- Banner Promo --}}
 <div class="banner-block style-toys-kids">
+    <div class="text-center flex justify-center">
+        <div class="heading2">asdas</div>
+    </div>
     <div class="container flex justify-between gap-4">
         <!-- Banner Kiri -->
         <a href="#!" class="banner-item relative block overflow-hidden duration-500 w-1/2">

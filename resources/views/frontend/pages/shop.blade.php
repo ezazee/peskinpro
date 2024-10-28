@@ -1,18 +1,6 @@
 @extends('frontend.master.master-app')
 
 @section('content')
-    <div class="breadcrumb-block style-img">
-        <div class="breadcrumb-main bg-light-primary overflow-hidden">
-            <div class="container py-16 relative">
-                <div class="main-content w-full h-full flex flex-col items-center justify-center relative z-[1]">
-                    <div class="text-content">
-                        <div class="heading2 text-center text-primary">Our Product</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     @include('frontend.components.banner-promo-shop')
 
     <div class="shop-product lg:py-20 md:py-14 py-10">

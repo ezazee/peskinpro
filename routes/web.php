@@ -73,7 +73,7 @@ Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logou
 
 
 
-Route::middleware(['auth', 'role:Administrator'])->group(function () {
+// Route::middleware(['auth', 'role:Administrator'])->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
     Route::get('/product/create', [ProductController::class, 'index'])->name('product.index');
@@ -113,7 +113,7 @@ Route::middleware(['auth', 'role:Administrator'])->group(function () {
     Route::get('/coupons/list', [CouponsController::class, 'index'])->name('coupons.index');
     Route::get('/coupons/create', [CouponsController::class, 'create'])->name('coupons.create');
 
-});
+// });
 
 
 
