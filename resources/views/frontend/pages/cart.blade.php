@@ -43,7 +43,7 @@
                                             <div class="list-select mt-3">{{ $item->productSize->size }}ml</div>
                                         </div>
                                     </label>
-                                </div>                                
+                                </div>
                                 <div class="w-1/12 price flex items-center justify-center">
                                     <div class="text-title text-center">
                                         Rp{{ number_format($item->productSize->price - $item->productSize->discount, 0, ',', '.') }}

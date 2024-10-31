@@ -34,39 +34,34 @@
                                     <div class="recent-product">
                                         <div class="text-button-uppercase pb-2">Best Seller</div>
                                         <div class="list-product hide-product-sold flex overflow-x-auto mt-3 gap-2">
-                                            <div class="product-item grid-type w-32">
+                                            <div class="product-item grid-type w-24">
                                                 <!-- Ubah width menjadi lebih kecil -->
                                                 <div class="product-main cursor-pointer block">
-                                                    <div
-                                                        class="product-thumb bg-white relative overflow-hidden rounded-lg">
+                                                    <div class="product-thumb bg-white relative overflow-hidden rounded-md">
                                                         <!-- Kurangi ukuran border-radius -->
-                                                        <div class="product-img w-full h-32">
+                                                        <div class="product-img">
                                                             <!-- Sesuaikan tinggi produk -->
-                                                            <img class="w-full h-full object-cover duration-300"
-                                                                src="{{ asset('frontend/assets/images/product/peskin/contoh1.png') }}"
-                                                                alt="img" />
-                                                            <img class="w-full h-full object-cover duration-300"
-                                                                src="{{ asset('frontend/assets/images/product/peskin/contoh-hover1.jpg') }}"
-                                                                alt="img" />
+                                                            <img class="h-40 w-full object-contain duration-300" src="https://placehold.co/600x750" alt="img" />
+                                                            <img class="h-40 w-full object-contain duration-300" src="https://placehold.co/600x750" alt="img" />
                                                         </div>
                                                     </div>
-                                                    <div class="product-infor mt-2">
-                                                        <div class="product-name text-sm">Faux-leather trousers</div>
+                                                    <div class="product-infor mt-1">
+                                                        <div class="product-name text-xs">Faux-leather trousers</div>
                                                         <!-- Ukuran teks lebih kecil -->
-                                                        <div class="product-price-block flex items-center gap-1 mt-1">
-                                                            <div class="product-price text-sm">Rp.5150</div>
+                                                        <div class="product-price-block flex items-center gap-1 mt-0.5">
+                                                            <div class="product-price text-xs">Rp.5150</div>
                                                             <!-- Ukuran harga lebih kecil -->
                                                             <div class="product-origin-price text-xs text-secondary2">
                                                                 <del>$50.00</del>
                                                             </div>
-                                                            <div
-                                                                class="product-sale text-xs bg-primary text-white px-2 py-0.5 rounded-full">
+                                                            <div class="product-sale text-[10px] bg-primary text-white px-1 py-0.5 rounded-full">
                                                                 -20%
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <!-- Tambahkan produk lainnya -->
                                             <div class="product-item grid-type w-32">
                                                 <!-- Ubah width menjadi lebih kecil -->

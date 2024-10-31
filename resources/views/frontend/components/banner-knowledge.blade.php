@@ -1,5 +1,5 @@
 {{-- Banner Knowledge 1 --}}
-<div class="banner-block style-one w-full">
+<div class="banner-block style-one w-full mb-5">
     <a href="#" class="banner-item relative block overflow-hidden duration-500">
         <div class="banner-img">
             <img src="https://placehold.co/1920x600" class="duration-1000 w-full" alt="img" />
@@ -11,7 +11,7 @@
 </div>
 
 {{-- Banner Knowledge 2 --}}
-<div class="banner-block style-one w-full">
+<div class="banner-block style-one w-full mt-8">
     <a href="#" class="banner-item relative block overflow-hidden duration-500">
         <div class="banner-img">
             <img src="https://placehold.co/1920x600" class="duration-1000 w-full" alt="img" />

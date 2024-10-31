@@ -72,7 +72,22 @@
     <div class="what-new-block filter-product-block md:pt-20 pt-10">
         <div class="container">
             <div class="heading flex items-center justify-between gap-5 flex-wrap">
-                <div class="heading3">BIG SALE</div>
+                <div class="left flex items-center gap-6 gap-y-3 flex-wrap">
+                    <div class="heading3">Big Flash Sale</div>
+                    <div class="countdown-time bg-primary py-1 px-5 rounded-lg">
+                        <div class="heading6 text-white">
+                            <span class="countdown-day time">24</span>
+                            <span> : </span>
+                            <span class="countdown-hour time">14</span>
+                            <span> : </span>
+                            <span class="countdown-minute time">36</span>
+                            <span> : </span>
+                            <span class="countdown-second time">51</span>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+                <a href="/shop#allProduct" class="text-button text-primary pb-1 border-b-2 border-primary">Lihat Detail</a>
             </div>
             <div class="list-product three-product hide-last-product hide-product-sold grid xl:grid-cols-4 sm:grid-cols-3 grid-cols-2 md:gap-[30px] gap-4 md:mt-10 mt-6"
                 data-gender="men">
@@ -81,7 +96,7 @@
                         class="absolute top-0 left-0 w-full h-full object-cover z-[-1] duration-500" />
                 </a>
                 <!-- List product -->
-                {{-- @foreach ($itemuctsfacialcare as $item)
+                @foreach ($products as $item)
                     <div class="product-item grid-type style-5">
                         <a href="{{ route('shop.detail', ['slug' => $item->slug]) }}">
                             <div class="product-main cursor-pointer block">
@@ -136,28 +151,12 @@
                                                 </div>
                                             @endif
                                         </div>
-
-                                        <div class="product-sizes mt-2">
-                                            <h4 class="text-title">Available Sizes:</h4>
-                                            @if ($item->sizes->isNotEmpty())
-                                                <ul class="sizes-list flex gap-2">
-                                                    @foreach ($item->sizes as $size)
-                                                        <li
-                                                            class="size-item text-secondary2 px-2 py-1 border border-gray-300 rounded">
-                                                            {{ $size->size }}
-                                                        </li>
-                                                    @endforeach
-                                                </ul>
-                                            @else
-                                                <p class="text-secondary">No sizes available</p>
-                                            @endif
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </a>
                     </div>
-                @endforeach --}}
+                @endforeach
 
             </div>
         </div>

@@ -508,3 +508,140 @@
         backdrop.classList.add('hidden');
     });
 </script>
+
+
+{{-- Backdrop Modal Voucher Promo --}}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // JavaScript for showing/hiding modal
+        const modal = document.getElementById('customModalVoucher');
+        const backdrop = document.getElementById('backdrop-voucher');
+        const openModalButton = document.getElementById('addVoucherButton');
+        const closeModalButtons = document.querySelectorAll('.modal-voucher-close');
+
+        openModalButton.addEventListener('click', function() {
+            modal.classList.remove('hidden');
+            backdrop.classList.remove('hidden');
+        });
+
+        closeModalButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                modal.classList.add('hidden');
+                backdrop.classList.add('hidden');
+            });
+        });
+
+        backdrop.addEventListener('click', function() {
+            modal.classList.add('hidden');
+            backdrop.classList.add('hidden');
+        });
+    });
+</script>
+
+
+
+<script>
+    // Set the date we're counting down to (replace with your own date/time)
+    const countdownDate = new Date("Nov 10, 2024 23:59:59").getTime();
+
+    // Update the countdown every 1 second
+    const countdownFunction = setInterval(() => {
+        const now = new Date().getTime();
+        const timeRemaining = countdownDate - now;
+
+        // Calculate days, hours, minutes, and seconds
+        const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+        // Display the result in the countdown elements
+        document.querySelector(".countdown-day").textContent = days;
+        document.querySelector(".countdown-hour").textContent = hours;
+        document.querySelector(".countdown-minute").textContent = minutes;
+        document.querySelector(".countdown-second").textContent = seconds;
+
+        // If the countdown is finished, stop it
+        if (timeRemaining < 0) {
+            clearInterval(countdownFunction);
+            document.querySelector(".countdown-time").textContent = "Flash Sale Ended";
+        }
+    }, 1000);
+</script>
+
+
+
+<script>
+    function toggleDropdown() {
+        const dropdown = document.getElementById('main-select-options');
+        dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function selectMainOption(region) {
+        const mainSelectDisplay = document.getElementById('main-select-display');
+        const nestedOptionsContainer = document.getElementById('nested-options-container');
+        const nestedSelect = document.getElementById('nested-select');
+
+        // Set display text and close dropdown
+        if (region === 'JNE') {
+            mainSelectDisplay.innerHTML = 'JNE<br><small>Estimasi 2-3 Hari : Rp20,000</small>';
+        } else if (region === 'TIKI') {
+            mainSelectDisplay.innerHTML = 'TIKI<br><small>Estimasi 2-3 Hari : Rp25,000</small>';
+        } else if (region === 'POS') {
+            mainSelectDisplay.innerHTML = 'POS<br><small>Estimasi 2-3 Hari : Rp30,000</small>';
+        }
+
+        document.getElementById('main-select-options').style.display = 'none';
+
+        // Populate nested select based on the region
+        nestedSelect.innerHTML = '<option value="default" disabled selected>Pilih Layanan</option>';
+        let options = [];
+
+        if (region === 'JNE') {
+            options = [{
+                    value: 'ctc',
+                    text: 'JNE - CTC (City Courier) : Estimasi tiba - 4 - 7 Nov'
+                },
+                {
+                    value: 'jtr',
+                    text: 'JNE - JTR (Tracking) : Estimasi tiba 3 - 6 Nov'
+                },
+                {
+                    value: 'ctcyes',
+                    text: 'JNE - CTCYES (City Courier) : Estimasi Tiba 7 - 10 Nov'
+                }
+            ];
+        } else if (region === 'TIKI') {
+            options = [{
+                    value: 'anteraja',
+                    text: 'AnterAja - Estimasi tiba 4 - 8 Nov'
+                },
+                {
+                    value: 'kurir_rekomendasi',
+                    text: 'Kurir Rekomendasi - Estimasi tiba 5 - 9 Nov'
+                }
+            ];
+        } else if (region === 'POS') {
+            options = [{
+                    value: 'anteraja',
+                    text: 'AnterAja - Estimasi tiba 6 - 10 Nov'
+                },
+                {
+                    value: 'jne',
+                    text: 'JNE - Estimasi tiba 7 - 11 Nov'
+                }
+            ];
+        }
+
+        // Add new options to nested select
+        options.forEach(option => {
+            const newOption = document.createElement('option');
+            newOption.value = option.value;
+            newOption.textContent = option.text;
+            nestedSelect.appendChild(newOption);
+        });
+
+        // Show the nested options container
+        nestedOptionsContainer.style.display = 'block';
+    }
+</script>

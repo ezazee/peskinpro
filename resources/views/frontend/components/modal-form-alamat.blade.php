@@ -1,8 +1,26 @@
-<div class="modal-address-block">
-    <div class="modal-address-main md:p-10 p-6 rounded-[32px]">
-        <div class="form-search relative w-full">
-            <i class="ph ph-magnifying-glass absolute heading5 right-6 top-1/2 -translate-y-1/2 cursor-pointer"></i>
-            <input type="text" placeholder="Searching..." class="text-button-lg h-14 rounded-2xl border border-line w-full pl-6 pr-12" />
-        </div>
+<div id="customModal" class="modal-address hidden">
+    <div class="modal-content">
+        <span class="modal-addres-close">&times;</span>
+        <h5 class="modal-title">Tambah Alamat Baru</h5>
+        <form id="modalAddAddressForm">
+            <div class="grid sm:grid-cols-2 gap-4 gap-y-5">
+                <div>
+                    <input class="border-line px-4 py-3 w-full rounded-lg" id="modalFirstName" type="text"
+                        placeholder="Nama Depan" required />
+                </div>
+                <div>
+                    <input class="border-line px-4 py-3 w-full rounded-lg" id="modalLastName" type="text"
+                        placeholder="Nama Belakang" required />
+                </div>
+                <!-- Form Lainnya Seperti Sebelumnya -->
+            </div>
+            <div class="modal-footer mt-5">
+                <button type="submit" class="button-main text-xs py-1 rounded-lg flex items-center">Simpan
+                    Alamat</button>
+            </div>
+        </form>
     </div>
 </div>
+
+{{-- Backdrop --}}
+<div id="backdrop" class="hidden modal-address-backdrop"></div>

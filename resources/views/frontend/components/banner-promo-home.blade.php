@@ -1,7 +1,7 @@
 {{-- Banner Promo --}}
 <div class="banner-block style-toys-kids">
     <div class="container">
-        <a href="#" class="banner-item relative block overflow-hidden duration-500">
+        <a href="#" class="banner-item overflow-hidden duration-500">
             <div class="content md:rounded-[28px] banner-img rounded-2xl overflow-hidden relative">
                 <img src="https://placehold.co/1290x440" alt="bg"
                     class="top-0 left-0 w-full h-full object-contain duration-1000 z-[-1]" />
