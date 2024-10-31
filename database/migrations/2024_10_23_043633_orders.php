@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('order_number')->unique();
             $table->decimal('total_amount', 10, 2);
             $table->enum('status', ['pending', 'processing', 'completed', 'canceled'])->default('pending');
-            $table->unsignedBigInteger('alamat_id'); // Link to the shipping address
+            $table->unsignedBigInteger('alamat_id')->nullable();
+            $table->enum('payment_method', ['transfer', 'qris', 'cash'])->default('cash');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

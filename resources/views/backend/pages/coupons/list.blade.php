@@ -78,80 +78,104 @@
         </div>
     </div>
     <div class="row">
-         <div class="col-xl-12">
-              <div class="card">
-                   <div class="d-flex card-header justify-content-between align-items-center">
-                        <div>
-                             <h4 class="card-title">All Coupons List</h4>
-                        </div>
-                        <div class="dropdown">
-                            <a href="{{ route('coupons.create') }}" class="btn btn-sm btn-primary">
-                                Add Coupons
-                           </a>
-                        </div>
-                   </div>
-                   <div>
-                        <div class="table-responsive">
-                             <table class="table align-middle mb-0 table-hover table-centered">
-                                  <thead class="bg-light-subtle">
-                                       <tr>
-                                            <th style="width: 20px;">
-                                                 No
-                                            </th>
-                                            <th>Coupons Code</th>
-                                            <th>Discount Products</th>
-                                            <th>Coupons Types</th>
-                                            <th>Coupons Limits</th>
-                                            <th>Start Date</th>
-                                            <th>End Date</th>
-                                            <th>Discount Value</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
-                                       </tr>
-                                  </thead>
-                                  <tbody>
-                                       <tr>
-                                            <td>
-                                                1
-                                            </td>
-                                            <td>
-                                                FASHION123
-                                            </td>
-                                            <td>$80.00</td>
-                                            <td>$20.00</td>
-                                            <td>FASHION123</td>
-                                            <td>12 May 2023</td>
-                                            <td>12 Jun 2023</td>
-                                            <td>adas</td>
-                                            <td>
-                                                 <span class="badge text-success bg-success-subtle fs-12"><i class="bx bx-check-double"></i>Active</span>
-                                            </td>
-                                            <td>
-                                                 <div class="d-flex gap-2">
-                                                      <a href="#!" class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
-                                                      <a href="#!" class="btn btn-soft-primary btn-sm"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                                      <a href="#!" class="btn btn-soft-danger btn-sm"><iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                                 </div>
-                                            </td>
-                                       </tr>
-                                  </tbody>
-                             </table>
-                        </div>
-                        <!-- end table-responsive -->
-                   </div>
-                   <div class="card-footer border-top">
-                        <nav aria-label="Page navigation example">
-                             <ul class="pagination justify-content-end mb-0">
-                                  <li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>
-                                  <li class="page-item active"><a class="page-link" href="javascript:void(0);">1</a></li>
-                                  <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
-                                  <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
-                                  <li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li>
-                             </ul>
-                        </nav>
-                   </div>
-              </div>
-         </div>
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="d-flex card-header justify-content-between align-items-center">
+                    <div>
+                        <h4 class="card-title">All Coupons List</h4>
+                    </div>
+                    <div class="dropdown">
+                        <a href="{{ route('coupons.create') }}" class="btn btn-sm btn-primary">
+                            Add Coupons
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <div class="table-responsive">
+                        <table class="table align-middle mb-0 table-hover table-centered">
+                            <thead class="bg-light-subtle">
+                                <tr>
+                                    <th style="width: 20px;">
+                                        No
+                                    </th>
+                                    <th>Coupons Code</th>
+                                    <th>Discount Products</th>
+                                    <th>Coupons Types</th>
+                                    <th>Coupons Limits</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>Discount Value</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($coupons as $index => $item)
+                                <tr>
+                                    <td>
+                                        {{ $index+1 }}
+                                    </td>
+                                    <td>
+                                        {{ $item->coupons_code }}
+                                    </td>
+                                    <td>{{ $item->product }}</td>
+                                    <td>{{ $item->type }}</td>
+                                    <td>{{ $item->limits }}</td>
+                                    <td>{{ $item->start_date }}</td>
+                                    <td>{{ $item->end_date }}</td>
+                                    @if ($item->type == 'freeshiping')
+                                    <td>{{ $item->jumlah }}</td>
+                                    @elseif( $item->type == 'percentage' )
+                                    <td>{{ $item->jumlah }} %</td>
+                                    @else
+                                    <td>{{ $item->jumlah }}</td>
+                                    @endif
+                                    <td>
+                                        @if ($item->status == 'active')
+                                        <span class="badge text-success bg-success-subtle fs-12"><i
+                                                class="bx bx-check-double"></i>{{ $item->status }}</span>
+                                        @else
+                                        <span class="badge text-danger bg-danger-subtle fs-12"><i
+                                                class="bx bx-x"></i>Expired</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <div class="d-flex gap-2">
+                                            <a href="#!" class="btn btn-light btn-sm">
+                                                <iconify-icon icon="solar:eye-broken" class="align-middle fs-18">
+                                                </iconify-icon>
+                                            </a>
+                                            <a href="#!" class="btn btn-soft-primary btn-sm">
+                                                <iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18">
+                                                </iconify-icon>
+                                            </a>
+                                            <form action="{{ route('coupons.destroy', $item->id) }}" method="POST"
+                                                onsubmit="return confirm('Are you sure you want to delete this coupons?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn btn-danger btn-sm">
+                                                    <iconify-icon icon="solar:trash-bin-minimalistic-2-broken"
+                                                        class="align-middle fs-18"></iconify-icon>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- end table-responsive -->
+                </div>
+                <div class="card-footer border-top">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-end mb-0">
+                            {{ $coupons->onEachSide(1)->links('pagination::bootstrap-5') }}
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
 
     </div>
 

@@ -16,6 +16,7 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\CouponsController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ArticleController;
 
 
 /*
@@ -73,7 +74,7 @@ Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logou
 
 
 
-// Route::middleware(['auth', 'role:Administrator'])->group(function () {
+Route::middleware(['auth', 'role:Administrator'])->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
     Route::get('/product/create', [ProductController::class, 'index'])->name('product.index');
@@ -94,6 +95,14 @@ Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logou
     // orders
     Route::get('/orders/list', [OrdersController::class, 'list'])->name('orders.list');
     Route::get('/orders/detail', [OrdersController::class, 'detail'])->name('orders.detail');
+    Route::get('/pos', [OrdersController::class, 'pos'])->name('orders.pos');
+    Route::post('/add_cart/pos', [OrdersController::class, 'add_cart_pos'])->name('add_cart_pos');
+    Route::get('/cart/delete/{id}', [OrdersController::class, 'remove'])->name('cart.delete');
+    Route::get('/cart/clearall', [OrdersController::class, 'clearall'])->name('cart.clearall');
+    Route::post('/orders/pos', [OrdersController::class, 'pos_order'])->name('pos_order');
+
+
+
 
     // invoice
     Route::get('/invoice', [InvoiceController::class, 'index'])->name('invoice.index');
@@ -112,8 +121,14 @@ Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logou
     // coupons
     Route::get('/coupons/list', [CouponsController::class, 'index'])->name('coupons.index');
     Route::get('/coupons/create', [CouponsController::class, 'create'])->name('coupons.create');
+    Route::post('/coupons/create', [CouponsController::class, 'add'])->name('coupons.add');
+    Route::delete('/coupons/delete/{id}', [CouponsController::class, 'destroy'])->name('coupons.destroy');
 
-// });
+    Route::get('/article/create', [ArticleController::class, 'create'])->name('article.create');
+
+
+
+});
 
 
 

@@ -13,16 +13,15 @@ return new class extends Migration
     {
         Schema::create('coupons', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('status'); 
+            $table->string('status'); 
             $table->date('start_date')->unique(); 
             $table->date('end_date', 10, 2);
             $table->string('coupons_code');
             $table->string('product'); 
             $table->integer('limits');
             $table->string('type');
-            $table->string('value'); 
+            $table->string('jumlah');
             $table->timestamps();
-            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
         });
     }
 

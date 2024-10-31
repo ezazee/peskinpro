@@ -73,15 +73,11 @@
                           </a>
                           <div class="collapse" id="sidebarOrders">
                               <ul class="nav sub-navbar-nav">
-
+                                <li class="sub-nav-item">
+                                    <a class="sub-nav-link" href="{{ route('orders.pos') }}">POS</a>
+                                </li>
                                   <li class="sub-nav-item">
                                       <a class="sub-nav-link" href="{{ route('orders.list') }}">List</a>
-                                  </li>
-                                  <li class="sub-nav-item">
-                                      <a class="sub-nav-link" href="#">Cart</a>
-                                  </li>
-                                  <li class="sub-nav-item">
-                                      <a class="sub-nav-link" href="#">Check Out</a>
                                   </li>
                               </ul>
                           </div>
@@ -130,6 +126,26 @@
                       </li>
 
                       <li class="menu-title mt-2">Other</li>
+
+                      <li class="nav-item">
+                        <a class="nav-link menu-arrow" href="#sidebarArticle" data-bs-toggle="collapse" role="button"
+                            aria-expanded="false" aria-controls="sidebarArticle">
+                            <span class="nav-icon">
+                                <iconify-icon icon="solar:documents-outline"></iconify-icon>
+                            </span>
+                            <span class="nav-text"> Article </span>
+                        </a>
+                        <div class="collapse" id="sidebarArticle">
+                            <ul class="nav sub-navbar-nav">
+                                <li class="sub-nav-item">
+                                    <a class="sub-nav-link" href="#!">List</a>
+                                </li>
+                                <li class="sub-nav-item">
+                                    <a class="sub-nav-link" href="{{ route('article.create') }}">Create</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
 
                       <li class="nav-item">
                           <a class="nav-link menu-arrow" href="#sidebarCoupons" data-bs-toggle="collapse" role="button"
