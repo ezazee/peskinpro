@@ -538,11 +538,39 @@
     });
 </script>
 
+{{-- Backdrop Modal Ganti Alamat Checkout --}}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const modal = document.getElementById('customGantiAlamat');
+        const backdrop = document.getElementById('backdrop-ganti-alamat');
+        const openModalButton = document.getElementById('gantiAlamatButton'); // Pastikan ini ada di HTML Anda
+        const closeModalButtons = document.querySelectorAll('.modal-ganti-alamat-close');
 
+        if (openModalButton) {
+            openModalButton.addEventListener('click', function() {
+                modal.classList.remove('hidden');
+                backdrop.classList.remove('hidden');
+            });
+        }
 
+        closeModalButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                modal.classList.add('hidden');
+                backdrop.classList.add('hidden');
+            });
+        });
+
+        backdrop.addEventListener('click', function() {
+            modal.classList.add('hidden');
+            backdrop.classList.add('hidden');
+        });
+    });
+</script>
+
+{{-- Timer Countdown --}}
 <script>
     // Set the date we're counting down to (replace with your own date/time)
-    const countdownDate = new Date("Nov 10, 2024 23:59:59").getTime();
+    const countdownDate = new Date("Nov 30, 2024 23:59:59").getTime();
 
     // Update the countdown every 1 second
     const countdownFunction = setInterval(() => {
@@ -570,7 +598,7 @@
 </script>
 
 
-
+{{-- Ongkir Dropdown --}}
 <script>
     function toggleDropdown() {
         const dropdown = document.getElementById('main-select-options');
@@ -644,4 +672,86 @@
         // Show the nested options container
         nestedOptionsContainer.style.display = 'block';
     }
+</script>
+
+
+{{-- Payment Page --}}
+<script>
+    // Show, hide payment type in checkout
+    const listPayment = document.querySelector(".payment-block .list-payment");
+    const paymentCheckbox = document.querySelectorAll(
+        ".payment-block .list-payment .type>input"
+    );
+
+    if (paymentCheckbox) {
+        paymentCheckbox.forEach((item) => {
+            item.addEventListener("click", () => {
+                if (listPayment.querySelector(".open")) {
+                    listPayment.querySelector(".open").classList.remove("open");
+                }
+
+                let parentType = item.parentElement;
+                if (item.checked) {
+                    parentType.classList.add("open");
+                }
+            });
+        });
+    }
+
+    // Copy to clipboard function
+    function copyToClipboard() {
+        const inputField = document.getElementById("cardNumberCredit");
+        inputField.select();
+        document.execCommand("copy");
+
+        // Optionally, display a copied message
+        alert("Card Number copied to clipboard!");
+    }
+</script>
+
+{{-- Navbar Link --}}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    // Fungsi untuk mengatur kelas active pada link yang sesuai
+    function setActiveLink() {
+        const hash = window.location.hash.substring(1); // Ambil hash tanpa tanda #
+        const links = document.querySelectorAll('.menu-main a');
+
+        links.forEach(link => {
+            // Menghapus kelas active dari semua link
+            link.classList.remove('active');
+            // Menambahkan kelas active pada link yang sesuai dengan hash
+            if (link.dataset.hash === hash) {
+                link.classList.add('active');
+            }
+        });
+    }
+
+    // Memeriksa jika berada di halaman "shop"
+    if (window.location.pathname.includes('/shop')) {
+        // Panggil fungsi saat halaman dimuat
+        setActiveLink();
+
+        // Tambahkan event listener untuk mengatur active link saat hash berubah
+        window.addEventListener('hashchange', setActiveLink);
+
+        // Tambahkan event listener untuk scroll agar aktif berdasarkan section
+        const sections = document.querySelectorAll('section[id]');
+        window.addEventListener('scroll', () => {
+            let scrollPos = document.documentElement.scrollTop || document.body.scrollTop;
+            sections.forEach(section => {
+                if (section.offsetTop <= scrollPos && (section.offsetTop + section.offsetHeight) > scrollPos) {
+                    const currentId = section.getAttribute('id');
+                    links.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.dataset.hash === currentId) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
+    }
+});
+
 </script>

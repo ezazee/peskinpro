@@ -2,7 +2,7 @@
 
 @section('content')
     {{-- Flash Sale Promotion --}}
-    <section class="flash-sale-block md:py-20 py-4 relative overflow-hidden">
+    <section id="flashSaleProduct" class="flash-sale-block md:py-20 py-4 relative overflow-hidden">
         <!-- Background Image -->
         <div class="bg-img absolute top-0 left-0 w-full h-full z-[-1] opacity-80">
             <img src="https://watermark.lovepik.com/photo/40011/6653.jpg_wh1200.jpg" alt="PE Skin Professional"
@@ -59,9 +59,9 @@
                                     @endif
                                     <div class="product-img w-full h-full aspect-[3/4]">
                                         <img class="w-full h-full object-cover duration-700"
-                                            src="{{ asset('storage/' . $item->front_image) }}" alt="img" />
+                                            src="{{ asset('storage/' . $item->front_image) }}" alt="{{ $item->name }}" />
                                         <img class="w-full h-full object-cover duration-700"
-                                            src="{{ asset('storage/' . $item->back_image) }}" alt="img" />
+                                            src="{{ asset('storage/' . $item->back_image) }}" alt="{{ $item->name }}" />
                                     </div>
                                 </div>
 
@@ -112,61 +112,60 @@
     @include('frontend.components.banner-promo-shop')
 
     {{-- Best Seller Product --}}
-    <div class="buy-pack-block md:pt-20 pt-10">
+    <section id="bestSellerProduct" class="buy-pack-block md:pt-20 pt-10">
         <div class="container grid sm:grid-cols-2 max-sm:flex max-sm:w-full flex-col max-sm:flex-col-reverse items-center">
             <div class="main-content w-full">
-                <div class="heading3">Cosmetic Cream packs</div>
+                <div class="heading3">Best Seller Product</div>
                 <div class="block mt-3">Sign up for early sale access, new in, promotions and more</div>
                 <div class="list-product mt-8">
-                    <div class="product-item pb-5 border-b border-line cursor-pointer" data-item="43">
-                        <div class="product-main flex items-center justify-between">
-                            <div class="left flex items-center gap-7">
-                                <img src="./assets/images/product/cosmetic/1-1.png" alt="1-1" class="w-[60px] h-20 flex-shrink-0 object-cover" />
-                                <div class="infor">
-                                    <div class="product-name text-title">Hair Treatment</div>
-                                    <div class="caption2 product-brand text-secondary2 uppercase mt-1">Glurmarket</div>
+                    @foreach ($products as $item)
+                        <div class="product-item pb-5 border-b border-line cursor-pointer">
+                            <a href="{{ route('shop.detail', ['slug' => $item->slug]) }}"
+                                class="product-main flex items-center justify-between">
+                                <div class="left flex items-center gap-7">
+                                    <img src="{{ asset('storage/' . $item->front_image) }}" alt="{{ $item->name }}"
+                                        class="w-[60px] h-20 flex-shrink-0 object-cover" />
+                                    <div class="infor">
+                                        <div class="product-name text-title">{{ $item->name }}</div>
+                                        <div class="caption2 product-brand text-secondary2 uppercase mt-1">
+                                            {{ $item->category->name }}</div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="right">
-                                <div class="text-title">$<span class="product-price">15</span>,000</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-item pb-5 border-b border-line cursor-pointer mt-5" data-item="44">
-                        <div class="product-main flex items-center justify-between">
-                            <div class="left flex items-center gap-7">
-                                <img src="./assets/images/product/cosmetic/1-2.png" alt="1-2" class="w-[60px] h-20 flex-shrink-0 object-cover" />
-                                <div class="infor">
-                                    <div class="product-name text-title">After Sun- tan Booster</div>
-                                    <div class="caption2 product-brand text-secondary2 uppercase mt-1">Glurmarket</div>
+                                <div class="right">
+                                    <div class="text-title"><span class="product-price">
+                                            @php
+                                                $sizePrices = $item->sizes->pluck('price')->sort()->toArray();
+                                                $sizeDiscounts = $item->sizes->pluck('discount')->sort()->toArray();
+
+                                                $minPrice = $sizePrices ? min($sizePrices) : $item->price;
+                                                $maxDiscount = $sizeDiscounts ? max($sizeDiscounts) : 0;
+
+                                                $effectivePrice = $minPrice - $maxDiscount;
+                                            @endphp
+
+                                            @if ($effectivePrice > 0)
+                                                Rp {{ number_format($effectivePrice, 0, ',', '.') }}
+                                            @else
+                                                Rp {{ number_format($minPrice, 0, ',', '.') }}
+                                            @endif
+                                        </span></div>
                                 </div>
-                            </div>
-                            <div class="right">
-                                <div class="text-title">$<span class="product-price">10</span>,000</div>
-                            </div>
+                            </a>
                         </div>
-                    </div>
-                    <div class="product-item pb-5 border-b border-line cursor-pointer mt-5" data-item="42">
-                        <div class="product-main flex items-center justify-between">
-                            <div class="left flex items-center gap-7">
-                                <img src="./assets/images/product/cosmetic/1-3.png" alt="1-3" class="w-[60px] h-20 flex-shrink-0 object-cover" />
-                                <div class="infor">
-                                    <div class="product-name text-title">Tinted Moisturiser</div>
-                                    <div class="caption2 product-brand text-secondary2 uppercase mt-1">Glurmarket</div>
-                                </div>
-                            </div>
-                            <div class="right">
-                                <div class="text-title">$<span class="product-price">20</span>,000</div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
                 <div class="block-button mt-8">
-                    <div class="add-cart-btn button-main w-full text-center">add set to cart</div>
+                    <div class="add-cart-btn button-main w-full text-center">Tambahkan Semua Best Seller Ke Chart</div>
+                </div>
+            </div>
+            <div class="popular-product sm:pl-20 max-sm:pb-6 max-sm:px-8">
+                <div class="item relative">
+                    <img src="https://cdn.idntimes.com/content-images/post/20240925/saveclipapp-461282268-926713579474109-2786538390820476080-n-b0ab04391b22da3b9c7ef6c683846e83.jpg"
+                        alt="PE Skin Profesional" class="w-full aspect-square rounded-xl object-cover">
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
     {{-- List All Product --}}
     <section class="shop-product lg:py-20 md:py-14 py-10" id="allProduct">
@@ -267,4 +266,56 @@
             </div>
         </div>
     </section>
+
+    <div class="md:pb-20 pb-10">
+        <div class="news-block md:pt-20 pt-10">
+            <div class="container">
+                <div class="heading3 text-center">Artikel Kami</div>
+                <div class="list grid lg:grid-cols-3 sm:grid-cols-2 md:gap-[30px] gap-4 md:mt-10 mt-6">
+                    <div class="blog-item style-one h-full cursor-pointer" data-item="16">
+                        <div class="blog-main h-full block">
+                            <div class="blog-thumb rounded-[20px] overflow-hidden">
+                                <img src="https://www.marketeers.com/_next/image/?url=https%3A%2F%2Froom.marketeers.com%2Fwp-content%2Fuploads%2F2024%2F10%2F171941809_l_normal_none.jpg&w=1920&q=75" alt="blog-img" class="w-full duration-500" />
+                            </div>
+                            <div class="blog-infor mt-7">
+                                <div class="blog-tag bg-primary text-white py-1 px-2.5 rounded-full text-button-uppercase inline-block">Jean, glasses</div>
+                                <div class="heading6 blog-title mt-3 duration-300">Fashion Trends to Watch Out for in Summer 2024</div>
+                                <div class="flex items-center gap-2 mt-2">
+                                    <div class="blog-date caption1 text-secondary">Dec 20, 2024</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="blog-item style-one h-full cursor-pointer" data-item="8">
+                        <div class="blog-main h-full block">
+                            <div class="blog-thumb rounded-[20px] overflow-hidden">
+                                <img src="https://www.marketeers.com/_next/image/?url=https%3A%2F%2Froom.marketeers.com%2Fwp-content%2Fuploads%2F2023%2F03%2FMAMJ23-GUE-Mina-Shoot-Production-5-scaled.jpg&w=1920&q=75" alt="blog-img" class="w-full duration-500" />
+                            </div>
+                            <div class="blog-infor mt-7">
+                                <div class="blog-tag bg-primary text-white py-1 px-2.5 rounded-full text-button-uppercase inline-block">Jean, shoes</div>
+                                <div class="heading6 blog-title mt-3 duration-300">How to Build a Sustainable and Stylish Wardrobe 2024</div>
+                                <div class="flex items-center gap-2 mt-2">
+                                    <div class="blog-date caption1 text-secondary">Dec 12, 2024</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="blog-item style-one h-full cursor-pointer max-lg:hidden max-sm:block" data-item="14">
+                        <div class="blog-main h-full block">
+                            <div class="blog-thumb rounded-[20px] overflow-hidden">
+                                <img src="https://cdn1.katadata.co.id/media/images/temp/2021/07/30/Ilustrasi_penggunaan_cuka_apel_untuk_wajah-2021_07_30-08_54_55_22263f2d27931e3b1a72930dd6495a75.jpg" alt="blog-img" class="w-full duration-500" />
+                            </div>
+                            <div class="blog-infor mt-7">
+                                <div class="blog-tag bg-primary text-white py-1 px-2.5 rounded-full text-button-uppercase inline-block">Jean, skirt</div>
+                                <div class="heading6 blog-title mt-3 duration-300">Fashion and Beauty Tips for Busy Professionals 2024</div>
+                                <div class="flex items-center gap-2 mt-2">
+                                    <div class="blog-date caption1 text-secondary">Dec 10, 2024</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

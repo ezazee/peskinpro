@@ -3,7 +3,7 @@
         <div class="modal-newsletter-main ">
             <div class="main-content overflow-hidden modal-promo">
                 <a href="/shop">
-                    <img src="https://images.soco.id/242dfd3f-1620-4fa9-b6de-2825cd3b4f3e-.jpg"
+                    <img src="{{ asset('frontend/assets/images/banner/Banner-Modal-Promosi--1920x1080.png') }}"
                     alt="Promo Image"/>
                 </a>
             </div>

@@ -59,7 +59,7 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::put('/profile/update/{id}', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/address', [ProfileController::class, 'address'])->name('profile.address');
-    
+
 });
 
 
@@ -155,4 +155,16 @@ Route::get('/search-result', function() {
 
 Route::get('/return-and-refunds', function() {
     return view('frontend.pages.return-and-refunds');
+});
+
+Route::get('/payment', function() {
+    return view('frontend.pages.payment');
+});
+
+Route::get('/artikel', function() {
+    return view('frontend.pages.artikel');
+});
+
+Route::get('/artikel-detail', function() {
+    return view('frontend.pages.artikel-detail');
 });

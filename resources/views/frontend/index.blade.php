@@ -268,6 +268,58 @@
         </div>
     </div>
 
+    <div class="md:pb-20 pb-10">
+        <div class="news-block md:pt-20 pt-10">
+            <div class="container">
+                <div class="heading3 text-center">Artikel Kami</div>
+                <div class="list grid lg:grid-cols-3 sm:grid-cols-2 md:gap-[30px] gap-4 md:mt-10 mt-6">
+                    <div class="blog-item style-one h-full cursor-pointer" data-item="16">
+                        <div class="blog-main h-full block">
+                            <div class="blog-thumb rounded-[20px] overflow-hidden">
+                                <img src="https://www.marketeers.com/_next/image/?url=https%3A%2F%2Froom.marketeers.com%2Fwp-content%2Fuploads%2F2024%2F10%2F171941809_l_normal_none.jpg&w=1920&q=75" alt="blog-img" class="w-full duration-500" />
+                            </div>
+                            <div class="blog-infor mt-7">
+                                <div class="blog-tag bg-primary text-white py-1 px-2.5 rounded-full text-button-uppercase inline-block">Jean, glasses</div>
+                                <div class="heading6 blog-title mt-3 duration-300">Fashion Trends to Watch Out for in Summer 2024</div>
+                                <div class="flex items-center gap-2 mt-2">
+                                    <div class="blog-date caption1 text-secondary">Dec 20, 2024</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="blog-item style-one h-full cursor-pointer" data-item="8">
+                        <div class="blog-main h-full block">
+                            <div class="blog-thumb rounded-[20px] overflow-hidden">
+                                <img src="https://www.marketeers.com/_next/image/?url=https%3A%2F%2Froom.marketeers.com%2Fwp-content%2Fuploads%2F2023%2F03%2FMAMJ23-GUE-Mina-Shoot-Production-5-scaled.jpg&w=1920&q=75" alt="blog-img" class="w-full duration-500" />
+                            </div>
+                            <div class="blog-infor mt-7">
+                                <div class="blog-tag bg-primary text-white py-1 px-2.5 rounded-full text-button-uppercase inline-block">Jean, shoes</div>
+                                <div class="heading6 blog-title mt-3 duration-300">How to Build a Sustainable and Stylish Wardrobe 2024</div>
+                                <div class="flex items-center gap-2 mt-2">
+                                    <div class="blog-date caption1 text-secondary">Dec 12, 2024</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="blog-item style-one h-full cursor-pointer max-lg:hidden max-sm:block" data-item="14">
+                        <div class="blog-main h-full block">
+                            <div class="blog-thumb rounded-[20px] overflow-hidden">
+                                <img src="https://cdn1.katadata.co.id/media/images/temp/2021/07/30/Ilustrasi_penggunaan_cuka_apel_untuk_wajah-2021_07_30-08_54_55_22263f2d27931e3b1a72930dd6495a75.jpg" alt="blog-img" class="w-full duration-500" />
+                            </div>
+                            <div class="blog-infor mt-7">
+                                <div class="blog-tag bg-primary text-white py-1 px-2.5 rounded-full text-button-uppercase inline-block">Jean, skirt</div>
+                                <div class="heading6 blog-title mt-3 duration-300">Fashion and Beauty Tips for Busy Professionals 2024</div>
+                                <div class="flex items-center gap-2 mt-2">
+                                    <div class="blog-date caption1 text-secondary">Dec 10, 2024</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 @include('frontend.components.modal-landing')
 @endsection
