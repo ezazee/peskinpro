@@ -1,9 +1,10 @@
 @extends('backend.master.master-app')
-@section('title', 'Add Article')
+@section('title', 'Edit Article')
 @section('content')
 <div class="container-xxl">
-    <form action="{{ route('article.add') }}" method="POST" enctype="multipart/form-data" id="contentForm">
+    <form action="{{ route('article.update', $articles->id) }} " method="POST" enctype="multipart/form-data" id="contentForm">
         @csrf
+        @method('PUT')
         <div class="row">
             <div class="col-lg-8">
                 <div class="card">
@@ -12,12 +13,12 @@
                             <div class="col-lg-12">
                                 <div class="mb-3">
                                     <label for="simpleinput" class="form-label">Title</label>
-                                    <input type="text" name="tittle" class="form-control" required>
+                                    <input type="text" name="tittle" class="form-control" value="{{ old('tittle', $articles->tittle) }}">
                                 </div>
                             </div>
                             <div class="col-lg-12">
-                                <div id="snow-editor" style="height: 300px;"></div>
-                                <input type="hidden" id="editor-content" name="content">
+                                <div id="snow-editor" style="height: 550px;"></div>
+                                <input type="hidden" id="editor-content" name="content" value="{{ old('content', $articles->content) }}">
                             </div>
                         </div>
                     </div>
@@ -30,18 +31,20 @@
                             <div class="col-lg-12">
                                 <div class="mb-3">
                                     <label for="simpleinput" class="form-label">Images</label>
-                                    <input type="file" name="images" class="form-control" required>
+                                    <input type="file" name="images" class="form-control">
+                                    <img src="front-image-preview" alt="" class="img-fluid rounded bg-light">
+                                    <img id="back-image-preview" src="{{ asset('storage/'.$articles->images) }}" alt="" class="img-fluid rounded bg-light" style="display: block;">
                                 </div>
                                 <div class="mb-3">
                                     <label for="simpleinput" class="form-label">Tags</label>
-                                    <input type="text" name="tags" class="form-control" required>
+                                    <input type="text" name="tags" class="form-control" value="{{ isset($articles) ? implode(',', $articles->tag->pluck('nama_tags')->toArray()) : '' }}">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="d-flex gap-2 align-items-center">
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="status" value="public"
-                                            id="status-public" checked>
+                                            id="status-public" {{ old('status', $articles->status) == 'public' ? 'checked' : '' }}>
                                         <label class="form-check-label">Publish</label>
                                     </div>
                                 </div>
@@ -49,26 +52,26 @@
                             <div class="col-lg-6 mb-3">
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="status" value="scheduled"
-                                        id="status-scheduled">
+                                        id="status-scheduled" {{ old('status', $articles->status) == 'scheduled' ? 'checked' : '' }} >
                                     <label class="form-check-label">Scheduled</label>
                                 </div>
                             </div>
                             <div class="col-lg-6" id="date-field" style="display: none;">
                                 <div class="mb-3">
                                     <label for="start-date" class="form-label text-dark">Date</label>
-                                    <input type="date" name="start_date" class="form-control flatpickr-input active">
+                                    <input type="date" name="start_date" class="form-control flatpickr-input active" value="{{ old('start_date', $articles->start_date) }}">
                                 </div>
                             </div>
                             <div class="col-lg-6" id="time-field" style="display: none;">
                                 <div class="mb-3">
                                     <label for="end-date" class="form-label text-dark">Time</label>
-                                    <input type="time" name="start_time" class="form-control flatpickr-input active">
+                                    <input type="time" name="start_time" class="form-control flatpickr-input active" value="{{ old('start_time', $articles->start_time) }}">
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="card-footer border-top">
-                        <button class="btn btn-primary" type="submit">Create Article</button>
+                        <button class="btn btn-success" type="submit">Update Article</button>
                         <a href="{{ route('article.list') }}" class="btn btn-danger">Cancel</a>
                     </div>
                 </div>
@@ -85,12 +88,12 @@
                             <div class="col-lg-12">
                                 <div class="mb-3">
                                     <label for="simpleinput" class="form-label">Keyword</label>
-                                    <input type="text" name="keyword" class="form-control">
+                                    <input type="text" name="keyword" class="form-control" value="{{ old('keyword', $articles->keyword) }}">
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="simpleinput" class="form-label">Deskriptions</label>
-                                <input type="text" name="description" class="form-control">
+                                <input type="text" name="description" class="form-control"  value="{{ old('description', $articles->description) }}">
                             </div>
                         </div>
                     </div>
@@ -117,6 +120,7 @@
         </div>
     </form>
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
 <script>
     var quill = new Quill('#snow-editor', {
@@ -155,12 +159,14 @@
         },
     });
 
-    document.getElementById('contentForm').addEventListener('submit', function () {
-        var editorContent = document.getElementById('snow-editor').getElementsByClassName('ql-editor')[0]
-            .innerHTML;
+    var existingContent = document.getElementById('editor-content').value;
+    quill.clipboard.dangerouslyPasteHTML(existingContent);
+
+    document.getElementById('contentForm').addEventListener('submit', function() {
+        var editorContent = document.querySelector('#snow-editor .ql-editor').innerHTML;
+
         document.getElementById('editor-content').value = editorContent;
     });
-
 </script>
 
 <script>
@@ -185,6 +191,4 @@
         scheduledRadio.addEventListener('change', toggleScheduledFields);
     });
 </script>
-
-
 @endsection

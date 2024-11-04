@@ -138,7 +138,7 @@
                         <div class="collapse" id="sidebarArticle">
                             <ul class="nav sub-navbar-nav">
                                 <li class="sub-nav-item">
-                                    <a class="sub-nav-link" href="#!">List</a>
+                                    <a class="sub-nav-link" href="{{ route('article.list') }}">List</a>
                                 </li>
                                 <li class="sub-nav-item">
                                     <a class="sub-nav-link" href="{{ route('article.create') }}">Create</a>

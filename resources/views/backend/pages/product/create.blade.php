@@ -1,7 +1,6 @@
 @extends('backend.master.master-app')
 @section('title', 'Create Product')
 @section('content')
-<!-- Start Container Fluid -->
 <div class="container-xxl">
     <form action="{{ route('product.create') }}" method="POST" enctype="multipart/form-data">
         @csrf
@@ -12,14 +11,14 @@
                         <!-- Upload Front Image -->
                         <div class="mb-3">
                             <label class="form-label">Front Image</label>
-                            <input class="form-control form-control-sm" type="file" name="front_image" id="front-image-input" required>
+                            <input class="form-control form-control-sm" type="file" name="front_image" id="front-image-input" accept=".jpg, .jpeg, .png, .gif" required>
                         </div>
                         <img id="front-image-preview" alt="" class="img-fluid rounded bg-light" style="display: none;">
 
                         <!-- Upload Back Image -->
                         <div class="mb-3 mt-3">
                             <label class="form-label">Back Image</label>
-                            <input class="form-control form-control-sm" type="file" name="back_image" id="back-image-input" required>
+                            <input class="form-control form-control-sm" type="file" name="back_image" id="back-image-input" accept=".jpg, .jpeg, .png, .gif" required>
                         </div>
                         <img id="back-image-preview" alt="" class="img-fluid rounded bg-light" style="display: none;">
                     </div>
@@ -151,7 +150,7 @@
                                     <button type="submit" class="btn btn-outline-secondary w-100">Create Product</button>
                                 </div>
                                 <div class="col-lg-2">
-                                    <a href="#!" class="btn btn-primary w-100">Cancel</a>
+                                    <a href="{{ route('product.list') }}" class="btn btn-primary w-100">Cancel</a>
                                 </div>
                             </div>
                         </div>
@@ -162,7 +161,6 @@
     </form>
 </div>
 
-<!-- Script for Image Previews -->
 <script>
     document.getElementById('front-image-input').addEventListener('change', function (event) {
         var reader = new FileReader();
@@ -186,7 +184,7 @@
 
     document.getElementById('all-image-input').addEventListener('change', function(event) {
         var imagePreviewsContainer = document.getElementById('image-previews');
-        imagePreviewsContainer.innerHTML = ''; // Clear previous previews
+        imagePreviewsContainer.innerHTML = '';
 
         var files = event.target.files;
         if (files.length > 0) {

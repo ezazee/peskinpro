@@ -3,7 +3,6 @@
 @section('title', 'Detail Invoice')
 
 @section('content')
-
 <div class="container-xxl">
 
     <div class="row justify-content-center">
@@ -14,14 +13,13 @@
                     <div class="clearfix pb-3 bg-info-subtle p-lg-3 p-2 m-n2 rounded position-relative">
                         <div class="float-sm-start">
                             <div class="auth-logo">
-                                <img class="logo-dark me-1" src="assets/images/logo-dark.png" alt="logo-dark" height="24" />
+                                <img class="logo-dark me-1" src="{{ asset('backend/assets/images/peskin.png') }}" alt="logo-dark" height="50" />
                             </div>
-                            <div class="mt-4">
-                                <h4>Larkon Admin.</h4>
+                            <div class="mt-2">
+                                <h4>PE SKINPRO ID OFFICIAL.</h4>
                                 <address class="mt-3 mb-0">
-                                    1729 Bangor St,<br>
-                                    Houlton, ME, 04730 , United States <br>
-                                    <abbr title="Phone">Phone:</abbr> +1(142)-532-9109
+                                    <abbr title="Instagram">Instagram:</abbr> @peskinproid<br>
+                                    <abbr title="Phone">Phone:</abbr> +6282-123-167895
                                 </address>
                             </div>
                         </div>
@@ -33,31 +31,33 @@
                                             <td class="p-0 pe-5 py-1">
                                                 <p class="mb-0 text-dark fw-semibold"> Invoice : </p>
                                             </td>
-                                            <td class="text-end text-dark fw-semibold px-0 py-1">#INV-0758267/90</td>
+                                            <td class="text-end text-dark fw-semibold px-0 py-1">#{{ $invoices->invoice_number }}</td>
                                         </tr>
                                         <tr>
                                             <td class="p-0 pe-5 py-1">
-                                                <p class="mb-0">Issue Date: </p>
+                                                <p class="mb-0">Date: </p>
                                             </td>
-                                            <td class="text-end text-dark fw-medium px-0 py-1">23 April 2024</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="p-0 pe-5 py-1">
-                                                <p class="mb-0">Due Date : </p>
-                                            </td>
-                                            <td class="text-end text-dark fw-medium px-0 py-1">26 April 2024</td>
+                                            <td class="text-end text-dark fw-medium px-0 py-1">{{ $invoices->created_at->format('d F Y') }}</td>
                                         </tr>
                                         <tr>
                                             <td class="p-0 pe-5 py-1">
                                                 <p class="mb-0">Amount : </p>
                                             </td>
-                                            <td class="text-end text-dark fw-medium px-0 py-1">$737.00</td>
+                                            <td class="text-end text-dark fw-medium px-0 py-1">Rp{{ number_format($invoices->amount, 0, ',', '.') }}</td>
                                         </tr>
                                         <tr>
                                             <td class="p-0 pe-5 py-1">
                                                 <p class="mb-0">Status : </p>
                                             </td>
-                                            <td class="text-end px-0 py-1"><span class="badge bg-success text-white  px-2 py-1 fs-13">Paid</span></td>
+                                            <td class="text-end px-0 py-1">
+                                                @if ($invoices->payment_status == 'paid')
+                                                <span class="badge bg-success text-white px-2 py-1 fs-13">Paid</span>
+                                                @elseif($invoices->payment_status == 'unpaid')
+                                                <span class="badge bg-secondary text-white px-2 py-1 fs-13">Unpaid</span>
+                                                @else
+                                                <span class="badge bg-danger text-white px-2 py-1 fs-13">Refunded</span>
+                                                @endif
+                                            </td>
                                         </tr>
 
 
@@ -66,33 +66,23 @@
                             </div>
                         </div>
                         <div class="position-absolute top-100 start-50 translate-middle">
-                            <img src="assets/images/check-2.png" alt="" class="img-fluid">
+                            <img src="{{ asset('backend/assets/images/check-2.png') }}" alt="" class="img-fluid">
                         </div>
                     </div>
 
                     <div class="clearfix pb-3 mt-4">
-                        <div class="float-sm-start">
-                            <div class="">
-                                <h4 class="card-title">Issue From :</h4>
-                                <div class="mt-3">
-                                    <h4>Larkon Admin.INC</h4>
-                                    <p class="mb-2">2437 Romano Street Cambridge, MA 02141</p>
-                                    <p class="mb-2"><span class="text-decoration-underline">Phone :</span> +(31)781-417-2004</p>
-                                    <p class="mb-2"><span class="text-decoration-underline">Email :</span> JulianeKuhn@jourrapide.com</p>
-                                </div>
-                            </div>
-                        </div>
+                        @if(  $invoices->order->user->role_id !== 1 )
                         <div class="float-sm-end">
                             <div class="">
-                                <h4 class="card-title">Issue For :</h4>
                                 <div class="mt-3">
-                                    <h4>Gaston Lapierre</h4>
+                                    <h4>{{ $invoices->order->user->name }}</h4>
                                     <p class="mb-2">1344 Hershell Hollow Road WA 98168 , USA</p>
                                     <p class="mb-2"><span class="text-decoration-underline">Phone :</span> +(123) 732-760-5760</p>
                                     <p class="mb-2"><span class="text-decoration-underline">Email :</span> hello@dundermuffilin.com</p>
                                 </div>
                             </div>
                         </div>
+                        @endif
                     </div>
 
 
@@ -105,79 +95,41 @@
                                             <th class="border-0 py-2">Product Name</th>
                                             <th class="border-0 py-2">Quantity</th>
                                             <th class="border-0 py-2">Price</th>
-                                            <th class="border-0 py-2">Tax</th>
                                             <th class="text-end border-0 py-2">Total</th>
                                         </tr>
                                     </thead> <!-- end thead -->
                                     <tbody>
+                                        @php
+                                            $totalAmount = 0;
+                                            $hemat = 0;
+                                        @endphp
+                                    @foreach ($invoices->order->products as $product)
                                         <tr>
                                             <td>
                                                 <div class="d-flex align-items-center gap-3">
                                                     <div class="rounded bg-light avatar d-flex align-items-center justify-content-center">
-                                                        <img src="assets/images/product/p-1.png" alt="" class="avatar">
+                                                        <img src="{{ asset('storage/' . $product->front_image) }}" alt="{{ $product->name }}" class="avatar">
                                                     </div>
                                                     <div>
-                                                        <a href="#!" class="text-dark fw-medium fs-15">Men Black Slim Fit T-shirt</a>
-                                                        <p class="text-muted mb-0 mt-1 fs-13"><span>Size : </span>M</p>
+                                                        <a href="#!" class="text-dark fw-medium fs-15">{{ $product->name }}</a>
+                                                        <p class="text-muted mb-0 mt-1 fs-13"><span>Size : </span>
+                                                        @php
+                                                            $purchasedSizeId = $product->pivot->size_id;
+                                                            $purchasedSize = $product->sizes->firstWhere('id', $purchasedSizeId);
+                                                            $subtotal = ($purchasedSize->price * $product->pivot->quantity) - ($purchasedSize->discount * $product->pivot->quantity);
+                                                            $totalAmount += $subtotal;
+                                                            $hemat += $purchasedSize->discount * $product->pivot->quantity;
+                                                        @endphp
+                                                            {{ $purchasedSize->size }}ML
+                                                        </p>
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td>1</td>
-                                            <td>$80.00</td>
-                                            <td>$3.00</td>
-                                            <td class="text-end">$83.00</td>
+                                            <td>{{ $product->pivot->quantity }}</td>
+                                            <td>Rp{{ number_format($purchasedSize->price - $purchasedSize->discount, 2) }}</td>
+                                            <td class="text-end">Rp{{ number_format(($purchasedSize->price * $product->pivot->quantity) - ($purchasedSize->discount * $product->pivot->quantity), 2) }}</td>
                                         </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center gap-3">
-                                                    <div class="rounded bg-light avatar d-flex align-items-center justify-content-center">
-                                                        <img src="assets/images/product/p-5.png" alt="" class="avatar">
-                                                    </div>
-                                                    <div>
-                                                        <a href="#!" class="text-dark fw-medium fs-15">Dark Green Cargo Pent</a>
-                                                        <p class="text-muted mb-0 mt-1 fs-13"><span>Size : </span>M</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>3</td>
-                                            <td>$110.00</td>
-                                            <td>$4.00</td>
-                                            <td class="text-end">$330.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center gap-3">
-                                                    <div class="rounded bg-light avatar d-flex align-items-center justify-content-center">
-                                                        <img src="assets/images/product/p-8.png" alt="" class="avatar">
-                                                    </div>
-                                                    <div>
-                                                        <a href="#!" class="text-dark fw-medium fs-15">Men Dark Brown Wallet</a>
-                                                        <p class="text-muted mb-0 mt-1 fs-13"><span>Size : </span>S</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>1</td>
-                                            <td>$132.00</td>
-                                            <td>$5.00</td>
-                                            <td class="text-end">$137.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center gap-3">
-                                                    <div class="rounded bg-light avatar d-flex align-items-center justify-content-center">
-                                                        <img src="assets/images/product/p-10.png" alt="" class="avatar">
-                                                    </div>
-                                                    <div>
-                                                        <a href="#!" class="text-dark fw-medium fs-15">Kid's Yellow T-shirt</a>
-                                                        <p class="text-muted mb-0 mt-1 fs-13"><span>Size : </span>S</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>2</td>
-                                            <td>$110.00</td>
-                                            <td>$5.00</td>
-                                            <td class="text-end">$223.00</td>
-                                        </tr>
+                                    @endforeach
                                     </tbody> <!-- end tbody -->
                                 </table> <!-- end table -->
                             </div> <!-- end table responsive -->
@@ -193,25 +145,21 @@
                                             <td class="text-end p-0 pe-5 py-2">
                                                 <p class="mb-0"> Sub Total : </p>
                                             </td>
-                                            <td class="text-end text-dark fw-medium  py-2">$777.00</td>
+                                            <td class="text-end text-dark fw-medium  py-2">
+                                                Rp{{ number_format($totalAmount, 2) }}
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td class="text-end p-0 pe-5 py-2">
-                                                <p class="mb-0">Discount : </p>
+                                                <p class="mb-0">Hemat : </p>
                                             </td>
-                                            <td class="text-end text-dark fw-medium  py-2">-$60.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-end p-0 pe-5 py-2">
-                                                <p class="mb-0">Estimated Tax (15.5%) : </p>
-                                            </td>
-                                            <td class="text-end text-dark fw-medium  py-2">$20.00</td>
+                                            <td class="text-end text-dark fw-medium  py-2">Rp{{ number_format($hemat, 2) }}</td>
                                         </tr>
                                         <tr class="border-top">
                                             <td class="text-end p-0 pe-5 py-2">
                                                 <p class="mb-0 text-dark fw-semibold">Grand Amount : </p>
                                             </td>
-                                            <td class="text-end text-dark fw-semibold  py-2">$737.00</td>
+                                            <td class="text-end text-dark fw-semibold py-2">$737.00</td>
                                         </tr>
                                     </tbody>
                                 </table>

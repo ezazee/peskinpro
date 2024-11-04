@@ -5,6 +5,7 @@
     @include('backend.master.master-css')
 </head>
 <body>
+    @include('sweetalert::alert')
     <div class="wrapper">
         @include('backend.components.navbar')
         @include('backend.components.sidebar')

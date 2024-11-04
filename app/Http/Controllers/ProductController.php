@@ -9,7 +9,7 @@ use App\Models\Product;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
-
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ProductController extends Controller
 {
@@ -76,7 +76,8 @@ class ProductController extends Controller
                 'discount' => $request->discount[$index] ?? 0,
             ]);
         }
-    
+        
+        Alert::success('Success', 'Product created successfully!');
         return redirect()->route('product.index')->with('success', 'Product created successfully!');
     }
 
@@ -90,18 +91,6 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'category_id' => 'required|exists:categories,id',
-            // 'weight' => 'required|numeric',
-            'description' => 'required|string',
-            'stock' => 'required|integer',
-            'price' => 'required|numeric',
-            'discount' => 'nullable|numeric',
-            // 'front_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            // 'back_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            // 'imagedetail.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
-        ]);
 
         $product = Product::findOrFail($id);
 
@@ -136,16 +125,6 @@ class ProductController extends Controller
             'howtouse' => $request->howtouse
         ]);
 
-        $product->size()->delete();
-
-        if ($request->input('sizes')) {
-            foreach ($request->input('sizes') as $size) {
-                Size::create([
-                    'product_id' => $product->id,
-                    'name' => $size,
-                ]);
-            }
-        }
 
         if ($request->hasfile('imagedetail')) {
             foreach ($product->imagedetail as $image) {
@@ -159,6 +138,22 @@ class ProductController extends Controller
             }
         }
 
+        $requestedSizes = collect($request->sizes)->pluck('size')->toArray();
+
+        $product->sizes()->whereNotIn('size', $requestedSizes)->delete();
+
+        foreach ($request->sizes as $index => $size) {
+            $product->sizes()->updateOrCreate(
+                ['size' => $size],
+                [
+                    'price' => $request->price[$index],
+                    'stock' => $request->stock[$index],
+                    'discount' => $request->discount[$index] ?? 0,
+                ]
+            );
+        }
+
+        Alert::info('Updated', 'Category updated successfully');
         return back()->with('success', 'Product updated successfully!');
     }
 
@@ -166,8 +161,9 @@ class ProductController extends Controller
 
     public function destroy($id)
     {
-        $category = Product::findOrFail($id); 
-        $category->delete();
-        return redirect()->route('product.list')->with('success', 'Category deleted successfully.');
+        $product = Product::findOrFail($id); 
+        $product->delete();
+        Alert::error('Deleted', 'Product deleted successfully');
+        return redirect()->route('product.list')->with('success', 'Product deleted successfully.');
     }
 }

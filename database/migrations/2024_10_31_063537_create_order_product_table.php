@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('order_id')->constrained()->onDelete('cascade');
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
-            $table->integer('quantity'); // Menyimpan jumlah produk yang dipesan
+            $table->integer('quantity');
+            $table->foreignId('size_id')->constrained('product_sizes');
             $table->timestamps();
         });
     }

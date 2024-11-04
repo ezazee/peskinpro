@@ -167,7 +167,7 @@
                                     <button type="submit" class="btn btn-outline-secondary w-100">Update Product</button>
                                 </div>
                                 <div class="col-lg-2">
-                                    <a href="{{ route('product.index') }}" class="btn btn-primary w-100">Cancel</a>
+                                    <a href="{{ route('product.list') }}" class="btn btn-primary w-100">Cancel</a>
                                 </div>
                             </div>
                         </div>
@@ -178,7 +178,6 @@
     </form>
 </div>
 
-<!-- Scripts for Image Previews and Adding/Removing Sizes -->
 <script>
     document.getElementById('front-image-input').addEventListener('change', function (event) {
         var reader = new FileReader();
@@ -202,7 +201,7 @@
 
     document.getElementById('all-image-input').addEventListener('change', function(event) {
         var imagePreviewsContainer = document.getElementById('image-previews');
-        imagePreviewsContainer.innerHTML = ''; // Clear previous previews
+        imagePreviewsContainer.innerHTML = '';
 
         var files = event.target.files;
         if (files.length > 0) {

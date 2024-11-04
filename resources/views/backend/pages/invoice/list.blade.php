@@ -13,7 +13,7 @@
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
                             <h4 class="card-title mb-2 d-flex align-items-center gap-2">Total Invoice</h4>
-                            <p class="text-muted fw-medium fs-22 mb-0">2310</p>
+                            <p class="text-muted fw-medium fs-22 mb-0">{{ $totalinvoices }}</p>
                         </div>
                         <div>
                             <div class="avatar-md bg-primary bg-opacity-10 rounded">
@@ -31,12 +31,12 @@
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
                             <h4 class="card-title mb-2 d-flex align-items-center gap-2">Pending Invoice</h4>
-                            <p class="text-muted fw-medium fs-22 mb-0">1000</p>
+                            <p class="text-muted fw-medium fs-22 mb-0">{{ $totalinvoicesunpaid }}</p>
                         </div>
                         <div>
                             <div class="avatar-md bg-primary bg-opacity-10 rounded">
-                                <iconify-icon icon="solar:bill-cross-bold-duotone"
-                                    class="fs-32 text-primary avatar-title"></iconify-icon>
+                                <iconify-icon icon="solar:bill-bold-duotone" class="fs-32 text-primary avatar-title">
+                                </iconify-icon>
                             </div>
                         </div>
                     </div>
@@ -49,7 +49,7 @@
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
                             <h4 class="card-title mb-2 d-flex align-items-center gap-2">Paid Invoice</h4>
-                            <p class="text-muted fw-medium fs-22 mb-0">1310</p>
+                            <p class="text-muted fw-medium fs-22 mb-0">{{ $totalinvoicespaid }}</p>
                         </div>
                         <div>
                             <div class="avatar-md bg-primary bg-opacity-10 rounded">
@@ -66,13 +66,13 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
-                            <h4 class="card-title mb-2 d-flex align-items-center gap-2">Inactive Invoice</h4>
-                            <p class="text-muted fw-medium fs-22 mb-0">1243</p>
+                            <h4 class="card-title mb-2 d-flex align-items-center gap-2">Refunded Invoice</h4>
+                            <p class="text-muted fw-medium fs-22 mb-0">{{ $totalinvoicerefunded }}</p>
                         </div>
                         <div>
                             <div class="avatar-md bg-primary bg-opacity-10 rounded">
-                                <iconify-icon icon="solar:bill-bold-duotone" class="fs-32 text-primary avatar-title">
-                                </iconify-icon>
+                                <iconify-icon icon="solar:bill-cross-bold-duotone"
+                                class="fs-32 text-primary avatar-title"></iconify-icon>
                             </div>
                         </div>
                     </div>
@@ -110,10 +110,7 @@
                             <thead class="bg-light-subtle">
                                 <tr>
                                     <th style="width: 20px;">
-                                        <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="customCheck1">
-                                            <label class="form-check-label" for="customCheck1"></label>
-                                        </div>
+                                       No
                                     </th>
                                     <th>Invoice ID</th>
                                     <th>Billing Name</th>
@@ -125,27 +122,40 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($invoices as $index => $item)
                                 <tr>
                                     <td>
-                                        <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="customCheck2">
-                                            <label class="form-check-label" for="customCheck2">&nbsp;</label>
-                                        </div>
+                                        {{ $index+1 }}
                                     </td>
-                                    <td><a href="javascript: void(0);" class="text-body">#INV2540</a> </td>
-                                    <td><img src="assets/images/users/avatar-2.jpg"
-                                            class="avatar-sm rounded-circle me-2" alt="..."> Michael A. Miner</td>
-                                    <td> 07 Jan, 2023</td>
-                                    <td> $452 </td>
-                                    <td> Mastercard </td>
-                                    <td> <span class="badge bg-success-subtle text-success py-1 px-2">Completed</span>
+                                    <td> #{{ $item->invoice_number }}</td>
+                                    <td>
+                                        @if($item->order->user->images )
+                                        <img src="{{ asset('storage/' . $item->order->user->images ) }}" alt="Admin Image"
+                                            class="avatar-sm rounded-circle me-2">
+                                        @else
+                                        <img src="{{ asset('/backend/assets/images/blank-profile.png') }}"
+                                            alt="Default Profile Image" class="avatar-sm rounded-circle me-2">
+                                        @endif 
+                                        {{ $item->order->user->name }}</td>
+                                    <td> {{ $item->created_at }}</td>
+                                    <td> Rp{{ number_format($item->amount, 0, ',', '.') }} </td>
+                                    <td> {{ $item->order->payment_method }} </td>
+                                    <td>
+                                        @if ( $item->order->status == 'pending')
+                                        <span class="badge border border-secondary text-secondary px-2 py-1 fs-13">Pending</span>
+                                        @elseif($item->order->status == 'processing')
+                                        <span class="badge border border-warning text-warning px-2 py-1 fs-13">Processing</span>
+                                        @elseif($item->order->status == 'completed')
+                                        <span class="badge border border-success text-success px-2 py-1 fs-13">Completed</span>
+                                        @else
+                                        <span class="badge border border-danger text-danger px-2 py-1 fs-13">Canceled</span>
+                                        @endif 
                                     </td>
                                     <td>
                                         <div class="d-flex gap-2">
-                                            <a href="{{ route('invoice.detail') }}" class="btn btn-light btn-sm">
-                                                <iconify-icon icon="solar:eye-broken" class="align-middle fs-18">
-                                                </iconify-icon>
-                                            </a>
+                                            <a href="{{ route('invoice.detail', ['invoiceNumber' => $item->invoice_number]) }}" class="btn btn-light btn-sm">
+                                                <iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon>
+                                            </a>                                            
                                             <a href="#!" class="btn btn-soft-primary btn-sm" data-bs-toggle="modal"
                                                 data-bs-target="#staticBackdrop">
                                                 <iconify-icon icon="solar:printer-outline" class="align-middle fs-18">
@@ -154,6 +164,7 @@
                                         </div>
                                     </td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -162,11 +173,7 @@
                 <div class="card-footer border-top">
                     <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-end mb-0">
-                            <li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>
-                            <li class="page-item active"><a class="page-link" href="javascript:void(0);">1</a></li>
-                            <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
-                            <li class="page-item"><a class="page-link" href="javascript:void(0);">3</a></li>
-                            <li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li>
+                            {{ $invoices->onEachSide(1)->links('pagination::bootstrap-5') }}
                         </ul>
                     </nav>
                 </div>

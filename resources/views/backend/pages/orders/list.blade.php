@@ -13,7 +13,7 @@
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
                             <h4 class="card-title mb-2">Payment Refund</h4>
-                            <p class="text-muted fw-medium fs-22 mb-0">490</p>
+                            <p class="text-muted fw-medium fs-22 mb-0">{{ $paymentrefund }}</p>
                         </div>
                         <div>
                             <div class="avatar-md bg-primary bg-opacity-10 rounded">
@@ -31,7 +31,7 @@
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
                             <h4 class="card-title mb-2">Order Cancel</h4>
-                            <p class="text-muted fw-medium fs-22 mb-0">241</p>
+                            <p class="text-muted fw-medium fs-22 mb-0">{{ $ordercancel }}</p>
                         </div>
                         <div>
                             <div class="avatar-md bg-primary bg-opacity-10 rounded">
@@ -201,7 +201,7 @@
                                 <tr>
                                     <td>{{ $index+1 }}</td>
                                     <td>
-                                       {{ $item->order_number }}
+                                       #{{ $item->order_number }}
                                     </td>
                                     <td>{{ $item->created_at }}</td>
                                     <td>
@@ -234,17 +234,9 @@
                                     </td>
                                     <td>
                                         <div class="d-flex gap-2">
-                                            <a href="{{ route('orders.detail') }}" class="btn btn-light btn-sm">
+                                            <a href="{{ route('orders.detail',['orderNumber' => $item->order_number]) }}" class="btn btn-light btn-sm">
                                                 <iconify-icon icon="solar:eye-broken" class="align-middle fs-18">
                                                 </iconify-icon>
-                                            </a>
-                                            <a href="#!" class="btn btn-soft-primary btn-sm">
-                                                <iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18">
-                                                </iconify-icon>
-                                            </a>
-                                            <a href="#!" class="btn btn-soft-danger btn-sm">
-                                                <iconify-icon icon="solar:trash-bin-minimalistic-2-broken"
-                                                    class="align-middle fs-18"></iconify-icon>
                                             </a>
                                         </div>
                                     </td>

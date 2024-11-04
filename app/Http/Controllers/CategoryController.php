@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
-
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CategoryController extends Controller
 {
@@ -29,6 +29,8 @@ class CategoryController extends Controller
             'slug' => Str::slug($request->name)
           ]);
 
+
+        Alert::success('Success', 'Category created successfully!');
         return back()->with('success', 'Category created successfully!');
 
     }
@@ -51,7 +53,7 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
         $category->name = $request->name;
         $category->save();
-
+        Alert::info('Updated', 'Category updated successfully');
         return redirect()->route('category.index')->with('success', 'Category updated successfully');
     }
 
@@ -60,7 +62,7 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($slug); 
         $category->delete();
-
+        Alert::error('Deleted', 'Category deleted successfully.');
         return redirect()->route('category.index')->with('success', 'Category deleted successfully.');
     }
 

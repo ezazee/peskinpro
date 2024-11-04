@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Role;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 
 class UsersController extends Controller
@@ -60,6 +61,7 @@ class UsersController extends Controller
             'images' => $imagePath,
         ]);
 
+        Alert::success('Success', 'Users created successfully!');
         return redirect()->route('users.index')->with('success', 'Users berhasil ditambahkan!');
     }
 
@@ -112,9 +114,10 @@ class UsersController extends Controller
         ]);
 
         if ($users->role->name === 'user') {
+            Alert::info('Updated', 'Users updated successfully');
             return redirect()->route('customers.index')->with('success', 'Users updated successfully.');
         }
-    
+        Alert::info('Updated', 'Users updated successfully');
         return redirect()->route('users.index')->with('success', 'Users updated successfully.');
     }
 
@@ -122,6 +125,7 @@ class UsersController extends Controller
     {
         $users = User::findOrFail($id); 
         $users->delete();
+        Alert::error('Deleted', 'Users deleted successfully.');
         return redirect()->route('users.index')->with('success', 'Users deleted successfully.');
     }
 

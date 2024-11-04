@@ -94,19 +94,16 @@ Route::middleware(['auth', 'role:Administrator'])->group(function () {
 
     // orders
     Route::get('/orders/list', [OrdersController::class, 'list'])->name('orders.list');
-    Route::get('/orders/detail', [OrdersController::class, 'detail'])->name('orders.detail');
+    Route::get('/orders/detail/{orderNumber}', [OrdersController::class, 'detail'])->name('orders.detail');
     Route::get('/pos', [OrdersController::class, 'pos'])->name('orders.pos');
     Route::post('/add_cart/pos', [OrdersController::class, 'add_cart_pos'])->name('add_cart_pos');
     Route::get('/cart/delete/{id}', [OrdersController::class, 'remove'])->name('cart.delete');
     Route::get('/cart/clearall', [OrdersController::class, 'clearall'])->name('cart.clearall');
     Route::post('/orders/pos', [OrdersController::class, 'pos_order'])->name('pos_order');
 
-
-
-
     // invoice
     Route::get('/invoice', [InvoiceController::class, 'index'])->name('invoice.index');
-    Route::get('/invoice/detail', [InvoiceController::class, 'detail'])->name('invoice.detail');
+    Route::get('/invoice/detail/{invoiceNumber}', [InvoiceController::class, 'detail'])->name('invoice.detail');
 
         // users
     Route::get('/users/list', [UsersController::class, 'index'])->name('users.index');
@@ -125,6 +122,11 @@ Route::middleware(['auth', 'role:Administrator'])->group(function () {
     Route::delete('/coupons/delete/{id}', [CouponsController::class, 'destroy'])->name('coupons.destroy');
 
     Route::get('/article/create', [ArticleController::class, 'create'])->name('article.create');
+    Route::post('/article/create', [ArticleController::class, 'add'])->name('article.add');
+    Route::get('/article/list', [ArticleController::class, 'list'])->name('article.list');
+    Route::get('/article/edit/{slug}', [ArticleController::class, 'edit'])->name('article.edit');
+    Route::delete('/article/delete/{id}', [ArticleController::class, 'destroy'])->name('article.destroy');
+    Route::put('/article/update/{id}', [ArticleController::class, 'update'])->name('article.update');
 
 
 

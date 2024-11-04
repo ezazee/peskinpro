@@ -10,6 +10,7 @@ use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Order;
 use App\Models\ProductSize;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class OrdersController extends Controller
 {
@@ -19,17 +20,34 @@ class OrdersController extends Controller
         $orders = Order::with(['user', 'alamat', 'products', 'invoice'])
         ->orderBy('created_at', 'desc')
         ->paginate(10);
-        // dd($orders);
-        return view('backend.pages.orders.list',compact('welcomeMessage','user','orders'));
+
+        $paymentrefund = Order::with(['user', 'alamat', 'products', 'invoice'])
+        ->whereHas('invoice', function ($query) {
+            $query->where('payment_status', 'refunded');
+        })
+        ->count();
+
+        $ordercancel =  Order::where('status','canceled')->count();
+
+        return view('backend.pages.orders.list',compact('welcomeMessage','user','orders','paymentrefund','ordercancel'));
     }
 
-    public function detail(){
+    public function detail($orderNumber){
+        $orders = Order::with(['user', 'alamat', 'products', 'invoice'])
+        ->where('order_number', $orderNumber)
+        ->firstOrFail();
         $user = Auth::user();
         $welcomeMessage = 'Detail Orders'; 
-        return view('backend.pages.orders.detail',compact('welcomeMessage','user'));
+        return view('backend.pages.orders.detail',compact('welcomeMessage','user','orders'));
     }
 
     public function pos(){
+        $orders = Order::with(['user', 'alamat', 'products', 'invoice'])
+        ->whereHas('user', function ($query) {
+            $query->where('role_id', 1);
+        })
+        ->paginate(10);
+        // dd($orders);
         $user = Auth::user();
         $welcomeMessage = 'Point Of Sale';
         $products = Product::with('sizes', 'category')->get();
@@ -47,13 +65,12 @@ class OrdersController extends Controller
             });
         });
         $countcart = count($cartItems);
-        return view('backend.pages.orders.pos',compact('welcomeMessage','user','expandedProducts','cartItems','countcart'));
+        return view('backend.pages.orders.pos',compact('welcomeMessage','user','expandedProducts','cartItems','countcart','orders'));
     }
 
 
     public function add_cart_pos(Request $request)
     {    
-        // dd($request);
         $product = Product::findOrFail($request->product_id);
         $productSizeId = $request->product_size_id;
     
@@ -103,12 +120,13 @@ class OrdersController extends Controller
         $paymentMethod = $request->payment_method;
 
         if (empty($request->products) || count($request->products) === 0) {
+            Alert::warning('Note', 'Please select the product first!');
             return redirect()->back()->with('error', 'Mohon pilih produk terlebih dahulu.');
         }        
 
         $order = Order::create([
             'user_id' => $userId,
-            'order_number' => '#ORD' . strtoupper(uniqid()),
+            'order_number' => 'ORD' . strtoupper(uniqid()),
             'total_amount' => $total_amount,
             'status' => 'completed',
             'payment_method' => $paymentMethod,
@@ -121,7 +139,10 @@ class OrdersController extends Controller
     
             $productItem = Product::find($productId);
                 
-            $order->products()->attach($productId, ['quantity' => $quantity]);
+            $order->products()->attach($productId, [
+                'quantity' => $quantity,
+                'size_id' => $sizeId
+            ]);
     
             $productSize = ProductSize::where('product_id', $productId)->where('id', $sizeId)->first();
             if ($productSize) {
@@ -131,7 +152,7 @@ class OrdersController extends Controller
         }
 
         $invoice = $order->invoice()->create([
-            'invoice_number' => '#INV' . strtoupper(uniqid()),
+            'invoice_number' => 'INV' . strtoupper(uniqid()),
             'amount' => $total_amount,
             'invoice_date' => now(),
             'payment_status' => 'paid',
@@ -143,7 +164,7 @@ class OrdersController extends Controller
         if ($cart) {
             $cart->items()->delete();
         }
-
+        Alert::success('Success', 'Orders successfully!');
         return redirect()->back()->with('success', 'Orders Success.');    
     }
 }
