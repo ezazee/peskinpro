@@ -32,23 +32,18 @@
                         <div class="item flex flex-col basis-1/2">
                             <div class="text-button-uppercase pb-3">Shortcut</div>
                             <a class="caption1 has-line-before duration-300 w-fit"
-                                href="/shop">Sensifitas Kulit</a>
+                                href="/shop#allProduct">Our Product</a>
                             <a class="caption1 has-line-before duration-300 w-fit pt-2"
-                                href="/shop">Series</a>
+                                href="/shop#bestSellerProduct">Best Seller Product</a>
                             <a class="caption1 has-line-before duration-300 w-fit pt-2"
-                                href="/shop">Kategori</a>
+                                href="/shop#flashSaleProduct">Promotion</a>
                             <a class="caption1 has-line-before duration-300 w-fit pt-2"
-                                href="/shop">About Us</a>
-                            <a class="caption1 has-line-before duration-300 w-fit pt-2"
-                                href="blog-default.html">Contact Us</a>
+                                href="/artikel">Article</a>
                         </div>
                         <!-- Customer Service Links -->
                         <div class="item flex flex-col basis-1/2">
                             <div class="text-button-uppercase pb-3">Services</div>
                             <a class="caption1 has-line-before duration-300 w-fit" href="/faq">FAQ</a>
-                            <a class="caption1 has-line-before duration-300 w-fit pt-2" href="#">Shipping</a>
-                            <a class="caption1 has-line-before duration-300 w-fit pt-2" href="#">Privacy
-                                Policy</a>
                             <a class="caption1 has-line-before duration-300 w-fit pt-2"
                                 href="/return-and-refunds">Return &amp; Refund</a>
                         </div>
@@ -67,7 +62,7 @@
                                     alt="Tokopedia" class="w-12">
                             </a>
                             <a href="https://www.blibli.com/" target="_blank" aria-label="Blibli">
-                                <img src="https://i.pinimg.com/originals/59/32/b8/5932b810ca081dbc4fe88f8b03d04831.png"
+                                <img src="https://assets-a1.kompasiana.com/items/album/2022/06/15/picsart-22-06-15-19-29-55-853-62a9d0d3fdcdb43f623bb7f2.jpg"
                                     alt="Blibli" class="w-12">
                             </a>
                         </div>

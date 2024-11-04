@@ -6,16 +6,26 @@
             <div class="container">
                 <div class="content-main flex max-lg:flex-col-reverse gap-y-10 justify-between">
                     <div class="left lg:w-1/2">
-                        <div class="heading5 pb-3">Informasi Pengiriman</div>
-                        <div class="address-item rounded-frame relative p-4 mb-4">
+                        <div class="heading5">Informasi Pengiriman</div>
+                        <div class="mt-5">
+                            <p><em class="text-primary">Sepertinya kamu belum mempunyai alamat yang disimpan, tambah alamat
+                                    dulu ya!</em></p>
+                            <button class="text-bold bg-light-primary border border-primary rounded-md w-1/3 px-4 py-2 mt-1">
+                                <i class="ph ph-file-plus pr-2"></i>
+                                <a href="/address" class="text-left">Tambahkan Alamat</a>
+                            </button>
+                        </div>
+                        <div class="address-item rounded-frame relative p-4 mt-7">
                             <strong class="address-title block mb-2">Garut House</strong>
                             <p class="name-text">Reza</p>
                             <p class="address-description text-secondary py-2">Jl. Pembangunan (Gang Haji Usman, near
                                 Al-usman Mosque)</p>
                             <p class="contact-text">6281313711180</p>
-                            <div class="action-list mt-3 flex gap-3">
-                                <a href="#" class="link-text">Pilih Alamat Lain</a>
-                            </div>
+                            <button id="gantiAlamatButton"
+                                class="text-bold bg-light-primary border border-primary rounded-md w-1/3 px-4 py-2 mt-5">
+                                <i class="ph ph-map-pin-line pr-2"></i>
+                                <span class="text-left">Pilih Alamat Lain</span>
+                            </button>
                         </div>
                         <div class="information mt-5">
                             <div class="recent_order px-5 pb-2 mt-7 border border-line rounded-xl">
@@ -24,7 +34,7 @@
                                         <div class="item flex items-center justify-between w-full pb-5 gap-6 mt-5">
                                             <div
                                                 class="bg-img w-[100px] aspect-square flex-shrink-0 rounded-lg overflow-hidden">
-                                                <img src="{{ asset('frontend/assets/images/product/peskin/contoh1.png') }}"
+                                                <img src="{{ asset('storage/' . $item->product->front_image) }}"
                                                     alt="img" class="w-full h-full">
                                             </div>
                                             <div class="flex items-center justify-between w-full">
@@ -38,7 +48,19 @@
                                                     <span class="quantity">{{ $item->quantity }}</span>
                                                     <span class="px-0.5">x</span>
                                                     <span>
-                                                        {{ $item->productSize->price - $item->productSize->discount }}
+                                                        @php
+                                                            $price = $item->productSize->price ?? 0;
+                                                            $discount = $item->productSize->discount ?? 0;
+
+                                                            $effectivePrice = $price - $discount;
+                                                        @endphp
+
+                                                        @if ($effectivePrice > 0)
+                                                            Rp {{ number_format($effectivePrice, 0, ',', '.') }}
+                                                        @else
+                                                            Rp {{ number_format($price, 0, ',', '.') }}
+                                                        @endif
+
                                                     </span>
                                                 </div>
                                             </div>
@@ -50,7 +72,8 @@
                                             <div class="ongkir-select" id="main-select-display">Pilih Pengiriman</div>
                                             <i class="ph ph-caret-down arrow-icon"></i>
                                         </div>
-                                        <ul class="dropdown-options" id="main-select-options" style="display: none; width:32%">
+                                        <ul class="dropdown-options" id="main-select-options"
+                                            style="display: none; width:32%">
                                             <li onclick="selectMainOption('JNE')">
                                                 <span>JNE - Jalur Nugraha Ekakurir</span><br>
                                                 <small>Estimasi 2-3 Hari : Rp20,000</small>
@@ -75,9 +98,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-
-
                                 </div>
                             </div>
                         </div>
@@ -112,8 +132,7 @@
                         </div>
 
                         <!-- Checkout Button with form submission -->
-                        <form action="#" method="POST" class="block-button flex flex-col items-center gap-y-4 mt-5">
-                            @csrf
+                        <form action="/payment" class="block-button flex flex-col items-center gap-y-4 mt-5">
                             <button type="submit"
                                 class="checkout-btn button-main text-center w-full bg-green-600 text-white font-semibold rounded-md px-5 py-3">
                                 Pilih Pembayaran
@@ -133,6 +152,8 @@
 
     {{-- Custom Modal Voucher --}}
     @include('frontend.components.modal-voucher')
+    {{-- Custom Modal Ganti Alamat --}}
+    @include('frontend.components.modal-ganti-alamat')
 @endsection
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

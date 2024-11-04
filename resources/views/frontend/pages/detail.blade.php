@@ -76,19 +76,18 @@
                                 </div>
                                 <div class="list-size flex items-center gap-2 flex-wrap mt-3">
                                     @if ($products->sizes && $products->sizes->count() > 0)
-                                    @foreach ($products->sizes as $index => $size)
-                                    <div class="size-item">
-                                        <input type="radio" id="size{{ $size->id }}" name="selected_size"
-                                            value="{{ $size->id }}" class="hidden peer"
-                                            onclick="updatePrice({{ $size->id }}); setActive(this)"
-                                            {{ $index === 0 ? 'checked' : '' }}>
-                                        <label for="size{{ $size->id }}"
-                                            class="size-item w-20 h-12 flex rounded-md items-center justify-center text-button bg-white border border-line">
-                                            {{ $size->size }} ML
-                                        </label>
-                                    </div>
-                                @endforeach
-                                
+                                        @foreach ($products->sizes as $index => $size)
+                                            <div class="size-item">
+                                                <input type="radio" id="size{{ $size->id }}" name="selected_size"
+                                                    value="{{ $size->id }}" class="hidden peer"
+                                                    onclick="updatePrice({{ $size->id }}); setActive(this)"
+                                                    {{ $index === 0 ? 'checked' : '' }}>
+                                                <label for="size{{ $size->id }}"
+                                                    class="size-item w-20 h-12 flex rounded-md items-center justify-center text-button bg-white border border-line">
+                                                    {{ $size->size }} ML
+                                                </label>
+                                            </div>
+                                        @endforeach
                                     @else
                                         <p>No sizes available for this product.</p>
                                     @endif
@@ -104,10 +103,10 @@
                                     <i class="ph-bold ph-plus cursor-pointer body1 increase-quantity"></i>
                                 </div>
                                 <button
-                                    class="add-cart-btn button-main whitespace-nowrap w-full text-center bg-primary text-white border border-primary">Tambah
-                                    Keranjang</button>
+                                    class="add-cart-btn button-main whitespace-nowrap w-full text-center bg-primary text-white border border-primary">Tambah Keranjang</button>
                             </div>
                         </form>
+                        <!-- Modal Alert Box -->
 
                         <div class="more-infor mt-6">
                             <div class="flex items-center gap-1 mt-3">
@@ -295,7 +294,7 @@
     <script>
         function setActive(selectedInput) {
             const labels = document.querySelectorAll('.list-size .size-item label');
-            labels.forEach(label => label.classList.remove('active')); 
+            labels.forEach(label => label.classList.remove('active'));
 
             const selectedLabel = selectedInput.nextElementSibling;
             selectedLabel.classList.add('active');
@@ -304,8 +303,8 @@
         document.addEventListener('DOMContentLoaded', function() {
             const firstInput = document.querySelector('input[name="selected_size"]:first-child');
             if (firstInput) {
-                firstInput.checked = true; 
-                setActive(firstInput); 
+                firstInput.checked = true;
+                setActive(firstInput);
             }
         });
     </script>

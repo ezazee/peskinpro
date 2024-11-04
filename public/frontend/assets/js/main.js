@@ -3469,24 +3469,3 @@ if (loginHeading) {
     });
 }
 
-// Show, hide payment type in checkout
-const listPayment = document.querySelector(".payment-block .list-payment");
-const paymentCheckbox = document.querySelectorAll(
-    ".payment-block .list-payment .type>input"
-);
-
-if (paymentCheckbox) {
-    paymentCheckbox.forEach((item) => {
-        item.addEventListener("click", () => {
-            if (listPayment.querySelector(".open")) {
-                listPayment.querySelector(".open").classList.remove("open");
-            }
-
-            let parentType = item.parentElement;
-            if (item.checked) {
-                parentType.classList.add("open");
-            }
-        });
-    });
-}
-

@@ -67,37 +67,32 @@
                                         @foreach ($expandedProducts as $item)
                                         <div class="col-sm-2 col-md-6 col-lg-3 col-xl-3">
                                             <div class="product-info default-cover card">
-                                                <div class="img-bg">
-                                                    <img src="{{ asset('storage/' . $item['images']) }}"
-                                                        alt="{{ $item['name'] }}">
+                                                <div class="img-bg overflow-hidden h-50">
+                                                    <img src="{{ asset('storage/' . $item['images']) }}" alt="{{ $item['name'] }}" class="img-fluid w-100">
                                                     <span><i data-feather="check" class="feather-16"></i></span>
                                                 </div>
-                                                <h6 class="cat-name">{{ $item['category']->name ?? 'Uncategorized' }}
-                                                </h6>
-                                                <h6 class="product-name">{{ $item['name'] }} -
-                                                    {{ $item['size']->size }}ML</h6>
+
+                                                <h6 class="cat-name">{{ $item['category']->name ?? 'Uncategorized' }}</h6>
+                                                <h6 class="product-name">{{ $item['name'] }} - {{ $item['size']->size }}ML</h6>
                                                 <div class="d-flex align-items-center justify-content-between price">
                                                     <span>{{ $item['size']->stock }} Pcs</span>
-                                                    <p>Rp{{ number_format($item['size']->price - $item['size']->discount, 0, ',', '.') }}
-                                                    </p>
+                                                    <p>Rp{{ number_format($item['size']->price - $item['size']->discount, 0, ',', '.') }}</p>
                                                 </div>
                                                 @if($item['size']->discount && $item['size']->discount > 0)
-                                                <del class="text-sm">Rp {{ number_format($item['size']->price, 0, ',', '.') }}</del>  
+                                                <del class="text-sm">Rp {{ number_format($item['size']->price, 0, ',', '.') }}</del>
                                                 @else
                                                 -
                                                 @endif
                                                 <form action="{{ route('add_cart_pos') }}" method="POST" class="mt-2">
                                                     @csrf
                                                     <input type="hidden" name="product_id" value="{{ $item['id'] }}">
-                                                    <input type="hidden" name="product_size_id"
-                                                        value="{{ $item['size']->id }}">
+                                                    <input type="hidden" name="product_size_id" value="{{ $item['size']->id }}">
                                                     <input type="hidden" name="quantity" id="quantityInput" value="1">
-                                                    <button type="submit" class="btn btn-primary btn-block">Add to
-                                                        Cart</button>
+                                                    <button type="submit" class="btn btn-primary btn-block">Add to Cart</button>
                                                 </form>
-
                                             </div>
-                                        </div>
+                                        <div>
+
                                         @endforeach
                                     </div>
                                 </div>
@@ -164,7 +159,7 @@
                                     @endforeach
                                 @endif
                             </div>
-                            
+
                         </div>
                         <div class="block-section">
                             <div class="order-total">
@@ -173,12 +168,12 @@
                                         @php
                                             $subtotal = 0;
                                             $hemat = 0;
-                                    
+
                                             foreach ($cartItems as $item) {
                                                 $subtotal += ($item->productSize->price * $item->quantity) - $item->productSize->discount;
                                                 $hemat += $item->productSize->discount;
                                             }
-                                    
+
                                             $total = $subtotal;
                                             // var_dump($total);
                                         @endphp
@@ -191,15 +186,15 @@
                                             <td class="text-end">Rp{{ number_format($hemat, 0, ',', '.') }}</td>
                                         </tr>
                                     </tbody>
-                                    
+
                                 </table>
                             </div>
                         </div>
-                        
+
                         <form action="{{ route('pos_order') }}" method="POST">
                             @csrf
                             <input type="text" name="total_amount" value="{{ $total }}" hidden>
-                            
+
                             <div class="block-section payment-method">
                                 <h6>Payment Method</h6>
                                 <div class="row d-flex align-items-center justify-content-center methods">
@@ -232,20 +227,20 @@
                                     </div>
                                 </div>
                             </div>
-                        
+
                             @foreach ($cartItems as $item)
                                 <input type="hidden" name="products[{{ $loop->index }}][id]" value="{{ $item->product_id }}">
                                 <input type="hidden" name="products[{{ $loop->index }}][quantity]" value="{{ $item->quantity }}">
                                 <input type="hidden" name="products[{{ $loop->index }}][sizeid]" value="{{ $item->productSize->id }}">
                             @endforeach
-                        
+
                             <div class="d-grid btn-block">
                                 <button class="btn btn-success">
                                     Payment Grand Total : {{ number_format($total, 0, ',', '.') }}
                                 </button>
                             </div>
                         </form>
-                        
+
                     </aside>
                 </div>
             </div>

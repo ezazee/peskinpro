@@ -24,7 +24,8 @@
                                 <div class="address-item rounded-frame relative p-4 mb-4 active">
                                     <strong class="address-title block mb-2">Office Patra</strong>
                                     <p class="name-text">Reza</p>
-                                    <p class="address-description text-secondary py-3">Jl. Dukuh Patra No.75 RT.01/RW.13 Menteng dalam, Tebet</p>
+                                    <p class="address-description text-secondary py-3">Jl. Dukuh Patra No.75 RT.01/RW.13
+                                        Menteng dalam, Tebet</p>
                                     <p class="contact-text">6281313711180</p>
                                     <div class="action-list mt-3 flex gap-3">
                                         <a href="#" class="link-text">Edit Address</a>
@@ -36,7 +37,8 @@
                                 <div class="address-item rounded-frame relative p-4 mb-4">
                                     <strong class="address-title block mb-2">Garut House</strong>
                                     <p class="name-text">Reza</p>
-                                    <p class="address-description text-secondary py-3">Jl. Pembangunan (Gang Haji Usman, near Al-usman Mosque)</p>
+                                    <p class="address-description text-secondary py-3">Jl. Pembangunan (Gang Haji Usman,
+                                        near Al-usman Mosque)</p>
                                     <p class="contact-text">6281313711180</p>
                                     <div class="action-list mt-3 flex gap-3">
                                         <a href="#" class="link-text">Edit Address</a>
@@ -48,7 +50,8 @@
                                 <div class="address-item rounded-frame relative p-4 mb-4">
                                     <strong class="address-title block mb-2">Garut House</strong>
                                     <p class="name-text">Reza</p>
-                                    <p class="address-description text-secondary py-3">Jl. Pembangunan (Gang Haji Usman, near Al-usman Mosque)</p>
+                                    <p class="address-description text-secondary py-3">Jl. Pembangunan (Gang Haji Usman,
+                                        near Al-usman Mosque)</p>
                                     <p class="contact-text">6281313711180</p>
                                     <div class="action-list mt-3 flex gap-3">
                                         <a href="#" class="link-text">Edit Address</a>
@@ -60,7 +63,8 @@
                                 <div class="address-item rounded-frame relative p-4 mb-4">
                                     <strong class="address-title block mb-2">Garut House</strong>
                                     <p class="name-text">Reza</p>
-                                    <p class="address-description text-secondary py-3">Jl. Pembangunan (Gang Haji Usman, near Al-usman Mosque)</p>
+                                    <p class="address-description text-secondary py-3">Jl. Pembangunan (Gang Haji Usman,
+                                        near Al-usman Mosque)</p>
                                     <p class="contact-text">6281313711180</p>
                                     <div class="action-list mt-3 flex gap-3">
                                         <a href="#" class="link-text">Edit Address</a>
@@ -72,7 +76,8 @@
                                 <div class="address-item rounded-frame relative p-4 mb-4">
                                     <strong class="address-title block mb-2">Garut House</strong>
                                     <p class="name-text">Reza</p>
-                                    <p class="address-description text-secondary py-3">Jl. Pembangunan (Gang Haji Usman, near Al-usman Mosque)</p>
+                                    <p class="address-description text-secondary py-3">Jl. Pembangunan (Gang Haji Usman,
+                                        near Al-usman Mosque)</p>
                                     <p class="contact-text">6281313711180</p>
                                     <div class="action-list mt-3 flex gap-3">
                                         <a href="#" class="link-text">Edit Address</a>
@@ -89,5 +94,5 @@
     </div>
 
     {{-- Modal Custom --}}
-@include('frontend.components.modal-form-alamat')
+    @include('frontend.components.modal-form-alamat')
 @endsection
