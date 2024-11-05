@@ -543,29 +543,39 @@
     document.addEventListener("DOMContentLoaded", function() {
         const modal = document.getElementById('customGantiAlamat');
         const backdrop = document.getElementById('backdrop-ganti-alamat');
-        const openModalButton = document.getElementById('gantiAlamatButton'); // Pastikan ini ada di HTML Anda
+        const openModalButton = document.getElementById('gantiAlamatButton');
         const closeModalButtons = document.querySelectorAll('.modal-ganti-alamat-close');
 
-        if (openModalButton) {
-            openModalButton.addEventListener('click', function() {
-                modal.classList.remove('hidden');
-                backdrop.classList.remove('hidden');
-            });
-        }
+        // Cek jika modal dan backdrop ada sebelum melanjutkan
+        if (modal && backdrop) {
+            if (openModalButton) {
+                openModalButton.addEventListener('click', function() {
+                    modal.classList.remove('hidden');
+                    backdrop.classList.remove('hidden');
+                });
+            }
 
-        closeModalButtons.forEach(button => {
-            button.addEventListener('click', function() {
+            // Cek jika ada tombol untuk menutup modal
+            if (closeModalButtons.length > 0) {
+                closeModalButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        modal.classList.add('hidden');
+                        backdrop.classList.add('hidden');
+                    });
+                });
+            }
+
+            // Cek jika backdrop ada sebelum menambahkan event listener
+            backdrop.addEventListener('click', function() {
                 modal.classList.add('hidden');
                 backdrop.classList.add('hidden');
             });
-        });
-
-        backdrop.addEventListener('click', function() {
-            modal.classList.add('hidden');
-            backdrop.classList.add('hidden');
-        });
+        } else {
+            console.warn("Elemen modal atau backdrop tidak ditemukan di halaman.");
+        }
     });
 </script>
+
 
 {{-- Timer Countdown --}}
 <script>
