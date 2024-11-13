@@ -17,8 +17,10 @@ class OrdersController extends Controller
     public function list(){
         $user = Auth::user();
         $welcomeMessage = 'Orders';
-        $orders = Order::with(['user', 'alamat', 'products', 'invoice'])
-        ->orderBy('created_at', 'desc')
+        $orders = Order::with(['user', 'alamat', 'products', 'invoice', 'shipping'])
+        ->join('invoices', 'orders.id', '=', 'invoices.order_id') 
+        ->orderByRaw('CASE WHEN invoices.bukti_tf IS NOT NULL THEN 0 ELSE 1 END') 
+        ->orderBy('orders.created_at', 'desc') 
         ->paginate(10);
 
         $paymentrefund = Order::with(['user', 'alamat', 'products', 'invoice'])
@@ -28,12 +30,11 @@ class OrdersController extends Controller
         ->count();
 
         $ordercancel =  Order::where('status','canceled')->count();
-
         return view('backend.pages.orders.list',compact('welcomeMessage','user','orders','paymentrefund','ordercancel'));
     }
 
     public function detail($orderNumber){
-        $orders = Order::with(['user', 'alamat', 'products', 'invoice'])
+        $orders = Order::with(['user', 'alamat', 'products', 'invoice','shipping'])
         ->where('order_number', $orderNumber)
         ->firstOrFail();
         $user = Auth::user();
@@ -47,7 +48,6 @@ class OrdersController extends Controller
             $query->where('role_id', 1);
         })
         ->paginate(10);
-        // dd($orders);
         $user = Auth::user();
         $welcomeMessage = 'Point Of Sale';
         $products = Product::with('sizes', 'category')->get();
@@ -108,7 +108,6 @@ class OrdersController extends Controller
     public function clearall()
     {
         Cart::where('user_id', Auth::id())->delete();
-
         return redirect()->back()->with('success', 'All items have been removed from your cart.');
     }
 
@@ -136,12 +135,17 @@ class OrdersController extends Controller
             $productId = $product['id']; 
             $quantity = $product['quantity']; 
             $sizeId = $product['sizeid'];
+            $harga = $product['harga'];
+            $discount = $product['discount'];
+
     
             $productItem = Product::find($productId);
                 
             $order->products()->attach($productId, [
                 'quantity' => $quantity,
-                'size_id' => $sizeId
+                'size_id' => $sizeId,
+                'harga' => $harga,
+                'discount' => $discount
             ]);
     
             $productSize = ProductSize::where('product_id', $productId)->where('id', $sizeId)->first();

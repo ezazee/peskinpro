@@ -138,11 +138,9 @@
                                                             $purchasedSizeId = $product->pivot->size_id;
                                                             $purchasedSize = $product->sizes->firstWhere('id',
                                                             $purchasedSizeId);
-                                                            $subtotal = ($purchasedSize->price *
-                                                            $product->pivot->quantity) - ($purchasedSize->discount *
-                                                            $product->pivot->quantity);
+                                                            $subtotal = $product->pivot->harga;
                                                             $totalAmount += $subtotal;
-                                                            $hemat += $purchasedSize->discount *
+                                                            $hemat += $product->pivot->discount *
                                                             $product->pivot->quantity;
                                                             @endphp
                                                             {{ $purchasedSize->size }}
@@ -152,10 +150,10 @@
                                             </td>
                                             <td> {{ $product->pivot->quantity }}</td>
                                             <td>x</td>
-                                            <td>Rp{{ number_format($purchasedSize->price - $purchasedSize->discount, 2) }}
+                                            <td>Rp{{ number_format($product->pivot->harga, 2) }}
                                             </td>
                                             <td>
-                                                Rp{{ number_format(($purchasedSize->price * $product->pivot->quantity) - ($purchasedSize->discount * $product->pivot->quantity), 2) }}
+                                                Rp{{ number_format(($product->pivot->harga * $product->pivot->quantity), 2) }}
                                             </td>
                                         </tr>
                                         @endforeach
@@ -321,7 +319,8 @@
                                             </iconify-icon> Delivery Charge :
                                         </p>
                                     </td>
-                                    <td class="text-end text-dark fw-medium px-0">$00.00</td>
+                                    <td class="text-end text-dark fw-medium px-0">{{ number_format($orders->shipping->shipping_cost ?? 0, 2) == 0 ? '-' : number_format($orders->shipping->shipping_cost, 2) }}
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -332,7 +331,7 @@
                         <p class="fw-medium text-dark mb-0">Total Amount</p>
                     </div>
                     <div>
-                        <p class="fw-medium text-dark mb-0"> Rp{{ number_format($totalAmount, 2) }}</p>
+                        <p class="fw-medium text-dark mb-0"> Rp{{ number_format($orders->total_amount, 2) }}</p>
                     </div>
 
                 </div>
@@ -352,49 +351,57 @@
                         </div>
                     </div>
                     <p class="text-dark mb-1 fw-medium">Invoice Code : <span class="text-muted fw-normal fs-13">
-                            #{{ $orders->invoice->invoice_number }}</span></p>
+                    #{{ $orders->invoice->invoice_number }}</span></p>
+                    @if ($orders->payment_method == 'cash')
+                        
+                    @else
                     <p class="text-dark mb-0 fw-medium">Proof of payment
-                         : <a class="btn btn-sm"><iconify-icon icon="solar:eye-scan-bold" class="fs-4 text-success"></iconify-icon>
-                         </a></p>
+                        : <a class="btn btn-sm"><iconify-icon icon="solar:eye-scan-bold" class="fs-4 text-success"></iconify-icon>
+                        </a></p>
+                    @endif
                 </div>
             </div>
+            @if($orders->alamat)
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">Customer Details</h4>
                 </div>
                 <div class="card-body">
                     <div class="d-flex align-items-center gap-2">
-                        <img src="assets/images/users/avatar-1.jpg" alt=""
-                            class="avatar rounded-3 border border-light border-3">
+                        @if($user->images)
+                        <img src="{{ asset('storage/' . $orders->$user->images) }}" alt=""
+                        class="avatar rounded-3 border border-light border-3">
+                        @else
+                        <img src="{{ asset('/backend/assets/images/blank-profile.png') }}"
+                            alt="Default Profile Image" class="avatar rounded-3 border border-light border-3">
+                        @endif
+                       
                         <div>
-                            <p class="mb-1">Gaston Lapierre</p>
-                            <a href="#!" class="link-primary fw-medium">hello@dundermuffilin.com</a>
+                            <p class="mb-1">{{ $orders->user->name }}</p>
+                            <a href="#!" class="link-primary fw-medium">{{$orders->user->email}}</a>
                         </div>
                     </div>
                     <div class="d-flex justify-content-between mt-3">
+                        <h5 class="">Recipient</h5>
+                    </div>
+                    <p class="mb-1">{{ $orders->alamat->penerima }}</p>
+                    <div class="d-flex justify-content-between mt-3">
                         <h5 class="">Contact Number</h5>
                     </div>
-                    <p class="mb-1">(723) 732-760-5760</p>
+                    <p class="mb-1">{{ $orders->alamat->no_telp }}</p>
 
                     <div class="d-flex justify-content-between mt-3">
                         <h5 class="">Shipping Address</h5>
                     </div>
 
                     <div>
-                        <p class="mb-1">Wilson's Jewelers LTD</p>
-                        <p class="mb-1">1344 Hershell Hollow Road ,</p>
-                        <p class="mb-1">Tukwila, WA 98168 ,</p>
-                        <p class="mb-1">United States</p>
-                        <p class="">(723) 732-760-5760</p>
+                        <p class="mb-1">{{ $orders->alamat->street }}</p>
+                        <p class="mb-1">{{ $orders->alamat->city->name }} , {{ $orders->alamat->province->name }}</p>
+                        <p class="mb-1">Indonesia</p>
                     </div>
-
-                    <div class="d-flex justify-content-between mt-3">
-                        <h5 class="">Billing Address</h5>
-                    </div>
-
-                    <p class="mb-1">Same as shipping address</p>
                 </div>
             </div>
+            @endif
         </div>
     </div>
 </div>

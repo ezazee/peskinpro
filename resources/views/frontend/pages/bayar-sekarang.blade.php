@@ -45,7 +45,7 @@
 
                             {{-- Upload --}}
                             <div class="filter-item text-content w-full p-7 mt-5 border border-line rounded-xl active">
-                                <form action="{{ route('pembayaran', ['invoice_number' => $order->invoice->invoice_number ?? '']) }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('pembayaran', ['invoice_number' => $invoice->invoice_number ?? '']) }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="upload_image col-span-full">
                                         <div class="flex flex-wrap flex-col gap-5">
@@ -86,11 +86,11 @@
                         </div>
                         <div class="ship-block py-5 flex justify-between border-b border-line">
                             <div class="text-title">Pengiriman</div>
-                            <div class="text-title">Rp{{ number_format($shipping->shipping_cost, 0, ',', '.') }}</div>
+                            <div class="text-title">Rp{{ number_format($orders->shipping->shipping_cost, 0, ',', '.') }}</div>
                         </div>
                         <div class="total-cart-block pt-5 flex justify-between">
                             <div class="heading5">Total</div>
-                            <div class="heading5 total-cart">Rp{{ number_format($order->total_amount, 0, ',', '.') }}
+                            <div class="heading5 total-cart">Rp{{ number_format($orders->total_amount, 0, ',', '.') }}
                             </div>
                         </div>
                     </div>

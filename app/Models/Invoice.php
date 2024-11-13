@@ -14,6 +14,7 @@ class Invoice extends Model
         'amount',
         'invoice_date',
         'payment_status',
+        'bukti_tf',
     ];
 
     /**

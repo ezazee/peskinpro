@@ -24,8 +24,6 @@ class ArticleController extends Controller
         $user = Auth::user();
         $welcomeMessage = 'List Article';
         $articles = Article::with(['tag'])->paginate(10);
-
-        // dd($articles);
         return view('backend.pages.article.list',compact('welcomeMessage','user','articles'));
     }
 
@@ -117,5 +115,64 @@ class ArticleController extends Controller
         $article->delete();
         Alert::error('Deleted', 'Article deleted successfully');
         return redirect()->route('article.list')->with('success', 'Article deleted successfully.');
+    }
+
+
+    public function blogarticle(){
+        $articles = Article::with('tag')
+        ->where('status', 'public')
+        ->orderby('id', 'desc')
+        ->paginate(15);
+
+        $startOfWeek = Carbon::now()->startOfWeek();
+        $endOfWeek = Carbon::now()->endOfWeek();
+
+        $popularArticles = Article::where('status', 'public')
+                        ->whereBetween('created_at', [$startOfWeek, $endOfWeek])
+                        ->orderBy('view', 'desc')
+                        ->take(4)
+                        ->get();
+
+        if ($popularArticles->isEmpty()) {
+            $startOfLastWeek = Carbon::now()->subWeek()->startOfWeek();
+            $endOfLastWeek = Carbon::now()->subWeek()->endOfWeek();
+
+            $popularArticles = Article::where('status', 'public')
+                            ->whereBetween('created_at', [$startOfLastWeek, $endOfLastWeek])
+                            ->orderBy('view', 'desc')
+                            ->take(4)
+                            ->get();
+        }
+
+        $tags = Tag::take(10)->get();
+        return view('frontend.pages.artikel',compact('articles','tags','popularArticles'));
+    }
+
+    public function articlebyTittle($slug){
+        $articles = Article::where('slug', $slug)->firstOrFail();
+        $articles->increment('view');
+
+        $startOfWeek = Carbon::now()->startOfWeek();
+        $endOfWeek = Carbon::now()->endOfWeek();
+
+        $popularArticles = Article::where('status', 'public')
+                        ->whereBetween('created_at', [$startOfWeek, $endOfWeek])
+                        ->orderBy('view', 'desc')
+                        ->take(4)
+                        ->get();
+
+        if ($popularArticles->isEmpty()) {
+            $startOfLastWeek = Carbon::now()->subWeek()->startOfWeek();
+            $endOfLastWeek = Carbon::now()->subWeek()->endOfWeek();
+
+            $popularArticles = Article::where('status', 'public')
+                            ->whereBetween('created_at', [$startOfLastWeek, $endOfLastWeek])
+                            ->orderBy('view', 'desc')
+                            ->take(4)
+                            ->get();
+        }
+
+        $tags = Tag::take(10)->get();
+        return view('frontend.pages.artikel-detail',compact('articles','popularArticles','tags'));
     }
 }

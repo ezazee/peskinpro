@@ -18,6 +18,7 @@ return new class extends Migration
         $table->decimal('amount', 10, 2);
         $table->date('invoice_date'); 
         $table->enum('payment_status', ['unpaid', 'paid', 'refunded'])->default('unpaid');
+        $table->string('bukti_tf')->nullable();
         $table->timestamps();
         $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
     });

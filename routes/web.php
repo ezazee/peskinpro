@@ -37,6 +37,9 @@ Route::get('/ongkir', [CheckOngkirController::class, 'index'])->name('index');
 Route::post('/ongkir', [CheckOngkirController::class, 'check_ongkir'])->name('check_ongkir');
 Route::get('/cities/{province_id}', [CheckOngkirController::class, 'getCities'])->name('getCities');
 
+Route::get('/artikel', [ArticleController::class, 'blogarticle'])->name('blogarticle');
+Route::get('/artikel/{slug}', [ArticleController::class, 'articlebyTittle'])->name('articlebyTittle');
+
 // settings
 Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');
 Route::post('/banner', [SettingsController::class, 'banner'])->name('settings.banner');
@@ -54,11 +57,17 @@ Route::middleware(['userOrGuest'])->group(function () {
 
 Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('/checkout', [ChekoutController::class, 'index'])->name('chekout.index');
-    Route::post('/checkout/process', [ChekoutController::class, 'processCheckout'])->name('checkout.process');
+    Route::post('/checkout/process', [ChekoutController::class, 'Checkout'])->name('checkout.process');
+    Route::get('/pembayaran/{invoice_number}', [ChekoutController::class, 'payment'])->name('payment');
+    Route::post('/payment/process', [ChekoutController::class, 'processpayment'])->name('processpayment');
+    Route::post('/pembayaran/{invoice_number}', [ChekoutController::class, 'pembayaran'])->name('pembayaran');
 
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::put('/profile/update/{id}', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/address', [ProfileController::class, 'address'])->name('profile.address');
+    Route::post('/address', [ProfileController::class, 'add_address'])->name('profile.add_address');
+    Route::delete('/address/delete{id}', [ProfileController::class, 'delete_address'])->name('delete_address');
+    Route::post('/set-default-address/{id}', [ProfileController::class, 'setDefaultAddress'])->name('set_default_address');
 
 });
 
@@ -132,9 +141,6 @@ Route::middleware(['auth', 'role:Administrator'])->group(function () {
 
 });
 
-
-
-
 Route::get('/about-us', function() {
     return view('frontend.pages.about-us');
 });
@@ -155,20 +161,4 @@ Route::get('/search-result', function() {
 
 Route::get('/return-and-refunds', function() {
     return view('frontend.pages.return-and-refunds');
-});
-
-Route::get('/payment', function() {
-    return view('frontend.pages.payment');
-});
-
-Route::get('/artikel', function() {
-    return view('frontend.pages.artikel');
-});
-
-Route::get('/artikel-detail', function() {
-    return view('frontend.pages.artikel-detail');
-});
-
-Route::get('/edit-address', function() {
-    return view('frontend.pages.profile.edit-address');
 });

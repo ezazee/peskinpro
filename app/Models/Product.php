@@ -19,7 +19,7 @@ class Product extends Model
         'effect',
         'sku',
         'ingredients',
-        'howtouse'
+        'howtouse',
     ];
 
     public function images()

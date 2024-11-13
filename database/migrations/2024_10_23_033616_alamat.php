@@ -12,10 +12,14 @@ return new class extends Migration
         Schema::create('alamats', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->string('penerima'); 
+            $table->string('label'); 
             $table->foreignId('province_id')->constrained('provinces')->onDelete('cascade'); 
             $table->foreignId('city_id')->constrained('cities')->onDelete('cascade'); 
             $table->string('street'); 
             $table->string('postal_code');
+            $table->string('no_telp');
+            $table->string('default')->nullable();
             $table->timestamps();
         });
     }

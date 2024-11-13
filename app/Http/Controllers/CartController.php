@@ -24,7 +24,6 @@ class CartController extends Controller
         }
 
         $cartCollection = collect($cartItems);
-        // dd($cartCollection);
         return view('frontend.pages.cart', compact('cartCollection'));
 
     }
@@ -38,9 +37,8 @@ class CartController extends Controller
         if (Auth::check()) {
             $cart = Auth::user()->cart ?? Cart::create(['user_id' => Auth::id()]);
             $cartItem = CartItem::where('cart_id', $cart->id)
-                                ->where('product_size_id', $request->product_size_id)
+                                ->where('product_size_id', $request->selected_size)
                                 ->first();
-    
             if ($cartItem) {
                 $cartItem->quantity += $request->quantity;
                 $cartItem->save();
@@ -56,7 +54,7 @@ class CartController extends Controller
             $cart = Cart::firstOrCreate(['guest_id' => $guestCartId]);
     
             $cartItem = CartItem::where('cart_id', $cart->id)
-                                ->where('product_size_id', $request->product_size_id)
+                                ->where('product_size_id', $request->selected_size)
                                 ->first();
     
             if ($cartItem) {
