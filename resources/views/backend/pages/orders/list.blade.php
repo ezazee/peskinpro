@@ -88,7 +88,7 @@
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
                             <h4 class="card-title mb-2">Pending Review</h4>
-                            <p class="text-muted fw-medium fs-22 mb-0">210</p>
+                            <p class="text-muted fw-medium fs-22 mb-0">{{ $pendingreview }}</p>
                         </div>
                         <div>
                             <div class="avatar-md bg-primary bg-opacity-10 rounded">
@@ -106,7 +106,7 @@
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
                             <h4 class="card-title mb-2">Pending Payment</h4>
-                            <p class="text-muted fw-medium fs-22 mb-0">608</p>
+                            <p class="text-muted fw-medium fs-22 mb-0">{{ $paymentpending }}</p>
                         </div>
                         <div>
                             <div class="avatar-md bg-primary bg-opacity-10 rounded">
@@ -267,14 +267,13 @@
                                         <span
                                             class="badge border border-secondary text-secondary px-2 py-1 fs-13">Pending</span>
                                         @elseif($item->status == 'processing')
-                                        <span
-                                            class="badge border border-warning text-warning px-2 py-1 fs-13">Processing</span>
+                                        <span class="badge border border-warning text-warning px-2 py-1 fs-13">Processing</span>
                                         @elseif($item->status == 'completed')
-                                        <span
-                                            class="badge border border-success text-success px-2 py-1 fs-13">Completed</span>
+                                        <span class="badge border border-success text-success px-2 py-1 fs-13">Completed</span>
+                                        @elseif($item->status == 'shipping')
+                                        <span class="badge border border-info text-info px-2 py-1 fs-13">Shipping</span>
                                         @else
-                                        <span
-                                            class="badge border border-danger text-danger px-2 py-1 fs-13">Canceled</span>
+                                        <span class="badge border border-danger text-danger px-2 py-1 fs-13">Canceled</span>
                                         @endif
                                     </td>
                                     <td>
@@ -284,6 +283,12 @@
                                                 <iconify-icon icon="solar:eye-broken" class="align-middle fs-18">
                                                 </iconify-icon>
                                             </a>
+                                            @if( $item->invoice && $item->status === 'processing' )
+                                            <form action="{{ route('order.delivered', $item->id) }}" method="POST" style="display: inline;">
+                                                @csrf
+                                                <button type="submit" class="btn btn-light btn-sm"><iconify-icon icon="solar:skip-next-bold"></iconify-icon></button>
+                                            </form>
+                                            @endif
                                         </div>
                                     </td>
                                 </tr>
