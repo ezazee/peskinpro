@@ -155,29 +155,21 @@
             </div>
         </div>
     </div>
-
-    <div class="row">
-        <div class="col-xl-12">
-            <div class="card">
-                <div class="d-flex card-header justify-content-between align-items-center">
-                    <div>
-                        <h4 class="card-title">All Order List</h4>
-                    </div>
+=======
+                            <!-- Dropdown -->
                     <div class="dropdown">
                         <a href="#" class="dropdown-toggle btn btn-sm btn-outline-light rounded"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             This Month
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
-                            <!-- item-->
                             <a href="#!" class="dropdown-item">Download</a>
-                            <!-- item-->
                             <a href="#!" class="dropdown-item">Export</a>
-                            <!-- item-->
                             <a href="#!" class="dropdown-item">Import</a>
                         </div>
                     </div>
-                </div>
+>>>>>>> 409b8ea066c18a446150e9a69e9140c9705839f7
+
                 <div class="card-body p-0">
                     <div class="table-responsive">
                         <table class="table align-middle mb-0 table-hover table-centered">
@@ -199,7 +191,7 @@
                             <tbody>
                                 @foreach ($orders as $index => $item)
                                 <tr>
-                                    <td>{{ $index+1 }}</td>
+                                            <td>{{ $index + 1 }}</td>
                                     <td>
                                         #{{ $item->order_number }}
                                     </td>
@@ -209,6 +201,7 @@
                                     </td>
                                     <td> Rp{{ number_format($item->total_amount, 0, ',', '.') }} </td>
 
+<<<<<<< HEAD
                                     <td>
                                         @if( $item->invoice && $item->invoice->payment_status === 'paid' )
                                         <span class="badge bg-success text-light  px-2 py-1 fs-13">Paid</span>

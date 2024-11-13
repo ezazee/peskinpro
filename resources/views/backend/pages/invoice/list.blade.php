@@ -89,21 +89,28 @@
                     <div>
                         <h4 class="card-title">All Invoices List</h4>
                     </div>
-                    <div class="dropdown">
-                        <a href="#" class="dropdown-toggle btn btn-sm btn-outline-light rounded"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            This Month
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end">
-                            <!-- item-->
-                            <a href="#!" class="dropdown-item">Download</a>
-                            <!-- item-->
-                            <a href="#!" class="dropdown-item">Export</a>
-                            <!-- item-->
-                            <a href="#!" class="dropdown-item">Import</a>
+
+                    <div class="d-flex align-items-center gap-2">
+                        <!-- Form Search -->
+                        <form action="" method="GET" class="d-flex align-items-center">
+                            <input type="text" name="query" class="form-control form-control-sm" placeholder="Search Orders...">
+                            <button type="submit" class="btn btn-sm btn-outline-secondary ms-1">Search</button>
+                        </form>
+
+                        <!-- Dropdown -->
+                        <div class="dropdown">
+                            <a href="#" class="dropdown-toggle btn btn-sm btn-outline-light rounded" data-bs-toggle="dropdown" aria-expanded="false">
+                                This Month
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a href="#!" class="dropdown-item">Download</a>
+                                <a href="#!" class="dropdown-item">Export</a>
+                                <a href="#!" class="dropdown-item">Import</a>
+                            </div>
                         </div>
                     </div>
                 </div>
+
                 <div class="card-body p-0">
                     <div class="table-responsive">
                         <table class="table align-middle mb-0 table-hover table-centered">
@@ -135,7 +142,7 @@
                                         @else
                                         <img src="{{ asset('/backend/assets/images/blank-profile.png') }}"
                                             alt="Default Profile Image" class="avatar-sm rounded-circle me-2">
-                                        @endif 
+                                        @endif
                                         {{ $item->order->user->name }}</td>
                                     <td> {{ $item->created_at }}</td>
                                     <td> Rp{{ number_format($item->amount, 0, ',', '.') }} </td>
@@ -149,13 +156,13 @@
                                         <span class="badge border border-success text-success px-2 py-1 fs-13">Completed</span>
                                         @else
                                         <span class="badge border border-danger text-danger px-2 py-1 fs-13">Canceled</span>
-                                        @endif 
+                                        @endif
                                     </td>
                                     <td>
                                         <div class="d-flex gap-2">
                                             <a href="{{ route('invoice.detail', ['invoiceNumber' => $item->invoice_number]) }}" class="btn btn-light btn-sm">
                                                 <iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon>
-                                            </a>                                            
+                                            </a>
                                             <a href="#!" class="btn btn-soft-primary btn-sm" data-bs-toggle="modal"
                                                 data-bs-target="#staticBackdrop">
                                                 <iconify-icon icon="solar:printer-outline" class="align-middle fs-18">
