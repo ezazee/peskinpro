@@ -213,10 +213,12 @@
                                         @if( $item->invoice && $item->invoice->payment_status === 'paid' )
                                         <span class="badge bg-success text-light  px-2 py-1 fs-13">Paid</span>
                                         @elseif( $item->invoice && $item->invoice->payment_status === 'unpaid' &&
-                                        is_null($item->invoice->bukti_tf))
+                                            is_null($item->invoice->bukti_tf))
                                         <span class="badge bg-light text-dark px-2 py-1 fs-13">Unpaid</span>
+                                        @elseif( $item->invoice && $item->status === 'canceled')
+                                            <span class="badge bg-light text-dark px-2 py-1 fs-13">Unpaid</span>
                                         @elseif( $item->invoice && $item->invoice->payment_status === 'unpaid' &&
-                                        !is_null($item->invoice->bukti_tf))
+                                            !is_null($item->invoice->bukti_tf))
                                         <span class="badge bg-light text-info px-2 py-1 fs-13" data-bs-toggle="modal"
                                             data-bs-target="#buktiModal-{{ $item->id }}">
                                             Check Bukti
@@ -242,6 +244,14 @@
                                                         @endif
                                                     </div>
                                                     <div class="modal-footer">
+                                                        <form action="{{ route('order.accept', $item->id) }}" method="POST" style="display: inline;">
+                                                            @csrf
+                                                            <button type="submit" class="btn btn-success">Terima</button>
+                                                        </form>
+                                                        <form action="{{ route('order.reject', $item->id) }}" method="POST" style="display: inline;">
+                                                            @csrf
+                                                            <button type="submit" class="btn btn-danger">Tolak</button>
+                                                        </form>
                                                         <button type="button" class="btn btn-secondary"
                                                             data-bs-dismiss="modal">Close</button>
                                                     </div>

@@ -91,7 +91,9 @@
                                             @elseif( $item->status == 'pending' && $item->invoice->payment_status == 'unpaid' )
                                                 <span class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-yellow text-yellow caption1 font-semibold">Pending</span>
                                             @elseif( $item->status == 'processing')
-                                                <span class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-yellow text-yellow caption1 font-semibold">Processing</span>
+                                                <span class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-yellow text-yellow capstion1 font-semibold">Processing</span>
+                                            @elseif( $item->status == 'shipping')
+                                                <span class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-yellow text-yellow caption1 font-semibold">Shipping</span>
                                             @elseif( $item->status == 'completed')
                                                 <span class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-success text-success caption1 font-semibold">Completed</span>
                                             @else

@@ -22,8 +22,21 @@
                                         @else
                                              <span class="badge bg-danger-subtle text-danger px-2 py-1 fs-13">Refund</span>
                                         @endif
-                                        <span class="border border-warning text-warning fs-13 px-2 py-1 rounded">In Progress</span>
-                                   </h4>
+
+                                            @if ($orders->status == 'pending')
+                                                <span class="border border-warning text-secondary fs-13 px-2 py-1 rounded">Pending</span>
+                                            @elseif ($orders->status == 'processing')
+                                                <span class="badge bg-warning-subtle text-warning px-2 py-1 fs-13">In Progress</span>
+                                            @elseif ($orders->status == 'canceled')
+                                                <span class="badge bg-danger-subtle text-danger px-2 py-1 fs-13">Canceled</span>
+                                            @elseif ($orders->status == 'completed')
+                                                <span class="badge bg-success-subtle text-success px-2 py-1 fs-13">Completed</span>
+                                            @elseif ($orders->status == 'shipping')
+                                                <span class="badge bg-info-subtle text-info px-2 py-1 fs-13">Shipping</span>
+                                            @else
+                                                <span class="badge bg-danger-subtle text-danger px-2 py-1 fs-13">Refund</span>
+                                            @endif
+                                        </h4>
                                     <p class="mb-0">Order / Order Details / #{{ $orders->order_number }} -
                                         {{ $orders->created_at->format('d F Y') }}</p>
                                 </div>
@@ -93,8 +106,8 @@
                         <div
                             class="card-footer d-flex flex-wrap align-items-center justify-content-between bg-light-subtle gap-2">
                             <p class="border rounded mb-0 px-2 py-1 bg-body"><i
-                                    class='bx bx-arrow-from-left align-middle fs-16'></i> Estimated shipping date :
-                                <span class="text-dark fw-medium">Apr 25 , 2024</span></p>
+                                    class='bx bx-arrow-from-left align-middle fs-16'></i> Estimated shipping :
+                                <span class="text-dark fw-medium">{{ $orders->shipping->shipping_service ?? '-' }} {{ $orders->shipping->estimated_delivery ?? '-' }}</span></p>
                             <div>
                                 <a href="#!" class="btn btn-primary">Make As Ready To Ship</a>
                             </div>
@@ -138,7 +151,7 @@
                                                             $purchasedSizeId = $product->pivot->size_id;
                                                             $purchasedSize = $product->sizes->firstWhere('id',
                                                             $purchasedSizeId);
-                                                            $subtotal = $product->pivot->harga;
+                                                            $subtotal = $product->pivot->harga * $product->pivot->quantity;
                                                             $totalAmount += $subtotal;
                                                             $hemat += $product->pivot->discount *
                                                             $product->pivot->quantity;
@@ -356,8 +369,35 @@
                         
                     @else
                     <p class="text-dark mb-0 fw-medium">Proof of payment
-                        : <a class="btn btn-sm"><iconify-icon icon="solar:eye-scan-bold" class="fs-4 text-success"></iconify-icon>
+                        : <a class="btn btn-sm"><iconify-icon icon="solar:eye-scan-bold" class="fs-4 text-success" data-bs-toggle="modal"
+                                            data-bs-target="#buktiModal-{{ $orders->id }}"></iconify-icon>
                         </a></p>
+                    
+                        <div class="modal fade" id="buktiModal-{{ $orders->id }}" tabindex="-1"
+                            aria-labelledby="buktiModalLabel-{{ $orders->id }}" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="buktiModalLabel-{{ $orders->id }}">
+                                            Bukti Transfer</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        @if($orders->invoice && !is_null($orders->invoice->bukti_tf))
+                                        <img src="{{ asset('storage/' . $orders->invoice->bukti_tf) }}"
+                                            alt="Bukti Transfer" class="img-fluid">
+                                        @else
+                                        <p>No bukti transfer available.</p>
+                                        @endif
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     @endif
                 </div>
             </div>

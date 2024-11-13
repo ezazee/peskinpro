@@ -29,8 +29,21 @@ class OrdersController extends Controller
         })
         ->count();
 
+        $paymentpending = Order::with(['user', 'alamat', 'products', 'invoice'])
+        ->whereHas('invoice', function ($query) {
+            $query->where('payment_status', 'unpaid')
+                ->whereNull('bukti_tf');
+        })
+        ->count();
+
+        $pendingreview = Order::with(['user', 'alamat', 'products', 'invoice'])
+        ->whereHas('invoice', function ($query) {
+            $query->where('payment_status', 'unpaid')
+                ->whereNotNull('bukti_tf'); 
+        })
+        ->count();
         $ordercancel =  Order::where('status','canceled')->count();
-        return view('backend.pages.orders.list',compact('welcomeMessage','user','orders','paymentrefund','ordercancel'));
+        return view('backend.pages.orders.list',compact('welcomeMessage','user','orders','paymentrefund','ordercancel','paymentpending','pendingreview'));
     }
 
     public function detail($orderNumber){
@@ -171,4 +184,38 @@ class OrdersController extends Controller
         Alert::success('Success', 'Orders successfully!');
         return redirect()->back()->with('success', 'Orders Success.');    
     }
+
+    public function accept(Order $order)
+    {
+        $order->update([
+            'status' => 'processing',
+        ]);
+    
+        if ($order->invoice) {
+            $order->invoice->update([
+                'payment_status' => 'paid',
+            ]);
+        }
+    
+        return redirect()->back()->with('success', 'Order and payment status updated successfully.');
+    }
+    
+    public function reject(Order $order)
+    {
+        $order->update([
+            'status' => 'canceled',
+        ]);
+        return redirect()->back()->with('success', 'Order and payment status updated successfully.');
+    }
+
+    public function delivered(Order $order)
+    {
+        $order->update([
+            'status' => 'shipping',
+        ]);
+
+        return redirect()->back()->with('success', 'Order and payment status updated successfully.');
+    }
+
+
 }

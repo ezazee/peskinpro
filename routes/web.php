@@ -109,6 +109,12 @@ Route::middleware(['auth', 'role:Administrator'])->group(function () {
     Route::get('/cart/delete/{id}', [OrdersController::class, 'remove'])->name('cart.delete');
     Route::get('/cart/clearall', [OrdersController::class, 'clearall'])->name('cart.clearall');
     Route::post('/orders/pos', [OrdersController::class, 'pos_order'])->name('pos_order');
+    Route::post('/order/accept/{order}', [OrdersController::class, 'accept'])->name('order.accept');
+    Route::post('/order/reject/{order}', [OrdersController::class, 'reject'])->name('order.reject');
+    Route::post('/order/delivered/{order}', [OrdersController::class, 'delivered'])->name('order.delivered');
+
+
+
 
     // invoice
     Route::get('/invoice', [InvoiceController::class, 'index'])->name('invoice.index');
