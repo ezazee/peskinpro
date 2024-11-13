@@ -7,7 +7,7 @@
     <title>POS | PEskin</title>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="{{ asset('backend/assets/images/peskin.ico')}}">
+    <link rel="shortcut icon" href="{{ asset('backend/assets/images/peskin.ico') }}">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ asset('backend/pos/css/bootstrap.min.css') }}">
@@ -64,73 +64,78 @@
                                 <div class="tab_content active" data-tab="all">
                                     <div class="row">
                                         @foreach ($expandedProducts as $item)
-                                        <div class="col-sm-2 col-md-6 col-lg-3 col-xl-3">
-                                            <div class="product-info default-cover card">
-                                                <div class="img-bg overflow-hidden h-50">
-                                                    <img src="{{ asset('storage/' . $item['images']) }}"
-                                                        alt="{{ $item['name'] }}" class="img-fluid w-100">
-                                                    <span><i data-feather="check" class="feather-16"></i></span>
-                                                </div>
+                                            <div class="col-sm-6 col-md-4 col-lg-3">
+                                                <div class="product-info default-cover card">
+                                                    <div class="img-bg overflow-hidden h-50">
+                                                        <img src="{{ asset('storage/' . $item['images']) }}"
+                                                            alt="{{ $item['name'] }}" class="img-fluid w-100">
+                                                        <span><i data-feather="check" class="feather-16"></i></span>
+                                                    </div>
 
-                                                <h6 class="cat-name">{{ $item['category']->name ?? 'Uncategorized' }}
-                                                </h6>
-                                                <h6 class="product-name">{{ $item['name'] }} -
-                                                    {{ $item['size']->size }}ML</h6>
-                                                <div class="d-flex align-items-center justify-content-between price">
-                                                    <span>{{ $item['size']->stock }} Pcs</span>
-                                                    <p>Rp{{ number_format($item['size']->price - $item['size']->discount, 0, ',', '.') }}
-                                                    </p>
+                                                    <h6 class="cat-name">
+                                                        {{ $item['category']->name ?? 'Uncategorized' }}
+                                                    </h6>
+                                                    <h6 class="product-name">{{ $item['name'] }} -
+                                                        {{ $item['size']->size }}ML</h6>
+                                                    <div
+                                                        class="d-flex align-items-center justify-content-between price">
+                                                        <span>{{ $item['size']->stock }} Pcs</span>
+                                                        <p>Rp{{ number_format($item['size']->price - $item['size']->discount, 0, ',', '.') }}
+                                                        </p>
+                                                    </div>
+                                                    @if ($item['size']->discount && $item['size']->discount > 0)
+                                                        <del
+                                                            class="text-sm">Rp{{ number_format($item['size']->price, 0, ',', '.') }}</del>
+                                                    @else
+                                                        -
+                                                    @endif
+                                                    <form action="{{ route('add_cart_pos') }}" method="POST"
+                                                        class="mt-2">
+                                                        @csrf
+                                                        <input type="hidden" name="product_id"
+                                                            value="{{ $item['id'] }}">
+                                                        <input type="hidden" name="product_size_id"
+                                                            value="{{ $item['size']->id }}">
+                                                        <input type="hidden" name="quantity" id="quantityInput"
+                                                            value="1">
+                                                        <button type="submit" class="btn btn-primary btn-block">Add to
+                                                            Cart</button>
+                                                    </form>
                                                 </div>
-                                                @if($item['size']->discount && $item['size']->discount > 0)
-                                                <del class="text-sm">Rp
-                                                    {{ number_format($item['size']->price, 0, ',', '.') }}</del>
-                                                @else
-                                                -
-                                                @endif
-                                                <form action="{{ route('add_cart_pos') }}" method="POST" class="mt-2">
-                                                    @csrf
-                                                    <input type="hidden" name="product_id" value="{{ $item['id'] }}">
-                                                    <input type="hidden" name="product_size_id"
-                                                        value="{{ $item['size']->id }}">
-                                                    <input type="hidden" name="quantity" id="quantityInput" value="1">
-                                                    <button type="submit" class="btn btn-primary btn-block">Add to
-                                                        Cart</button>
-                                                </form>
                                             </div>
-                                            </div>
-                                        </div>
                                         @endforeach
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12 col-lg-4 ps-0">
-                            <aside class="product-order-list">
-                                <div class="head d-flex align-items-center justify-content-between w-100">
-                                    <div class="">
-                                        <h5>Order List</h5>
-                                        <span>Transaction ID : #65565</span>
-                                    </div>
-                                </div>
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-4 ps-0">
+                    <aside class="product-order-list">
+                        <div class="head d-flex align-items-center justify-content-between w-100">
+                            <div class="">
+                                <h5>Order List</h5>
+                                <span>Transaction ID : #65565</span>
+                            </div>
+                        </div>
 
-                                <div class="product-added block-section">
-                                    <div class="head-text d-flex align-items-center justify-content-between">
-                                        <h6 class="d-flex align-items-center mb-0">Product Added<span
-                                                class="count">{{ $countcart }}</span>
-                                        </h6>
-                                        <a href="{{ route('cart.clearall') }}"
-                                            class="d-flex align-items-center text-danger">
-                                            <span class="me-1"><i data-feather="x" class="feather-16"></i></span>Clear
-                                            all
-                                        </a>
+                        <div class="product-added block-section">
+                            <div class="head-text d-flex align-items-center justify-content-between">
+                                <h6 class="d-flex align-items-center mb-0">Product Added<span
+                                        class="count">{{ $countcart }}</span>
+                                </h6>
+                                <a href="{{ route('cart.clearall') }}" class="d-flex align-items-center text-danger">
+                                    <span class="me-1"><i data-feather="x" class="feather-16"></i></span>Clear
+                                    all
+                                </a>
+                            </div>
+                            <div class="product-wrap">
+                                @if (empty($cartItems) || count($cartItems) === 0)
+                                    <div class="empty-cart-message text-center py-4">
+                                        <p>Silahkan pilih produk untuk menambahkan ke keranjang.</p>
                                     </div>
-                                    <div class="product-wrap">
-                                        @if(empty($cartItems) || count($cartItems) === 0)
-                                        <div class="empty-cart-message text-center py-4">
-                                            <p>Silahkan pilih produk untuk menambahkan ke keranjang.</p>
-                                        </div>
-                                        @else
-                                        @foreach ($cartItems as $item)
+                                @else
+                                    @foreach ($cartItems as $item)
                                         <div class="product-list d-flex align-items-center justify-content-between">
                                             <div class="d-flex align-items-center product-info" data-bs-toggle="modal"
                                                 data-bs-target="#products">
@@ -161,8 +166,8 @@
                                                 </a>
                                             </div>
                                             <div class="d-flex align-items-center action">
-                                                <a class="btn-icon edit-icon me-2" href="#" data-bs-toggle="modal"
-                                                    data-bs-target="#edit-product">
+                                                <a class="btn-icon edit-icon me-2" href="#"
+                                                    data-bs-toggle="modal" data-bs-target="#edit-product">
                                                     <i data-feather="edit" class="feather-14"></i>
                                                 </a>
                                                 <a class="btn-icon delete-icon"
@@ -171,282 +176,279 @@
                                                 </a>
                                             </div>
                                         </div>
-                                        @endforeach
-                                        @endif
-                                    </div>
-
-                                </div>
-                                <div class="block-section">
-                                    <div class="order-total">
-                                        <table class="table table-responsive table-borderless">
-                                            <tbody>
-                                                @php
-                                                $subtotal = 0;
-                                                $hemat = 0;
-
-                                                foreach ($cartItems as $item) {
-                                                $subtotal += ($item->productSize->price * $item->quantity) -
-                                                ($item->productSize->discount * $item->quantity);
-                                                $hemat += $item->productSize->discount * $item->quantity;
-                                                }
-
-                                                $total = $subtotal;
-                                                @endphp
-                                                <tr>
-                                                    <td>Sub Total</td>
-                                                    <td class="text-end">Rp{{ number_format($subtotal, 0, ',', '.') }}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Hemat</td>
-                                                    <td class="text-end">Rp{{ number_format($hemat, 0, ',', '.') }}</td>
-                                                </tr>
-                                            </tbody>
-
-                                        </table>
-                                    </div>
-                                </div>
-
-                                <form action="{{ route('pos_order') }}" method="POST">
-                                    @csrf
-                                    <input type="text" name="total_amount" value="{{ $total }}" hidden>
-
-                                    <div class="block-section payment-method">
-                                        <h6>Payment Method</h6>
-                                        <div class="row d-flex align-items-center justify-content-center methods">
-                                            <div class="col-md-6 col-lg-4 item mb-3">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="payment_method"
-                                                        id="cash" value="cash" checked>
-                                                    <label class="form-check-label d-flex align-items-center"
-                                                        for="cash">
-                                                        <img src="{{ asset('backend/pos/img/icons/cash-pay.svg') }}"
-                                                            alt="Payment Method" class="me-2"
-                                                            style="width: 30px; height: 30px;">
-                                                        Cash
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-lg-4 item mb-3">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="payment_method"
-                                                        id="transfer" value="transfer">
-                                                    <label class="form-check-label d-flex align-items-center"
-                                                        for="transfer">
-                                                        <img src="{{ asset('backend/pos/img/icons/credit-card.svg') }}"
-                                                            alt="Payment Method" class="me-2"
-                                                            style="width: 30px; height: 30px;">
-                                                        Transfer
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-lg-4 item mb-3">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="payment_method"
-                                                        id="qris" value="qris">
-                                                    <label class="form-check-label d-flex align-items-center"
-                                                        for="qris">
-                                                        <img src="{{ asset('backend/pos/img/icons/qr-scan.svg') }}"
-                                                            alt="Payment Method" class="me-2"
-                                                            style="width: 30px; height: 30px;">
-                                                        Qris
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    @foreach ($cartItems as $item)
-                                    <input type="hidden" name="products[{{ $loop->index }}][id]"
-                                        value="{{ $item->product_id }}">
-                                    <input type="hidden" name="products[{{ $loop->index }}][quantity]"
-                                        value="{{ $item->quantity }}">
-                                    <input type="hidden" name="products[{{ $loop->index }}][sizeid]"
-                                        value="{{ $item->productSize->id }}">
-                                    <input type="hidden" name="products[{{ $loop->index }}][harga]"
-                                        value="{{ $item->productSize->price - $item->productSize->discount }}">
-                                    <input type="hidden" name="products[{{ $loop->index }}][discount]"
-                                        value="{{ $item->productSize->discount }}">
                                     @endforeach
+                                @endif
+                            </div>
 
-                                    <div class="d-grid btn-block">
-                                        <button class="btn btn-success">
-                                            Payment Grand Total : {{ number_format($total, 0, ',', '.') }}
-                                        </button>
-                                    </div>
-                                </form>
-
-                            </aside>
                         </div>
-                    </div>
-                </div>
-            </div>
+                        <div class="block-section">
+                            <div class="order-total">
+                                <table class="table table-responsive table-borderless">
+                                    <tbody>
+                                        @php
+                                            $subtotal = 0;
+                                            $hemat = 0;
 
-        </div>
-        <!-- /Main Wrapper -->
+                                            foreach ($cartItems as $item) {
+                                                $subtotal +=
+                                                    $item->productSize->price * $item->quantity -
+                                                    $item->productSize->discount * $item->quantity;
+                                                $hemat += $item->productSize->discount * $item->quantity;
+                                            }
 
-        <!-- Print Receipt -->
-        <div class="modal fade modal-default" id="print-receipt" aria-labelledby="print-receipt">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="d-flex justify-content-end">
-                        <button type="button" class="close p-0" data-bs-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="icon-head text-center">
-                            <a href="javascript:void(0);">
-                                <img src="assets/img/logo.png" width="100" height="30" alt="Receipt Logo">
-                            </a>
-                        </div>
-                        <div class="text-center info text-center">
-                            <h6>Dreamguys Technologies Pvt Ltd.,</h6>
-                            <p class="mb-0">Phone Number: +1 5656665656</p>
-                            <p class="mb-0">Email: <a
-                                    href="/cdn-cgi/l/email-protection#6c09140d011c00092c0b010d0500420f0301"><span
-                                        class="__cf_email__"
-                                        data-cfemail="016479606c716d6441666c60686d2f626e6c">[email&nbsp;protected]</span></a>
-                            </p>
-                        </div>
-                        <div class="tax-invoice">
-                            <h6 class="text-center">Tax Invoice</h6>
-                            <div class="row">
-                                <div class="col-sm-12 col-md-6">
-                                    <div class="invoice-user-name"><span>Name: </span><span>John Doe</span></div>
-                                    <div class="invoice-user-name"><span>Invoice No: </span><span>CS132453</span></div>
-                                </div>
-                                <div class="col-sm-12 col-md-6">
-                                    <div class="invoice-user-name"><span>Customer Id: </span><span>#LL93784</span></div>
-                                    <div class="invoice-user-name"><span>Date: </span><span>01.07.2022</span></div>
-                                </div>
+                                            $total = $subtotal;
+                                        @endphp
+                                        <tr>
+                                            <td>Sub Total</td>
+                                            <td class="text-end">Rp{{ number_format($subtotal, 0, ',', '.') }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Hemat</td>
+                                            <td class="text-end">Rp{{ number_format($hemat, 0, ',', '.') }}</td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
                             </div>
                         </div>
-                        <table class="table-borderless w-100 table-fit">
-                            <thead>
-                                <tr>
-                                    <th># Item</th>
-                                    <th>Price</th>
-                                    <th>Qty</th>
-                                    <th class="text-end">Total</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1. Red Nike Laser</td>
-                                    <td>$50</td>
-                                    <td>3</td>
-                                    <td class="text-end">$150</td>
-                                </tr>
-                                <tr>
-                                    <td>2. Iphone 14</td>
-                                    <td>$50</td>
-                                    <td>2</td>
-                                    <td class="text-end">$100</td>
-                                </tr>
-                                <tr>
-                                    <td>3. Apple Series 8</td>
-                                    <td>$50</td>
-                                    <td>3</td>
-                                    <td class="text-end">$150</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="4">
-                                        <table class="table-borderless w-100 table-fit">
-                                            <tbody>
-                                                <tr>
-                                                    <td>Sub Total :</td>
-                                                    <td class="text-end">$700.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Discount :</td>
-                                                    <td class="text-end">-$50.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Shipping :</td>
-                                                    <td class="text-end">0.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Tax (5%) :</td>
-                                                    <td class="text-end">$5.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Total Bill :</td>
-                                                    <td class="text-end">$655.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Due :</td>
-                                                    <td class="text-end">$0.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Total Payable :</td>
-                                                    <td class="text-end">$655.00</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div class="text-center invoice-bar">
-                            <p>**VAT against this challan is payable through central registration. Thank you for your
-                                business!</p>
-                            <a href="javascript:void(0);">
-                                <img src="assets/img/barcode/barcode-03.jpg" alt="Barcode">
-                            </a>
-                            <p>Sale 31</p>
-                            <p>Thank You For Shopping With Us. Please Come Again</p>
-                            <a href="javascript:void(0);" class="btn btn-primary">Print Receipt</a>
+
+                        <form action="{{ route('pos_order') }}" method="POST">
+                            @csrf
+                            <input type="text" name="total_amount" value="{{ $total }}" hidden>
+
+                            <div class="block-section payment-method">
+                                <h6>Payment Method</h6>
+                                <div class="row d-flex align-items-center justify-content-center methods">
+                                    <div class="col-md-6 col-lg-4 item mb-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="payment_method"
+                                                id="cash" value="cash" checked>
+                                            <label class="form-check-label d-flex align-items-center" for="cash">
+                                                <img src="{{ asset('backend/pos/img/icons/cash-pay.svg') }}"
+                                                    alt="Payment Method" class="me-2"
+                                                    style="width: 30px; height: 30px;">
+                                                Cash
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-4 item mb-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="payment_method"
+                                                id="transfer" value="transfer">
+                                            <label class="form-check-label d-flex align-items-center" for="transfer">
+                                                <img src="{{ asset('backend/pos/img/icons/credit-card.svg') }}"
+                                                    alt="Payment Method" class="me-2"
+                                                    style="width: 30px; height: 30px;">
+                                                Transfer
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-4 item mb-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="payment_method"
+                                                id="qris" value="qris">
+                                            <label class="form-check-label d-flex align-items-center" for="qris">
+                                                <img src="{{ asset('backend/pos/img/icons/qr-scan.svg') }}"
+                                                    alt="Payment Method" class="me-2"
+                                                    style="width: 30px; height: 30px;">
+                                                Qris
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @foreach ($cartItems as $item)
+                                <input type="hidden" name="products[{{ $loop->index }}][id]"
+                                    value="{{ $item->product_id }}">
+                                <input type="hidden" name="products[{{ $loop->index }}][quantity]"
+                                    value="{{ $item->quantity }}">
+                                <input type="hidden" name="products[{{ $loop->index }}][sizeid]"
+                                    value="{{ $item->productSize->id }}">
+                                <input type="hidden" name="products[{{ $loop->index }}][harga]"
+                                    value="{{ $item->productSize->price - $item->productSize->discount }}">
+                                <input type="hidden" name="products[{{ $loop->index }}][discount]"
+                                    value="{{ $item->productSize->discount }}">
+                            @endforeach
+
+                            <div class="d-grid btn-block">
+                                <button class="btn btn-success">
+                                    Payment Grand Total : {{ number_format($total, 0, ',', '.') }}
+                                </button>
+                            </div>
+                        </form>
+
+                    </aside>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /Main Wrapper -->
+
+    <!-- Print Receipt -->
+    <div class="modal fade modal-default" id="print-receipt" aria-labelledby="print-receipt">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="close p-0" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="icon-head text-center">
+                        <a href="javascript:void(0);">
+                            <img src="assets/img/logo.png" width="100" height="30" alt="Receipt Logo">
+                        </a>
+                    </div>
+                    <div class="text-center info text-center">
+                        <h6>Dreamguys Technologies Pvt Ltd.,</h6>
+                        <p class="mb-0">Phone Number: +1 5656665656</p>
+                        <p class="mb-0">Email: <a
+                                href="/cdn-cgi/l/email-protection#6c09140d011c00092c0b010d0500420f0301"><span
+                                    class="__cf_email__"
+                                    data-cfemail="016479606c716d6441666c60686d2f626e6c">[email&nbsp;protected]</span></a>
+                        </p>
+                    </div>
+                    <div class="tax-invoice">
+                        <h6 class="text-center">Tax Invoice</h6>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <div class="invoice-user-name"><span>Name: </span><span>John Doe</span></div>
+                                <div class="invoice-user-name"><span>Invoice No: </span><span>CS132453</span></div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="invoice-user-name"><span>Customer Id: </span><span>#LL93784</span></div>
+                                <div class="invoice-user-name"><span>Date: </span><span>01.07.2022</span></div>
+                            </div>
                         </div>
+                    </div>
+                    <table class="table-borderless w-100 table-fit">
+                        <thead>
+                            <tr>
+                                <th># Item</th>
+                                <th>Price</th>
+                                <th>Qty</th>
+                                <th class="text-end">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1. Red Nike Laser</td>
+                                <td>$50</td>
+                                <td>3</td>
+                                <td class="text-end">$150</td>
+                            </tr>
+                            <tr>
+                                <td>2. Iphone 14</td>
+                                <td>$50</td>
+                                <td>2</td>
+                                <td class="text-end">$100</td>
+                            </tr>
+                            <tr>
+                                <td>3. Apple Series 8</td>
+                                <td>$50</td>
+                                <td>3</td>
+                                <td class="text-end">$150</td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <table class="table-borderless w-100 table-fit">
+                                        <tbody>
+                                            <tr>
+                                                <td>Sub Total :</td>
+                                                <td class="text-end">$700.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Discount :</td>
+                                                <td class="text-end">-$50.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Shipping :</td>
+                                                <td class="text-end">0.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Tax (5%) :</td>
+                                                <td class="text-end">$5.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Total Bill :</td>
+                                                <td class="text-end">$655.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Due :</td>
+                                                <td class="text-end">$0.00</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Total Payable :</td>
+                                                <td class="text-end">$655.00</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="text-center invoice-bar">
+                        <p>**VAT against this challan is payable through central registration. Thank you for your
+                            business!</p>
+                        <a href="javascript:void(0);">
+                            <img src="assets/img/barcode/barcode-03.jpg" alt="Barcode">
+                        </a>
+                        <p>Sale 31</p>
+                        <p>Thank You For Shopping With Us. Please Come Again</p>
+                        <a href="javascript:void(0);" class="btn btn-primary">Print Receipt</a>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- /Print Receipt -->
+    </div>
+    <!-- /Print Receipt -->
 
 
-        <!-- Recent Transactions -->
-        <div class="modal fade pos-modal" id="recents" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header p-4">
-                        <h5 class="modal-title">Recent Transactions</h5>
-                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body p-4">
-                        <div class="tabs-sets">
-                            <div class="tab-content">
-                                <div class="tab-pane fade show active" id="purchase" role="tabpanel"
-                                    aria-labelledby="purchase-tab">
-                                    <div class="table-top">
-                                        <div class="search-set">
-                                            <div class="search-input">
-                                                <a class="btn btn-searchset d-flex align-items-center h-100"><img
-                                                        src="{{ asset('backend/pos/assets/img/icons/search-white.svg') }}"
-                                                        alt="img"></a>
-                                            </div>
+    <!-- Recent Transactions -->
+    <div class="modal fade pos-modal" id="recents" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header p-4">
+                    <h5 class="modal-title">Recent Transactions</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="tabs-sets">
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active" id="purchase" role="tabpanel"
+                                aria-labelledby="purchase-tab">
+                                <div class="table-top">
+                                    <div class="search-set">
+                                        <div class="search-input">
+                                            <a class="btn btn-searchset d-flex align-items-center h-100"><img
+                                                    src="{{ asset('backend/pos/assets/img/icons/search-white.svg') }}"
+                                                    alt="img"></a>
                                         </div>
                                     </div>
-                                    <div class="table-responsive">
-                                        <table class="table datanew">
-                                            <thead>
-                                                <tr>
-                                                    <th>Date</th>
-                                                    <th>Reference</th>
-                                                    <th>Items</th>
-                                                    <th>Amount </th>
-                                                    <th class="no-sort">Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($orders as $item)
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table datanew">
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Reference</th>
+                                                <th>Items</th>
+                                                <th>Amount </th>
+                                                <th class="no-sort">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($orders as $item)
                                                 <tr>
                                                     <td>{{ $item->created_at->format('d F Y') }}</td>
                                                     <td>#{{ $item->invoice->invoice_number }}</td>
                                                     @foreach ($item->products as $p)
-                                                    <td>{{ $p->pivot->quantity }}</td>
+                                                        <td>{{ $p->pivot->quantity }}</td>
                                                     @endforeach
                                                     <td>Rp{{ number_format($item->total_amount, 2) }}</td>
                                                     <td class="action-table-data">
@@ -461,10 +463,9 @@
                                                         </div>
                                                     </td>
                                                 </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -472,45 +473,46 @@
                 </div>
             </div>
         </div>
-        <!-- /Recent Transactions -->
+    </div>
+    <!-- /Recent Transactions -->
 
-        <!-- jQuery -->
-        {{-- <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script> --}}
-        <script src="{{ asset('backend/pos/js/jquery-3.7.1.min.js') }}"></script>
+    <!-- jQuery -->
+    {{-- <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script> --}}
+    <script src="{{ asset('backend/pos/js/jquery-3.7.1.min.js') }}"></script>
 
-        <!-- Feather Icon JS -->
-        <script src="{{ asset('backend/pos/js/feather.min.js') }}"></script>
+    <!-- Feather Icon JS -->
+    <script src="{{ asset('backend/pos/js/feather.min.js') }}"></script>
 
-        <!-- Slimscroll JS -->
-        <script src="{{ asset('backend/pos/js/jquery.slimscroll.min.js') }}"></script>
+    <!-- Slimscroll JS -->
+    <script src="{{ asset('backend/pos/js/jquery.slimscroll.min.js') }}"></script>
 
-        <!-- Datatable JS -->
-        <script src="{{ asset('backend/pos/js/jquery.dataTables.min.js') }}"></script>
-        <script src="{{ asset('backend/pos/js/dataTables.bootstrap5.min.js') }}"></script>
+    <!-- Datatable JS -->
+    <script src="{{ asset('backend/pos/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('backend/pos/js/dataTables.bootstrap5.min.js') }}"></script>
 
-        <!-- Bootstrap Core JS -->
-        <script src="{{ asset('backend/pos/js/bootstrap.bundle.min.js') }}"></script>
+    <!-- Bootstrap Core JS -->
+    <script src="{{ asset('backend/pos/js/bootstrap.bundle.min.js') }}"></script>
 
-        <!-- Chart JS -->
-        <script src="{{ asset('backend/pos/plugins/apexchart/apexcharts.min.js') }}"></script>
-        <script src="{{ asset('backend/pos/plugins/apexchart/chart-data.js') }}"></script>
+    <!-- Chart JS -->
+    <script src="{{ asset('backend/pos/plugins/apexchart/apexcharts.min.js') }}"></script>
+    <script src="{{ asset('backend/pos/plugins/apexchart/chart-data.js') }}"></script>
 
-        <!-- Daterangepikcer JS -->
-        <script src="{{ asset('backend/pos/js/moment.min.js') }}"></script>
-        <script src="{{ asset('backend/pos/plugins/daterangepicker/daterangepicker.js') }}"></script>
+    <!-- Daterangepikcer JS -->
+    <script src="{{ asset('backend/pos/js/moment.min.js') }}"></script>
+    <script src="{{ asset('backend/pos/plugins/daterangepicker/daterangepicker.js') }}"></script>
 
-        <!-- Owl JS -->
-        <script src="{{ asset('backend/pos/plugins/owlcarousel/owl.carousel.min.js') }}"></script>
+    <!-- Owl JS -->
+    <script src="{{ asset('backend/pos/plugins/owlcarousel/owl.carousel.min.js') }}"></script>
 
-        <!-- Select2 JS -->
-        <script src="{{ asset('backend/pos/plugins/select2/js/select2.min.js') }}"></script>
+    <!-- Select2 JS -->
+    <script src="{{ asset('backend/pos/plugins/select2/js/select2.min.js') }}"></script>
 
-        <!-- Sweetalert 2 -->
-        <script src="{{ asset('backend/pos/plugins/sweetalert/sweetalert2.all.min.js') }}"></script>
-        <script src="{{ asset('backend/pos/plugins/sweetalert/sweetalerts.min.js') }}"></script>
+    <!-- Sweetalert 2 -->
+    <script src="{{ asset('backend/pos/plugins/sweetalert/sweetalert2.all.min.js') }}"></script>
+    <script src="{{ asset('backend/pos/plugins/sweetalert/sweetalerts.min.js') }}"></script>
 
-        <!-- Custom JS -->
-        <script src="{{ asset('backend/pos/js/script.js') }}"></script>
+    <!-- Custom JS -->
+    <script src="{{ asset('backend/pos/js/script.js') }}"></script>
 </body>
 
 </html>

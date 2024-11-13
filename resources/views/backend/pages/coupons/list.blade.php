@@ -80,15 +80,17 @@
     <div class="row">
         <div class="col-xl-12">
             <div class="card">
-                <div class="d-flex card-header justify-content-between align-items-center">
-                    <div>
-                        <h4 class="card-title">All Coupons List</h4>
-                    </div>
-                    <div class="dropdown">
-                        <a href="{{ route('coupons.create') }}" class="btn btn-sm btn-primary">
-                            Add Coupons
-                        </a>
-                    </div>
+                <div class="card-header d-flex justify-content-between align-items-center gap-1">
+                    <h4 class="card-title flex-grow-1">All Coupons List</h4>
+
+                    <form action="" method="" class="d-flex align-items-center me-2">
+                        <input type="text" name="query" class="form-control form-control-sm" placeholder="Search Products...">
+                        <button type="submit" class="btn btn-sm btn-outline-secondary ms-1">Search</button>
+                    </form>
+
+                    <a href="{{ route('product.index') }}" class="btn btn-sm btn-primary">
+                        Add Product
+                    </a>
                 </div>
                 <div>
                     <div class="table-responsive">

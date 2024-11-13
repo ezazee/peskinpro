@@ -4,12 +4,14 @@
               <div class="logo-box">
                   <a href="/dashboard" class="logo-dark">
                       <img src="{{ asset('backend/assets/images/logo-sm.png') }}" class="logo-sm" alt="logo sm">
-                      <img src="{{ asset('backend/assets/images/logo-dark.png') }}" class="logo-lg" alt="logo dark">
+                      <img src="{{ asset('backend/assets/images/logo-dark.png') }}" class="logo-lg" alt="logo dark"
+                          style="width: 30%; height: 50%">
                   </a>
 
                   <a href="/dashboard" class="logo-light">
                       <img src="{{ asset('backend/assets/images/logo-sm.png') }}" class="logo-sm" alt="logo sm">
-                      <img src="{{ asset('backend/assets/images/peskin.png') }}" class="logo-lg" alt="logo light">
+                      <img src="{{ asset('backend/assets/images/peskin.png') }}" class="logo-lg" alt="logo light"
+                          style="width: 30%; height: 50%">
                   </a>
               </div>
 
@@ -34,8 +36,8 @@
                       </li>
 
                       <li class="nav-item">
-                          <a class="nav-link menu-arrow" href="#sidebarProducts" data-bs-toggle="collapse" role="button"
-                              aria-expanded="false" aria-controls="sidebarProducts">
+                          <a class="nav-link menu-arrow" href="#sidebarProducts" data-bs-toggle="collapse"
+                              role="button" aria-expanded="false" aria-controls="sidebarProducts">
                               <span class="nav-icon">
                                   <iconify-icon icon="solar:t-shirt-bold-duotone"></iconify-icon>
                               </span>
@@ -73,9 +75,9 @@
                           </a>
                           <div class="collapse" id="sidebarOrders">
                               <ul class="nav sub-navbar-nav">
-                                <li class="sub-nav-item">
-                                    <a class="sub-nav-link" href="{{ route('orders.pos') }}">POS</a>
-                                </li>
+                                  <li class="sub-nav-item">
+                                      <a class="sub-nav-link" href="{{ route('orders.pos') }}">POS</a>
+                                  </li>
                                   <li class="sub-nav-item">
                                       <a class="sub-nav-link" href="{{ route('orders.list') }}">List</a>
                                   </li>
@@ -114,12 +116,13 @@
                           <div class="collapse" id="sidebarCustomers">
                               <ul class="nav sub-navbar-nav">
 
-                                    <li class="sub-nav-item">
-                                        <a class="sub-nav-link" href="{{ route('users.index') }}">Administrator</a>
-                                    </li>
+                                  <li class="sub-nav-item">
+                                      <a class="sub-nav-link" href="{{ route('users.index') }}">Administrator</a>
+                                  </li>
 
                                   <li class="sub-nav-item">
-                                      <a class="sub-nav-link" href="{{ route('customers.index') }}">List Customers</a>
+                                      <a class="sub-nav-link" href="{{ route('customers.index') }}">List
+                                          Customers</a>
                                   </li>
                               </ul>
                           </div>
@@ -128,28 +131,28 @@
                       <li class="menu-title mt-2">Other</li>
 
                       <li class="nav-item">
-                        <a class="nav-link menu-arrow" href="#sidebarArticle" data-bs-toggle="collapse" role="button"
-                            aria-expanded="false" aria-controls="sidebarArticle">
-                            <span class="nav-icon">
-                                <iconify-icon icon="solar:documents-outline"></iconify-icon>
-                            </span>
-                            <span class="nav-text"> Article </span>
-                        </a>
-                        <div class="collapse" id="sidebarArticle">
-                            <ul class="nav sub-navbar-nav">
-                                <li class="sub-nav-item">
-                                    <a class="sub-nav-link" href="{{ route('article.list') }}">List</a>
-                                </li>
-                                <li class="sub-nav-item">
-                                    <a class="sub-nav-link" href="{{ route('article.create') }}">Create</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
+                          <a class="nav-link menu-arrow" href="#sidebarArticle" data-bs-toggle="collapse"
+                              role="button" aria-expanded="false" aria-controls="sidebarArticle">
+                              <span class="nav-icon">
+                                  <iconify-icon icon="solar:documents-outline"></iconify-icon>
+                              </span>
+                              <span class="nav-text"> Article </span>
+                          </a>
+                          <div class="collapse" id="sidebarArticle">
+                              <ul class="nav sub-navbar-nav">
+                                  <li class="sub-nav-item">
+                                      <a class="sub-nav-link" href="{{ route('article.list') }}">List</a>
+                                  </li>
+                                  <li class="sub-nav-item">
+                                      <a class="sub-nav-link" href="{{ route('article.create') }}">Create</a>
+                                  </li>
+                              </ul>
+                          </div>
+                      </li>
 
                       <li class="nav-item">
-                          <a class="nav-link menu-arrow" href="#sidebarCoupons" data-bs-toggle="collapse" role="button"
-                              aria-expanded="false" aria-controls="sidebarCoupons">
+                          <a class="nav-link menu-arrow" href="#sidebarCoupons" data-bs-toggle="collapse"
+                              role="button" aria-expanded="false" aria-controls="sidebarCoupons">
                               <span class="nav-icon">
                                   <iconify-icon icon="solar:leaf-bold-duotone"></iconify-icon>
                               </span>
