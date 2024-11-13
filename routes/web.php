@@ -168,3 +168,7 @@ Route::get('/artikel', function() {
 Route::get('/artikel-detail', function() {
     return view('frontend.pages.artikel-detail');
 });
+
+Route::get('/edit-address', function() {
+    return view('frontend.pages.profile.edit-address');
+});
