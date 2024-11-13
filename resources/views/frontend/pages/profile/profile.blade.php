@@ -15,7 +15,7 @@
                             class="overview-item flex items-center justify-between p-5 border border-line rounded-lg box-shadow-xs">
                             <div class="counter">
                                 <span class="text-secondary">Pesanan Pending</span>
-                                <h5 class="heading5 mt-1">4</h5>
+                                <h5 class="heading5 mt-1">{{ $pendingOrdersCount }}</h5>
                             </div>
                             <span class="ph ph-hourglass-medium text-4xl"></span>
                         </div>
@@ -23,7 +23,7 @@
                             class="overview-item flex items-center justify-between p-5 border border-line rounded-lg box-shadow-xs">
                             <div class="counter">
                                 <span class="text-secondary">Pesanan Di Cancel</span>
-                                <h5 class="heading5 mt-1">12</h5>
+                                <h5 class="heading5 mt-1">{{ $canceledOrdersCount }}</h5>
                             </div>
                             <span class="ph ph-receipt-x text-4xl"></span>
                         </div>
@@ -31,7 +31,7 @@
                             class="overview-item flex items-center justify-between p-5 border border-line rounded-lg box-shadow-xs">
                             <div class="counter">
                                 <span class="text-secondary">Total Orderan</span>
-                                <h5 class="heading5 mt-1">200</h5>
+                                <h5 class="heading5 mt-1">{{ $totalOrders }}</h5>
                             </div>
                             <span class="ph ph-package text-4xl"></span>
                         </div>
@@ -50,81 +50,56 @@
                                             Produk</th>
                                         <th scope="col"
                                             class="pb-3 text-left text-sm font-bold uppercase text-secondary whitespace-nowrap">
-                                            Harga</th>
+                                            Harga Total</th>
                                         <th scope="col"
                                             class="pb-3 text-right text-sm font-bold uppercase text-secondary whitespace-nowrap">
                                             Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($orders as $item)
                                     <tr class="item duration-300 border-b border-line">
                                         <th scope="row" class="py-3 text-left">
-                                            <strong class="text-title">54312452</strong>
+                                            <strong class="text-title">#{{ $item->order_number }}</strong>
                                         </th>
                                         <td class="py-3">
+                                            @if ($item->products->isNotEmpty())
+                                            @php
+                                                $firstProduct = $item->products->first();
+                                                $firstSize = $firstProduct->sizes->first(); 
+                                            @endphp
                                             <a href="product-default.html" class="product flex items-center gap-3">
-                                                <img src="{{ asset('frontend/assets/images/product/peskin/contoh1.png') }}"
-                                                    alt="Contrasting sweatshirt"
-                                                    class="flex-shrink-0 w-12 h-12 rounded" />
+                                                <img src="{{ asset('storage/' . $firstProduct->front_image) }}"
+                                                     alt="Contrasting sweatshirt"
+                                                     class="flex-shrink-0 w-12 h-12 rounded" />
                                                 <div class="info flex flex-col">
-                                                    <strong class="product_name text-button">Contrasting
-                                                        sweatshirt</strong>
-                                                    <span class="product_tag caption1 text-secondary">Women,
-                                                        Clothing</span>
+                                                    <strong class="product_name text-button">{{ $firstProduct->name }}</strong>
+                                                    <span class="product_tag caption1 text-secondary">{{ $firstProduct->category->name }} , 
+                                                        {{ $firstSize->size }} ml
+                                                    </span>
+                                                    @if ($item->products->count() > 1)
+                                                        <span class="product_tag caption1 text-primary">Lainnya ..</span>
+                                                    @endif
                                                 </div>
                                             </a>
+                                        @endif
                                         </td>
-                                        <td class="py-3 price">Rp.1500.000</td>
+                                        <td class="py-3 price">Rp{{ number_format($item->total_amount, 0, ',', '.') }}</td>
                                         <td class="py-3 text-right">
-                                            <span
-                                                class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-yellow text-yellow caption1 font-semibold">Pending</span>
+                                            @if ( $item->status == 'pending' && $item->invoice->payment_status == 'unpaid' && $item->invoice->bukti_tf == '' )
+                                            <a href="{{ route('payment', ['invoice_number' => $item->invoice->invoice_number ?? '']) }}"><span class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-primary text-black caption1 font-semibold">Bayar Sekarang</span></a>
+                                            @elseif( $item->status == 'pending' && $item->invoice->payment_status == 'unpaid' )
+                                                <span class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-yellow text-yellow caption1 font-semibold">Pending</span>
+                                            @elseif( $item->status == 'processing')
+                                                <span class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-yellow text-yellow caption1 font-semibold">Processing</span>
+                                            @elseif( $item->status == 'completed')
+                                                <span class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-success text-success caption1 font-semibold">Completed</span>
+                                            @else
+                                                <span class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-danger text-danger caption1 font-semibold">Canceled</span>
+                                            @endif
                                         </td>
                                     </tr>
-                                    <tr class="item duration-300 border-b border-line">
-                                        <th scope="row" class="py-3 text-left">
-                                            <strong class="text-title">54312452</strong>
-                                        </th>
-                                        <td class="py-3">
-                                            <a href="product-default.html" class="product flex items-center gap-3">
-                                                <img src="{{ asset('frontend/assets/images/product/peskin/contoh1.png') }}"
-                                                    alt="Faux-leather trousers"
-                                                    class="flex-shrink-0 w-12 h-12 rounded" />
-                                                <div class="info flex flex-col">
-                                                    <strong class="product_name text-button">Faux-leather
-                                                        trousers</strong>
-                                                    <span class="product_tag caption1 text-secondary">Women,
-                                                        Clothing</span>
-                                                </div>
-                                            </a>
-                                        </td>
-                                        <td class="py-3 price">Rp.1500.000</td>
-                                        <td class="py-3 text-right">
-                                            <span
-                                                class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-purple text-purple caption1 font-semibold">Delivery</span>
-                                        </td>
-                                    </tr>
-                                    <tr class="item duration-300">
-                                        <th scope="row" class="py-3 text-left">
-                                            <strong class="text-title">54312452</strong>
-                                        </th>
-                                        <td class="py-3">
-                                            <a href="product-default.html" class="product flex items-center gap-3">
-                                                <img src="{{ asset('frontend/assets/images/product/peskin/contoh1.png') }}"
-                                                    alt="V-neck knitted top" class="flex-shrink-0 w-12 h-12 rounded" />
-                                                <div class="info flex flex-col">
-                                                    <strong class="product_name text-button">V-neck knitted
-                                                        top</strong>
-                                                    <span class="product_tag caption1 text-secondary">Women,
-                                                        Clothing</span>
-                                                </div>
-                                            </a>
-                                        </td>
-                                        <td class="py-3 price">Rp.1500.000</td>
-                                        <td class="py-3 text-right">
-                                            <span
-                                                class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-red text-red caption1 font-semibold">Canceled</span>
-                                        </td>
-                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

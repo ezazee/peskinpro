@@ -139,7 +139,6 @@ class UsersController extends Controller
             $query->where('name', 'user');
         })->count();
         $user = Auth::user();
-        // dd($totalcustomers);
         
         return view('backend.pages.users.customers',compact('welcomeMessage','users','totalcustomers','user'));
     }

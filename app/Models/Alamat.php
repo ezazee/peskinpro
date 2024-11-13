@@ -11,10 +11,14 @@ class Alamat extends Model
 
     protected $fillable = [
         'user_id',
+        'penerima',
+        'label',
         'province_id',
         'city_id',
         'street',
         'postal_code',
+        'no_telp',
+        'default',
     ];
 
     /**

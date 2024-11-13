@@ -187,10 +187,10 @@
                                     <th>Order ID</th>
                                     <th>Created at</th>
                                     <th>Customer</th>
-                                    <th>Priority</th>
                                     <th>Total</th>
                                     <th>Payment Status</th>
                                     <th>Items</th>
+                                    <th>Estimasi</th>
                                     <th>Delivery</th>
                                     <th>Order Status</th>
                                     <th>Action</th>
@@ -201,40 +201,86 @@
                                 <tr>
                                     <td>{{ $index+1 }}</td>
                                     <td>
-                                       #{{ $item->order_number }}
+                                        #{{ $item->order_number }}
                                     </td>
                                     <td>{{ $item->created_at }}</td>
                                     <td>
                                         {{ $item->user->name }}
                                     </td>
-                                    <td> Normal</td>
-                                    <td>  Rp{{ number_format($item->total_amount, 0, ',', '.') }} </td>
+                                    <td> Rp{{ number_format($item->total_amount, 0, ',', '.') }} </td>
 
                                     <td>
                                         @if( $item->invoice && $item->invoice->payment_status === 'paid' )
                                         <span class="badge bg-success text-light  px-2 py-1 fs-13">Paid</span>
-                                        @elseif( $item->invoice && $item->invoice->payment_status === 'unpaid' )
-                                        <span class="badge bg-light text-dark  px-2 py-1 fs-13">Unpaid</span>
+                                        @elseif( $item->invoice && $item->invoice->payment_status === 'unpaid' &&
+                                        is_null($item->invoice->bukti_tf))
+                                        <span class="badge bg-light text-dark px-2 py-1 fs-13">Unpaid</span>
+                                        @elseif( $item->invoice && $item->invoice->payment_status === 'unpaid' &&
+                                        !is_null($item->invoice->bukti_tf))
+                                        <span class="badge bg-light text-info px-2 py-1 fs-13" data-bs-toggle="modal"
+                                            data-bs-target="#buktiModal-{{ $item->id }}">
+                                            Check Bukti
+                                        </span>
+
+                                        <!-- Modal to Display Bukti Transfer -->
+                                        <div class="modal fade" id="buktiModal-{{ $item->id }}" tabindex="-1"
+                                            aria-labelledby="buktiModalLabel-{{ $item->id }}" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="buktiModalLabel-{{ $item->id }}">
+                                                            Bukti Transfer</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        @if($item->invoice && !is_null($item->invoice->bukti_tf))
+                                                        <img src="{{ asset('storage/' . $item->invoice->bukti_tf) }}"
+                                                            alt="Bukti Transfer" class="img-fluid">
+                                                        @else
+                                                        <p>No bukti transfer available.</p>
+                                                        @endif
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Close</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
                                         @else
-                                        <span class="badge bg-danger text-dark  px-2 py-1 fs-13">Refunded</span>
+                                        <span class="badge bg-danger text-dark px-2 py-1 fs-13">Refunded</span>
                                         @endif
                                     </td>
                                     <td>{{ $item->products->sum('pivot.quantity') }}</td>
-                                    <td> -</td>
-                                    <td> 
+                                    @if($item->shipping)
+                                    <td> {{ $item->shipping->estimated_delivery }}</td>
+                                    <td> {{ $item->shipping->shipping_service }}</td>
+                                    @else
+                                    <td>-</td>
+                                    <td>-</td>
+                                    @endif
+                                    <td>
                                         @if ( $item->status == 'pending')
-                                        <span class="badge border border-secondary text-secondary px-2 py-1 fs-13">Pending</span>
+                                        <span
+                                            class="badge border border-secondary text-secondary px-2 py-1 fs-13">Pending</span>
                                         @elseif($item->status == 'processing')
-                                        <span class="badge border border-warning text-warning px-2 py-1 fs-13">Processing</span>
+                                        <span
+                                            class="badge border border-warning text-warning px-2 py-1 fs-13">Processing</span>
                                         @elseif($item->status == 'completed')
-                                        <span class="badge border border-success text-success px-2 py-1 fs-13">Completed</span>
+                                        <span
+                                            class="badge border border-success text-success px-2 py-1 fs-13">Completed</span>
                                         @else
-                                        <span class="badge border border-danger text-danger px-2 py-1 fs-13">Canceled</span>
-                                        @endif 
+                                        <span
+                                            class="badge border border-danger text-danger px-2 py-1 fs-13">Canceled</span>
+                                        @endif
                                     </td>
                                     <td>
                                         <div class="d-flex gap-2">
-                                            <a href="{{ route('orders.detail',['orderNumber' => $item->order_number]) }}" class="btn btn-light btn-sm">
+                                            <a href="{{ route('orders.detail',['orderNumber' => $item->order_number]) }}"
+                                                class="btn btn-light btn-sm">
                                                 <iconify-icon icon="solar:eye-broken" class="align-middle fs-18">
                                                 </iconify-icon>
                                             </a>
@@ -256,8 +302,8 @@
                 </div>
             </div>
         </div>
-
     </div>
+
 
 </div>
 <!-- End Container Fluid -->

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Banner;
 use App\Models\Product;
+use App\Models\Article;
 
 
 class HomeController extends Controller
@@ -16,9 +17,13 @@ class HomeController extends Controller
             $query->where('name', 'Facial Care');
         })->with(['category', 'sizes'])->take(3)->get();
         
+        $articles = Article::with('tag')
+        ->where('status', 'public')
+        ->orderby('id', 'desc')
+        ->take(3)
+        ->get();
     
         $products = Product::with('category','sizes')->orderby('created_at', 'desc')->get();
-        // dd($productsfacialcare);
-        return view('frontend.index',compact('banners','productsfacialcare','products'));
+        return view('frontend.index',compact('banners','productsfacialcare','products','articles'));
     }
 }

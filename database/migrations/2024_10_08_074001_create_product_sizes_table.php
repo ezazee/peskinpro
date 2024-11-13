@@ -18,6 +18,8 @@ return new class extends Migration
             $table->integer('stock')->unsigned(); 
             $table->decimal('price', 10, 2);
             $table->decimal('discount', 10, 2)->nullable();
+            $table->string('bestseller')->nullable();
+            $table->string('promotion')->nullable();
             $table->timestamps();
         });
     }
