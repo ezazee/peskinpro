@@ -68,7 +68,6 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::post('/address', [ProfileController::class, 'add_address'])->name('profile.add_address');
     Route::delete('/address/delete{id}', [ProfileController::class, 'delete_address'])->name('delete_address');
     Route::post('/set-default-address/{id}', [ProfileController::class, 'setDefaultAddress'])->name('set_default_address');
-
 });
 
 
@@ -120,7 +119,7 @@ Route::middleware(['auth', 'role:Administrator'])->group(function () {
     Route::get('/invoice', [InvoiceController::class, 'index'])->name('invoice.index');
     Route::get('/invoice/detail/{invoiceNumber}', [InvoiceController::class, 'detail'])->name('invoice.detail');
 
-        // users
+    // users
     Route::get('/users/list', [UsersController::class, 'index'])->name('users.index');
     Route::get('/users/create', [UsersController::class, 'create'])->name('users.create');
     Route::post('/users/add', [UsersController::class, 'add_admin'])->name('users.add_admin');
@@ -142,12 +141,9 @@ Route::middleware(['auth', 'role:Administrator'])->group(function () {
     Route::get('/article/edit/{slug}', [ArticleController::class, 'edit'])->name('article.edit');
     Route::delete('/article/delete/{id}', [ArticleController::class, 'destroy'])->name('article.destroy');
     Route::put('/article/update/{id}', [ArticleController::class, 'update'])->name('article.update');
-
-
-
 });
 
-Route::get('/about-us', function() {
+Route::get('/about-us', function () {
     return view('frontend.pages.about-us');
 });
 
@@ -156,15 +152,20 @@ Route::get('/contact-us', function () {
 });
 
 
-Route::get('/faq', function() {
+Route::get('/faq', function () {
     return view('frontend.pages.faq');
 });
 
 
-Route::get('/search-result', function() {
+Route::get('/search-result', function () {
     return view('frontend.pages.search-result');
 });
 
-Route::get('/return-and-refunds', function() {
+Route::get('/return-and-refunds', function () {
     return view('frontend.pages.return-and-refunds');
 });
+
+Route::get('/recent-order', function () {
+    return view('frontend.pages.profile.recent-order');
+});
+

@@ -3,7 +3,7 @@
     <div class="container">
         <a href="#" class="banner-item overflow-hidden duration-500">
             <div class="content md:rounded-[28px] banner-img rounded-2xl overflow-hidden relative">
-                <img src="https://placehold.co/1290x440" alt="bg"
+                <img src="{{ asset('frontend/assets/images/banner/Banner-Web-PE-1290-x-440.jpg') }}" alt="bg"
                     class="top-0 left-0 w-full h-full object-contain duration-1000 z-[-1]" />
             </div>
         </a>
