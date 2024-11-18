@@ -26,6 +26,12 @@
                 <strong class="heading6">My Address</strong>
             </a>
 
+            <a href="#!"
+                class="category-item flex items-center gap-3 w-full px-5 py-4 rounded-lg cursor-pointer duration-300 hover:bg-white mt-1.5 {{ request()->is('order') ? 'active' : '' }}">
+                <span class="ph ph-receipt text-xl"></span>
+                <strong class="heading6">Recent Orders</strong>
+            </a>
+
             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
                 @csrf
             </form>
