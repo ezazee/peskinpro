@@ -103,6 +103,15 @@
                           </a>
                       </li>
 
+                      <li class="nav-item">
+                        <a class="nav-link" href="{{ route('report.index') }}">
+                            <span class="nav-icon">
+                                <iconify-icon icon="solar:notebook-square-bold-duotone"></iconify-icon>
+                            </span>
+                            <span class="nav-text"> Report </span>
+                        </a>
+                    </li>
+
                       <li class="menu-title mt-2">Users</li>
 
                       <li class="nav-item">

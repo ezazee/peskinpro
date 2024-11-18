@@ -8,7 +8,7 @@
                 <div class="list-blog flex flex-col md:gap-10 gap-8">
                     <!-- Blog Items -->
                     @foreach ($articles as $item)
-                    <a href="{{ route('articlebyTittle', $item->slug) }}">{{ $item->tittle }}</a>
+                    <a href="{{ route('articlebyTittle', $item->slug) }}">
                     <div class="list-pagination w-full flex items-center justify-center gap-4 md:mt-10 mt-6">
                         <div class="blog-item style-list h-full cursor-pointer">
                             <div
@@ -21,7 +21,7 @@
                                     @foreach ($item->tag as $t)   
                                     <div class="blog-tag bg-primary text-white py-1 px-2.5 rounded-full text-button-uppercase inline-block">
                                         {{ $t->nama_tags }}</div>
-                                        @endforeach
+                                    @endforeach
                                     <div class="heading6 blog-title mt-3 duration-300">{{ $item->tittle }}</div>
                                     <div class="flex items-center gap-2 mt-2">
                                         <div class="blog-date caption1 text-secondary">{{ $item->created_at->format('M d, Y') }}
@@ -34,6 +34,7 @@
                             </div>
                         </div>
                     </div>
+                    </a>
                     @endforeach
                 </div>
                 <div class="list-pagination w-full flex items-center justify-center gap-4 md:mt-10 mt-6">
@@ -50,6 +51,7 @@
                     <div class="heading6">Artikel Terpopuler</div>
                     <div class="list-recent pt-1">
                         @foreach ($popularArticles as $popular)
+                        <a href="{{ route('articlebyTittle', $popular->slug) }}">
                         <div class="blog-item flex gap-4 mt-5 cursor-pointer" data-item="13">
                             <img src="{{ asset('storage/' . $popular->images) }}"
                                 alt="img" class="w-20 h-20 object-cover rounded-lg flex-shrink-0" />
@@ -61,6 +63,7 @@
                                 <div class="text-title mt-1">{{ $popular->tittle }}</div>
                             </div>
                         </div>
+                        </a>
                         @endforeach
                     </div>
                 </div>

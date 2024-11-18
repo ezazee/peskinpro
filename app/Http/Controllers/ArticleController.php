@@ -20,10 +20,14 @@ class ArticleController extends Controller
         return view('backend.pages.article.create',compact('welcomeMessage','user'));
     }
 
-    public function list(){
+    public function list(Request $request){
         $user = Auth::user();
         $welcomeMessage = 'List Article';
-        $articles = Article::with(['tag'])->paginate(10);
+        $query = htmlspecialchars($request->input('query'), ENT_QUOTES, 'UTF-8');
+
+        $articles = Article::with(['tag'])
+                        ->where('tittle', 'like', '%' . $query . '%')
+                        ->paginate(10);
         return view('backend.pages.article.list',compact('welcomeMessage','user','articles'));
     }
 
@@ -149,7 +153,11 @@ class ArticleController extends Controller
     }
 
     public function articlebyTittle($slug){
-        $articles = Article::where('slug', $slug)->firstOrFail();
+        $articles = Article::where('slug', $slug)->where('status', 'public')->first();
+
+        if (!$articles) {
+            return redirect()->back()->with('error', 'This article is not available or not publicly accessible.');
+        }
         $articles->increment('view');
 
         $startOfWeek = Carbon::now()->startOfWeek();
@@ -172,7 +180,22 @@ class ArticleController extends Controller
                             ->get();
         }
 
+        $relatedArticles = Article::where('status', 'public')
+        ->whereHas('tag', function ($query) use ($articles) {
+            $query->whereIn('tags.id', $articles->tag->pluck('id'));
+        })
+        ->where('id', '!=', $articles->id)
+        ->orderBy('view', 'desc')
+        ->take(3)
+        ->get();
+
+        $meta_title = $articles->tittle;
+        $meta_description = $articles->description;
+        $meta_keywords = $articles->keyword;
+        // dd($meta_keywords);
         $tags = Tag::take(10)->get();
-        return view('frontend.pages.artikel-detail',compact('articles','popularArticles','tags'));
+        return view('frontend.pages.artikel-detail',compact('articles','popularArticles','tags','relatedArticles', 'meta_title', 
+        'meta_description', 
+        'meta_keywords'));
     }
 }

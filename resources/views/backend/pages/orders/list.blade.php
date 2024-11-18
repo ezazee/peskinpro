@@ -50,7 +50,7 @@
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
                             <h4 class="card-title mb-2">Order Shipped</h4>
-                            <p class="text-muted fw-medium fs-22 mb-0">630</p>
+                            <p class="text-muted fw-medium fs-22 mb-0">{{ $shippingorder }}</p>
                         </div>
                         <div>
                             <div class="avatar-md bg-primary bg-opacity-10 rounded">
@@ -68,8 +68,8 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
-                            <h4 class="card-title mb-2">Order Delivering</h4>
-                            <p class="text-muted fw-medium fs-22 mb-0">170</p>
+                            <h4 class="card-title mb-2">Order POS</h4>
+                            <p class="text-muted fw-medium fs-22 mb-0">{{ $orderpos }}</p>
                         </div>
                         <div>
                             <div class="avatar-md bg-primary bg-opacity-10 rounded">
@@ -124,7 +124,7 @@
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
                             <h4 class="card-title mb-2">Delivered</h4>
-                            <p class="text-muted fw-medium fs-22 mb-0">200</p>
+                            <p class="text-muted fw-medium fs-22 mb-0">{{ $orderuser }}</p>
                         </div>
                         <div>
                             <div class="avatar-md bg-primary bg-opacity-10 rounded">
@@ -142,7 +142,7 @@
                     <div class="d-flex align-items-center justify-content-between">
                         <div>
                             <h4 class="card-title mb-2">In Progress</h4>
-                            <p class="text-muted fw-medium fs-22 mb-0">656</p>
+                            <p class="text-muted fw-medium fs-22 mb-0">{{ $processing }}</p>
                         </div>
                         <div>
                             <div class="avatar-md bg-primary bg-opacity-10 rounded">
@@ -159,24 +159,16 @@
     <div class="row">
         <div class="col-xl-12">
             <div class="card">
-                <div class="d-flex card-header justify-content-between align-items-center">
-                    <div>
-                        <h4 class="card-title">All Order List</h4>
-                    </div>
-                    <div class="dropdown">
-                        <a href="#" class="dropdown-toggle btn btn-sm btn-outline-light rounded"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            This Month
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end">
-                            <!-- item-->
-                            <a href="#!" class="dropdown-item">Download</a>
-                            <!-- item-->
-                            <a href="#!" class="dropdown-item">Export</a>
-                            <!-- item-->
-                            <a href="#!" class="dropdown-item">Import</a>
-                        </div>
-                    </div>
+                <div class="card-header d-flex justify-content-between align-items-center gap-1">
+                    <h4 class="card-title">All Order List</h4>
+
+                    <form action="{{ route('orders.list') }}" method="GET" class="d-flex align-items-center me-2">
+                        <input type="text" name="query" class="form-control form-control-sm" 
+                               placeholder="Search Order Number..." 
+                               value="{{ request('query') }}">
+                        <button type="submit" class="btn btn-sm btn-outline-secondary ms-1">Search</button>
+                    </form>
+
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
@@ -210,37 +202,31 @@
                                     <td> Rp{{ number_format($item->total_amount, 0, ',', '.') }} </td>
 
                                     <td>
-                                        @if( $item->invoice && $item->invoice->payment_status === 'paid' )
-                                        <span class="badge bg-success text-light  px-2 py-1 fs-13">Paid</span>
-                                        @elseif( $item->invoice && $item->invoice->payment_status === 'unpaid' &&
-                                            is_null($item->invoice->bukti_tf))
+                                        @if( $item->invoice && $item->invoice->payment_status === 'unpaid' && is_null($item->invoice->bukti_tf) )
                                         <span class="badge bg-light text-dark px-2 py-1 fs-13">Unpaid</span>
-                                        @elseif( $item->invoice && $item->status === 'canceled')
-                                            <span class="badge bg-light text-dark px-2 py-1 fs-13">Unpaid</span>
-                                        @elseif( $item->invoice && $item->invoice->payment_status === 'unpaid' &&
-                                            !is_null($item->invoice->bukti_tf))
+                                        @elseif( $item->invoice && $item->invoice->payment_status === 'paid' )
+                                        <span class="badge bg-success text-light px-2 py-1 fs-13">Paid</span>
+                                        @elseif( $item->status === 'canceled' )
+                                        <span class="badge bg-light text-dark px-2 py-1 fs-13">Unpaid</span>
+                                        @elseif( $item->invoice && $item->invoice->payment_status === 'unpaid' && !is_null($item->invoice->bukti_tf) )
                                         <span class="badge bg-light text-info px-2 py-1 fs-13" data-bs-toggle="modal"
-                                            data-bs-target="#buktiModal-{{ $item->id }}">
-                                            Check Bukti
+                                                data-bs-target="#buktiModal-{{ $item->id }}">
+                                                Check Bukti
                                         </span>
-
+                                    
                                         <!-- Modal to Display Bukti Transfer -->
-                                        <div class="modal fade" id="buktiModal-{{ $item->id }}" tabindex="-1"
-                                            aria-labelledby="buktiModalLabel-{{ $item->id }}" aria-hidden="true">
+                                        <div class="modal fade" id="buktiModal-{{ $item->id }}" tabindex="-1" aria-labelledby="buktiModalLabel-{{ $item->id }}" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="buktiModalLabel-{{ $item->id }}">
-                                                            Bukti Transfer</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                            aria-label="Close"></button>
+                                                        <h5 class="modal-title" id="buktiModalLabel-{{ $item->id }}">Bukti Transfer</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
                                                         @if($item->invoice && !is_null($item->invoice->bukti_tf))
-                                                        <img src="{{ asset('storage/' . $item->invoice->bukti_tf) }}"
-                                                            alt="Bukti Transfer" class="img-fluid">
+                                                            <img src="{{ asset('storage/' . $item->invoice->bukti_tf) }}" alt="Bukti Transfer" class="img-fluid">
                                                         @else
-                                                        <p>No bukti transfer available.</p>
+                                                            <p>No bukti transfer available.</p>
                                                         @endif
                                                     </div>
                                                     <div class="modal-footer">
@@ -252,17 +238,15 @@
                                                             @csrf
                                                             <button type="submit" class="btn btn-danger">Tolak</button>
                                                         </form>
-                                                        <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-
-
-                                        @else
-                                        <span class="badge bg-danger text-dark px-2 py-1 fs-13">Refunded</span>
-                                        @endif
+                                    @else
+                                        <span class="badge bg-light text-dark px-2 py-1 fs-13">Unpaid</span> 
+                                    @endif
+                                    
                                     </td>
                                     <td>{{ $item->products->sum('pivot.quantity') }}</td>
                                     @if($item->shipping)
@@ -318,8 +302,6 @@
             </div>
         </div>
     </div>
-
-
 </div>
 <!-- End Container Fluid -->
 @endsection

@@ -103,24 +103,12 @@
 
                     <div class="d-flex align-items-center gap-2">
                         <!-- Form Search -->
-                        <form action="" method="GET" class="d-flex align-items-center">
-                            <input type="text" name="query" class="form-control form-control-sm"
-                                placeholder="Search Orders...">
+                        <form action="{{ route('customers.index') }}" method="GET" class="d-flex align-items-center me-2">
+                            <input type="text" name="query" class="form-control form-control-sm" 
+                                   placeholder="Search Customer..." 
+                                   value="{{ request('query') }}">
                             <button type="submit" class="btn btn-sm btn-outline-secondary ms-1">Search</button>
                         </form>
-
-                        <!-- Dropdown -->
-                        <div class="dropdown">
-                            <a href="#" class="dropdown-toggle btn btn-sm btn-outline-light rounded"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                This Month
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <a href="#!" class="dropdown-item">Download</a>
-                                <a href="#!" class="dropdown-item">Export</a>
-                                <a href="#!" class="dropdown-item">Import</a>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div>

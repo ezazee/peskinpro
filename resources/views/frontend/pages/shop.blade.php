@@ -43,50 +43,46 @@
             <!-- Product Carousel on the Right (Desktop) / Bottom (Mobile) -->
             <div
                 class="carousel-container md:basis-1/2 gap-5 flex overflow-x-auto space-x-4 py-10 px-6 md:px-8 snap-x snap-mandatory order-2 md:order-none">
-                @foreach ($productspromo as $item)
+                @foreach ($expandedPromo as $item)
                     <div class="product-item grid-type style-5">
-                        <a href="{{ route('shop.detail', ['slug' => $item->slug]) }}">
+                        <a href="{{ route('shop.detail', ['slug' => $item['slug']]) }}">
                             <div class="product-main cursor-pointer block">
                                 <div class="product-thumb bg-white relative overflow-hidden rounded-2xl">
-                                    @if (
-                                        $item->sizes->pluck('discount')->filter(function ($discount) {
-                                                return $discount > 0;
-                                            })->isNotEmpty())
+                                    @if ($item['size']->discount > 0)
                                         <div
                                             class="product-tag text-button-uppercase text-white bg-red px-3 py-0.5 inline-block rounded-full absolute top-3 left-3 z-[1]">
                                             Diskon
                                         </div>
-                                    @endif
+                                    @endif                                
                                     <div class="product-img w-full h-full aspect-[3/4]">
                                         <img class="w-full h-full object-cover duration-700"
-                                            src="{{ asset('storage/' . $item->front_image) }}" alt="{{ $item->name }}" />
+                                            src="{{ asset('storage/' . $item['front_image']) }}" alt="{{ $item['name'] }}" />
                                         <img class="w-full h-full object-cover duration-700"
-                                            src="{{ asset('storage/' . $item->back_image) }}" alt="{{ $item->name }}" />
+                                            src="{{ asset('storage/' . $item['back_image']) }}" alt="{{ $item['name'] }}" />
                                     </div>
                                 </div>
 
                                 <div class="product-infor mt-4 lg:mb-7">
                                     <div class="product-name text-title duration-300">
-                                        {{ $item->name }}
+                                        {{ $item['name'] }}
                                         <div
                                             class="product-price-block flex items-center gap-2 flex-wrap mt-1 duration-300 relative z-[1]">
-                                            <div class="product-price text-title">
+                                            <div class="product-price text-title">                                            
                                                 @php
-                                                    $sizePrices = $item->sizes->pluck('price')->sort()->toArray();
-                                                    $sizeDiscounts = $item->sizes->pluck('discount')->sort()->toArray();
-
-                                                    $minPrice = $sizePrices ? min($sizePrices) : $item->price;
-                                                    $maxDiscount = $sizeDiscounts ? max($sizeDiscounts) : 0;
-
-                                                    $effectivePrice = $minPrice - $maxDiscount;
+                                                    $sizePrices = $item['size']->price;
+                                                    $sizeDiscounts = $item['size']->discount;
+                                                    $minPrice = !empty($sizePrices) ? $sizePrices : ($item['size']->price ?? 0);
+                                                    $maxDiscount = !empty($sizeDiscounts) ? $sizeDiscounts : 0;
+                                                    $effectivePrice = max($minPrice - $maxDiscount, 0);
                                                 @endphp
-
+                                            
+                                                                                        
                                                 @if ($effectivePrice > 0)
                                                     Rp {{ number_format($effectivePrice, 0, ',', '.') }}
                                                 @else
                                                     Rp {{ number_format($minPrice, 0, ',', '.') }}
                                                 @endif
-                                            </div>
+                                            </div>                                            
 
                                             @if ($minPrice > 0 && $maxDiscount > 0)
                                                 <div class="product-origin-price caption1 text-secondary2 line-through">
@@ -120,28 +116,26 @@
                 <div class="list-product mt-8">
                     @foreach ($productbestseller as $item)
                         <div class="product-item pb-5 border-b border-line cursor-pointer">
-                            <a href="{{ route('shop.detail', ['slug' => $item->slug]) }}"
+                            <a href="{{ route('shop.detail', ['slug' => $item['slug']]) }}"
                                 class="product-main flex items-center justify-between">
                                 <div class="left flex items-center gap-7">
-                                    <img src="{{ asset('storage/' . $item->front_image) }}" alt="{{ $item->name }}"
+                                    <img src="{{ asset('storage/' . $item['front_image']) }}" alt="{{ $item['name'] }}"
                                         class="w-[60px] h-20 flex-shrink-0 object-cover" />
                                     <div class="infor">
-                                        <div class="product-name text-title">{{ $item->name }}</div>
+                                        <div class="product-name text-title">{{ $item['name'] }}</div>
                                         <div class="caption2 product-brand text-secondary2 uppercase mt-1">
-                                            {{ $item->category->name }}</div>
+                                            {{ $item['category']->name }}</div>
                                     </div>
                                 </div>
                                 <div class="right">
                                     <div class="text-title"><span class="product-price">
-                                            @php
-                                                $sizePrices = $item->sizes->pluck('price')->sort()->toArray();
-                                                $sizeDiscounts = $item->sizes->pluck('discount')->sort()->toArray();
-
-                                                $minPrice = $sizePrices ? min($sizePrices) : $item->price;
-                                                $maxDiscount = $sizeDiscounts ? max($sizeDiscounts) : 0;
-
-                                                $effectivePrice = $minPrice - $maxDiscount;
-                                            @endphp
+                                        @php
+                                            $sizePrices = $item['size']->price;
+                                            $sizeDiscounts = $item['size']->discount;
+                                            $minPrice = !empty($sizePrices) ? $sizePrices : ($item['size']->price ?? 0);
+                                            $maxDiscount = !empty($sizeDiscounts) ? $sizeDiscounts : 0;
+                                            $effectivePrice = max($minPrice - $maxDiscount, 0);
+                                        @endphp
 
                                             @if ($effectivePrice > 0)
                                                 Rp {{ number_format($effectivePrice, 0, ',', '.') }}
@@ -273,6 +267,7 @@
                 <div class="heading3 text-center">Artikel Kami</div>
                 <div class="list grid lg:grid-cols-3 sm:grid-cols-2 md:gap-[30px] gap-4 md:mt-10 mt-6">
                     @foreach ($articles as $item)
+                    <a href="{{ route('articlebyTittle', $item->slug) }}">
                     <div class="blog-item style-one h-full cursor-pointer" data-item="16">
                         <div class="blog-main h-full block">
                             <div class="blog-thumb rounded-[20px] overflow-hidden">
@@ -290,6 +285,7 @@
                             </div>
                         </div>
                     </div>
+                    </a>
                     @endforeach
                 </div>
             </div>

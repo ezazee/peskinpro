@@ -129,11 +129,21 @@ class UsersController extends Controller
         return redirect()->route('users.index')->with('success', 'Users deleted successfully.');
     }
 
-    public function customers(){
+    public function customers(Request $request){
         $welcomeMessage = 'List Customers';
-        $users = User::whereHas('role', function($query) {
-            $query->where('name', 'user');
-        })->with('alamat')->paginate(5);
+        $query = htmlspecialchars($request->input('query'), ENT_QUOTES, 'UTF-8');
+
+        $users = User::whereHas('role', function ($q) {
+            $q->where('name', 'user');
+        })
+        ->when($query, function ($q) use ($query) {
+            $q->where(function ($subQuery) use ($query) {
+                $subQuery->where('name', 'like', "%{$query}%")
+                         ->orWhere('email', 'like', "%{$query}%");
+            });
+        })
+        ->with('alamat')
+        ->paginate(5);
 
         $totalcustomers = User::whereHas('role', function($query) {
             $query->where('name', 'user');

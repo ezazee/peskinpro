@@ -64,45 +64,37 @@
                                 <div class="tab_content active" data-tab="all">
                                     <div class="row">
                                         @foreach ($expandedProducts as $item)
-                                            <div class="col-sm-6 col-md-4 col-lg-3">
-                                                <div class="product-info default-cover card">
-                                                    <div class="img-bg overflow-hidden h-50">
-                                                        <img src="{{ asset('storage/' . $item['images']) }}"
-                                                            alt="{{ $item['name'] }}" class="img-fluid w-100">
-                                                        <span><i data-feather="check" class="feather-16"></i></span>
+                                        <div class="col-sm-6 col-md-4 col-lg-3">
+                                            <form action="{{ route('add_cart_pos') }}" method="POST" class="text-decoration-none text-dark">
+                                                @csrf
+                                                <input type="hidden" name="product_id" value="{{ $item['id'] }}">
+                                                <input type="hidden" name="product_size_id" value="{{ $item['size']->id }}">
+                                                <input type="hidden" name="quantity" value="1">
+                                        
+                                                <button type="submit" class="btn btn-link p-0 text-start text-decoration-none w-100" style="border: none; background: none;">
+                                                    <div class="product-info default-cover card">
+                                                        <div class="img-bg overflow-hidden h-50">
+                                                            <img src="{{ asset('storage/' . $item['images']) }}" alt="{{ $item['name'] }}" class="img-fluid w-100">
+                                                            <span><i data-feather="check" class="feather-16"></i></span>
+                                                        </div>
+                                        
+                                                        <h6 class="cat-name">
+                                                            {{ $item['category']->name ?? 'Uncategorized' }}
+                                                        </h6>
+                                                        <h6 class="product-name">{{ $item['name'] }} - {{ $item['size']->size }}ML</h6>
+                                                        <div class="d-flex align-items-center justify-content-between price">
+                                                            <span>{{ $item['size']->stock }} Pcs</span>
+                                                            <p>Rp{{ number_format($item['size']->price - $item['size']->discount, 0, ',', '.') }}</p>
+                                                        </div>
+                                                        @if ($item['size']->discount && $item['size']->discount > 0)
+                                                            <del class="text-sm">Rp{{ number_format($item['size']->price, 0, ',', '.') }}</del>
+                                                        @else
+                                                            -
+                                                        @endif
                                                     </div>
-
-                                                    <h6 class="cat-name">
-                                                        {{ $item['category']->name ?? 'Uncategorized' }}
-                                                    </h6>
-                                                    <h6 class="product-name">{{ $item['name'] }} -
-                                                        {{ $item['size']->size }}ML</h6>
-                                                    <div
-                                                        class="d-flex align-items-center justify-content-between price">
-                                                        <span>{{ $item['size']->stock }} Pcs</span>
-                                                        <p>Rp{{ number_format($item['size']->price - $item['size']->discount, 0, ',', '.') }}
-                                                        </p>
-                                                    </div>
-                                                    @if ($item['size']->discount && $item['size']->discount > 0)
-                                                        <del
-                                                            class="text-sm">Rp{{ number_format($item['size']->price, 0, ',', '.') }}</del>
-                                                    @else
-                                                        -
-                                                    @endif
-                                                    <form action="{{ route('add_cart_pos') }}" method="POST"
-                                                        class="mt-2">
-                                                        @csrf
-                                                        <input type="hidden" name="product_id"
-                                                            value="{{ $item['id'] }}">
-                                                        <input type="hidden" name="product_size_id"
-                                                            value="{{ $item['size']->id }}">
-                                                        <input type="hidden" name="quantity" id="quantityInput"
-                                                            value="1">
-                                                        <button type="submit" class="btn btn-primary btn-block">Add to
-                                                            Cart</button>
-                                                    </form>
-                                                </div>
-                                            </div>
+                                                </button>
+                                            </form>
+                                        </div>                                        
                                         @endforeach
                                     </div>
                                 </div>
@@ -115,7 +107,7 @@
                         <div class="head d-flex align-items-center justify-content-between w-100">
                             <div class="">
                                 <h5>Order List</h5>
-                                <span>Transaction ID : #65565</span>
+                                <span>Transaction ID : #ORD{{ strtoupper(uniqid()) }}</span>
                             </div>
                         </div>
 
@@ -153,23 +145,19 @@
                                             </div>
                                             <div class="qty-item text-center">
                                                 <a href="javascript:void(0);"
-                                                    class="dec d-flex justify-content-center align-items-center"
-                                                    data-bs-toggle="tooltip" data-bs-placement="top" title="minus">
-                                                    <i data-feather="minus-circle" class="feather-14"></i>
+                                                   class="dec d-flex justify-content-center align-items-center"
+                                                   data-bs-toggle="tooltip" data-bs-placement="top" title="minus">
+                                                    <i data-feather="minus-circle" class="feather-14" data-id="{{ $item->id }}" id="decrease-quantity"></i>
                                                 </a>
-                                                <input type="text" class="form-control text-center" name="qty"
-                                                    value="{{ $item->quantity }}">
+                                                <input type="text" class="form-control text-center quantity" name="qty"
+                                                       value="{{ $item->quantity }}" data-id="{{ $item->id }}">
                                                 <a href="javascript:void(0);"
-                                                    class="inc d-flex justify-content-center align-items-center"
-                                                    data-bs-toggle="tooltip" data-bs-placement="top" title="plus">
-                                                    <i data-feather="plus-circle" class="feather-14"></i>
+                                                   class="inc d-flex justify-content-center align-items-center"
+                                                   data-bs-toggle="tooltip" data-bs-placement="top" title="plus">
+                                                    <i data-feather="plus-circle" class="feather-14" data-id="{{ $item->id }}" id="increase-quantity"></i>
                                                 </a>
-                                            </div>
+                                            </div>                                            
                                             <div class="d-flex align-items-center action">
-                                                <a class="btn-icon edit-icon me-2" href="#"
-                                                    data-bs-toggle="modal" data-bs-target="#edit-product">
-                                                    <i data-feather="edit" class="feather-14"></i>
-                                                </a>
                                                 <a class="btn-icon delete-icon"
                                                     href="{{ route('cart.delete', ['id' => $item->id]) }}">
                                                     <i data-feather="trash-2" class="feather-14"></i>
@@ -422,15 +410,6 @@
                         <div class="tab-content">
                             <div class="tab-pane fade show active" id="purchase" role="tabpanel"
                                 aria-labelledby="purchase-tab">
-                                <div class="table-top">
-                                    <div class="search-set">
-                                        <div class="search-input">
-                                            <a class="btn btn-searchset d-flex align-items-center h-100"><img
-                                                    src="{{ asset('backend/pos/assets/img/icons/search-white.svg') }}"
-                                                    alt="img"></a>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="table-responsive">
                                     <table class="table datanew">
                                         <thead>
@@ -439,7 +418,7 @@
                                                 <th>Reference</th>
                                                 <th>Items</th>
                                                 <th>Amount </th>
-                                                <th class="no-sort">Action</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -447,19 +426,15 @@
                                                 <tr>
                                                     <td>{{ $item->created_at->format('d F Y') }}</td>
                                                     <td>#{{ $item->invoice->invoice_number }}</td>
-                                                    @foreach ($item->products as $p)
-                                                        <td>{{ $p->pivot->quantity }}</td>
-                                                    @endforeach
+                                                    <td>
+                                                        {{ $item->products->sum('pivot.quantity') }}
+                                                    </td>                                                    
                                                     <td>Rp{{ number_format($item->total_amount, 2) }}</td>
                                                     <td class="action-table-data">
                                                         <div class="edit-delete-action">
-                                                            <a class="me-2 p-2" href="javascript:void(0);"><i
-                                                                    data-feather="eye" class="feather-eye"></i></a>
-                                                            <a class="me-2 p-2" href="javascript:void(0);"><i
-                                                                    data-feather="edit" class="feather-edit"></i></a>
-                                                            <a class="p-2 confirm-text" href="javascript:void(0);"><i
-                                                                    data-feather="trash-2"
-                                                                    class="feather-trash-2"></i></a>
+                                                            <a class="me-2 p-2" href="javascript:void(0);">
+                                                                <i data-feather="printer" class="feather-print"></i>
+                                                            </a>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -487,7 +462,7 @@
     <script src="{{ asset('backend/pos/js/jquery.slimscroll.min.js') }}"></script>
 
     <!-- Datatable JS -->
-    <script src="{{ asset('backend/pos/js/jquery.dataTables.min.js') }}"></script>
+    {{-- <script src="{{ asset('backend/pos/js/jquery.dataTables.min.js') }}"></script> --}}
     <script src="{{ asset('backend/pos/js/dataTables.bootstrap5.min.js') }}"></script>
 
     <!-- Bootstrap Core JS -->

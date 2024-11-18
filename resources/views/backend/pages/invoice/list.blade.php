@@ -92,8 +92,10 @@
 
                     <div class="d-flex align-items-center gap-2">
                         <!-- Form Search -->
-                        <form action="" method="GET" class="d-flex align-items-center">
-                            <input type="text" name="query" class="form-control form-control-sm" placeholder="Search Orders...">
+                        <form action="{{ route('invoice.index') }}" method="GET" class="d-flex align-items-center me-2">
+                            <input type="text" name="query" class="form-control form-control-sm" 
+                                   placeholder="Search Invoice Number..." 
+                                   value="{{ request('query') }}">
                             <button type="submit" class="btn btn-sm btn-outline-secondary ms-1">Search</button>
                         </form>
 
@@ -152,6 +154,8 @@
                                         <span class="badge border border-secondary text-secondary px-2 py-1 fs-13">Pending</span>
                                         @elseif($item->order->status == 'processing')
                                         <span class="badge border border-warning text-warning px-2 py-1 fs-13">Processing</span>
+                                        @elseif($item->order->status == 'shipping')
+                                        <span class="badge border border-info text-info px-2 py-1 fs-13">Shipping</span>
                                         @elseif($item->order->status == 'completed')
                                         <span class="badge border border-success text-success px-2 py-1 fs-13">Completed</span>
                                         @else

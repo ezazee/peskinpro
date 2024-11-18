@@ -274,6 +274,7 @@
                 <div class="heading3 text-center">Artikel Kami</div>
                 <div class="list grid lg:grid-cols-3 sm:grid-cols-2 md:gap-[30px] gap-4 md:mt-10 mt-6">
                     @foreach ($articles as $item)
+                    <a href="{{ route('articlebyTittle', $item->slug) }}">
                     <div class="blog-item style-one h-full cursor-pointer" data-item="16">
                         <div class="blog-main h-full block">
                             <div class="blog-thumb rounded-[20px] overflow-hidden">
@@ -291,6 +292,7 @@
                             </div>
                         </div>
                     </div>
+                    </a>
                     @endforeach
                 </div>
             </div>
