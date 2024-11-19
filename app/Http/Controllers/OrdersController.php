@@ -80,6 +80,43 @@ class OrdersController extends Controller
         return view('backend.pages.orders.list',compact('welcomeMessage','user','orders','paymentrefund','ordercancel','paymentpending','pendingreview','shippingorder','orderpos','processing','orderuser'));
     }
 
+
+    public function proceslist(Request $request){
+        $user = Auth::user();
+        $welcomeMessage = 'List Processing Orders';
+        $query = htmlspecialchars($request->input('query'), ENT_QUOTES, 'UTF-8');
+
+        $orders = Order::with(['user', 'alamat', 'products', 'invoice', 'shipping'])
+        ->when($query, function ($q) use ($query) {
+            $q->where('order_number', 'like', "%{$query}%");
+        })
+        ->where('status','processing')
+        ->orderBy('created_at', 'desc')
+        ->paginate(10);
+
+        return view('backend.pages.orders.proceslist',compact('welcomeMessage','user','orders'));
+    }
+
+    public function pendingreview(Request $request){
+        $user = Auth::user();
+        $welcomeMessage = 'Pending Review Orders';
+        $query = $request->input('query');
+    
+        $orders = Order::with(['user', 'alamat', 'products', 'invoice', 'shipping'])
+            ->when($query, function ($q) use ($query) {
+                $q->where('order_number', 'like', "%{$query}%");
+            })
+            ->whereHas('invoice', function ($query) {
+                $query->whereNotNull('bukti_tf')
+                      ->where('payment_status', 'unpaid');
+            })
+            ->where('status', 'pending')
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+            $pendingReviewCount = $orders->count();
+        return view('backend.pages.orders.pendingreview',compact('welcomeMessage','user','orders'));
+    }
+
     public function detail($orderNumber){
         $orders = Order::with(['user', 'alamat', 'products', 'invoice','shipping'])
         ->where('order_number', $orderNumber)

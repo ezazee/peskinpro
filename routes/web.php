@@ -97,6 +97,8 @@ Route::middleware(['auth', 'role:Administrator'])->group(function () {
 
     // orders
     Route::get('/orders/list', [OrdersController::class, 'list'])->name('orders.list');
+    Route::get('/process/list', [OrdersController::class, 'proceslist'])->name('orders.proceslist');
+    Route::get('/pendingreview/list', [OrdersController::class, 'pendingreview'])->name('orders.pendingreview');
     Route::get('/orders/detail/{orderNumber}', [OrdersController::class, 'detail'])->name('orders.detail');
     Route::get('/pos', [OrdersController::class, 'pos'])->name('orders.pos');
     Route::post('/add_cart/pos', [OrdersController::class, 'add_cart_pos'])->name('add_cart_pos');

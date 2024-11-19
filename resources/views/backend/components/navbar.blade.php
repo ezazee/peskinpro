@@ -136,10 +136,6 @@
                                           </div>
                                       </a>
                                   </div>
-                                  <div class="text-center py-3">
-                                      <a href="javascript:void(0);" class="btn btn-primary btn-sm">View All Notification
-                                          <i class="bx bx-right-arrow-alt ms-1"></i></a>
-                                  </div>
                               </div>
                           </div>
                           <!-- User -->

@@ -79,8 +79,18 @@
                                       <a class="sub-nav-link" href="{{ route('orders.pos') }}">POS</a>
                                   </li>
                                   <li class="sub-nav-item">
-                                      <a class="sub-nav-link" href="{{ route('orders.list') }}">List</a>
+                                      <a class="sub-nav-link" href="{{ route('orders.list') }}">List ALL</a>
                                   </li>
+                                  <li class="sub-nav-item">
+                                    <a class="sub-nav-link" href="{{ route('orders.pendingreview') }}">Pending Review  
+                                        <span class="badge bg-danger text-end m-1">{{ $pendingReviewCount }}</span>
+                                    </a>
+                                  </li>
+                                  <li class="sub-nav-item">
+                                    <a class="sub-nav-link" href="{{ route('orders.proceslist') }}">Processing List 
+                                        <span class="badge bg-danger text-end m-1">{{ $processinglist }}</span>
+                                    </a>
+                                </li>
                               </ul>
                           </div>
                       </li>

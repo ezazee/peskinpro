@@ -90,7 +90,6 @@
                                                     @endif
                                                 </div>
                                             </a>
-                                        @endif
                                         </td>
                                         <td class="py-3 price">Rp{{ number_format($item->total_amount, 0, ',', '.') }}</td>
                                         <td class="py-3 text-right">

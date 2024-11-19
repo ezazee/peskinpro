@@ -5,7 +5,7 @@
         <h5 class="modal-title">Apply Discount Code</h5>
 
         <!-- Voucher Block -->
-        <div class="list-voucher-modal flex items-center gap-5 flex-wrap sm:mt-7 mt-5 overflow-y-auto max-h-[300px]">
+        {{-- <div class="list-voucher-modal flex items-center gap-5 flex-wrap sm:mt-7 mt-5 overflow-y-auto max-h-[300px]">
             <div class="item border w-full border-line rounded-lg py-2 active">
                 <div class="top flex gap-10 justify-between px-3 pb-2 border-b border-dashed border-line">
                     <div class="left">
@@ -21,7 +21,8 @@
                     <span class="text-primary text-bold py-1 px-2.5 capitalize text-xs">Dipakai</span>
                 </div>
             </div>
-        </div>
+        </div> --}}
+        
     </div>
 </div>
 
