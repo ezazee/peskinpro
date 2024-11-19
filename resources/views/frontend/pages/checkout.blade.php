@@ -93,25 +93,6 @@
                                         @endforeach
                                     </form>
                                     
-                                    {{-- <div class="ongkir-select-block" onclick="toggleDropdown(event)">
-                                        <div class="ongkir-select" id="main-select-display">Pilih Pengiriman</div>
-                                        <i class="ph ph-caret-down arrow-icon"></i>
-                                    </div>
-                                    <ul class="dropdown-options" id="main-select-options" style="display: none; width:32%">
-                                        <li onclick="selectMainOption('jne')">
-                                            <span>JNE - Jalur Nugraha Ekakurir</span><br>
-                                            <small>Estimasi 2-3 Hari : Rp20,000</small>
-                                        </li>
-                                        <li onclick="selectMainOption('tiki')">
-                                            <span>TIKI - Citra Van Titipan Kilat</span><br>
-                                            <small>Estimasi 2-3 Hari : Rp25,000</small>
-                                        </li>
-                                        <li onclick="selectMainOption('pos')">
-                                            <span>POS - POS Indonesia</span><br>
-                                            <small>Estimasi 2-3 Hari : Rp30,000</small>
-                                        </li>
-                                    </ul> --}}
-                                    <!-- Nested Options Container -->
                                     <div class="text-title " id="load"></div>
                                     <div id="nested-options-container" style="display: none; margin-top: 10px;">
                                         <div class="ongkir-select-block">
@@ -191,7 +172,7 @@
                             <input type="hidden" name="products[{{ $loop->index }}][quantity]" value="{{ $item->quantity }}">
                             <input type="hidden" name="products[{{ $loop->index }}][sizeid]" value="{{ $item->productSize->id }}">
                             <input type="hidden" name="products[{{ $loop->index }}][harga]" value="{{ $item->productSize->price - $item->productSize->discount }}">
-                        <input type="hidden" name="products[{{ $loop->index }}][discount]" value="{{ $item->productSize->discount }}">
+                            <input type="hidden" name="products[{{ $loop->index }}][discount]" value="{{ $item->productSize->discount }}">
                         @endforeach
                         <button type="submit"
                             class="checkout-btn button-main text-center w-full bg-green-600 text-white font-semibold rounded-md px-5 py-3">

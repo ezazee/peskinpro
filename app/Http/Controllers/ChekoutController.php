@@ -46,7 +46,6 @@ class ChekoutController extends Controller
             ->with(['product', 'productSize']) 
             ->get();
 
-
             if ($cartItems->isEmpty()) {
                 return redirect()->back()->with('error', 'Tidak ada item yang ditemukan.');
             }

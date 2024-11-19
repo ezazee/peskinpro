@@ -88,37 +88,31 @@
                                                             </div>
                                                         </a>
                                                     @endif
-                                                </td>
-                                                <td class="py-3 price">
-                                                    Rp{{ number_format($item->total_amount, 0, ',', '.') }}</td>
-                                                <td class="py-3 text-right">
-                                                    @if ($item->status == 'pending' && $item->invoice->payment_status == 'unpaid' && $item->invoice->bukti_tf == '')
-                                                        <a
-                                                            href="{{ route('payment', ['invoice_number' => $item->invoice->invoice_number ?? '']) }}"><span
-                                                                class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-primary text-black caption1 font-semibold">Bayar
-                                                                Sekarang</span></a>
-                                                    @elseif($item->status == 'pending' && $item->invoice->payment_status == 'unpaid')
-                                                        <span
-                                                            class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-yellow text-yellow caption1 font-semibold">Pending</span>
-                                                    @elseif($item->status == 'processing')
-                                                        <span
-                                                            class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-yellow text-yellow capstion1 font-semibold">Processing</span>
-                                                    @elseif($item->status == 'shipping')
-                                                        <span
-                                                            class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-yellow text-yellow caption1 font-semibold">Shipping</span>
-                                                    @elseif($item->status == 'completed')
-                                                        <span
-                                                            class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-success text-success caption1 font-semibold">Completed</span>
-                                                    @else
-                                                        <span
-                                                            class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-danger text-danger caption1 font-semibold">Canceled</span>
-                                                    @endif
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
+                                                </div>
+                                            </a>
+                                        </td>
+                                        <td class="py-3 price">Rp{{ number_format($item->total_amount, 0, ',', '.') }}</td>
+                                        <td class="py-3 text-right">
+                                            @if ($item->status == 'pending' && optional($item->invoice)->payment_status == 'unpaid' && optional($item->invoice)->bukti_tf == '')
+                                                <a href="{{ route('payment', ['invoice_number' => optional($item->invoice)->invoice_number ?? '']) }}">
+                                                    <span class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-primary text-black caption1 font-semibold">Bayar Sekarang</span>
+                                                </a>
+                                            @elseif ($item->status == 'pending' && optional($item->invoice)->payment_status == 'unpaid')
+                                                <span class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-yellow text-yellow caption1 font-semibold">Pending</span>
+                                            @elseif ($item->status == 'processing')
+                                                <span class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-yellow text-yellow caption1 font-semibold">Processing</span>
+                                            @elseif ($item->status == 'shipping')
+                                                <span class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-yellow text-yellow caption1 font-semibold">Shipping</span>
+                                            @elseif ($item->status == 'completed')
+                                                <span class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-success text-success caption1 font-semibold">Completed</span>
+                                            @else
+                                                <span class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-danger text-danger caption1 font-semibold">Canceled</span>
+                                            @endif
+                                        </td>                                        
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                         {{-- Personal Information --}}
                         <div class="filter-item text-content w-full p-7 mt-5 border border-line rounded-xl active">

@@ -76,9 +76,9 @@
                             <div class="">
                                 <div class="mt-3">
                                     <h4>{{ $invoices->order->user->name }}</h4>
-                                    <p class="mb-2">1344 Hershell Hollow Road WA 98168 , USA</p>
-                                    <p class="mb-2"><span class="text-decoration-underline">Phone :</span> +(123) 732-760-5760</p>
-                                    <p class="mb-2"><span class="text-decoration-underline">Email :</span> hello@dundermuffilin.com</p>
+                                    <p class="mb-2">{{ $invoices->order->alamat->street }}, {{ $invoices->order->alamat->city->name }} , {{ $invoices->order->alamat->province->name }}, Indonesia ({{ $invoices->order->alamat->postal_code }})</p>
+                                    <p class="mb-2"><span class="text-decoration-underline">Phone :</span> {{ $invoices->order->alamat->no_telp }}</p>
+                                    <p class="mb-2"><span class="text-decoration-underline">Email :</span> {{ $invoices->order->user->email }}</p>
                                 </div>
                             </div>
                         </div>
@@ -151,15 +151,15 @@
                                         </tr>
                                         <tr>
                                             <td class="text-end p-0 pe-5 py-2">
-                                                <p class="mb-0">Hemat : </p>
+                                                <p class="mb-0">Ongkir : </p>
                                             </td>
-                                            <td class="text-end text-dark fw-medium  py-2">Rp{{ number_format($hemat, 2) }}</td>
+                                            <td class="text-end text-dark fw-medium  py-2">Rp{{ number_format($invoices->order->shipping->shipping_cost, 0, ',', '.') }}</td>
                                         </tr>
                                         <tr class="border-top">
                                             <td class="text-end p-0 pe-5 py-2">
                                                 <p class="mb-0 text-dark fw-semibold">Grand Amount : </p>
                                             </td>
-                                            <td class="text-end text-dark fw-semibold py-2">$737.00</td>
+                                            <td class="text-end text-dark fw-semibold py-2">Rp{{ number_format($invoices->amount, 0, ',', '.') }}</td>
                                         </tr>
                                     </tbody>
                                 </table>

@@ -17,6 +17,8 @@ use App\Http\Controllers\CouponsController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\ReportController;
+
 
 
 /*
@@ -40,10 +42,16 @@ Route::get('/cities/{province_id}', [CheckOngkirController::class, 'getCities'])
 Route::get('/artikel', [ArticleController::class, 'blogarticle'])->name('blogarticle');
 Route::get('/artikel/{slug}', [ArticleController::class, 'articlebyTittle'])->name('articlebyTittle');
 
-// settings
-Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');
-Route::post('/banner', [SettingsController::class, 'banner'])->name('settings.banner');
-Route::delete('/banner/delete/s{id}', [SettingsController::class, 'deletebanner'])->name('deletebanner');
+Route::get('/login', [AuthenticationController::class, 'index'])->name('login');
+Route::post('/login/user', [AuthenticationController::class, 'userLogin'])->name('userLogin');
+
+Route::get('/pskinpro', [AuthenticationController::class, 'showadminLogin'])->name('showadminLogin');
+
+Route::get('/register', [AuthenticationController::class, 'show_register'])->name('show_register');
+Route::post('/register', [AuthenticationController::class, 'register'])->name('register');
+Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logout');
+Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
+Route::get('/detail/{slug}', [ShopController::class, 'detail'])->name('shop.detail');
 
 Route::middleware(['userOrGuest'])->group(function () {
     Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
@@ -51,8 +59,6 @@ Route::middleware(['userOrGuest'])->group(function () {
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart/increase', [CartController::class, 'increaseQuantity'])->name('cart.increase');
     Route::post('/cart/decrease', [CartController::class, 'decreaseQuantity'])->name('cart.decrease');
-    Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
-    Route::get('/detail/{slug}', [ShopController::class, 'detail'])->name('shop.detail');
 });
 
 Route::middleware(['auth', 'role:user'])->group(function () {
@@ -69,17 +75,6 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::delete('/address/delete{id}', [ProfileController::class, 'delete_address'])->name('delete_address');
     Route::post('/set-default-address/{id}', [ProfileController::class, 'setDefaultAddress'])->name('set_default_address');
 });
-
-
-Route::get('/login', [AuthenticationController::class, 'index'])->name('login');
-Route::post('/login/user', [AuthenticationController::class, 'userLogin'])->name('userLogin');
-
-Route::get('/pskinpro', [AuthenticationController::class, 'showadminLogin'])->name('showadminLogin');
-
-Route::get('/register', [AuthenticationController::class, 'show_register'])->name('show_register');
-Route::post('/register', [AuthenticationController::class, 'register'])->name('register');
-Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logout');
-
 
 
 Route::middleware(['auth', 'role:Administrator'])->group(function () {
@@ -102,6 +97,8 @@ Route::middleware(['auth', 'role:Administrator'])->group(function () {
 
     // orders
     Route::get('/orders/list', [OrdersController::class, 'list'])->name('orders.list');
+    Route::get('/process/list', [OrdersController::class, 'proceslist'])->name('orders.proceslist');
+    Route::get('/pendingreview/list', [OrdersController::class, 'pendingreview'])->name('orders.pendingreview');
     Route::get('/orders/detail/{orderNumber}', [OrdersController::class, 'detail'])->name('orders.detail');
     Route::get('/pos', [OrdersController::class, 'pos'])->name('orders.pos');
     Route::post('/add_cart/pos', [OrdersController::class, 'add_cart_pos'])->name('add_cart_pos');
@@ -112,8 +109,12 @@ Route::middleware(['auth', 'role:Administrator'])->group(function () {
     Route::post('/order/reject/{order}', [OrdersController::class, 'reject'])->name('order.reject');
     Route::post('/order/delivered/{order}', [OrdersController::class, 'delivered'])->name('order.delivered');
 
-
-
+    // settings
+    Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');
+    Route::post('/banner', [SettingsController::class, 'banner'])->name('settings.banner');
+    Route::delete('/banner/delete/s{id}', [SettingsController::class, 'deletebanner'])->name('deletebanner');
+    Route::get('/update-bestseller/{id}', [SettingsController::class, 'updateBestseller'])->name('update.bestseller');
+    Route::get('/update-promotion/{id}', [SettingsController::class, 'updatePromotion'])->name('update.promotion');
 
     // invoice
     Route::get('/invoice', [InvoiceController::class, 'index'])->name('invoice.index');
@@ -141,6 +142,14 @@ Route::middleware(['auth', 'role:Administrator'])->group(function () {
     Route::get('/article/edit/{slug}', [ArticleController::class, 'edit'])->name('article.edit');
     Route::delete('/article/delete/{id}', [ArticleController::class, 'destroy'])->name('article.destroy');
     Route::put('/article/update/{id}', [ArticleController::class, 'update'])->name('article.update');
+
+    // report
+    Route::get('/report', [ReportController::class, 'index'])->name('report.index');
+    Route::get('/report/generate', [ReportController::class, 'generate'])->name('report.generate');
+    Route::get('/report/pdf', [ReportController::class, 'generatePdf'])->name('report.generatePdf');
+
+
+
 });
 
 Route::get('/about-us', function () {

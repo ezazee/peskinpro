@@ -93,49 +93,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Discount Code Block -->
-                    <div class="input-block discount-code w-full h-12 sm:mt-7 mt-5">
-                        <form class="w-full h-full relative">
-                            <input type="text" placeholder="Tambahkan Diskon Voucher"
-                                class="w-full h-full bg-surface pl-4 pr-14 rounded-lg border border-line" />
-                            <button
-                                class="button-main absolute top-1 bottom-1 right-1 px-5 rounded-lg flex items-center justify-center">Apply
-                                Code</button>
-                        </form>
-                    </div>
-                    <!-- Voucher Block -->
-                    <div class="list-voucher flex items-center gap-5 flex-wrap sm:mt-7 mt-5">
-                        <div class="item border border-line rounded-lg py-2">
-                            <div class="top flex gap-10 justify-between px-3 pb-2 border-b border-dashed border-line">
-                                <div class="left">
-                                    <div class="caption1">Discount</div>
-                                    <div class="caption1 text-primary font-bold">10% OFF</div>
-                                </div>
-                                <div class="right">
-                                    <div class="caption1">Untuk Semua Barang <br />Mulai Belanja dari 0 Rupiah</div>
-                                </div>
-                            </div>
-                            <div class="bottom gap-6 items-center flex justify-between px-3 pt-2">
-                                <div class="text-button-uppercase">Code: PESKIN2024</div>
-                                <div class="button-main py-1 px-2.5 capitalize text-xs">Apply Code</div>
-                            </div>
-                        </div>
-                        <div class="item border border-line rounded-lg py-2">
-                            <div class="top flex gap-10 justify-between px-3 pb-2 border-b border-dashed border-line">
-                                <div class="left">
-                                    <div class="caption1">Discount</div>
-                                    <div class="caption1 text-primary font-bold">15% OFF</div>
-                                </div>
-                                <div class="right">
-                                    <div class="caption1">Untuk Semua Barang <br />Mulai Belanja dari 0 Rupiah</div>
-                                </div>
-                            </div>
-                            <div class="bottom gap-6 items-center flex justify-between px-3 pt-2">
-                                <div class="text-button-uppercase">Code: KBN2024</div>
-                                <div class="button-main py-1 px-2.5 capitalize text-xs">Apply Code</div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="xl:w-1/3 xl:pl-12 w-full">
                     <div class="checkout-block bg-surface p-6 rounded-2xl">
