@@ -113,8 +113,23 @@ class OrdersController extends Controller
             ->where('status', 'pending')
             ->orderBy('created_at', 'desc')
             ->paginate(10);
-            $pendingReviewCount = $orders->count();
         return view('backend.pages.orders.pendingreview',compact('welcomeMessage','user','orders'));
+    }
+
+    public function shippinglist(Request $request){
+        $user = Auth::user();
+        $welcomeMessage = 'Pending Review Orders';
+        $query = $request->input('query');
+    
+        $orders = Order::with(['user', 'alamat', 'products', 'invoice', 'shipping'])
+            ->when($query, function ($q) use ($query) {
+                $q->where('order_number', 'like', "%{$query}%");
+            })
+            ->where('status', 'shipping')
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+        return view('backend.pages.orders.shippinglist',compact('welcomeMessage','user','orders'));
     }
 
     public function detail($orderNumber){

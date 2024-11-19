@@ -50,10 +50,15 @@ class AppServiceProvider extends ServiceProvider
             $processinglist = Order::with(['user', 'alamat', 'products', 'invoice', 'shipping'])
                 ->where('status', 'processing')
                 ->count();
+
+            $shippinglist = Order::with(['user', 'alamat', 'products', 'invoice', 'shipping'])
+                ->where('status', 'shipping')
+                ->count();
         
             $view->with([
                 'pendingReviewCount' => $pendingReviewCount,
                 'processinglist' => $processinglist,
+                'shippinglist' => $shippinglist
             ]);
         });
     }

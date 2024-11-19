@@ -90,6 +90,11 @@
                                     <a class="sub-nav-link" href="{{ route('orders.proceslist') }}">Processing List 
                                         <span class="badge bg-danger text-end m-1">{{ $processinglist }}</span>
                                     </a>
+                                  </li>
+                                  <li class="sub-nav-item">
+                                    <a class="sub-nav-link" href="{{ route('orders.shippinglist') }}">Shipping List 
+                                        <span class="badge bg-danger text-end m-1">{{ $shippinglist }}</span>
+                                    </a>
                                 </li>
                               </ul>
                           </div>
