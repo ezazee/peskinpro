@@ -36,7 +36,7 @@
                                     <p class="contact-text">{{ $defaultAddress->no_telp }}</p>
                                     <span class="check-badge absolute top-4 right-4">Default</span>
                                     <div class="action-list mt-3 flex gap-3">
-                                        <a href="#" class="link-text">Edit Address</a>
+                                        <a href="{{ route('edit.address', $defaultAddress->id) }}" class="link-text">Edit Address</a>
                                         <form action="{{ route('delete_address', $defaultAddress->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this address?');">
                                             @csrf
                                             @method('DELETE')
@@ -53,7 +53,7 @@
                                             <p class="address-description text-secondary py-3">{{ $item->street }}</p>
                                             <p class="contact-text">{{ $item->no_telp }}</p>
                                             <div class="action-list mt-3 flex gap-3">
-                                                <a href="#" class="link-text">Edit Address</a>
+                                                <a href="{{ route('edit.address', $item->id) }}" class="link-text">Edit Address</a>
                                                 <form action="{{ route('delete_address', $item->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this address?');">
                                                     @csrf
                                                     @method('DELETE')

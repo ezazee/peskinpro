@@ -72,6 +72,8 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::put('/profile/update/{id}', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('/address', [ProfileController::class, 'address'])->name('profile.address');
+    Route::get('/address/edit/{id}', [ProfileController::class, 'editaddress'])->name('edit.address');
+    Route::post('/update-address/{id}', [ProfileController::class, 'updateAddress'])->name('updateAddress');
     Route::post('/address', [ProfileController::class, 'add_address'])->name('profile.add_address');
     Route::delete('/address/delete{id}', [ProfileController::class, 'delete_address'])->name('delete_address');
     Route::post('/set-default-address/{id}', [ProfileController::class, 'setDefaultAddress'])->name('set_default_address');
@@ -160,8 +162,6 @@ Route::middleware(['auth', 'role:Administrator'])->group(function () {
     Route::get('/report', [ReportController::class, 'index'])->name('report.index');
     Route::get('/report/generate', [ReportController::class, 'generate'])->name('report.generate');
     Route::get('/report/pdf', [ReportController::class, 'generatePdf'])->name('report.generatePdf');
-
-
 
 });
 

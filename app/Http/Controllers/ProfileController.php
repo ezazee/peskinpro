@@ -10,9 +10,11 @@ use App\Models\User;
 use App\Models\Product;
 use App\Models\Province;
 use App\Models\Order;
+use App\Models\City;
 use App\Models\Alamat;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use RealRashid\SweetAlert\Facades\Alert;
 
 
 
@@ -133,4 +135,31 @@ class ProfileController extends Controller
         ]);
         return back()->with('success', 'Users updated successfully!');
     }
+
+    public function editaddress($id){
+        $user = Auth::user();
+        $alamat = Alamat::where('id', $id)->firstOrFail();
+        $provinces = Province::all();
+        $cities = City::where('province_id', $alamat->province_id)->get();
+        return view('frontend.pages.profile.edit-address', compact('user','alamat','provinces', 'cities'));
+    }
+    
+
+    public function updateAddress(Request $request, $id)
+    {
+        $alamat = Alamat::findOrFail($id);
+
+        $alamat->update([
+            'penerima' => $request->penerima,
+            'label' => $request->label,
+            'province_id' => $request->province,
+            'city_id' => $request->city_destination,
+            'street' => $request->street,
+            'postal_code' => $request->postal_code,
+            'no_telp' => $request->no_telp,
+        ]);
+        Alert::toast('Update Alamat Berhasil!!', 'success');
+        return redirect()->back()->with('success', 'Alamat berhasil diperbarui.');
+    }
+
 }
