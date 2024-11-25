@@ -38,46 +38,98 @@
                                                     Status</th>
                                             </tr>
                                         </thead>
-                                        <tbody id="orderBody">
-                                            <!-- Rows will be dynamically paginated -->
+                                        <tbody>
+                                            @foreach ($orders as $item)
                                             <tr class="item duration-300 border-b border-line">
                                                 <th scope="row" class="py-3 text-left">
-                                                    <strong class="text-title">#2332</strong>
+                                                    <strong class="text-title">#{{ $item->order_number }}</strong>
                                                 </th>
                                                 <td class="py-3">
-                                                    <a href="#" class="product flex items-center gap-3">
-                                                        <img src="" alt="Contrasting sweatshirt"
+                                                    @if ($item->products->isNotEmpty())
+                                                    @php
+                                                    $firstProduct = $item->products->first();
+                                                    $firstSize = $firstProduct->sizes->first();
+                                                    @endphp
+                                                    <a href="product-default.html" class="product flex items-center gap-3">
+                                                        <img src="{{ asset('storage/' . $firstProduct->front_image) }}"
+                                                            alt="Contrasting sweatshirt"
                                                             class="flex-shrink-0 w-12 h-12 rounded" />
                                                         <div class="info flex flex-col">
-                                                            <strong class="product_name text-button"></strong>
-                                                            <span class="product_tag caption1 text-secondary">10 ml</span>
-                                                            <span class="product_tag caption1 text-primary">Lainnya..</span>
+                                                            <strong
+                                                                class="product_name text-button">{{ $firstProduct->name }}</strong>
+                                                            <span
+                                                                class="product_tag caption1 text-secondary">{{ $firstProduct->category->name }}
+                                                                ,
+                                                                {{ $firstSize->size }} ml
+                                                            </span>
+                                                            @if ($item->products->count() > 1)
+                                                            <span class="product_tag caption1 text-primary">Lainnya
+                                                                ..</span>
+                                                            @endif
                                                         </div>
                                                     </a>
-                                                </td>
-                                                <td class="py-3 price">Rp.500.000</td>
-                                                <td class="py-3 text-right">
-                                                    <span
-                                                        class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-success text-success caption1 font-semibold">Completed</span>
-                                                </td>
-                                            </tr>
-                                            <!-- Add more rows as needed -->
-                                        </tbody>
+                                                    @endif
+                                </div>
+                                </a>
+                                </td>
+                                <td class="py-3 price">Rp{{ number_format($item->total_amount, 0, ',', '.') }}</td>
+                                <td class="py-3 text-right">
+                                    @if (
+                                    $item->status == 'pending' &&
+                                    optional($item->invoice)->payment_status == 'unpaid' &&
+                                    optional($item->invoice)->bukti_tf == '')
+                                    <a
+                                        href="{{ route('payment', ['invoice_number' => optional($item->invoice)->invoice_number ?? '']) }}">
+                                        <span
+                                            class="tag px-4 py-1.5 rounded-full text-white bg-opacity-10 bg-primary text-black caption1 font-semibold">Bayar
+                                            Sekarang</span>
+                                    </a>
+                                    @elseif ($item->status == 'pending' && optional($item->invoice)->payment_status == 'unpaid')
+                                    <span
+                                        class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-yellow text-yellow caption1 font-semibold">Pending</span>
+                                    @elseif ($item->status == 'processing')
+                                    <span
+                                        class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-yellow text-yellow caption1 font-semibold">Processing</span>
+                                    @elseif ($item->status == 'shipping')
+                                    <span
+                                        class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-yellow text-yellow caption1 font-semibold">Shipping</span>
+                                    @elseif ($item->status == 'completed')
+                                    <span
+                                        class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-success text-success caption1 font-semibold">Completed</span>
+                                    @elseif ($item->status == 'return')
+                                    <span
+                                        class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-success text-success caption1 font-semibold">Completed</span>
+                                    @elseif ($item->status == 'refund')
+                                    <span
+                                        class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-danger text-danger caption1 font-semibold">Refund</span>
+                                    @else
+                                    <span
+                                        class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-danger text-danger caption1 font-semibold">Canceled</span>
+                                    @endif
+                                </td>
+                                </tr>
+                                @endforeach
+                                </tbody>
                                     </table>
                                 </div>
 
                                 <!-- Pagination -->
                                 <div class="pagination flex justify-center items-center mt-5">
-                                    <button onclick="prevPage()"
-                                        class="px-4 py-2 mx-1 bg-gray-200 rounded-lg hover:bg-primary hover:text-white">
-                                        Prev
-                                    </button>
-                                    <span id="pageNumber" class="px-4 py-2 mx-1">1</span>
-                                    <button onclick="nextPage()"
-                                        class="px-4 py-2 mx-1 bg-gray-200 rounded-lg hover:bg-primary hover:text-white">
-                                        Next
-                                    </button>
+                                    @if ($orders->onFirstPage())
+                                        <button class="px-4 py-2 mx-1 bg-gray-200 rounded-lg cursor-not-allowed">Prev</button>
+                                    @else
+                                        <a href="{{ $orders->previousPageUrl() }}" class="px-4 py-2 mx-1 bg-gray-200 rounded-lg hover:bg-primary hover:text-white">Prev</a>
+                                    @endif
+                                
+                                    <span class="px-4 py-2 mx-1">{{ $orders->currentPage() }}</span>
+                                
+                                    @if ($orders->hasMorePages())
+                                        <a href="{{ $orders->nextPageUrl() }}" class="px-4 py-2 mx-1 bg-gray-200 rounded-lg hover:bg-primary hover:text-white">Next</a>
+                                    @else
+                                        <button class="px-4 py-2 mx-1 bg-gray-200 rounded-lg cursor-not-allowed">Next</button>
+                                    @endif
                                 </div>
+                                
                             </div>
                         </div>
 
@@ -105,39 +157,4 @@
             row.style.display = match ? '' : 'none';
         });
     }
-
-    function paginateTable() {
-        const tbody = document.getElementById('orderBody');
-        const rows = tbody.getElementsByTagName('tr');
-        const totalRows = rows.length;
-        const totalPages = Math.ceil(totalRows / rowsPerPage);
-
-        Array.from(rows).forEach((row, index) => {
-            row.style.display = (index >= (currentPage - 1) * rowsPerPage &&
-                index < currentPage * rowsPerPage) ? '' : 'none';
-        });
-
-        document.getElementById('pageNumber').textContent = `${currentPage}`;
-    }
-
-    function nextPage() {
-        const tbody = document.getElementById('orderBody');
-        const totalRows = tbody.getElementsByTagName('tr').length;
-        const totalPages = Math.ceil(totalRows / rowsPerPage);
-
-        if (currentPage < totalPages) {
-            currentPage++;
-            paginateTable();
-        }
-    }
-
-    function prevPage() {
-        if (currentPage > 1) {
-            currentPage--;
-            paginateTable();
-        }
-    }
-
-    // Initialize pagination on load
-    paginateTable();
 </script>

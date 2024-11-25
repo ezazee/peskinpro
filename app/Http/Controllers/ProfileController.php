@@ -100,17 +100,8 @@ class ProfileController extends Controller
         $orders = Order::where('user_id', $user->id)
                         ->with(['user', 'alamat', 'products', 'invoice','shipping'])
                         ->orderBy('created_at', 'desc')
-                        ->take(4)
-                        ->get();
-        $pendingOrdersCount = Order::where('user_id', $user->id)
-                            ->where('status', 'pending')
-                            ->count();
-        $canceledOrdersCount = Order::where('user_id', $user->id)
-                            ->where('status', 'canceled')
-                            ->count();
-        $totalOrders = Order::where('user_id', $user->id)
-                            ->count();
-        return view('frontend.pages.profile.recent-order', compact('user', 'orders','pendingOrdersCount','canceledOrdersCount','totalOrders'));
+                        ->paginate(10);
+        return view('frontend.pages.profile.recent-order', compact('user', 'orders'));
     }
 
 
