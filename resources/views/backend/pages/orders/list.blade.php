@@ -266,6 +266,8 @@
                                         <span class="badge border border-success text-success px-2 py-1 fs-13">Completed</span>
                                         @elseif($item->status == 'shipping')
                                         <span class="badge border border-info text-info px-2 py-1 fs-13">Shipping</span>
+                                        @elseif($item->status == 'return')
+                                        <span class="badge border border-danger text-danger px-2 py-1 fs-13">Return</span>
                                         @else
                                         <span class="badge border border-danger text-danger px-2 py-1 fs-13">Canceled</span>
                                         @endif

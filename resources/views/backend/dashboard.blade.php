@@ -179,7 +179,7 @@
                                 @foreach ($orders as $item)
                                 <tr>
                                     <td class="ps-3">
-                                        <a href="order-detail.html">#{{ $item->order_number }}</a>
+                                        <a href="{{ route('orders.detail',['orderNumber' => $item->order_number]) }}">#{{ $item->order_number }}</a>
                                     </td>
                                     <td>{{ $item->created_at->format('d F Y') }}</td>
                                     <td>

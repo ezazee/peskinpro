@@ -1,6 +1,6 @@
 @extends('backend.master.master-app')
 
-@section('title', 'List Processing Orders')
+@section('title', 'List Refund Orders')
 
 @section('content')
 <!-- Start Container Fluid -->
@@ -9,15 +9,14 @@
         <div class="col-xl-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center gap-1">
-                    <h4 class="card-title">All Order List</h4>
+                    <h4 class="card-title flex-grow-1">All Return And Refund Order</h4>
 
-                    <form action="{{ route('orders.shippinglist') }}" method="GET" class="d-flex align-items-center me-2">
-                        <input type="text" name="query" class="form-control form-control-sm" 
-                               placeholder="Search Order Number..." 
-                               value="{{ request('query') }}">
+                    <form action="{{ route('orders.canceledlist') }}" method="GET"
+                        class="d-flex align-items-center me-2">
+                        <input type="text" name="query" class="form-control form-control-sm"
+                            placeholder="Search Products..." value="{{ request('query') }}">
                         <button type="submit" class="btn btn-sm btn-outline-secondary ms-1">Search</button>
                     </form>
-
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
@@ -28,11 +27,9 @@
                                     <th>Order ID</th>
                                     <th>Created at</th>
                                     <th>Customer</th>
-                                    <th>Total</th>
                                     <th>Payment Status</th>
-                                    <th>Items</th>
-                                    <th>Estimasi</th>
-                                    <th>Delivery</th>
+                                    <th>Nominal</th>
+                                    <th>Reason</th>
                                     <th>Order Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -48,77 +45,96 @@
                                     <td>
                                         {{ $item->user->name }}
                                     </td>
-                                    <td> Rp{{ number_format($item->total_amount, 0, ',', '.') }} </td>
-
                                     <td>
-                                        @if( $item->invoice && $item->invoice->payment_status === 'unpaid' && is_null($item->invoice->bukti_tf) )
+                                        @if( $item->invoice && $item->invoice->payment_status === 'unpaid' &&
+                                        is_null($item->invoice->bukti_tf) )
                                         <span class="badge bg-light text-dark px-2 py-1 fs-13">Unpaid</span>
                                         @elseif( $item->invoice && $item->invoice->payment_status === 'paid' )
                                         <span class="badge bg-success text-light px-2 py-1 fs-13">Paid</span>
                                         @elseif( $item->status === 'canceled' )
                                         <span class="badge bg-light text-dark px-2 py-1 fs-13">Unpaid</span>
-                                        @elseif( $item->invoice && $item->invoice->payment_status === 'unpaid' && !is_null($item->invoice->bukti_tf) )
+                                        @elseif( $item->invoice && $item->invoice->payment_status === 'unpaid' &&
+                                        !is_null($item->invoice->bukti_tf) )
                                         <span class="badge bg-light text-info px-2 py-1 fs-13" data-bs-toggle="modal"
-                                                data-bs-target="#buktiModal-{{ $item->id }}">
-                                                Check Bukti
+                                            data-bs-target="#buktiModal-{{ $item->id }}">
+                                            Check Bukti
                                         </span>
-                                    
+
                                         <!-- Modal to Display Bukti Transfer -->
-                                        <div class="modal fade" id="buktiModal-{{ $item->id }}" tabindex="-1" aria-labelledby="buktiModalLabel-{{ $item->id }}" aria-hidden="true">
+                                        <div class="modal fade" id="buktiModal-{{ $item->id }}" tabindex="-1"
+                                            aria-labelledby="buktiModalLabel-{{ $item->id }}" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="buktiModalLabel-{{ $item->id }}">Bukti Transfer</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        <h5 class="modal-title" id="buktiModalLabel-{{ $item->id }}">
+                                                            Bukti Transfer</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
                                                         @if($item->invoice && !is_null($item->invoice->bukti_tf))
-                                                            <img src="{{ asset('storage/' . $item->invoice->bukti_tf) }}" alt="Bukti Transfer" class="img-fluid">
+                                                        <img src="{{ asset('storage/' . $item->invoice->bukti_tf) }}"
+                                                            alt="Bukti Transfer" class="img-fluid">
                                                         @else
-                                                            <p>No bukti transfer available.</p>
+                                                        <p>No bukti transfer available.</p>
                                                         @endif
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <form action="{{ route('order.accept', $item->id) }}" method="POST" style="display: inline;">
+                                                        <form action="{{ route('order.accept', $item->id) }}"
+                                                            method="POST" style="display: inline;">
                                                             @csrf
-                                                            <button type="submit" class="btn btn-success">Terima</button>
+                                                            <button type="submit"
+                                                                class="btn btn-success">Terima</button>
                                                         </form>
-                                                        <form action="{{ route('order.reject', $item->id) }}" method="POST" style="display: inline;">
+                                                        <form action="{{ route('order.reject', $item->id) }}"
+                                                            method="POST" style="display: inline;">
                                                             @csrf
                                                             <button type="submit" class="btn btn-danger">Tolak</button>
                                                         </form>
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Close</button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    @else
-                                        <span class="badge bg-light text-dark px-2 py-1 fs-13">Unpaid</span> 
+                                        @else
+                                        <span class="badge bg-light text-dark px-2 py-1 fs-13">Unpaid</span>
+                                        @endif
+
+                                    </td>
+                                    @if ($item->status === 'refund' && $item->refunds) 
+                                    @foreach ($item->refunds as $ret)
+                                        <td>Rp{{ number_format($ret->nominal, 0, ',', '.') ?? '-' }}</td>
+                                        <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px;">
+                                            {{ $ret->reason }}
+                                        </td>
+                                    @endforeach
+                                    @elseif ($item->status === 'return' && $item->returns)
+                                        @foreach ($item->returns as $ret)
+                                            <td>Rp{{ number_format($ret->nominal, 0, ',', '.') ?? '-' }}</td>
+                                            <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px;">
+                                                {{ $ret->reason }}
+                                            </td>
+                                        @endforeach
                                     @endif
                                     
-                                    </td>
-                                    <td>{{ $item->products->sum('pivot.quantity') }}</td>
-                                    @if($item->shipping)
-                                    <td> {{ $item->shipping->estimated_delivery }}</td>
-                                    <td> {{ $item->shipping->shipping_service }}</td>
-                                    @else
-                                    <td>-</td>
-                                    <td>-</td>
-                                    @endif
                                     <td>
                                         @if ( $item->status == 'pending')
                                         <span
                                             class="badge border border-secondary text-secondary px-2 py-1 fs-13">Pending</span>
                                         @elseif($item->status == 'processing')
-                                        <span class="badge border border-warning text-warning px-2 py-1 fs-13">Processing</span>
+                                        <span
+                                            class="badge border border-warning text-warning px-2 py-1 fs-13">Processing</span>
                                         @elseif($item->status == 'completed')
-                                        <span class="badge border border-success text-success px-2 py-1 fs-13">Completed</span>
+                                        <span
+                                            class="badge border border-success text-success px-2 py-1 fs-13">Completed</span>
                                         @elseif($item->status == 'shipping')
                                         <span class="badge border border-info text-info px-2 py-1 fs-13">Shipping</span>
                                         @elseif($item->status == 'return')
                                         <span class="badge border border-danger text-danger px-2 py-1 fs-13">Return</span>
                                         @else
-                                        <span class="badge border border-danger text-danger px-2 py-1 fs-13">Canceled</span>
+                                        <span
+                                            class="badge border border-danger text-danger px-2 py-1 fs-13">Canceled</span>
                                         @endif
                                     </td>
                                     <td>
@@ -129,9 +145,12 @@
                                                 </iconify-icon>
                                             </a>
                                             @if( $item->invoice && $item->status === 'processing' )
-                                            <form action="{{ route('order.delivered', $item->id) }}" method="POST" style="display: inline;">
+                                            <form action="{{ route('order.delivered', $item->id) }}" method="POST"
+                                                style="display: inline;">
                                                 @csrf
-                                                <button type="submit" class="btn btn-light btn-sm"><iconify-icon icon="solar:skip-next-bold"></iconify-icon></button>
+                                                <button type="submit" class="btn btn-light btn-sm">
+                                                    <iconify-icon icon="solar:skip-next-bold"></iconify-icon>
+                                                </button>
                                             </form>
                                             @endif
                                         </div>

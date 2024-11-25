@@ -105,6 +105,10 @@
                                                 <span class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-yellow text-yellow caption1 font-semibold">Shipping</span>
                                             @elseif ($item->status == 'completed')
                                                 <span class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-success text-success caption1 font-semibold">Completed</span>
+                                            @elseif ($item->status == 'return')
+                                                <span class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-success text-success caption1 font-semibold">Completed</span>
+                                            @elseif ($item->status == 'refund')
+                                            <span class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-danger text-danger caption1 font-semibold">Refund</span>
                                             @else
                                                 <span class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-danger text-danger caption1 font-semibold">Canceled</span>
                                             @endif
@@ -148,6 +152,15 @@
                                                     File</label>
                                                 <input type="file" name="images" class="caption2 cursor-pointer" />
                                             </div>
+                                            @if ($errors->any())
+                                                    <div class="alert text-sm text-red">
+                                                        <ul>
+                                                            @foreach ($errors->all() as $error)
+                                                                <li>{{ $error }}</li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>

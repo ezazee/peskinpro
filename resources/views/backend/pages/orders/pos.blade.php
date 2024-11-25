@@ -37,6 +37,34 @@
 
     <!-- Main CSS -->
     <link rel="stylesheet" href="{{ asset('backend/pos/css/style.css') }}">
+    <style>
+        .item input[type="radio"] {
+        display: none;
+        }
+
+
+        .item input[type="radio"]:checked + label {
+            background-color: #007bff; 
+            color: white; 
+            border-color: #007bff;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+            border-radius: 8px;
+        }
+
+        .item input[type="radio"]:checked + label img {
+            filter: brightness(0) invert(1);
+        }
+
+        .item:hover {
+            border-color: #007bff; 
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        .item input[type="radio"]:checked + label::before {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+    </style>
 </head>
 
 <body>
@@ -210,11 +238,9 @@
                                 <div class="row d-flex align-items-center justify-content-center methods">
                                     <div class="col-md-6 col-lg-4 item mb-3">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="payment_method"
-                                                id="cash" value="cash" checked>
+                                            <input class="form-check-input" type="radio" name="payment_method" id="cash" value="cash" checked>
                                             <label class="form-check-label d-flex align-items-center" for="cash">
-                                                <img src="{{ asset('backend/pos/img/icons/cash-pay.svg') }}"
-                                                    alt="Payment Method" class="me-2"
+                                                <img src="{{ asset('backend/pos/img/icons/cash-pay.svg') }}" alt="Payment Method" class="me-2"
                                                     style="width: 30px; height: 30px;">
                                                 Cash
                                             </label>
@@ -222,11 +248,9 @@
                                     </div>
                                     <div class="col-md-6 col-lg-4 item mb-3">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="payment_method"
-                                                id="transfer" value="transfer">
+                                            <input class="form-check-input" type="radio" name="payment_method" id="transfer" value="transfer">
                                             <label class="form-check-label d-flex align-items-center" for="transfer">
-                                                <img src="{{ asset('backend/pos/img/icons/credit-card.svg') }}"
-                                                    alt="Payment Method" class="me-2"
+                                                <img src="{{ asset('backend/pos/img/icons/credit-card.svg') }}" alt="Payment Method" class="me-2"
                                                     style="width: 30px; height: 30px;">
                                                 Transfer
                                             </label>
@@ -234,16 +258,15 @@
                                     </div>
                                     <div class="col-md-6 col-lg-4 item mb-3">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="payment_method"
-                                                id="qris" value="qris">
+                                            <input class="form-check-input" type="radio" name="payment_method" id="qris" value="qris">
                                             <label class="form-check-label d-flex align-items-center" for="qris">
-                                                <img src="{{ asset('backend/pos/img/icons/qr-scan.svg') }}"
-                                                    alt="Payment Method" class="me-2"
+                                                <img src="{{ asset('backend/pos/img/icons/qr-scan.svg') }}" alt="Payment Method" class="me-2"
                                                     style="width: 30px; height: 30px;">
                                                 Qris
                                             </label>
                                         </div>
                                     </div>
+                                    
                                 </div>
                             </div>
 

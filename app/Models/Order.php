@@ -34,4 +34,14 @@ class Order extends Model
     {
         return $this->belongsTo(Shipping::class, 'shipping_id');
     }
+
+    public function returns()
+    {
+        return $this->hasMany(Returned::class);
+    }
+
+    public function refunds()
+    {
+        return $this->hasMany(Refuned::class);
+    }
 }

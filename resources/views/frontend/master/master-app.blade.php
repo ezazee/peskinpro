@@ -5,6 +5,7 @@
     @include('frontend.master.master-css')
 </head>
 <body>
+    @include('sweetalert::alert')
     @include('frontend.components.top-nav')
     <div id="header" class="relative w-full">
         @include('frontend.components.navbar')

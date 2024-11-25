@@ -63,7 +63,14 @@
                               <span class="nav-text"> Category </span>
                           </a>
                       </li>
-
+                      <li class="nav-item">
+                        <a class="nav-link" href="{{ route('orders.pos') }}">
+                            <span class="nav-icon">
+                                <iconify-icon icon="solar:delivery-bold"></iconify-icon>
+                            </span>
+                            <span class="nav-text"> Point Of Sale </span>
+                        </a>
+                    </li>
 
                       <li class="nav-item">
                           <a class="nav-link menu-arrow" href="#sidebarOrders" data-bs-toggle="collapse" role="button"
@@ -76,10 +83,7 @@
                           <div class="collapse" id="sidebarOrders">
                               <ul class="nav sub-navbar-nav">
                                   <li class="sub-nav-item">
-                                      <a class="sub-nav-link" href="{{ route('orders.pos') }}">POS</a>
-                                  </li>
-                                  <li class="sub-nav-item">
-                                      <a class="sub-nav-link" href="{{ route('orders.list') }}">List ALL</a>
+                                      <a class="sub-nav-link" href="{{ route('orders.list') }}">List All</a>
                                   </li>
                                   <li class="sub-nav-item">
                                     <a class="sub-nav-link" href="{{ route('orders.pendingreview') }}">Pending Review  
@@ -95,10 +99,41 @@
                                     <a class="sub-nav-link" href="{{ route('orders.shippinglist') }}">Shipping List 
                                         <span class="badge bg-danger text-end m-1">{{ $shippinglist }}</span>
                                     </a>
-                                </li>
+                                  </li>
+                                  <li class="sub-nav-item">
+                                    <a class="sub-nav-link" href="{{ route('orders.completedlist') }}">Completed List 
+                                    </a>
+                                  </li>
+                                  <li class="sub-nav-item">
+                                    <a class="sub-nav-link" href="{{ route('orders.canceledlist') }}">Canceled List
+                                    </a>
+                                  </li>
                               </ul>
                           </div>
                       </li>
+
+                      <li class="nav-item">
+                        <a class="nav-link menu-arrow" href="#sidebarOrdersreturn" data-bs-toggle="collapse" role="button"
+                            aria-expanded="false" aria-controls="sidebarOrdersreturn">
+                            <span class="nav-icon">
+                                <iconify-icon icon="solar:reorder-linear"></iconify-icon>
+                            </span>
+                            <span class="nav-text"> Return And Refund </span>
+                        </a>
+                        <div class="collapse" id="sidebarOrdersreturn">
+                            <ul class="nav sub-navbar-nav">
+                                <li class="sub-nav-item">
+                                    <a class="sub-nav-link" href="{{ route('orders.returnrefundlist') }}">List All</a>
+                                </li>
+                                <li class="sub-nav-item">
+                                    <a class="sub-nav-link" href="{{ route('orders.returnlist') }}">List Return</a>
+                                </li>
+                                <li class="sub-nav-item">
+                                    <a class="sub-nav-link" href="{{ route('orders.refundlist') }}">List Refund</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
 
                       <li class="nav-item">
                           <a class="nav-link" href="{{ route('invoice.index') }}">
@@ -194,7 +229,7 @@
                           </div>
                       </li>
 
-                      <li class="menu-title mt-2">Other Apps</li>
+                      {{-- <li class="menu-title mt-2">Other Apps</li>
 
                       <li class="nav-item">
                           <a class="nav-link" href="#">
@@ -212,7 +247,7 @@
                               </span>
                               <span class="nav-text"> Email </span>
                           </a>
-                      </li>
+                      </li> --}}
                   </ul>
               </div>
           </div>

@@ -97,6 +97,14 @@ class ProfileController extends Controller
     public function update(Request $request, $id){
         $users = User::findOrFail($id);
 
+        $request->validate([
+            'images' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ], [
+            'images.image' => 'File yang diunggah harus berupa gambar.',
+            'images.mimes' => 'Gambar harus berformat jpeg, png, jpg, atau gif.',
+        ]);
+        
+
         if ($request->hasFile('images')) {
             $directory = 'profile';
             

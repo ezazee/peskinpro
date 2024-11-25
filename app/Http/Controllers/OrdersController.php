@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Order;
+use App\Models\Returned;
 use App\Models\ProductSize;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -132,13 +133,48 @@ class OrdersController extends Controller
         return view('backend.pages.orders.shippinglist',compact('welcomeMessage','user','orders'));
     }
 
+
+    public function canceledlist(Request $request){
+        $user = Auth::user();
+        $welcomeMessage = 'List Canceled Orders';
+        $query = $request->input('query');
+    
+        $orders = Order::with(['user', 'alamat', 'products', 'invoice', 'shipping'])
+            ->when($query, function ($q) use ($query) {
+                $q->where('order_number', 'like', "%{$query}%");
+            })
+            ->where('status', 'canceled')
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+        return view('backend.pages.orders.canceledlist',compact('welcomeMessage','user','orders'));
+    }
+
+    public function completedlist(Request $request){
+        $user = Auth::user();
+        $welcomeMessage = 'List Completed Orders';
+        $query = $request->input('query');
+    
+        $orders = Order::with(['user', 'alamat', 'products', 'invoice', 'shipping'])
+            ->when($query, function ($q) use ($query) {
+                $q->where('order_number', 'like', "%{$query}%");
+            })
+            ->where('status', 'completed')
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+        return view('backend.pages.orders.completedlist',compact('welcomeMessage','user','orders'));
+    }
+
     public function detail($orderNumber){
-        $orders = Order::with(['user', 'alamat', 'products', 'invoice','shipping'])
+        $orders = Order::with(['user', 'alamat', 'products', 'invoice','shipping','returns','refunds'])
         ->where('order_number', $orderNumber)
         ->firstOrFail();
+        $hasReturns = $orders->returns()->exists();
+        $hasRefunds = $orders->refunds()->exists();
         $user = Auth::user();
-        $welcomeMessage = 'Detail Orders'; 
-        return view('backend.pages.orders.detail',compact('welcomeMessage','user','orders'));
+        $welcomeMessage = 'Detail Order'; 
+        return view('backend.pages.orders.detail',compact('welcomeMessage','user','orders','hasReturns','hasRefunds'));
     }
 
     public function pos(){
@@ -283,7 +319,7 @@ class OrdersController extends Controller
                 'payment_status' => 'paid',
             ]);
         }
-    
+        Alert::success('Success', 'Orders Accept to Processing!');
         return redirect()->back()->with('success', 'Order and payment status updated successfully.');
     }
     
@@ -292,6 +328,7 @@ class OrdersController extends Controller
         $order->update([
             'status' => 'canceled',
         ]);
+        Alert::error('Rejected', 'Orders Rejected!');
         return redirect()->back()->with('success', 'Order and payment status updated successfully.');
     }
 
@@ -300,9 +337,73 @@ class OrdersController extends Controller
         $order->update([
             'status' => 'shipping',
         ]);
-
+        Alert::success('Success', 'Orders to Shipping!');
         return redirect()->back()->with('success', 'Order and payment status updated successfully.');
     }
 
 
+    // return and refund
+    public function returnrefundlist(Request $request){
+        $user = Auth::user();
+        $welcomeMessage = 'List Return And Refund Orders';
+        $query = $request->input('query');
+    
+        $orders = Order::with(['user', 'alamat', 'products', 'invoice', 'shipping','returns','refunds'])
+            ->when($query, function ($q) use ($query) {
+                $q->where('order_number', 'like', "%{$query}%");
+            })
+            ->whereIn('status', ['return', 'refund'])            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+        return view('backend.pages.return.list',compact('welcomeMessage','user','orders'));
+    }
+
+    public function returnlist(Request $request){
+        $user = Auth::user();
+        $welcomeMessage = 'List Return Orders';
+        $query = $request->input('query');
+    
+        $orders = Order::with(['user', 'alamat', 'products', 'invoice', 'shipping','returns','refunds'])
+            ->when($query, function ($q) use ($query) {
+                $q->where('order_number', 'like', "%{$query}%");
+            })
+            ->where('status', 'return')
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+        return view('backend.pages.return.listreturn',compact('welcomeMessage','user','orders'));
+    }
+
+    public function returnorder(Request $request){
+
+        $returnOrder = Returned::create([
+            'order_id' => $request->order_id,
+            'nominal' => $request->nominal,
+            'status' => 'approved',
+            'return_number' => 'RET-' . $request->order_number,
+            'reason' => $request->reason,
+        ]);
+
+        $order = Order::find($request->order_id);
+        if ($order) {
+            $order->status = 'return';
+            $order->save();
+        }
+        
+        return redirect()->back()->with('success', 'Returns successfully.');
+    }
+
+    public function refundlist(Request $request){
+        $user = Auth::user();
+        $welcomeMessage = 'List Refund Orders';
+        $query = $request->input('query');
+    
+        $orders = Order::with(['user', 'alamat', 'products', 'invoice', 'shipping','returns','refunds'])
+            ->when($query, function ($q) use ($query) {
+                $q->where('order_number', 'like', "%{$query}%");
+            })
+            ->where('status', 'refund')
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+        return view('backend.pages.return.listrefund',compact('welcomeMessage','user','orders'));
+    }
+    
 }

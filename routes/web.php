@@ -63,6 +63,7 @@ Route::middleware(['userOrGuest'])->group(function () {
 
 Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('/checkout', [ChekoutController::class, 'index'])->name('chekout.index');
+    // Route::get('/checkout/process', [ChekoutController::class, 'Checkout'])->name('checkout.process');
     Route::post('/checkout/process', [ChekoutController::class, 'Checkout'])->name('checkout.process');
     Route::get('/pembayaran/{invoice_number}', [ChekoutController::class, 'payment'])->name('payment');
     Route::post('/payment/process', [ChekoutController::class, 'processpayment'])->name('processpayment');
@@ -100,6 +101,8 @@ Route::middleware(['auth', 'role:Administrator'])->group(function () {
     Route::get('/process/list', [OrdersController::class, 'proceslist'])->name('orders.proceslist');
     Route::get('/pendingreview/list', [OrdersController::class, 'pendingreview'])->name('orders.pendingreview');
     Route::get('/shipping/list', [OrdersController::class, 'shippinglist'])->name('orders.shippinglist');
+    Route::get('/canceled/list', [OrdersController::class, 'canceledlist'])->name('orders.canceledlist');
+    Route::get('/completed/list', [OrdersController::class, 'completedlist'])->name('orders.completedlist');
     Route::get('/orders/detail/{orderNumber}', [OrdersController::class, 'detail'])->name('orders.detail');
     Route::get('/pos', [OrdersController::class, 'pos'])->name('orders.pos');
     Route::post('/add_cart/pos', [OrdersController::class, 'add_cart_pos'])->name('add_cart_pos');
@@ -109,6 +112,15 @@ Route::middleware(['auth', 'role:Administrator'])->group(function () {
     Route::post('/order/accept/{order}', [OrdersController::class, 'accept'])->name('order.accept');
     Route::post('/order/reject/{order}', [OrdersController::class, 'reject'])->name('order.reject');
     Route::post('/order/delivered/{order}', [OrdersController::class, 'delivered'])->name('order.delivered');
+
+    
+    Route::get('/returnandrefund/list', [OrdersController::class, 'returnrefundlist'])->name('orders.returnrefundlist');
+    // orders return
+    Route::get('/return/list', [OrdersController::class, 'returnlist'])->name('orders.returnlist');
+    Route::post('/return', [OrdersController::class, 'returnorder'])->name('orders.return');
+    // order refund
+    Route::get('/refund/list', [OrdersController::class, 'refundlist'])->name('orders.refundlist');
+    Route::post('/refund', [OrdersController::class, 'refundorder'])->name('orders.refund');
 
     // settings
     Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');
