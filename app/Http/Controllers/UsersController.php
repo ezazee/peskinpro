@@ -19,7 +19,7 @@ class UsersController extends Controller
         $welcomeMessage = 'List Users';
         $users = User::whereDoesntHave('role', function($query) {
             $query->where('name', 'user');
-        })->paginate(5);     
+        })->paginate(5);
         return view('backend.pages.users.list',compact('welcomeMessage','users','user'));
     }
 
@@ -34,16 +34,16 @@ class UsersController extends Controller
         $request->validate([
             'password' => 'required|min:8|confirmed',
         ]);
-        
+
         $imagePath = null;
         if ($request->hasFile('images')) {
             $directory = 'profile';
-            
+
             if (!Storage::exists($directory)) {
                 Storage::makeDirectory($directory);
             }
-    
-            $imagePath = $request->file('images')->store($directory, 'public'); 
+
+            $imagePath = $request->file('images')->store($directory, 'public');
         } else {
             $imagePath = '';
         }
@@ -55,7 +55,7 @@ class UsersController extends Controller
             'slug' => Str::slug($request->first_name . $request->last_name),
             'email' => $request->email,
             'no_telp' => $request->no_telp,
-            'password' => bcrypt($request->password), 
+            'password' => bcrypt($request->password),
             'role_id' => $request->role_id,
             'status' => $request->status,
             'images' => $imagePath,
@@ -84,23 +84,23 @@ class UsersController extends Controller
 
         if ($request->hasFile('images')) {
             $directory = 'profile';
-            
+
             if (!Storage::exists($directory)) {
                 Storage::makeDirectory($directory);
             }
-    
+
             if ($users->images && Storage::exists($users->images)) {
                 Storage::delete($users->images);
             }
-    
+
             $imagePath = $request->file('images')->store($directory, 'public');
         } else {
             $imagePath = $users->images;
         }
-    
+
         $fullName = $request->input('first_name') . ' ' . $request->input('last_name');
         $newSlug = Str::slug($fullName);
-    
+
         $users->update([
             'first_name' => $request->input('first_name'),
             'last_name' => $request->input('last_name'),
@@ -123,7 +123,7 @@ class UsersController extends Controller
 
     public function destroy($id)
     {
-        $users = User::findOrFail($id); 
+        $users = User::findOrFail($id);
         $users->delete();
         Alert::error('Deleted', 'Users deleted successfully.');
         return redirect()->route('users.index')->with('success', 'Users deleted successfully.');
@@ -149,7 +149,13 @@ class UsersController extends Controller
             $query->where('name', 'user');
         })->count();
         $user = Auth::user();
-        
+
         return view('backend.pages.users.customers',compact('welcomeMessage','users','totalcustomers','user'));
+    }
+
+    public function profile(){
+        $user = Auth::user();
+        $welcomeMessage = 'Profile Admin';
+        return view('backend.pages.users.profile',compact('welcomeMessage','user'));
     }
 }

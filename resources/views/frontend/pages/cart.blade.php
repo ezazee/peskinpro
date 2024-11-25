@@ -11,7 +11,7 @@
                                 <div class="flex">
                                     <div class="w-1/2 flex items-center px-5">
                                         <input type="checkbox" id="check-all" class="px-3 cursor-pointer bg-primary" />
-                                        <label for="check-all" class="text-button ml-2 cursor-pointer">Check All</label>
+                                        <label for="check-all" class="text-button ml-2 cursor-pointer">Pilih Semua</label>
                                         <span class="px-5"> | </span>
                                         <button class="hover:text-black text-bold duration-300 text-red py-1 rounded hapus-semua hidden">
                                             Hapus Semua

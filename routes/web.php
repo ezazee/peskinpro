@@ -149,7 +149,7 @@ Route::middleware(['auth', 'role:Administrator'])->group(function () {
     Route::get('/report/generate', [ReportController::class, 'generate'])->name('report.generate');
     Route::get('/report/pdf', [ReportController::class, 'generatePdf'])->name('report.generatePdf');
 
-
+    Route::get('/users/profile', [UsersController::class, 'profile'])->name('users.profile');
 
 });
 
