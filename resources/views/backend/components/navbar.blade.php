@@ -14,7 +14,7 @@
                           <!-- Menu Toggle Button -->
                           <div class="topbar-item">
                             <h4 class="fw-bold topbar-button pe-none text-uppercase mb-0">{{ $welcomeMessage ?? 'Welcome!' }}</h4>
-                        </div>                        
+                        </div>
                       </div>
 
                       <div class="d-flex align-items-center gap-1">
@@ -151,19 +151,19 @@
                               <div class="dropdown-menu dropdown-menu-end">
                                   <!-- item-->
                                   <h6 class="dropdown-header">Welcome {{ $user->name }}!</h6>
-                                  <a class="dropdown-item" href="pages-profile.html">
+                                  <a class="dropdown-item" href="{{ route('users.profile') }}">
                                       <i class="bx bx-user-circle text-muted fs-18 align-middle me-1"></i><span
                                           class="align-middle">Profile</span>
                                   </a>
                                   <div class="dropdown-divider my-1"></div>
-                                  
+
                                   <form action="{{ route('logout') }}" method="POST" id="logout-form" style="display: none;">
                                     @csrf
                                 </form>
-                                
+
                                 <a class="dropdown-item text-danger" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     <i class="bx bx-log-out fs-18 align-middle me-1"></i><span class="align-middle">Logout</span>
-                                </a>                                
+                                </a>
                               </div>
                           </div>
                       </div>

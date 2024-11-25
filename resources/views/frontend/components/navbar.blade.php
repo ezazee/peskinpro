@@ -6,8 +6,7 @@
                 <i class="icon-category text-2xl"></i>
             </div>
             <a href="/" class="flex items-center">
-                <img src="{{ asset('frontend/assets/images/logo/peskin.png') }}" alt="PeskinPro" width="60px"
-                    height="60px">
+                <img src="{{ asset('frontend/assets/images/logo/peskin.png') }}" alt="PeskinPro" style="width: 90px">
             </a>
             <div class="menu-main h-full max-lg:hidden">
                 <ul class="flex items-center gap-8 h-full">
@@ -21,28 +20,28 @@
                     <li class="h-full relative">
                         <a href="/shop#allProduct"
                             class="text-button-uppercase duration-300 h-full flex items-center justify-center gap-1 {{ request()->is('shop') ? 'active' : '' }}" data-hash="allProduct">
-                            Our Product
+                            Produk Kami
                         </a>
                     </li>
 
                     <li class="h-full">
                         <a href="/shop#bestSellerProduct"
                             class="text-button-uppercase duration-300 h-full flex items-center justify-center" data-hash="bestSellerProduct">
-                            Best Seller Product
+                            Produk Terlaris
                         </a>
                     </li>
 
                     <li class="h-full">
                         <a href="/shop#flashSaleProduct"
                             class="text-button-uppercase duration-300 h-full flex items-center justify-center" data-hash="flashSaleProduct">
-                            Promotion
+                            Promosi
                         </a>
                     </li>
 
                     <li class="h-full relative">
                         <a href="/artikel"
                             class="text-button-uppercase duration-300 h-full flex items-center justify-center gap-1 {{ request()->is('artikel') ? 'active' : '' }}">
-                            Artikel
+                            Update
                         </a>
                     </li>
                 </ul>
@@ -90,8 +89,8 @@
                         <div class="login-popup absolute top-[74px] w-[320px] p-7 rounded-xl bg-white box-shadow-sm">
                             <a href="/login" class="button-main w-full text-center">Login</a>
                             <div class="text-secondary text-center mt-3 pb-4">
-                                Don’t have an account?
-                                <a href="/register" class="text-black pl-1 hover:underline">Register </a>
+                                Belum Ada Akun ?
+                                <a href="/register" class="text-black pl-1 hover:underline">Daftar </a>
                             </div>
                         </div>
                     </div>
@@ -128,11 +127,11 @@
                             </a>
                         </li>
                         <li>
-                            <a href="/shop#allProduct" class="text-xl font-semibold flex items-center justify-between mt-5">Our Product
+                            <a href="/shop#allProduct" class="text-xl font-semibold flex items-center justify-between mt-5">Produk Kami
                             </a>
                         </li>
                         <li>
-                            <a href="/shop#bestSellerProduct" class="text-xl font-semibold flex items-center justify-between mt-5">Best Seller Product
+                            <a href="/shop#bestSellerProduct" class="text-xl font-semibold flex items-center justify-between mt-5">Produk Terlaris
                             </a>
                         </li>
                         {{-- <li>
@@ -285,12 +284,12 @@
                         </li> --}}
                         <li>
                             <a href="/shop#flashSaleProduct"
-                                class="text-xl font-semibold flex items-center justify-between mt-5">Promotion
+                                class="text-xl font-semibold flex items-center justify-between mt-5">Promosi
                             </a>
                         </li>
                         <li>
                             <a href="/artikel"
-                                class="text-xl font-semibold flex items-center justify-between mt-5">Article
+                                class="text-xl font-semibold flex items-center justify-between mt-5">Update
                             </a>
                         </li>
                     </ul>

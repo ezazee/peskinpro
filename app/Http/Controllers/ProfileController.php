@@ -24,7 +24,7 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         $orders = Order::where('user_id', $user->id)
-                        ->with(['user', 'alamat', 'products', 'invoice','shipping']) 
+                        ->with(['user', 'alamat', 'products', 'invoice','shipping'])
                         ->orderBy('created_at', 'desc')
                         ->take(4)
                         ->get();
@@ -79,7 +79,7 @@ class ProfileController extends Controller
         $user = Auth::user();
 
         Alamat::where('user_id', $user->id)->update(['default' => null]);
-    
+
         $address = Alamat::where('user_id', $user->id)->where('id', $id)->first();
         if ($address) {
             $address->default = 'yes';
@@ -90,11 +90,29 @@ class ProfileController extends Controller
     }
 
     public function delete_address($id){
-        $alamat = Alamat::findOrFail($id); 
+        $alamat = Alamat::findOrFail($id);
         $alamat->delete();
         return back()->with('success', 'Alamat deleted successfully!');
     }
-    
+
+    public function recent_order(){
+        $user = Auth::user();
+        $orders = Order::where('user_id', $user->id)
+                        ->with(['user', 'alamat', 'products', 'invoice','shipping'])
+                        ->orderBy('created_at', 'desc')
+                        ->take(4)
+                        ->get();
+        $pendingOrdersCount = Order::where('user_id', $user->id)
+                            ->where('status', 'pending')
+                            ->count();
+        $canceledOrdersCount = Order::where('user_id', $user->id)
+                            ->where('status', 'canceled')
+                            ->count();
+        $totalOrders = Order::where('user_id', $user->id)
+                            ->count();
+        return view('frontend.pages.profile.recent-order', compact('user', 'orders','pendingOrdersCount','canceledOrdersCount','totalOrders'));
+    }
+
 
     public function update(Request $request, $id){
         $users = User::findOrFail($id);
@@ -105,19 +123,19 @@ class ProfileController extends Controller
             'images.image' => 'File yang diunggah harus berupa gambar.',
             'images.mimes' => 'Gambar harus berformat jpeg, png, jpg, atau gif.',
         ]);
-        
+
 
         if ($request->hasFile('images')) {
             $directory = 'profile';
-            
+
             if (!Storage::exists($directory)) {
                 Storage::makeDirectory($directory);
             }
-    
+
             if ($users->images && Storage::exists($users->images)) {
                 Storage::delete($users->images);
             }
-    
+
             $imagePath = $request->file('images')->store($directory, 'public');
         } else {
             $imagePath = $users->images;
@@ -125,7 +143,7 @@ class ProfileController extends Controller
 
         $fullName = $request->input('first_name') . ' ' . $request->input('last_name');
         $newSlug = Str::slug($fullName);
-    
+
         $users->update([
             'first_name' => $request->input('first_name'),
             'last_name' => $request->input('last_name'),

@@ -100,6 +100,9 @@
 .icon-twitter:before {
   content: "\e918";
 }
+.icon-tiktok:before {
+    content: "\e96b";
+  }
 .icon-update:before {
   content: "\e919";
 }
@@ -107,7 +110,7 @@
   content: "\e91a";
 }
 .icon-user-shield:before {
-  content: "\e91b";
+  content: "\e920";
 }
 .icon-youtube:before {
   content: "\e91c";

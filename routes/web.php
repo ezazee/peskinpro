@@ -77,6 +77,7 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::post('/address', [ProfileController::class, 'add_address'])->name('profile.add_address');
     Route::delete('/address/delete{id}', [ProfileController::class, 'delete_address'])->name('delete_address');
     Route::post('/set-default-address/{id}', [ProfileController::class, 'setDefaultAddress'])->name('set_default_address');
+    Route::get('/order', [ProfileController::class, 'recent_order'])->name('recent_order');
 });
 
 
@@ -115,7 +116,7 @@ Route::middleware(['auth', 'role:Administrator'])->group(function () {
     Route::post('/order/reject/{order}', [OrdersController::class, 'reject'])->name('order.reject');
     Route::post('/order/delivered/{order}', [OrdersController::class, 'delivered'])->name('order.delivered');
 
-    
+
     Route::get('/returnandrefund/list', [OrdersController::class, 'returnrefundlist'])->name('orders.returnrefundlist');
     // orders return
     Route::get('/return/list', [OrdersController::class, 'returnlist'])->name('orders.returnlist');
@@ -163,6 +164,8 @@ Route::middleware(['auth', 'role:Administrator'])->group(function () {
     Route::get('/report/generate', [ReportController::class, 'generate'])->name('report.generate');
     Route::get('/report/pdf', [ReportController::class, 'generatePdf'])->name('report.generatePdf');
 
+    Route::get('/users/profile', [UsersController::class, 'profile'])->name('users.profile');
+
 });
 
 Route::get('/about-us', function () {
@@ -187,7 +190,4 @@ Route::get('/return-and-refunds', function () {
     return view('frontend.pages.return-and-refunds');
 });
 
-Route::get('/recent-order', function () {
-    return view('frontend.pages.profile.recent-order');
-});
 

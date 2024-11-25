@@ -13,27 +13,27 @@
             class="container flex flex-col md:flex-row items-center justify-between max-sm:justify-center relative w-full lg:w-2/3 px-4 py-8 md:px-8">
             <!-- Flash Sale Content on the Left (Desktop) / Top (Mobile) -->
             <div class="text-content md:basis-1/2 flex flex-col items-center text-center px-8 py-10 order-1 md:order-none">
-                <h2 class="heading1 text-bold text-primary">Flash Sale Promotion!</h2>
+                <h2 class="heading1 text-bold text-primary">FLASH SALE</h2>
                 <p class="body2 mt-3">Dapatkan 50% Potongan Harga!!</p>
                 <div class="countdown-time flex items-center gap-3 max-sm:gap-2 lg:mt-9 md:mt-6 mt-4">
                     <div class="item flex flex-col items-center">
                         <div class="countdown-day time heading1">12</div>
-                        <div class="text-button-uppercase font-medium">Days</div>
+                        <div class="text-button-uppercase font-medium">Hari</div>
                     </div>
                     <span class="heading4">:</span>
                     <div class="item flex flex-col items-center">
                         <div class="countdown-hour time heading1">21</div>
-                        <div class="text-button-uppercase font-medium">Hours</div>
+                        <div class="text-button-uppercase font-medium">Jam</div>
                     </div>
                     <span class="heading4">:</span>
                     <div class="item flex flex-col items-center">
                         <div class="countdown-minute time heading1">43</div>
-                        <div class="text-button-uppercase font-medium">Minutes</div>
+                        <div class="text-button-uppercase font-medium">Menit</div>
                     </div>
                     <span class="heading4">:</span>
                     <div class="item flex flex-col items-center">
                         <div class="countdown-second time heading1">52</div>
-                        <div class="text-button-uppercase font-medium">Seconds</div>
+                        <div class="text-button-uppercase font-medium">Detik</div>
                     </div>
                 </div>
                 <a href="https://wa.me/6282123167895?text=Saya%20Mau%20Barang%20Di%20Flash%20Sale%20Promotion"
@@ -53,10 +53,11 @@
                                             class="product-tag text-button-uppercase text-white bg-red px-3 py-0.5 inline-block rounded-full absolute top-3 left-3 z-[1]">
                                             Diskon
                                         </div>
-                                    @endif                                
+                                    @endif
                                     <div class="product-img w-full h-full aspect-[3/4]">
                                         <img class="w-full h-full object-cover duration-700"
-                                            src="{{ asset('storage/' . $item['front_image']) }}" alt="{{ $item['name'] }}" />
+                                            src="{{ asset('storage/' . $item['front_image']) }}"
+                                            alt="{{ $item['name'] }}" />
                                         <img class="w-full h-full object-cover duration-700"
                                             src="{{ asset('storage/' . $item['back_image']) }}" alt="{{ $item['name'] }}" />
                                     </div>
@@ -67,22 +68,24 @@
                                         {{ $item['name'] }}
                                         <div
                                             class="product-price-block flex items-center gap-2 flex-wrap mt-1 duration-300 relative z-[1]">
-                                            <div class="product-price text-title">                                            
+                                            <div class="product-price text-title">
                                                 @php
                                                     $sizePrices = $item['size']->price;
                                                     $sizeDiscounts = $item['size']->discount;
-                                                    $minPrice = !empty($sizePrices) ? $sizePrices : ($item['size']->price ?? 0);
+                                                    $minPrice = !empty($sizePrices)
+                                                        ? $sizePrices
+                                                        : $item['size']->price ?? 0;
                                                     $maxDiscount = !empty($sizeDiscounts) ? $sizeDiscounts : 0;
                                                     $effectivePrice = max($minPrice - $maxDiscount, 0);
                                                 @endphp
-                                            
-                                                                                        
+
+
                                                 @if ($effectivePrice > 0)
                                                     Rp {{ number_format($effectivePrice, 0, ',', '.') }}
                                                 @else
                                                     Rp {{ number_format($minPrice, 0, ',', '.') }}
                                                 @endif
-                                            </div>                                            
+                                            </div>
 
                                             @if ($minPrice > 0 && $maxDiscount > 0)
                                                 <div class="product-origin-price caption1 text-secondary2 line-through">
@@ -111,7 +114,7 @@
     <section id="bestSellerProduct" class="buy-pack-block md:pt-20 pt-10">
         <div class="container grid sm:grid-cols-2 max-sm:flex max-sm:w-full flex-col max-sm:flex-col-reverse items-center">
             <div class="main-content w-full">
-                <div class="heading3">Best Seller Product</div>
+                <div class="heading3">Produk Terlaris</div>
                 <div class="block mt-3">Sign up for early sale access, new in, promotions and more</div>
                 <div class="list-product mt-8">
                     @foreach ($productbestseller as $item)
@@ -129,13 +132,15 @@
                                 </div>
                                 <div class="right">
                                     <div class="text-title"><span class="product-price">
-                                        @php
-                                            $sizePrices = $item['size']->price;
-                                            $sizeDiscounts = $item['size']->discount;
-                                            $minPrice = !empty($sizePrices) ? $sizePrices : ($item['size']->price ?? 0);
-                                            $maxDiscount = !empty($sizeDiscounts) ? $sizeDiscounts : 0;
-                                            $effectivePrice = max($minPrice - $maxDiscount, 0);
-                                        @endphp
+                                            @php
+                                                $sizePrices = $item['size']->price;
+                                                $sizeDiscounts = $item['size']->discount;
+                                                $minPrice = !empty($sizePrices)
+                                                    ? $sizePrices
+                                                    : $item['size']->price ?? 0;
+                                                $maxDiscount = !empty($sizeDiscounts) ? $sizeDiscounts : 0;
+                                                $effectivePrice = max($minPrice - $maxDiscount, 0);
+                                            @endphp
 
                                             @if ($effectivePrice > 0)
                                                 Rp {{ number_format($effectivePrice, 0, ',', '.') }}
@@ -167,7 +172,7 @@
             <div class="list-product-block style-grid relative">
                 <div class="filter-heading flex items-center justify-between gap-5 flex-wrap">
                     <div class="heading2">
-                        All Product
+                        Semua Produk
                     </div>
                     <div class="sort-product right flex items-center gap-3">
                         <label for="select-filter" class="caption1 capitalize">Sort by</label>
@@ -267,28 +272,33 @@
                 <div class="heading3 text-center">Artikel Kami</div>
                 <div class="list grid lg:grid-cols-3 sm:grid-cols-2 md:gap-[30px] gap-4 md:mt-10 mt-6">
                     @foreach ($articles as $item)
-                    <a href="{{ route('articlebyTittle', $item->slug) }}">
-                    <div class="blog-item style-one h-full cursor-pointer" data-item="16">
-                        <div class="blog-main h-full block">
-                            <div class="blog-thumb rounded-[20px] overflow-hidden">
-                                <img src="{{ asset('storage/' . $item->images) }}" alt="{{ $item->tittle }}" class="w-full duration-500" />
-                            </div>
-                            <div class="blog-infor mt-7">
-                                @foreach ($item->tag as $t)   
-                                <div class="blog-tag bg-primary text-white py-1 px-2.5 rounded-full text-button-uppercase inline-block">
-                                    {{ $t->nama_tags }}</div>
-                                @endforeach
-                                <div class="heading6 blog-title mt-3 duration-300">{{ $item->tittle }}</div>
-                                <div class="flex items-center gap-2 mt-2">
-                                    <div class="blog-date caption1 text-secondary">{{ $item->created_at->format('M d, Y') }}</div>
+                        <a href="{{ route('articlebyTittle', $item->slug) }}">
+                            <div class="blog-item style-one h-full cursor-pointer" data-item="16">
+                                <div class="blog-main h-full block">
+                                    <div class="blog-thumb rounded-[20px] overflow-hidden">
+                                        <img src="{{ asset('storage/' . $item->images) }}" alt="{{ $item->tittle }}"
+                                            class="w-full duration-500" />
+                                    </div>
+                                    <div class="blog-infor mt-7">
+                                        @foreach ($item->tag as $t)
+                                            <div
+                                                class="blog-tag bg-primary text-white py-1 px-2.5 rounded-full text-button-uppercase inline-block">
+                                                {{ $t->nama_tags }}</div>
+                                        @endforeach
+                                        <div class="heading6 blog-title mt-3 duration-300">{{ $item->tittle }}</div>
+                                        <div class="flex items-center gap-2 mt-2">
+                                            <div class="blog-date caption1 text-secondary">
+                                                {{ $item->created_at->format('M d, Y') }}</div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    </a>
+                        </a>
                     @endforeach
                 </div>
             </div>
         </div>
     </div>
+
+    @include('frontend.components.banner-knowledge-1')
 @endsection

@@ -167,7 +167,7 @@
     {{-- List Product --}}
     <div class="shop-product py-10">
         <div class="container">
-            <div class="heading3 text-center py-10">Hot product Face Care</div>
+            <div class="heading3 text-center py-10">Produk Face Care Terlaris</div>
             <div class="list-product hide-product-sold grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 sm:gap-[30px] gap-5">
                 @foreach ($products as $item)
                     <div class="product-item grid-type style-5">
@@ -232,37 +232,109 @@
         </div>
     </div>
 
-    @include('frontend.components.banner-knowledge')
+    <div class="lookbook-block cos1 bg-surface md:py-20 py-10">
+        <div class="container lg:flex items-center">
+            <div class="heading lg:w-1/4 lg:pr-[15px] max-lg:pb-8">
+                <div class="heading3 md:pb-5 pb-3">Dapatkan Promo Bundle Kamu Disini</div>
+            </div>
+
+            <div
+                class="list-product hide-product-sold lg:w-3/4 lg:pl-[15px] grid lg:grid-cols-3 grid-cols-2 sm:gap-[30px] gap-[20px]">
+                <!-- List product -->
+                @foreach ($products as $item)
+                    <div class="product-item grid-type style-5">
+                        <a href="{{ route('shop.detail', ['slug' => $item->slug]) }}">
+                            <div class="product-main cursor-pointer block">
+                                <div class="product-thumb bg-white relative overflow-hidden rounded-2xl">
+                                    @if (
+                                        $item->sizes->pluck('discount')->filter(function ($discount) {
+                                                return $discount > 0;
+                                            })->isNotEmpty())
+                                        <div
+                                            class="product-tag text-button-uppercase text-white bg-red px-3 py-0.5 inline-block rounded-full absolute top-3 left-3 z-[1]">
+                                            Diskon
+                                        </div>
+                                    @endif
+                                    <div class="product-img w-full h-full aspect-[3/4]">
+                                        <img class="w-full h-full object-cover duration-700"
+                                            src="{{ asset('storage/' . $item->front_image) }}" alt="img" />
+                                        <img class="w-full h-full object-cover duration-700"
+                                            src="{{ asset('storage/' . $item->back_image) }}" alt="img" />
+                                    </div>
+                                </div>
+
+                                <div class="product-infor mt-4 lg:mb-7">
+                                    <div class="product-name text-title duration-300">
+                                        {{ $item->name }}
+                                        <div
+                                            class="product-price-block flex items-center gap-2 flex-wrap mt-1 duration-300 relative z-[1]">
+                                            <div class="product-price text-title">
+                                                @php
+                                                    $sizePrices = $item->sizes->pluck('price')->sort()->toArray();
+                                                    $sizeDiscounts = $item->sizes->pluck('discount')->sort()->toArray();
+
+                                                    $minPrice = $sizePrices ? min($sizePrices) : $item->price;
+                                                    $maxDiscount = $sizeDiscounts ? max($sizeDiscounts) : 0;
+
+                                                    $effectivePrice = $minPrice - $maxDiscount;
+                                                @endphp
+
+                                                @if ($effectivePrice > 0)
+                                                    Rp {{ number_format($effectivePrice, 0, ',', '.') }}
+                                                @else
+                                                    Rp {{ number_format($minPrice, 0, ',', '.') }}
+                                                @endif
+                                            </div>
+
+                                            @if ($minPrice > 0 && $maxDiscount > 0)
+                                                <div class="product-origin-price caption1 text-secondary2 line-through">
+                                                    <del>Rp {{ number_format($minPrice, 0, ',', '.') }}</del>
+                                                </div>
+                                                <div
+                                                    class="product-sale caption1 text-white font-medium bg-primary px-3 py-0.5 inline-block rounded-full">
+                                                    -{{ number_format(100 * ($maxDiscount / $minPrice), 0) }}%
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+
 
     <div class="container mt-5">
         <div class="benefit-block md:py-20 py-10">
-            <div class="list-benefit grid items-start md:grid-cols-4 grid-cols-2 gap-[30px]">
+            <div class="list-benefit grid items-start md:grid-cols-5 grid-cols-2 gap-[30px]">
                 <div class="benefit-item flex flex-col items-center justify-center">
-                    <i class="icon-double-leaves lg:text-7xl text-5xl"></i>
-                    <div class="body1 font-semibold uppercase text-center mt-5">Clean skincare</div>
-                    <div class="caption1 text-secondary text-center mt-2">Clean and natural skincare with safe and
-                        transparent ingredients</div>
+                    <img src="{{ asset('frontend/assets/images/cert/gmp-cert.png') }}" alt="GMP" class="w-1/3">
+                    <div class="body1 font-semibold uppercase text-center mt-5">GMP Certified</div>
+
                 </div>
                 <div class="benefit-item flex flex-col items-center justify-center">
-                    <i class="icon-earth lg:text-7xl text-5xl"></i>
-                    <div class="body1 font-semibold uppercase text-center mt-5">european delivery</div>
-                    <div class="caption1 text-secondary text-center mt-3">Fast delivery options with tracking No EU
-                        import
-                        duties</div>
+                    <img src="{{ asset('frontend/assets/images/cert/halal-cert.png') }}" alt="Halal" class="w-1/3">
+                    <div class="body1 font-semibold uppercase text-center mt-5">Halal Certified</div>
+
                 </div>
                 <div class="benefit-item flex flex-col items-center justify-center">
-                    <i class="icon-update lg:text-7xl text-5xl"></i>
-                    <div class="body1 font-semibold uppercase text-center mt-5">Sustainability</div>
-                    <div class="caption1 text-secondary text-center mt-3">Our signature shipping boxes are fully
-                        recyclable
-                        and biodegradable</div>
+                    <img src="{{ asset('frontend/assets/images/cert/thc-free.png') }}" alt="THC Free" class="w-1/3">
+                    <div class="body1 font-semibold uppercase text-center mt-5">THC Free</div>
+
                 </div>
                 <div class="benefit-item flex flex-col items-center justify-center">
-                    <i class="icon-user-shield lg:text-7xl text-5xl"></i>
-                    <div class="body1 font-semibold uppercase text-center mt-5">authorized retailer</div>
-                    <div class="caption1 text-secondary text-center mt-3">We are an authorized retailer for all the
-                        brands
-                        we carry</div>
+                    <img src="{{ asset('frontend/assets/images/cert/lab-tested.png') }}" alt="Lab Tested"
+                        class="w-1/3">
+                    <div class="body1 font-semibold uppercase text-center mt-5">Lab Tested</div>
+
+                </div>
+                <div class="benefit-item flex flex-col items-center justify-center">
+                    <img src="{{ asset('frontend/assets/images/cert/cruelty-cert.png') }}" alt="Cruelty"
+                        class="w-1/3">
+                    <div class="body1 font-semibold uppercase text-center mt-5">Cruelty Free</div>
                 </div>
             </div>
         </div>
@@ -274,31 +346,35 @@
                 <div class="heading3 text-center">Artikel Kami</div>
                 <div class="list grid lg:grid-cols-3 sm:grid-cols-2 md:gap-[30px] gap-4 md:mt-10 mt-6">
                     @foreach ($articles as $item)
-                    <a href="{{ route('articlebyTittle', $item->slug) }}">
-                    <div class="blog-item style-one h-full cursor-pointer" data-item="16">
-                        <div class="blog-main h-full block">
-                            <div class="blog-thumb rounded-[20px] overflow-hidden">
-                                <img src="{{ asset('storage/' . $item->images) }}" alt="{{ $item->tittle }}" class="w-full duration-500" />
-                            </div>
-                            <div class="blog-infor mt-7">
-                                @foreach ($item->tag as $t)   
-                                <div class="blog-tag bg-primary text-white py-1 px-2.5 rounded-full text-button-uppercase inline-block">
-                                    {{ $t->nama_tags }}</div>
-                                @endforeach
-                                <div class="heading6 blog-title mt-3 duration-300">{{ $item->tittle }}</div>
-                                <div class="flex items-center gap-2 mt-2">
-                                    <div class="blog-date caption1 text-secondary">{{ $item->created_at->format('M d, Y') }}</div>
+                        <a href="{{ route('articlebyTittle', $item->slug) }}">
+                            <div class="blog-item style-one h-full cursor-pointer" data-item="16">
+                                <div class="blog-main h-full block">
+                                    <div class="blog-thumb rounded-[20px] overflow-hidden">
+                                        <img src="{{ asset('storage/' . $item->images) }}" alt="{{ $item->tittle }}"
+                                            class="w-full duration-500" />
+                                    </div>
+                                    <div class="blog-infor mt-7">
+                                        @foreach ($item->tag as $t)
+                                            <div
+                                                class="blog-tag bg-primary text-white py-1 px-2.5 rounded-full text-button-uppercase inline-block">
+                                                {{ $t->nama_tags }}</div>
+                                        @endforeach
+                                        <div class="heading6 blog-title mt-3 duration-300">{{ $item->tittle }}</div>
+                                        <div class="flex items-center gap-2 mt-2">
+                                            <div class="blog-date caption1 text-secondary">
+                                                {{ $item->created_at->format('M d, Y') }}</div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    </a>
+                        </a>
                     @endforeach
                 </div>
             </div>
         </div>
     </div>
 
+    @include('frontend.components.banner-knowledge-2')
 
-@include('frontend.components.modal-landing')
+    @include('frontend.components.modal-landing')
 @endsection
