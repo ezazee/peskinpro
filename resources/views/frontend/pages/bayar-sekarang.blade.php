@@ -107,11 +107,11 @@
 
                     <!-- Checkout Button with form submission -->
                     <button type="submit"
-                        class="checkout-btn button-main text-center w-full bg-green-600 text-white font-semibold rounded-md px-5 py-3">
+                        class="checkout-btn button-main text-center w-full bg-green-600 text-white font-semibold rounded-md px-5 mt-3 py-3">
                         Selesaikan Pembayaran
                     </button>
                     <div class="text-center mt-3 text-sm text-gray-500">
-                        Dengan melanjutkan, kamu menyetujui <a href="#" class="text-primary underline">S&K</a>.
+                        Dengan melanjutkan, kamu menyetujui <a href="#" class="text-primary underline">S&K Return & Refunds</a>.
                     </div>
                     </form>
                 </div>
