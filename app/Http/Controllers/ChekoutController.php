@@ -15,6 +15,7 @@ use App\Models\Invoice;
 use App\Models\Shipping;
 use App\Models\ProductSize;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 
 class ChekoutController extends Controller
@@ -72,7 +73,8 @@ class ChekoutController extends Controller
                 ->with(['user', 'alamat', 'products', 'invoice', 'shipping']) 
                 ->orderBy('created_at', 'desc')
                 ->first();
-        $subtotal = $orders->products->sum(function ($product) {
+                
+                    $subtotal = $orders->products->sum(function ($product) {
                     return $product->pivot->harga;
                 });
         return view('frontend.pages.bayar-sekarang', compact('user', 'orders','invoice','subtotal'));
@@ -80,6 +82,16 @@ class ChekoutController extends Controller
 
     public function processpayment(Request $request)
     {
+        if (is_null($request->alamat_id) || $request->alamat_id == '') {
+            Alert::toast('Tambahkan alamat terlebih dahulu!!', 'warning');
+            return redirect()->route('profile.address')->with('error', 'Tambahkan alamat terlebih dahulu!!');
+        }
+    
+        if (is_null($request->total_amount) || $request->total_amount == '') {
+            Alert::toast('Tunggu sampai ongkir muncul', 'warning');
+            return redirect()->route('cart.index')->with('error', 'Alamat tidak ada');
+        }
+
         $userId = Auth::id();
         $total_amount = $request->total_amount;
         $alamatId = $request->alamat_id;
@@ -147,7 +159,10 @@ class ChekoutController extends Controller
         if ($cart) {
             $cart->items()->delete();
         }
-        return view('frontend.pages.payment',compact('user','order','shipping','subtotal'));
+        $invoice_number = $invoice->invoice_number;
+        
+        return redirect()->route('payment', ['invoice_number' => $invoice_number])
+        ->with(compact('user', 'order', 'shipping', 'subtotal'));
     }
 
     public function pembayaran(Request $request, $invoice_number)
@@ -165,13 +180,22 @@ class ChekoutController extends Controller
                     ->take(4)
                     ->get();
 
-        if ($request->hasFile('payment')) {
+        $request->validate([
+            'payment' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ], [
+            'payment.required' => 'Mohon isi bukti pembayaran.',
+            'payment.image' => 'File yang diunggah harus berupa gambar.',
+            'payment.mimes' => 'Gambar harus berformat jpeg, png, jpg, atau gif.',
+        ]);
+
+        if($request->hasFile('payment')) {
             $payment = $request->file('payment')->store('payment_image', 'public');
-            
+
             $invoice->update([
                 'bukti_tf' => $payment,
             ]);
         }
+
         return redirect()->route('profile.index')->with(['user' => $user, 'orders' => $orders]);
     }
     

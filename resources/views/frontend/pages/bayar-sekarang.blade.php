@@ -59,6 +59,15 @@
                                                         File</label>
                                                         <input type="file" name="payment" id="uploadImage" class="caption2 cursor-pointer w-full" onchange="previewImage(event)" />
                                                 </div>
+                                                @if ($errors->any())
+                                                    <div class="alert text-sm text-red">
+                                                        <ul>
+                                                            @foreach ($errors->all() as $error)
+                                                                <li>{{ $error }}</li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
+                                                @endif
                                             </div>
 
                                             <div class="bg_img flex-shrink-0 relative w-full rounded-lg overflow-hidden bg-surface mt-5">
@@ -94,18 +103,17 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Terms & Conditions Text -->
+
                     <!-- Checkout Button with form submission -->
                     <button type="submit"
                         class="checkout-btn button-main text-center w-full bg-green-600 text-white font-semibold rounded-md px-5 py-3">
                         Selesaikan Pembayaran
                     </button>
-                    </form>
-
-                    <!-- Terms & Conditions Text -->
                     <div class="text-center mt-3 text-sm text-gray-500">
-                        Dengan melanjutkan, kamu menyetujui <a href="#" class="text-primary underline">S&K
-                            Asuransi & Proteksi</a>.
+                        Dengan melanjutkan, kamu menyetujui <a href="#" class="text-primary underline">S&K</a>.
                     </div>
+                    </form>
                 </div>
             </div>
         </div>

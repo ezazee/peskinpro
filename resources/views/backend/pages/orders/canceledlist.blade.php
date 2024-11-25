@@ -1,6 +1,6 @@
 @extends('backend.master.master-app')
 
-@section('title', 'List Processing Orders')
+@section('title', 'List Canceled Orders')
 
 @section('content')
 <!-- Start Container Fluid -->
@@ -11,7 +11,7 @@
                 <div class="card-header d-flex justify-content-between align-items-center gap-1">
                     <h4 class="card-title">All Order List</h4>
 
-                    <form action="{{ route('orders.shippinglist') }}" method="GET" class="d-flex align-items-center me-2">
+                    <form action="{{ route('orders.canceledlist') }}" method="GET" class="d-flex align-items-center me-2">
                         <input type="text" name="query" class="form-control form-control-sm" 
                                placeholder="Search Order Number..." 
                                value="{{ request('query') }}">
