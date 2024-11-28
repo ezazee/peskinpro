@@ -74,7 +74,7 @@
             <div class="heading flex items-center justify-between gap-5 flex-wrap">
                 <div class="left flex items-center gap-6 gap-y-3 flex-wrap">
                     <div class="heading3">Big Flash Sale</div>
-                    <div class="countdown-time bg-primary py-1 px-5 rounded-lg" data-timer="{{ $timerFlashsale }}">
+                    <div class="countdown-time bg-primary py-1 px-5 rounded-lg" data-timer="{{ $timerFlashsale ?? '' }}">
                     <div class="heading6 text-white">
                         <span class="countdown-day time">00</span> :
                         <span class="countdown-hour time">00</span> :
