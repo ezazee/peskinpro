@@ -15,6 +15,8 @@ class Alamat extends Model
         'label',
         'province_id',
         'city_id',
+        'kecamatan',
+        'kelurahan',
         'street',
         'postal_code',
         'no_telp',

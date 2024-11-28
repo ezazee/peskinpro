@@ -123,16 +123,41 @@
                                     </td>
                                     <td>
                                         <div class="d-flex gap-2">
+                                            <a href="{{ route('receipt.show', $item->id) }}" 
+                                                target="_blank" 
+                                                class="btn btn-light btn-sm">
+                                                 <iconify-icon icon="solar:printer-2-broken" class="align-middle fs-18"></iconify-icon>
+                                             </a>                                             
                                             <a href="{{ route('orders.detail',['orderNumber' => $item->order_number]) }}"
                                                 class="btn btn-light btn-sm">
                                                 <iconify-icon icon="solar:eye-broken" class="align-middle fs-18">
                                                 </iconify-icon>
                                             </a>
                                             @if( $item->invoice && $item->status === 'processing' )
-                                            <form action="{{ route('order.delivered', $item->id) }}" method="POST" style="display: inline;">
-                                                @csrf
-                                                <button type="submit" class="btn btn-light btn-sm"><iconify-icon icon="solar:skip-next-bold"></iconify-icon></button>
-                                            </form>
+                                            <button type="button" class="btn btn-light btn-sm" data-bs-toggle="modal" data-bs-target="#NextModal" ><iconify-icon icon="solar:skip-next-bold"></iconify-icon></button>
+                                            {{-- modal --}}
+                                            <div class="modal fade" id="NextModal" tabindex="-1" aria-labelledby="NextModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                  <div class="modal-content">
+                                                    <div class="modal-header">
+                                                      <h5 class="modal-title" id="NextModalLabel">No Resi</h5>
+                                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <form action="{{ route('order.delivered', $item->id) }}" method="POST" style="display: inline;">
+                                                        @csrf
+                                                    <div class="modal-body">
+                                                        <div class="mb-3">
+                                                          <label for="recipient-name" class="col-form-label">No Resi:</label>
+                                                          <input type="text" class="form-control" name="tracking_number">
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                      <button type="submit" class="btn btn-primary">Send</button>
+                                                    </div>
+                                                </form>
+                                                  </div>
+                                                </div>
+                                              </div>
                                             @endif
                                         </div>
                                     </td>

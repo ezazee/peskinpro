@@ -228,67 +228,17 @@
                                 </table>
                             </div>
                         </div>
-
-                        <form action="{{ route('pos_order') }}" method="POST">
-                            @csrf
-                            <input type="text" name="total_amount" value="{{ $total }}" hidden>
-
-                            <div class="block-section payment-method">
-                                <h6>Payment Method</h6>
-                                <div class="row d-flex align-items-center justify-content-center methods">
-                                    <div class="col-md-6 col-lg-4 item mb-3">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="payment_method" id="cash" value="cash" checked>
-                                            <label class="form-check-label d-flex align-items-center" for="cash">
-                                                <img src="{{ asset('backend/pos/img/icons/cash-pay.svg') }}" alt="Payment Method" class="me-2"
-                                                    style="width: 30px; height: 30px;">
-                                                Cash
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-lg-4 item mb-3">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="payment_method" id="transfer" value="transfer">
-                                            <label class="form-check-label d-flex align-items-center" for="transfer">
-                                                <img src="{{ asset('backend/pos/img/icons/credit-card.svg') }}" alt="Payment Method" class="me-2"
-                                                    style="width: 30px; height: 30px;">
-                                                Transfer
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-lg-4 item mb-3">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="payment_method" id="qris" value="qris">
-                                            <label class="form-check-label d-flex align-items-center" for="qris">
-                                                <img src="{{ asset('backend/pos/img/icons/qr-scan.svg') }}" alt="Payment Method" class="me-2"
-                                                    style="width: 30px; height: 30px;">
-                                                Qris
-                                            </label>
-                                        </div>
-                                    </div>
-                                    
-                                </div>
+                        <div class="block-section payment-method">
+                            <h6>Payment Method</h6>
+                            <div class="btn-row d-sm-flex align-items-center justify-content-between">
+                                <a href="javascript:void(0);" class="btn btn-primary btn-icon flex-fill" data-bs-toggle="modal" data-bs-target="#hold-order"><span class="me-1 d-flex align-items-center"><img src="{{ asset('backend/pos/img/icons/cash-pay.svg') }}" alt="Payment Method" class="me-2"
+                                    style="width: 30px; height: 30px;"></span>Cash</a>
+                                <a href="javascript:void(0);" class="btn btn-secondary btn-icon flex-fill" data-bs-toggle="modal" data-bs-target="#transfer"><span class="me-1 d-flex align-items-center"><img src="{{ asset('backend/pos/img/icons/credit-card.svg') }}" alt="Payment Method" class="me-2"
+                                    style="width: 30px; height: 30px;"></span>Transfer</a>
+                                <a href="javascript:void(0);" class="btn btn-success btn-icon flex-fill" data-bs-toggle="modal" data-bs-target="#qris"><span class="me-1 d-flex align-items-center">   <img src="{{ asset('backend/pos/img/icons/qr-scan.svg') }}" alt="Payment Method" class="me-2"
+                                    style="width: 30px; height: 30px;"></span>Qris</a>
                             </div>
-
-                            @foreach ($cartItems as $item)
-                                <input type="hidden" name="products[{{ $loop->index }}][id]"
-                                    value="{{ $item->product_id }}">
-                                <input type="hidden" name="products[{{ $loop->index }}][quantity]"
-                                    value="{{ $item->quantity }}">
-                                <input type="hidden" name="products[{{ $loop->index }}][sizeid]"
-                                    value="{{ $item->productSize->id }}">
-                                <input type="hidden" name="products[{{ $loop->index }}][harga]"
-                                    value="{{ $item->productSize->price - $item->productSize->discount }}">
-                                <input type="hidden" name="products[{{ $loop->index }}][discount]"
-                                    value="{{ $item->productSize->discount }}">
-                            @endforeach
-
-                            <div class="d-grid btn-block">
-                                <button class="btn btn-success">
-                                    Payment Grand Total : {{ number_format($total, 0, ',', '.') }}
-                                </button>
-                            </div>
-                        </form>
+                        </div>
 
                     </aside>
                 </div>
@@ -297,125 +247,6 @@
 
     </div>
     <!-- /Main Wrapper -->
-
-    <!-- Print Receipt -->
-    <div class="modal fade modal-default" id="print-receipt" aria-labelledby="print-receipt">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="d-flex justify-content-end">
-                    <button type="button" class="close p-0" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="icon-head text-center">
-                        <a href="javascript:void(0);">
-                            <img src="assets/img/logo.png" width="100" height="30" alt="Receipt Logo">
-                        </a>
-                    </div>
-                    <div class="text-center info text-center">
-                        <h6>Dreamguys Technologies Pvt Ltd.,</h6>
-                        <p class="mb-0">Phone Number: +1 5656665656</p>
-                        <p class="mb-0">Email: <a
-                                href="/cdn-cgi/l/email-protection#6c09140d011c00092c0b010d0500420f0301"><span
-                                    class="__cf_email__"
-                                    data-cfemail="016479606c716d6441666c60686d2f626e6c">[email&nbsp;protected]</span></a>
-                        </p>
-                    </div>
-                    <div class="tax-invoice">
-                        <h6 class="text-center">Tax Invoice</h6>
-                        <div class="row">
-                            <div class="col-sm-12 col-md-6">
-                                <div class="invoice-user-name"><span>Name: </span><span>John Doe</span></div>
-                                <div class="invoice-user-name"><span>Invoice No: </span><span>CS132453</span></div>
-                            </div>
-                            <div class="col-sm-12 col-md-6">
-                                <div class="invoice-user-name"><span>Customer Id: </span><span>#LL93784</span></div>
-                                <div class="invoice-user-name"><span>Date: </span><span>01.07.2022</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <table class="table-borderless w-100 table-fit">
-                        <thead>
-                            <tr>
-                                <th># Item</th>
-                                <th>Price</th>
-                                <th>Qty</th>
-                                <th class="text-end">Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1. Red Nike Laser</td>
-                                <td>$50</td>
-                                <td>3</td>
-                                <td class="text-end">$150</td>
-                            </tr>
-                            <tr>
-                                <td>2. Iphone 14</td>
-                                <td>$50</td>
-                                <td>2</td>
-                                <td class="text-end">$100</td>
-                            </tr>
-                            <tr>
-                                <td>3. Apple Series 8</td>
-                                <td>$50</td>
-                                <td>3</td>
-                                <td class="text-end">$150</td>
-                            </tr>
-                            <tr>
-                                <td colspan="4">
-                                    <table class="table-borderless w-100 table-fit">
-                                        <tbody>
-                                            <tr>
-                                                <td>Sub Total :</td>
-                                                <td class="text-end">$700.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Discount :</td>
-                                                <td class="text-end">-$50.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Shipping :</td>
-                                                <td class="text-end">0.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Tax (5%) :</td>
-                                                <td class="text-end">$5.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Total Bill :</td>
-                                                <td class="text-end">$655.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Due :</td>
-                                                <td class="text-end">$0.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Total Payable :</td>
-                                                <td class="text-end">$655.00</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="text-center invoice-bar">
-                        <p>**VAT against this challan is payable through central registration. Thank you for your
-                            business!</p>
-                        <a href="javascript:void(0);">
-                            <img src="assets/img/barcode/barcode-03.jpg" alt="Barcode">
-                        </a>
-                        <p>Sale 31</p>
-                        <p>Thank You For Shopping With Us. Please Come Again</p>
-                        <a href="javascript:void(0);" class="btn btn-primary">Print Receipt</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /Print Receipt -->
 
 
     <!-- Recent Transactions -->
@@ -474,6 +305,173 @@
     </div>
     <!-- /Recent Transactions -->
 
+
+        {{-- cash modal --}}
+		<div class="modal fade modal-default pos-modal" id="hold-order" aria-labelledby="hold-order">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header p-4">
+						<h5>Cash order</h5>
+						<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+                    <div class="modal-body p-4">
+                        <form id="payment-form" action="{{ route('pos_order') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="total_amount" value="{{ $subtotal }}">
+                            <input type="hidden" name="payment_method" value="cash"> 
+                            <input type="hidden" name="kembali" id="kembalian-hidden">
+
+                            @foreach ($cartItems as $item)
+                                <input type="hidden" name="products[{{ $loop->index }}][id]"
+                                    value="{{ $item->product_id }}">
+                                <input type="hidden" name="products[{{ $loop->index }}][quantity]"
+                                    value="{{ $item->quantity }}">
+                                <input type="hidden" name="products[{{ $loop->index }}][sizeid]"
+                                    value="{{ $item->productSize->id }}">
+                                <input type="hidden" name="products[{{ $loop->index }}][harga]"
+                                    value="{{ $item->productSize->price - $item->productSize->discount }}">
+                                <input type="hidden" name="products[{{ $loop->index }}][discount]"
+                                    value="{{ $item->productSize->discount }}">
+                            @endforeach
+
+                            <h6>Harga Total :</h6>
+                            <h2 class="text-center p-4" id="subtotal">Rp{{ number_format($subtotal, 0, ',', '.') }}</h2>
+                            <h6>Kembalian : </h6>
+                            <h2 class="text-center p-4" id="kembalian">Rp0</h2>
+                    
+                            <div class="input-block">
+                                <label>Order Reference</label>
+                                <input class="form-control" id="uang-diberikan" type="number" placeholder="Uang yang diberikan" />
+                            </div>
+                            <div class="modal-footer d-sm-flex justify-content-end">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Confirm</button>
+                            </div>
+                        </form>
+                    </div>
+				</div>
+			</div>
+		</div>
+        {{-- end cash modal --}}
+
+        {{-- transfer modal --}}
+		<div class="modal fade modal-default pos-modal" id="transfer" aria-labelledby="transfer">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header p-4">
+						<h5>Transfer Order</h5>
+						<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+                    <div class="modal-body p-4">
+                        <form id="payment-form" action="{{ route('pos_order') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="total_amount" value="{{ $subtotal }}">
+                            <input type="hidden" name="payment_method" value="transfer"> 
+
+                            @foreach ($cartItems as $item)
+                                <input type="hidden" name="products[{{ $loop->index }}][id]"
+                                    value="{{ $item->product_id }}">
+                                <input type="hidden" name="products[{{ $loop->index }}][quantity]"
+                                    value="{{ $item->quantity }}">
+                                <input type="hidden" name="products[{{ $loop->index }}][sizeid]"
+                                    value="{{ $item->productSize->id }}">
+                                <input type="hidden" name="products[{{ $loop->index }}][harga]"
+                                    value="{{ $item->productSize->price - $item->productSize->discount }}">
+                                <input type="hidden" name="products[{{ $loop->index }}][discount]"
+                                    value="{{ $item->productSize->discount }}">
+                            @endforeach
+
+                            <h6>Harga Total :</h6>
+                            <h2 class="text-center p-4" id="subtotal">Rp{{ number_format($subtotal, 0, ',', '.') }}</h2>
+                    
+                            <div class="input-block">
+                                <label>Kode Unik Pembayaran</label>
+                                <input class="form-control" type="text" name="kode_bayar" placeholder="Kode Unik Pembayaran" />
+                            </div>
+                            <div class="modal-footer d-sm-flex justify-content-end">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Confirm</button>
+                            </div>
+                        </form>
+                    </div>
+				</div>
+			</div>
+		</div>
+        {{-- end transfer modal --}}
+
+
+          {{-- qris  modal --}}
+		<div class="modal fade modal-default pos-modal" id="qris" aria-labelledby="qris">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header p-4">
+						<h5>Qris Order</h5>
+						<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+                    <div class="modal-body p-4">
+                        <form id="payment-form" action="{{ route('pos_order') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="total_amount" value="{{ $subtotal }}">
+                            <input type="hidden" name="payment_method" value="qris"> 
+
+                            @foreach ($cartItems as $item)
+                                <input type="hidden" name="products[{{ $loop->index }}][id]"
+                                    value="{{ $item->product_id }}">
+                                <input type="hidden" name="products[{{ $loop->index }}][quantity]"
+                                    value="{{ $item->quantity }}">
+                                <input type="hidden" name="products[{{ $loop->index }}][sizeid]"
+                                    value="{{ $item->productSize->id }}">
+                                <input type="hidden" name="products[{{ $loop->index }}][harga]"
+                                    value="{{ $item->productSize->price - $item->productSize->discount }}">
+                                <input type="hidden" name="products[{{ $loop->index }}][discount]"
+                                    value="{{ $item->productSize->discount }}">
+                            @endforeach
+
+                            <h6>Harga Total :</h6>
+                            <h2 class="text-center p-4" id="subtotal">Rp{{ number_format($subtotal, 0, ',', '.') }}</h2>
+                    
+                            <div class="input-block">
+                                <label>Kode Unik Pembayaran</label>
+                                <input class="form-control" type="text" name="kode_bayar" placeholder="Kode Unik Pembayaran" />
+                            </div>
+                            <div class="modal-footer d-sm-flex justify-content-end">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Confirm</button>
+                            </div>
+                        </form>
+                    </div>
+				</div>
+			</div>
+		</div>
+        {{-- end qris modal --}}
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const subtotalElement = document.getElementById("subtotal");
+            const uangDiberikanInput = document.getElementById("uang-diberikan");
+            const kembalianElement = document.getElementById("kembalian");
+            const kembalianHiddenInput = document.getElementById("kembalian-hidden");
+    
+            const subtotal = parseInt("{{ $subtotal }}", 10);
+    
+            uangDiberikanInput.addEventListener("input", () => {
+                const uangDiberikan = parseInt(uangDiberikanInput.value, 10) || 0;
+                const kembalian = uangDiberikan - subtotal;
+    
+                const formattedKembalian = kembalian >= 0 ? kembalian.toLocaleString() : "0";
+                kembalianElement.textContent = formattedKembalian;
+    
+                kembalianHiddenInput.value = kembalian >= 0 ? kembalian : 0;
+            });
+        });
+    </script>
+    
     <!-- jQuery -->
     {{-- <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script> --}}
     <script src="{{ asset('backend/pos/js/jquery-3.7.1.min.js') }}"></script>

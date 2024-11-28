@@ -68,6 +68,8 @@ class ProfileController extends Controller
             'province_id' => $request->province,
             'city_id' => $request->city_destination,
             'street' => $request->street,
+            'kecamatan' => $request->kecamatan,
+            'kelurahan' => $request->kelurahan,
             'no_telp' => $request->no_telp,
             'postal_code' => $request->postalcode,
             'default' => $isDefault,
@@ -171,6 +173,8 @@ class ProfileController extends Controller
             'province_id' => $request->province,
             'city_id' => $request->city_destination,
             'street' => $request->street,
+            'kecamatan' => $request->kecamatan,
+            'kelurahan' => $request->kelurahan,
             'postal_code' => $request->postal_code,
             'no_telp' => $request->no_telp,
         ]);

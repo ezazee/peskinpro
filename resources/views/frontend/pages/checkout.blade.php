@@ -199,7 +199,7 @@
 
                         <!-- Checkbox for Terms -->
                         <div class="flex justify-center items-center gap-2 mt-3">
-                            <input type="checkbox" id="termsCheckbox" class="h-5 w-5">
+                            <input type="checkbox" id="termsCheckbox" class="h-5 w-5" checked>
                             <label for="termsCheckbox" class="text-sm text-gray-500">
                                 Dengan melanjutkan, kamu menyetujui
                                 <a href="#" class="text-primary underline">S&K Return & Refunds</a>.

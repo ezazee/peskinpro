@@ -10,6 +10,7 @@ use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Order;
 use App\Models\Returned;
+use App\Models\Shipping;
 use App\Models\ProductSize;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -249,10 +250,13 @@ class OrdersController extends Controller
 
 
     public function pos_order(Request $request){
-
         $userId = Auth::id();
         $total_amount = $request->total_amount;
         $paymentMethod = $request->payment_method;
+        $kembali = $request->kembali;
+        $kode_bayar = $request->kode_bayar;
+
+
 
         if (empty($request->products) || count($request->products) === 0) {
             Alert::warning('Note', 'Please select the product first!');
@@ -264,6 +268,8 @@ class OrdersController extends Controller
             'order_number' => 'ORD' . strtoupper(uniqid()),
             'total_amount' => $total_amount,
             'status' => 'completed',
+            'kembali' => $kembali,
+            'kode_bayar' => $kode_bayar,
             'payment_method' => $paymentMethod,
         ]);
 
@@ -332,15 +338,34 @@ class OrdersController extends Controller
         return redirect()->back()->with('success', 'Order and payment status updated successfully.');
     }
 
-    public function delivered(Order $order)
+    public function delivered(Order $order, Request $request)
     {
+        $request->validate([
+            'tracking_number' => 'required|string|max:255',
+        ]);
+    
+        $tracking_number = $request->tracking_number;
+    
+        $shipping = $order->shipping()->first();
+    
+        if ($shipping) {
+            $shipping->update([
+                'tracking_number' => $tracking_number,
+            ]);
+        } else {
+            $order->shipping()->create([
+                'tracking_number' => $tracking_number,
+            ]);
+        }
+    
         $order->update([
             'status' => 'shipping',
         ]);
-        Alert::success('Success', 'Orders to Shipping!');
+    
+        Alert::success('Success', 'Order is now in Shipping status!');
         return redirect()->back()->with('success', 'Order and payment status updated successfully.');
     }
-
+    
 
     // return and refund
     public function returnrefundlist(Request $request){
@@ -406,4 +431,12 @@ class OrdersController extends Controller
         return view('backend.pages.return.listrefund',compact('welcomeMessage','user','orders'));
     }
     
+
+    public function showReceipt($orderId)
+    {
+        $order = Order::with(['user', 'products', 'alamat'])->findOrFail($orderId);
+        // dd($order);
+        return view('backend.pages.invoice.label', compact('order'));
+    }
+
 }
