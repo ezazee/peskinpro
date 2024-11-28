@@ -11,33 +11,67 @@
                         <div class="list-payment mt-5">
 
                             <!-- VA BCA (A/N Reza) - Selalu Terbuka -->
-                            <div class="type bg-surface p-5 border border-line rounded-lg open">
-                                <h1 class="text-button pl-2">VA BCA (A/N Reza)</h1>
-                                <div class="infor">
-                                    <div class="row">
-                                        <div class="col-12 mt-3 relative">
-                                            <input class="cursor-pointer border-line px-4 py-3 w-full rounded mt-2 "
-                                                type="text" id="cardNumberCredit" placeholder="ex.1234567290" readonly
-                                                value="1234567890" />
-                                            <button style="margin-top: 5px" onclick="copyToClipboard()"
-                                                class="copy-btn bg-primary text-white px-4 py-2 rounded absolute right-2 top-1/2 transform -translate-y-1/2">
-                                                Copy
-                                            </button>
+                            <div class="type bg-surface p-5 border border-line rounded-lg">
+                                <!-- Accordion #1 -->
+                                <div class="accordion-item">
+                                    <h1 class="accordion-header text-button pl-2 cursor-pointer" onclick="toggleAccordion('accordion1')">
+                                        VA BCA (A/N Reza)
+                                    </h1>
+                                    <div id="accordion1" class="accordion-content p-4 hidden">
+                                        <div class="row">
+                                            <div class="col-12 mt-3 relative">
+                                                <input class="cursor-pointer border-line px-4 py-3 w-full rounded mt-2"
+                                                    type="text" id="cardNumberCredit1" placeholder="ex.1234567290" readonly
+                                                    value="1234567890" />
+                                                <button style="margin-top: 5px" onclick="copyToClipboard('cardNumberCredit1')"
+                                                    class="copy-btn bg-primary text-white px-4 py-2 rounded absolute right-2 top-1/2 transform -translate-y-1/2">
+                                                    Copy
+                                                </button>
+                                            </div>
+                                            <div class="type bg-surface p-5 border border-line rounded-lg mt-5">
+                                                <h2 class="text-button pl-2">Cara Pembayaran</h2>
+                                                <ul class="ul-tutor-bayar pl-6 mt-3">
+                                                    <li>Buka aplikasi mobile banking atau internet banking Anda.</li>
+                                                    <li>Pilih menu <strong>Transfer</strong> atau <strong>Transfer ke VA</strong>.</li>
+                                                    <li>Masukkan nomor Virtual Account: <span class="font-semibold">1234567890</span>.</li>
+                                                    <li>Masukkan jumlah pembayaran sesuai total tagihan Anda.</li>
+                                                    <li>Konfirmasi dan selesaikan pembayaran.</li>
+                                                    <li>Setelah pembayaran selesai, simpan bukti transaksi sebagai bukti pembayaran telah berhasil.</li>
+                                                </ul>
+                                            </div>
                                         </div>
-                                        <!-- Box Step-by-Step Pembayaran -->
-                                        <div class="type bg-surface p-5 border border-line rounded-lg mt-5">
-                                            <h2 class="text-button pl-2">Cara Pembayaran</h2>
-                                            <ul class="ul-tutor-bayar pl-6 mt-3">
-                                                <li>Buka aplikasi mobile banking atau internet banking Anda.</li>
-                                                <li>Pilih menu <strong>Transfer</strong> atau <strong>Transfer ke
-                                                        VA</strong>.</li>
-                                                <li>Masukkan nomor Virtual Account: <span
-                                                        class="font-semibold">1234567890</span>.</li>
-                                                <li>Masukkan jumlah pembayaran sesuai total tagihan Anda.</li>
-                                                <li>Konfirmasi dan selesaikan pembayaran.</li>
-                                                <li>Setelah pembayaran selesai, simpan bukti transaksi sebagai
-                                                    bukti pembayaran telah berhasil.</li>
-                                            </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="type bg-surface p-5 border border-line rounded-lg">
+                                <!-- Accordion #2 -->
+                                <div class="accordion-item">
+                                    <h1 class="accordion-header text-button pl-2 cursor-pointer" onclick="toggleAccordion('accordion2')">
+                                        VA Mandiri (A/N Reza)
+                                    </h1>
+                                    <div id="accordion2" class="accordion-content p-4 hidden">
+                                        <div class="row">
+                                            <div class="col-12 mt-3 relative">
+                                                <input class="cursor-pointer border-line px-4 py-3 w-full rounded mt-2"
+                                                    type="text" id="cardNumberCredit2" placeholder="ex.9876543210" readonly
+                                                    value="9876543210" />
+                                                <button style="margin-top: 5px" onclick="copyToClipboard('cardNumberCredit2')"
+                                                    class="copy-btn bg-primary text-white px-4 py-2 rounded absolute right-2 top-1/2 transform -translate-y-1/2">
+                                                    Copy
+                                                </button>
+                                            </div>
+                                            <div class="type bg-surface p-5 border border-line rounded-lg mt-5">
+                                                <h2 class="text-button pl-2">Cara Pembayaran</h2>
+                                                <ul class="ul-tutor-bayar pl-6 mt-3">
+                                                    <li>Buka aplikasi mobile banking atau internet banking Anda.</li>
+                                                    <li>Pilih menu <strong>Transfer</strong> atau <strong>Transfer ke VA</strong>.</li>
+                                                    <li>Masukkan nomor Virtual Account: <span class="font-semibold">9876543210</span>.</li>
+                                                    <li>Masukkan jumlah pembayaran sesuai total tagihan Anda.</li>
+                                                    <li>Konfirmasi dan selesaikan pembayaran.</li>
+                                                    <li>Setelah pembayaran selesai, simpan bukti transaksi sebagai bukti pembayaran telah berhasil.</li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -127,6 +161,22 @@
             output.src = reader.result;
         };
         reader.readAsDataURL(event.target.files[0]);
+    }
+</script>
+<script>
+    // Toggle Accordion Function
+    function toggleAccordion(id) {
+        const accordion = document.getElementById(id);
+        accordion.classList.toggle('hidden');
+    }
+
+    // Copy to Clipboard Function
+    function copyToClipboard(inputId) {
+        const input = document.getElementById(inputId);
+        input.select();
+        input.setSelectionRange(0, 99999); // For mobile devices
+        navigator.clipboard.writeText(input.value);
+        alert('Nomor Virtual Account berhasil disalin!');
     }
 </script>
 @endsection

@@ -81,10 +81,10 @@
 
                                         <!-- Button for additional product -->
                                         <div class="prd_item flex justify-center py-5 border-b border-line">
-                                            <button
-                                                class="historyOrderButton bg-light-primary text-primary font-semibold rounded-md px-5 py-2 w-full text-center hover:bg-blue-700">
+                                            <a href="/detail-order"
+                                                class="bg-light-primary text-primary font-semibold rounded-md px-5 py-2 w-full text-center hover:bg-blue-700">
                                                 +1 Produk Lainnya
-                                            </button>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>

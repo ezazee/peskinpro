@@ -109,6 +109,16 @@ class ProfileController extends Controller
         return view('frontend.pages.profile.recent-order', compact('user', 'orders', 'activeTab'));
     }
 
+    public function detail_order() {
+        $user = Auth::user();
+        $orders = Order::where('user_id', $user->id)
+            ->with(['user', 'alamat', 'products', 'invoice', 'shipping'])
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+        $activeTab = 'all'; // Default tab
+        return view('frontend.pages.detail-order', compact('user', 'orders', 'activeTab'));
+    }
+
 
     public function update(Request $request, $id)
     {

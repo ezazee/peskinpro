@@ -14,7 +14,6 @@
     width: 100%;
     height: auto;
     object-fit: cover;
-    object-position: center; /* Posisikan gambar jika ukuran tidak proporsional */
+    object-position: center;
 }
-
 </style>
