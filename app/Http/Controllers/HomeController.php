@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Banner;
 use App\Models\Product;
 use App\Models\Article;
+use App\Models\Settings;
 
 
 class HomeController extends Controller
@@ -22,8 +23,11 @@ class HomeController extends Controller
         ->orderby('id', 'desc')
         ->take(3)
         ->get();
-    
+        $settings = Settings::all();
+        $timerFlashsale = Settings::first()->timer_flashsale;
+
+        // dd($settings);
         $products = Product::with('category','sizes')->orderby('created_at', 'desc')->get();
-        return view('frontend.index',compact('banners','productsfacialcare','products','articles'));
+        return view('frontend.index',compact('banners','productsfacialcare','products','articles','settings','timerFlashsale'));
     }
 }

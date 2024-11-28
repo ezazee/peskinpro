@@ -4,10 +4,16 @@
     {{-- Flash Sale Promotion --}}
     <section id="flashSaleProduct" class="flash-sale-block md:py-20 py-4 relative overflow-hidden">
         <!-- Background Image -->
+        @foreach ($settings as $item)
+        @if (!empty($item->bg_flashsale))
         <div class="bg-img absolute top-0 left-0 w-full h-full z-[-1] opacity-80">
-            <img src="https://watermark.lovepik.com/photo/40011/6653.jpg_wh1200.jpg" alt="PE Skin Professional"
+            <img src="{{ asset('storage/'. $item->bg_flashsale) }}" alt="PE Skin Professional"
                 class="w-full h-full object-cover" />
         </div>
+        @else
+
+        @endif
+        @endforeach
         <!-- Main Container -->
         <div
             class="container flex flex-col md:flex-row items-center justify-between max-sm:justify-center relative w-full lg:w-2/3 px-4 py-8 md:px-8">
@@ -15,30 +21,32 @@
             <div class="text-content md:basis-1/2 flex flex-col items-center text-center px-8 py-10 order-1 md:order-none">
                 <h2 class="heading1 text-bold text-primary">FLASH SALE</h2>
                 <p class="body2 mt-3">Dapatkan 50% Potongan Harga!!</p>
-                <div class="countdown-time flex items-center gap-3 max-sm:gap-2 lg:mt-9 md:mt-6 mt-4">
+                <!-- Tambahkan data-timer dengan nilai dari database -->
+                <div class="countdown-time flex items-center gap-3 max-sm:gap-2 lg:mt-9 md:mt-6 mt-4" data-timer="{{ $timerFlashsale ?? '' }}">
                     <div class="item flex flex-col items-center">
-                        <div class="countdown-day time heading1">12</div>
+                        <div class="countdown-day time heading1">00</div>
                         <div class="text-button-uppercase font-medium">Hari</div>
                     </div>
                     <span class="heading4">:</span>
                     <div class="item flex flex-col items-center">
-                        <div class="countdown-hour time heading1">21</div>
+                        <div class="countdown-hour time heading1">00</div>
                         <div class="text-button-uppercase font-medium">Jam</div>
                     </div>
                     <span class="heading4">:</span>
                     <div class="item flex flex-col items-center">
-                        <div class="countdown-minute time heading1">43</div>
+                        <div class="countdown-minute time heading1">00</div>
                         <div class="text-button-uppercase font-medium">Menit</div>
                     </div>
                     <span class="heading4">:</span>
                     <div class="item flex flex-col items-center">
-                        <div class="countdown-second time heading1">52</div>
+                        <div class="countdown-second time heading1">00</div>
                         <div class="text-button-uppercase font-medium">Detik</div>
                     </div>
                 </div>
                 <a href="https://wa.me/6282123167895?text=Saya%20Mau%20Barang%20Di%20Flash%20Sale%20Promotion"
                     target="_blank" class="button-main lg:mt-9 md:mt-6 mt-4">Dapatkan Sekarang</a>
             </div>
+            
 
             <!-- Product Carousel on the Right (Desktop) / Bottom (Mobile) -->
             <div
@@ -157,12 +165,18 @@
                     <div class="add-cart-btn button-main w-full text-center">Tambahkan Semua Best Seller Ke Chart</div>
                 </div>
             </div>
+            @foreach ($settings as $item)
+            @if (!empty($item->banner_produk_terlaris))
             <div class="popular-product sm:pl-20 max-sm:pb-6 max-sm:px-8">
                 <div class="item relative">
-                    <img src="https://cdn.idntimes.com/content-images/post/20240925/saveclipapp-461282268-926713579474109-2786538390820476080-n-b0ab04391b22da3b9c7ef6c683846e83.jpg"
+                    <img src="{{ asset('storage/'. $item->banner_produk_terlaris) }}"
                         alt="PE Skin Profesional" class="w-full aspect-square rounded-xl object-cover">
                 </div>
             </div>
+            @else
+
+            @endif
+            @endforeach
         </div>
     </section>
 

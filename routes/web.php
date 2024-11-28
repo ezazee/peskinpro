@@ -132,6 +132,15 @@ Route::middleware(['auth', 'role:Administrator'])->group(function () {
     Route::get('/update-bestseller/{id}', [SettingsController::class, 'updateBestseller'])->name('update.bestseller');
     Route::get('/update-promotion/{id}', [SettingsController::class, 'updatePromotion'])->name('update.promotion');
 
+    Route::post('/add/popup', [SettingsController::class, 'add_popup'])->name('settings.add_popup');
+    Route::post('/delete/popup', [SettingsController::class, 'delete_popup'])->name('settings.delete_popup');
+
+    Route::post('/add/bannerbundle', [SettingsController::class, 'bannerbundle'])->name('settings.bannerbundle');
+    Route::post('/add/bannerknowlage', [SettingsController::class, 'bannerknowlage'])->name('settings.bannerknowlage');
+    Route::post('/add/bannershop', [SettingsController::class, 'bannershop'])->name('settings.bannershop');
+    Route::post('/add/bannerflashsale', [SettingsController::class, 'bannerflashsale'])->name('settings.bannerflashsale');
+    Route::post('/add/timerflashsale', [SettingsController::class, 'timerflashsale'])->name('settings.timerflashsale');
+
     // invoice
     Route::get('/invoice', [InvoiceController::class, 'index'])->name('invoice.index');
     Route::get('/invoice/detail/{invoiceNumber}', [InvoiceController::class, 'detail'])->name('invoice.detail');

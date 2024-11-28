@@ -74,27 +74,30 @@
             <div class="heading flex items-center justify-between gap-5 flex-wrap">
                 <div class="left flex items-center gap-6 gap-y-3 flex-wrap">
                     <div class="heading3">Big Flash Sale</div>
-                    <div class="countdown-time bg-primary py-1 px-5 rounded-lg">
-                        <div class="heading6 text-white">
-                            <span class="countdown-day time">24</span>
-                            <span> : </span>
-                            <span class="countdown-hour time">14</span>
-                            <span> : </span>
-                            <span class="countdown-minute time">36</span>
-                            <span> : </span>
-                            <span class="countdown-second time">51</span>
-                            <span></span>
-                        </div>
+                    <div class="countdown-time bg-primary py-1 px-5 rounded-lg" data-timer="{{ $timerFlashsale }}">
+                    <div class="heading6 text-white">
+                        <span class="countdown-day time">00</span> :
+                        <span class="countdown-hour time">00</span> :
+                        <span class="countdown-minute time">00</span> :
+                        <span class="countdown-second time">00</span>
                     </div>
+                </div>
                 </div>
                 <a href="/shop#allProduct" class="text-button text-primary pb-1 border-b-2 border-primary">Lihat Detail</a>
             </div>
             <div class="list-product three-product hide-last-product hide-product-sold grid xl:grid-cols-4 sm:grid-cols-3 grid-cols-2 md:gap-[30px] gap-4 md:mt-10 mt-6"
                 data-gender="men">
+                
+                @foreach ($settings as $item)
+                @if (!empty($item->banner_flashsale_home))
                 <a href="/shop" class="banner rounded-[20px] overflow-hidden relative flex items-center justify-center">
-                    <img src="https://placehold.co/300x498" alt="banner13"
+                    <img src="{{ asset('storage/'. $item->banner_flashsale_home) }}" alt="banner13"
                         class="absolute top-0 left-0 w-full h-full object-cover z-[-1] duration-500" />
                 </a>
+                @else
+
+                @endif
+                @endforeach
                 <!-- List product -->
                 @foreach ($products as $item)
                     <div class="product-item grid-type style-5">
