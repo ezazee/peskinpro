@@ -614,6 +614,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const countdownElement = document.querySelector(".countdown-time");
     const timerFlashsale = countdownElement.getAttribute("data-timer");
 
+    if (!timerFlashsale || isNaN(new Date(timerFlashsale).getTime())) {
+        document.querySelector(".countdown-day").textContent = "0";
+        document.querySelector(".countdown-hour").textContent = "00";
+        document.querySelector(".countdown-minute").textContent = "00";
+        document.querySelector(".countdown-second").textContent = "00";
+        countdownElement.innerHTML = "<div class='heading6 text-white'>Flash Sale Ended</div>";
+        return;
+    }
+
     const countdownDate = new Date(timerFlashsale).getTime();
 
     const countdownFunction = setInterval(() => {
