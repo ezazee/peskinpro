@@ -408,7 +408,7 @@
     }
 </script>
 
-<script>
+{{-- <script>
     // faqs
     const menuTab = document.querySelector(".menu-tab");
     const listQuestion = document.querySelector(".list-question");
@@ -459,7 +459,7 @@
             }
         });
     }
-</script>
+</script> --}}
 
 
 <script>

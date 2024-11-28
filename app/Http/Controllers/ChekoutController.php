@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Province; 
+use App\Models\Province;
 use App\Models\City;
 use Illuminate\Http\Request;
 use Kavist\RajaOngkir\Facades\RajaOngkir;
@@ -14,6 +14,7 @@ use App\Models\Order;
 use App\Models\Invoice;
 use App\Models\Shipping;
 use App\Models\ProductSize;
+use App\Models\Bank;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -21,14 +22,14 @@ use RealRashid\SweetAlert\Facades\Alert;
 class ChekoutController extends Controller
 {
     public function index()
-    {        
+    {
         $user = Auth::user();
         $provinces = Province::pluck('name', 'province_id');
         return view('frontend.pages.checkout',compact('provinces','user'));
     }
 
     public function Checkout(Request $request)
-    { 
+    {
         $user = Auth::user();
         $defaultAddresses = $user->alamat()
             ->where('default', 'yes')
@@ -44,7 +45,7 @@ class ChekoutController extends Controller
 
         if (count($selectedItems) > 0) {
             $cartItems = CartItem::whereIn('id', $selectedItems)
-            ->with(['product', 'productSize']) 
+            ->with(['product', 'productSize'])
             ->get();
 
             if ($cartItems->isEmpty()) {
@@ -59,8 +60,9 @@ class ChekoutController extends Controller
 
     public function payment($invoice_number)
     {
+        $bank = Bank::all();
         $invoice = Invoice::where('invoice_number', $invoice_number)->firstOrFail();
-        
+
         if ($invoice->payment_status === 'paid') {
             return redirect()->route('some.route')->with('message', 'Pembayaran sudah diselesaikan.');
         }
@@ -70,14 +72,14 @@ class ChekoutController extends Controller
                 ->whereHas('invoice', function ($query) use ($invoice_number) {
                     $query->where('invoice_number', $invoice_number);
                 })
-                ->with(['user', 'alamat', 'products', 'invoice', 'shipping']) 
+                ->with(['user', 'alamat', 'products', 'invoice', 'shipping'])
                 ->orderBy('created_at', 'desc')
                 ->first();
-                
+
                     $subtotal = $orders->products->sum(function ($product) {
                     return $product->pivot->harga;
                 });
-        return view('frontend.pages.bayar-sekarang', compact('user', 'orders','invoice','subtotal'));
+        return view('frontend.pages.bayar-sekarang', compact('user', 'orders','invoice','subtotal','bank'));
     }
 
     public function processpayment(Request $request)
@@ -86,7 +88,7 @@ class ChekoutController extends Controller
             Alert::toast('Tambahkan alamat terlebih dahulu!!', 'warning');
             return redirect()->route('profile.address')->with('error', 'Tambahkan alamat terlebih dahulu!!');
         }
-    
+
         if (is_null($request->total_amount) || $request->total_amount == '') {
             Alert::toast('Tunggu sampai ongkir muncul', 'warning');
             return redirect()->route('cart.index')->with('error', 'Alamat tidak ada');
@@ -110,26 +112,26 @@ class ChekoutController extends Controller
         ]);
 
         foreach ($request->products as $product) {
-            $productId = $product['id']; 
-            $quantity = $product['quantity']; 
+            $productId = $product['id'];
+            $quantity = $product['quantity'];
             $sizeId = $product['sizeid'];
             $harga = $product['harga'];
             $discount = $product['discount'];
 
-    
+
             $productItem = Product::find($productId);
-                
+
             $order->products()->attach($productId, [
                 'quantity' => $quantity,
                 'size_id' => $sizeId,
                 'harga' => $harga,
                 'discount' => $discount
             ]);
-    
+
             $productSize = ProductSize::where('product_id', $productId)->where('id', $sizeId)->first();
             if ($productSize) {
-                $productSize->stock -= $quantity; 
-                $productSize->save(); 
+                $productSize->stock -= $quantity;
+                $productSize->save();
             }
         }
 
@@ -160,7 +162,7 @@ class ChekoutController extends Controller
             $cart->items()->delete();
         }
         $invoice_number = $invoice->invoice_number;
-        
+
         return redirect()->route('payment', ['invoice_number' => $invoice_number])
         ->with(compact('user', 'order', 'shipping', 'subtotal'));
     }
@@ -175,7 +177,7 @@ class ChekoutController extends Controller
 
         $user = Auth::user();
         $orders = Order::where('user_id', $user->id)
-                    ->with(['user', 'alamat', 'products', 'invoice', 'shipping']) 
+                    ->with(['user', 'alamat', 'products', 'invoice', 'shipping'])
                     ->orderBy('created_at', 'desc')
                     ->take(4)
                     ->get();
@@ -198,7 +200,7 @@ class ChekoutController extends Controller
 
         return redirect()->route('profile.index')->with(['user' => $user, 'orders' => $orders]);
     }
-    
+
 
 }
 

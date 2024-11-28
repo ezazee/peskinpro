@@ -1,85 +1,97 @@
 @extends('frontend.master.master-app')
 
+{{-- <div class="block-button flex flex-col items-center gap-y-4 mt-5">
+    <form id="checkout-form" action="{{ route('checkout.process') }}" method="POST">
+        @csrf
+        <input type="hidden" name="cart_items" id="cart-items" value="">
+
+        <button class="checkout-btn button-main text-center w-full bg-primary border-primary">
+            Checkout Sekarang
+        </button>
+    </form>
+    <a class="text-button hover-underline" href="{{ route('home.index') }}">Lanjutkan
+        Berbelanja</a>
+</div> --}}
+
 @section('content')
-<section>
-    <div class="checkout-block md:py-20 py-10">
-        <div class="container">
-            <div class="content-main flex max-lg:flex-col-reverse gap-y-10 justify-between">
-                <div class="left lg:w-1/2">
-                    <div class="payment-block">
-                        <div class="heading5">Pembayaran:</div>
-                        <div class="list-payment mt-5">
+    <section>
+        <div class="checkout-block md:py-20 py-10">
+            <div class="container">
+                <div class="content-main flex max-lg:flex-col-reverse gap-y-10 justify-between">
+                    <div class="left lg:w-1/2">
+                        <div class="checkout-block">
+                            <div class="heading5 pb-3">Rincian Orderan</div>
+                            <div class="discount-block py-5 flex justify-between border-b border-line">
+                                <div class="text-title">Subtotal</div>
+                                <div class="text-title">Rp.<span
+                                        class="discount">{{ number_format($subtotal, 0, ',', '.') }}</span></div>
+                            </div>
+                            <div class="discount-block py-5 flex justify-between border-b border-line">
+                                <div class="text-title">Diskon</div>
+                                <div class="text-title">-Rp.<span class="discount">0</span></div>
+                            </div>
+                            <div class="ship-block py-5 flex justify-between border-b border-line">
+                                <div class="text-title">Pengiriman</div>
+                                <div class="text-title">
+                                    Rp{{ number_format($orders->shipping->shipping_cost, 0, ',', '.') }}
+                                </div>
+                            </div>
+                            <div class="total-cart-block pt-5 flex justify-between">
+                                <div class="heading5">Total</div>
+                                <div class="heading5 total-cart">Rp{{ number_format($orders->total_amount, 0, ',', '.') }}
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Checkout Button with form submission -->
+                        <div class="flex flex-col items-center">
+                            <button type="submit"
+                                class="checkout-btn button-main text-center w-full text-white font-semibold rounded-md px-5 mt-3 py-3">
+                                Selesaikan Pembayaran
+                            </button>
+                            <a class="text-button hover-underline mt-3" href="{{ route('home.index') }}">Lanjutkan
+                                Berbelanja</a>
+                        </div>
 
-                            <!-- VA BCA (A/N Reza) - Selalu Terbuka -->
-                            <div class="type bg-surface p-5 border border-line rounded-lg">
-                                <!-- Accordion #1 -->
-                                <div class="accordion-item">
-                                    <h1 class="accordion-header text-button pl-2 cursor-pointer" onclick="toggleAccordion('accordion1')">
-                                        VA BCA (A/N Reza)
-                                    </h1>
-                                    <div id="accordion1" class="accordion-content p-4 hidden">
-                                        <div class="row">
-                                            <div class="col-12 mt-3 relative">
-                                                <input class="cursor-pointer border-line px-4 py-3 w-full rounded mt-2"
-                                                    type="text" id="cardNumberCredit1" placeholder="ex.1234567290" readonly
-                                                    value="1234567890" />
-                                                <button style="margin-top: 5px" onclick="copyToClipboard('cardNumberCredit1')"
-                                                    class="copy-btn bg-primary text-white px-4 py-2 rounded absolute right-2 top-1/2 transform -translate-y-1/2">
-                                                    Copy
-                                                </button>
-                                            </div>
-                                            <div class="type bg-surface p-5 border border-line rounded-lg mt-5">
-                                                <h2 class="text-button pl-2">Cara Pembayaran</h2>
-                                                <ul class="ul-tutor-bayar pl-6 mt-3">
-                                                    <li>Buka aplikasi mobile banking atau internet banking Anda.</li>
-                                                    <li>Pilih menu <strong>Transfer</strong> atau <strong>Transfer ke VA</strong>.</li>
-                                                    <li>Masukkan nomor Virtual Account: <span class="font-semibold">1234567890</span>.</li>
-                                                    <li>Masukkan jumlah pembayaran sesuai total tagihan Anda.</li>
-                                                    <li>Konfirmasi dan selesaikan pembayaran.</li>
-                                                    <li>Setelah pembayaran selesai, simpan bukti transaksi sebagai bukti pembayaran telah berhasil.</li>
-                                                </ul>
+                        <div class="text-center mt-3 text-sm text-gray-500">
+                            Dengan melanjutkan, kamu menyetujui <a href="#" class="text-primary underline">S&K
+                                Return
+                                & Refunds</a>.
+                        </div>
+                        </form>
+                    </div>
+                    <div class="right lg:w-5/12">
+                        <div class="payment-block">
+                            <div class="heading5">Pembayaran:</div>
+                            <div class="list-payment mt-5">
+                                @foreach ($bank as $payment)
+                                    <div class="type bg-surface p-5 border border-line rounded-lg mt-5">
+                                        <input class="cursor-pointer" type="radio" id="credit" name="payment" />
+                                        <label class="text-button pl-2 cursor-pointer"
+                                            for="credit">{{ $payment->nama_bank }} -
+                                            (A/N)
+                                            {{ $payment->atas_nama }}</label>
+                                        <div class="infor">
+                                            <div class="row">
+                                                <div class="col-12 mt-3 relative">
+                                                    <input class="cursor-pointer border-line px-4 py-3 w-full rounded mt-2"
+                                                        type="text" id="cardNumberCredit1" placeholder="ex.1234567290"
+                                                        readonly value="{{ $payment->no_rek }}" />
+                                                    <button style="margin-top: 5px"
+                                                        onclick="copyToClipboard('cardNumberCredit1')"
+                                                        class="copy-btn bg-primary text-white px-4 py-2 rounded absolute right-2 top-1/2 transform -translate-y-1/2">
+                                                        Copy
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                @endforeach
                             </div>
-
-                            <div class="type bg-surface p-5 border border-line rounded-lg">
-                                <!-- Accordion #2 -->
-                                <div class="accordion-item">
-                                    <h1 class="accordion-header text-button pl-2 cursor-pointer" onclick="toggleAccordion('accordion2')">
-                                        VA Mandiri (A/N Reza)
-                                    </h1>
-                                    <div id="accordion2" class="accordion-content p-4 hidden">
-                                        <div class="row">
-                                            <div class="col-12 mt-3 relative">
-                                                <input class="cursor-pointer border-line px-4 py-3 w-full rounded mt-2"
-                                                    type="text" id="cardNumberCredit2" placeholder="ex.9876543210" readonly
-                                                    value="9876543210" />
-                                                <button style="margin-top: 5px" onclick="copyToClipboard('cardNumberCredit2')"
-                                                    class="copy-btn bg-primary text-white px-4 py-2 rounded absolute right-2 top-1/2 transform -translate-y-1/2">
-                                                    Copy
-                                                </button>
-                                            </div>
-                                            <div class="type bg-surface p-5 border border-line rounded-lg mt-5">
-                                                <h2 class="text-button pl-2">Cara Pembayaran</h2>
-                                                <ul class="ul-tutor-bayar pl-6 mt-3">
-                                                    <li>Buka aplikasi mobile banking atau internet banking Anda.</li>
-                                                    <li>Pilih menu <strong>Transfer</strong> atau <strong>Transfer ke VA</strong>.</li>
-                                                    <li>Masukkan nomor Virtual Account: <span class="font-semibold">9876543210</span>.</li>
-                                                    <li>Masukkan jumlah pembayaran sesuai total tagihan Anda.</li>
-                                                    <li>Konfirmasi dan selesaikan pembayaran.</li>
-                                                    <li>Setelah pembayaran selesai, simpan bukti transaksi sebagai bukti pembayaran telah berhasil.</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                             {{-- Upload --}}
                             <div class="filter-item text-content w-full p-7 mt-5 border border-line rounded-xl active">
-                                <form action="{{ route('pembayaran', ['invoice_number' => $invoice->invoice_number ?? '']) }}" method="POST" enctype="multipart/form-data">
+                                <form
+                                    action="{{ route('pembayaran', ['invoice_number' => $invoice->invoice_number ?? '']) }}"
+                                    method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="upload_image col-span-full">
                                         <div class="flex flex-wrap flex-col gap-5">
@@ -91,7 +103,9 @@
                                                     <label for="uploadImage"
                                                         class="caption2 py-1 px-3 rounded bg-line whitespace-nowrap cursor-pointer">Choose
                                                         File</label>
-                                                        <input type="file" name="payment" id="uploadImage" class="caption2 cursor-pointer w-full" onchange="previewImage(event)" />
+                                                    <input type="file" name="payment" id="uploadImage"
+                                                        class="caption2 cursor-pointer w-full"
+                                                        onchange="previewImage(event)" />
                                                 </div>
                                                 @if ($errors->any())
                                                     <div class="alert text-sm text-red">
@@ -104,79 +118,47 @@
                                                 @endif
                                             </div>
 
-                                            <div class="bg_img flex-shrink-0 relative w-full rounded-lg overflow-hidden bg-surface mt-5">
-                                                <span class="ph ph-image text-5xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-secondary"></span>
-                                                <img id="preview" src="https://i.pinimg.com/736x/68/ed/dc/68eddcea02ceb29abde1b1c752fa29eb.jpg" alt="avatar" class="upload_img relative z-[1] max-w-full h-auto" />
+                                            <div
+                                                class="bg_img flex-shrink-0 relative w-full rounded-lg overflow-hidden bg-surface mt-5">
+                                                <span
+                                                    class="ph ph-image text-5xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-secondary"></span>
+                                                <img id="preview"
+                                                    src="https://i.pinimg.com/736x/68/ed/dc/68eddcea02ceb29abde1b1c752fa29eb.jpg"
+                                                    alt="avatar" class="upload_img relative z-[1] max-w-full h-auto" />
                                             </div>
                                         </div>
                                     </div>
                             </div>
                         </div>
                     </div>
-
-                </div>
-                <div class="right lg:w-5/12">
-                    <div class="checkout-block">
-                        <div class="heading5 pb-3">Rincian Orderan</div>
-                        <div class="discount-block py-5 flex justify-between border-b border-line">
-                            <div class="text-title">Subtotal</div>
-                            <div class="text-title">Rp.<span
-                                    class="discount">{{ number_format($subtotal, 0, ',', '.') }}</span></div>
-                        </div>
-                        <div class="discount-block py-5 flex justify-between border-b border-line">
-                            <div class="text-title">Diskon</div>
-                            <div class="text-title">-Rp.<span class="discount">0</span></div>
-                        </div>
-                        <div class="ship-block py-5 flex justify-between border-b border-line">
-                            <div class="text-title">Pengiriman</div>
-                            <div class="text-title">Rp{{ number_format($orders->shipping->shipping_cost, 0, ',', '.') }}</div>
-                        </div>
-                        <div class="total-cart-block pt-5 flex justify-between">
-                            <div class="heading5">Total</div>
-                            <div class="heading5 total-cart">Rp{{ number_format($orders->total_amount, 0, ',', '.') }}
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Terms & Conditions Text -->
-
-                    <!-- Checkout Button with form submission -->
-                    <button type="submit"
-                        class="checkout-btn button-main text-center w-full bg-green-600 text-white font-semibold rounded-md px-5 mt-3 py-3">
-                        Selesaikan Pembayaran
-                    </button>
-                    <div class="text-center mt-3 text-sm text-gray-500">
-                        Dengan melanjutkan, kamu menyetujui <a href="#" class="text-primary underline">S&K Return & Refunds</a>.
-                    </div>
-                    </form>
                 </div>
             </div>
         </div>
-    </div>
-</section>
-<script>
-    function previewImage(event) {
-        const reader = new FileReader();
-        reader.onload = function(){
-            const output = document.getElementById('preview');
-            output.src = reader.result;
-        };
-        reader.readAsDataURL(event.target.files[0]);
-    }
-</script>
-<script>
-    // Toggle Accordion Function
-    function toggleAccordion(id) {
-        const accordion = document.getElementById(id);
-        accordion.classList.toggle('hidden');
-    }
+    </section>
+    <script>
+        function previewImage(event) {
+            const reader = new FileReader();
+            reader.onload = function() {
+                const output = document.getElementById('preview');
+                output.src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
+    <script>
+        // Toggle Accordion Function
+        function toggleAccordion(id) {
+            const accordion = document.getElementById(id);
+            accordion.classList.toggle('hidden');
+        }
 
-    // Copy to Clipboard Function
-    function copyToClipboard(inputId) {
-        const input = document.getElementById(inputId);
-        input.select();
-        input.setSelectionRange(0, 99999); // For mobile devices
-        navigator.clipboard.writeText(input.value);
-        alert('Nomor Virtual Account berhasil disalin!');
-    }
-</script>
+        // Copy to Clipboard Function
+        function copyToClipboard(inputId) {
+            const input = document.getElementById(inputId);
+            input.select();
+            input.setSelectionRange(0, 99999); // For mobile devices
+            navigator.clipboard.writeText(input.value);
+            alert('Nomor Virtual Account berhasil disalin!');
+        }
+    </script>
 @endsection
