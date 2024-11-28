@@ -38,12 +38,13 @@
                 </div>
                 <div class="right md:w-1/2 w-full lg:pl-[60px] md:pl-[40px] flex items-center">
                     <div class="text-content">
-                        <div class="heading4">Pengguna Baru ?</div>
-                        <div class="mt-2 text-secondary">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni,
-                            nihil. Omnis iusto exercitationem deleniti possimus veniam? Eligendi exercitationem dignissimos
-                            nisi hic quam molestias unde aliquam earum porro, provident laboriosam qui?</div>
+                        <div class="heading4">Pengguna Baru?</div>
+                        <div class="mt-2 text-secondary">
+                            Belum punya akun? Daftar sekarang dan nikmati berbagai fitur menarik yang memudahkan aktivitasmu.
+                            Ayo, mulai perjalanan serumu bersama kami!
+                        </div>
                         <div class="block-button md:mt-7 mt-4">
-                            <a href="/register" class="button-main">Register</a>
+                            <a href="/register" class="button-main">Daftar</a>
                         </div>
                     </div>
                 </div>

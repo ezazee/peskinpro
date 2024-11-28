@@ -24,28 +24,30 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         $orders = Order::where('user_id', $user->id)
-                        ->with(['user', 'alamat', 'products', 'invoice','shipping'])
-                        ->orderBy('created_at', 'desc')
-                        ->take(4)
-                        ->get();
+            ->with(['user', 'alamat', 'products', 'invoice', 'shipping'])
+            ->orderBy('created_at', 'desc')
+            ->take(4)
+            ->get();
         $pendingOrdersCount = Order::where('user_id', $user->id)
-                            ->where('status', 'pending')
-                            ->count();
+            ->where('status', 'pending')
+            ->count();
         $canceledOrdersCount = Order::where('user_id', $user->id)
-                            ->where('status', 'canceled')
-                            ->count();
+            ->where('status', 'canceled')
+            ->count();
         $totalOrders = Order::where('user_id', $user->id)
-                            ->count();
-        return view('frontend.pages.profile.profile', compact('user', 'orders','pendingOrdersCount','canceledOrdersCount','totalOrders'));
+            ->count();
+        return view('frontend.pages.profile.profile', compact('user', 'orders', 'pendingOrdersCount', 'canceledOrdersCount', 'totalOrders'));
     }
 
-    public function address(){
+    public function address()
+    {
         $user = Auth::user()->load('role', 'alamat', 'cart');
         $provinces = Province::pluck('name', 'province_id');
-        return view('frontend.pages.profile.addres',compact('user','provinces'));
+        return view('frontend.pages.profile.addres', compact('user', 'provinces'));
     }
 
-    public function add_address(Request $request){
+    public function add_address(Request $request)
+    {
         $user = Auth::user();
 
         if ($user->alamat()->count() >= 5) {
@@ -67,7 +69,7 @@ class ProfileController extends Controller
             'city_id' => $request->city_destination,
             'street' => $request->street,
             'no_telp' => $request->no_telp,
-            'postal_code'=> $request->postalcode,
+            'postal_code' => $request->postalcode,
             'default' => $isDefault,
         ]);
         return back()->with('success', 'Alamat created successfully!');
@@ -89,23 +91,27 @@ class ProfileController extends Controller
         return response()->json(['success' => true]);
     }
 
-    public function delete_address($id){
+    public function delete_address($id)
+    {
         $alamat = Alamat::findOrFail($id);
         $alamat->delete();
         return back()->with('success', 'Alamat deleted successfully!');
     }
 
-    public function recent_order(){
+    public function recent_order()
+    {
         $user = Auth::user();
         $orders = Order::where('user_id', $user->id)
-                        ->with(['user', 'alamat', 'products', 'invoice','shipping'])
-                        ->orderBy('created_at', 'desc')
-                        ->paginate(10);
-        return view('frontend.pages.profile.recent-order', compact('user', 'orders'));
+            ->with(['user', 'alamat', 'products', 'invoice', 'shipping'])
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+        $activeTab = 'all'; // Default tab
+        return view('frontend.pages.profile.recent-order', compact('user', 'orders', 'activeTab'));
     }
 
 
-    public function update(Request $request, $id){
+    public function update(Request $request, $id)
+    {
         $users = User::findOrFail($id);
 
         $request->validate([
@@ -145,14 +151,15 @@ class ProfileController extends Controller
         return back()->with('success', 'Users updated successfully!');
     }
 
-    public function editaddress($id){
+    public function editaddress($id)
+    {
         $user = Auth::user();
         $alamat = Alamat::where('id', $id)->firstOrFail();
         $provinces = Province::all();
         $cities = City::where('province_id', $alamat->province_id)->get();
-        return view('frontend.pages.profile.edit-address', compact('user','alamat','provinces', 'cities'));
+        return view('frontend.pages.profile.edit-address', compact('user', 'alamat', 'provinces', 'cities'));
     }
-    
+
 
     public function updateAddress(Request $request, $id)
     {

@@ -5,139 +5,145 @@
             <div class="content-main flex gap-y-8 w-full max-md:flex-col lg:px-[60px] md:px-4">
                 {{-- Bagian Kiri --}}
                 @include('frontend.components.profile-user')
-
                 {{-- Bagian Kanan --}}
                 <div class="right list-filter w-full md:w-2/3 pl-2.5">
                     <div class="filter-item text-content w-full active">
-                        {{-- Form Alamat Baru --}}
-                        <div class="recent_order px-5 pb-2 mt-7 border border-line rounded-xl">
+                        <div class="filter-item tab_order text-content overflow-hidden w-full p-7 border border-line rounded-xl"
+                            data-item="orders">
                             <!-- Search Bar -->
-                            <div class="flex justify-between items-center pt-5 px-5">
-                                <h6 class="heading6 mt-5">Recent Orders</h6>
+                            <div class="flex justify-between items-center px-5">
+                                <h6 class="heading6">Recent Orders</h6>
                                 <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Search orders..."
                                     class="w-1/2 px-4 py-2 border border-black rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
                             </div>
+                            <div class="w-full overflow-x-auto">
+                                <div
+                                    class="menu-tab relative grid grid-cols-5 max-lg:w-[500px] max-md:max-w-max border-b border-line mt-3">
+                                    @php
+                                        $tabs = [
+                                            'all' => 'All',
+                                            'pending' => 'Pending',
+                                            'delivery' => 'Delivery',
+                                            'completed' => 'Completed',
+                                            'canceled' => 'Canceled',
+                                        ];
+                                    @endphp
 
-                            <!-- Order List -->
-                            <div class="recent_order pt-5 px-5 pb-2 mt-7 border border-line rounded-xl">
-                                <div class="list overflow-x-auto w-full mt-5">
-                                    <table id="orderTable" class="w-full max-[1400px]:w-[700px] max-md:w-[700px]">
-                                        <thead class="border-b border-line">
-                                            <tr>
-                                                <th scope="col"
-                                                    class="pb-3 text-left text-sm font-bold uppercase text-secondary whitespace-nowrap">
-                                                    Order ID</th>
-                                                <th scope="col"
-                                                    class="pb-3 text-left text-sm font-bold uppercase text-secondary whitespace-nowrap">
-                                                    Produk</th>
-                                                <th scope="col"
-                                                    class="pb-3 text-left text-sm font-bold uppercase text-secondary whitespace-nowrap">
-                                                    Harga Total</th>
-                                                <th scope="col"
-                                                    class="pb-3 text-right text-sm font-bold uppercase text-secondary whitespace-nowrap">
-                                                    Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($orders as $item)
-                                            <tr class="item duration-300 border-b border-line">
-                                                <th scope="row" class="py-3 text-left">
-                                                    <strong class="text-title">#{{ $item->order_number }}</strong>
-                                                </th>
-                                                <td class="py-3">
-                                                    @if ($item->products->isNotEmpty())
-                                                    @php
-                                                    $firstProduct = $item->products->first();
-                                                    $firstSize = $firstProduct->sizes->first();
-                                                    @endphp
-                                                    <a href="product-default.html" class="product flex items-center gap-3">
-                                                        <img src="{{ asset('storage/' . $firstProduct->front_image) }}"
-                                                            alt="Contrasting sweatshirt"
-                                                            class="flex-shrink-0 w-12 h-12 rounded" />
-                                                        <div class="info flex flex-col">
-                                                            <strong
-                                                                class="product_name text-button">{{ $firstProduct->name }}</strong>
-                                                            <span
-                                                                class="product_tag caption1 text-secondary">{{ $firstProduct->category->name }}
-                                                                ,
-                                                                {{ $firstSize->size }} ml
-                                                            </span>
-                                                            @if ($item->products->count() > 1)
-                                                            <span class="product_tag caption1 text-primary">Lainnya
-                                                                ..</span>
-                                                            @endif
-                                                        </div>
-                                                    </a>
-                                                    @endif
+                                    @foreach ($tabs as $key => $label)
+                                        <button
+                                            class="tab-item relative px-3 py-2.5 text-button text-secondary text-center duration-300 hover:text-black {{ $activeTab === $key ? 'active' : '' }}"
+                                            data-tab="{{ $key }}">
+                                            {{ $label }}
+                                        </button>
+                                    @endforeach
                                 </div>
-                                </a>
-                                </td>
-                                <td class="py-3 price">Rp{{ number_format($item->total_amount, 0, ',', '.') }}</td>
-                                <td class="py-3 text-right">
-                                    @if (
-                                    $item->status == 'pending' &&
-                                    optional($item->invoice)->payment_status == 'unpaid' &&
-                                    optional($item->invoice)->bukti_tf == '')
-                                    <a
-                                        href="{{ route('payment', ['invoice_number' => optional($item->invoice)->invoice_number ?? '']) }}">
-                                        <span
-                                            class="tag px-4 py-1.5 rounded-full text-white bg-opacity-10 bg-primary text-black caption1 font-semibold">Bayar
-                                            Sekarang</span>
-                                    </a>
-                                    @elseif ($item->status == 'pending' && optional($item->invoice)->payment_status == 'unpaid')
-                                    <span
-                                        class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-yellow text-yellow caption1 font-semibold">Pending</span>
-                                    @elseif ($item->status == 'processing')
-                                    <span
-                                        class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-yellow text-yellow caption1 font-semibold">Processing</span>
-                                    @elseif ($item->status == 'shipping')
-                                    <span
-                                        class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-yellow text-yellow caption1 font-semibold">Shipping</span>
-                                    @elseif ($item->status == 'completed')
-                                    <span
-                                        class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-success text-success caption1 font-semibold">Completed</span>
-                                    @elseif ($item->status == 'return')
-                                    <span
-                                        class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-success text-success caption1 font-semibold">Completed</span>
-                                    @elseif ($item->status == 'refund')
-                                    <span
-                                        class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-danger text-danger caption1 font-semibold">Refund</span>
-                                    @else
-                                    <span
-                                        class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-danger text-danger caption1 font-semibold">Canceled</span>
-                                    @endif
-                                </td>
-                                </tr>
-                                @endforeach
-                                </tbody>
-                                    </table>
-                                </div>
+                            </div>
 
-                                <!-- Pagination -->
-                                <div class="pagination flex justify-center items-center mt-5">
-                                    @if ($orders->onFirstPage())
-                                        <button class="px-4 py-2 mx-1 bg-gray-200 rounded-lg cursor-not-allowed">Prev</button>
-                                    @else
-                                        <a href="{{ $orders->previousPageUrl() }}" class="px-4 py-2 mx-1 bg-gray-200 rounded-lg hover:bg-primary hover:text-white">Prev</a>
-                                    @endif
-                                
-                                    <span class="px-4 py-2 mx-1">{{ $orders->currentPage() }}</span>
-                                
-                                    @if ($orders->hasMorePages())
-                                        <a href="{{ $orders->nextPageUrl() }}" class="px-4 py-2 mx-1 bg-gray-200 rounded-lg hover:bg-primary hover:text-white">Next</a>
-                                    @else
-                                        <button class="px-4 py-2 mx-1 bg-gray-200 rounded-lg cursor-not-allowed">Next</button>
-                                    @endif
+                            <div class="list_order">
+                                <div class="order_item mt-5 border border-line rounded-lg box-shadow-xs">
+                                    <div class="flex flex-wrap items-center justify-between gap-4 p-5 border-b border-line">
+                                        <div class="flex items-center gap-2">
+                                            <strong class="text-title">Order Number:</strong>
+                                            <strong class="order_number text-button uppercase">#ORD-ASDASDASD12</strong>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <strong class="text-title">Order status:</strong>
+                                            <a href="#!"
+                                                class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-purple text-purple caption1 font-semibold">Delivery</a>
+                                        </div>
+                                    </div>
+                                    <div class="list_prd px-5">
+                                        <!-- Product 1 -->
+                                        <div
+                                            class="prd_item flex flex-wrap items-center justify-between gap-3 py-5 border-b border-line">
+                                            <a href="product-default.html" class="flex items-center gap-5">
+                                                <div
+                                                    class="bg-img flex-shrink-0 md:w-[100px] w-20 aspect-square rounded-lg overflow-hidden">
+                                                    <img src="assets/images/product/fashion/1-1.png"
+                                                        alt="Contrasting sheepskin sweatshirt"
+                                                        class="w-full h-full object-cover" />
+                                                </div>
+                                                <div>
+                                                    <div class="prd_name text-title">Contrasting sheepskin sweatshirt</div>
+                                                    <div class="caption1 text-secondary mt-2">
+                                                        <span class="prd_size uppercase">XL</span>
+                                                        <span>/</span>
+                                                        <span class="prd_color capitalize">Yellow</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <div class="text-title">
+                                                <span class="prd_quantity">1</span>
+                                                <span> X </span>
+                                                <span class="prd_price">$45.00</span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Button for additional product -->
+                                        <div class="prd_item flex justify-center py-5 border-b border-line">
+                                            <button
+                                                class="historyOrderButton bg-light-primary text-primary font-semibold rounded-md px-5 py-2 w-full text-center hover:bg-blue-700">
+                                                +1 Produk Lainnya
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
-                                
+                                <div class="order_item mt-5 border border-line rounded-lg box-shadow-xs">
+                                    <div class="flex flex-wrap items-center justify-between gap-4 p-5 border-b border-line">
+                                        <div class="flex items-center gap-2">
+                                            <strong class="text-title">Order Number:</strong>
+                                            <strong class="order_number text-button uppercase">#ORD-ASDASDASD12</strong>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <strong class="text-title">Order status:</strong>
+                                            <a href="#!"
+                                                class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-purple text-purple caption1 font-semibold">Delivery</a>
+                                        </div>
+                                    </div>
+                                    <div class="list_prd px-5">
+                                        <!-- Product 1 -->
+                                        <div
+                                            class="prd_item flex flex-wrap items-center justify-between gap-3 py-5 border-b border-line">
+                                            <a href="product-default.html" class="flex items-center gap-5">
+                                                <div
+                                                    class="bg-img flex-shrink-0 md:w-[100px] w-20 aspect-square rounded-lg overflow-hidden">
+                                                    <img src="assets/images/product/fashion/1-1.png"
+                                                        alt="Contrasting sheepskin sweatshirt"
+                                                        class="w-full h-full object-cover" />
+                                                </div>
+                                                <div>
+                                                    <div class="prd_name text-title">Contrasting sheepskin sweatshirt</div>
+                                                    <div class="caption1 text-secondary mt-2">
+                                                        <span class="prd_size uppercase">XL</span>
+                                                        <span>/</span>
+                                                        <span class="prd_color capitalize">Yellow</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                            <div class="text-title">
+                                                <span class="prd_quantity">1</span>
+                                                <span> X </span>
+                                                <span class="prd_price">$45.00</span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Button for additional product -->
+                                        <div class="prd_item flex justify-center py-5 border-b border-line">
+                                            <button
+                                                class="historyOrderButton button-main text-primary font-semibold rounded-md px-5 py-2 w-full text-center hover:bg-blue-700">
+                                                Lihat Detail
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    @include('frontend.components.modal-detail-order')
 @endsection
 <script>
     const rowsPerPage = 5;
@@ -157,4 +163,20 @@
             row.style.display = match ? '' : 'none';
         });
     }
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const tabs = document.querySelectorAll('.menu-tab .tab-item');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Hapus class active dari semua tab
+                tabs.forEach(t => t.classList.remove('active'));
+
+                // Tambahkan class active pada tab yang diklik
+                this.classList.add('active');
+            });
+        });
+    });
 </script>

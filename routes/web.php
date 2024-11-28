@@ -191,3 +191,6 @@ Route::get('/return-and-refunds', function () {
 });
 
 
+Route::get('/detail-order', function () {
+    return view('frontend.pages.detail-order');
+});

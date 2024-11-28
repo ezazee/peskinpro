@@ -48,24 +48,25 @@
                             <input type="checkbox" name="term" id="term" />
                             <i class="ph-fill ph-check-square icon-checkbox text-2xl"></i>
                         </div>
-                        <label for="remember" class="pl-2 cursor-pointer text-secondary2">I agree to the
-                            <a href="#!" class="text-black hover:underline pl-1">Terms of User</a>
+                        <label for="remember" class="pl-2 cursor-pointer text-secondary2">Dengan ini saya menyetujui
+                            <a href="#!" class="text-black hover:underline pl-1">Ketentuan Pengguna</a>
                         </label>
                     </div>
                     @if ($errors->has('term'))
                     <div class="text-red text-sm">{{ $errors->first('term') }}</div>
                     @endif
                     <div class="block-button md:mt-7 mt-4">
-                        <button class="button-main">Register</button>
+                        <button class="button-main">Daftar</button>
                     </div>
                 </form>
             </div>
             <div class="right md:w-1/2 w-full lg:pl-[60px] md:pl-[40px] flex items-center">
                 <div class="text-content">
                     <div class="heading4">Sudah Punya Akun?</div>
-                    <div class="mt-2 text-secondary">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Earum nam
-                        culpa dicta quidem corporis, natus quas, debitis voluptatem accusantium facere suscipit
-                        doloremque quaerat. Ducimus debitis eveniet quisquam? Voluptas, voluptatibus alias.</div>
+                    <div class="mt-2 text-secondary">
+                        Kalau kamu sudah punya akun, langsung aja login untuk menikmati semua fitur dan kemudahan yang kami tawarkan.
+                        Yuk, lanjutkan perjalananmu bersama kami!
+                    </div>
                     <div class="block-button md:mt-7 mt-4">
                         <a href="/login" class="button-main">Login</a>
                     </div>

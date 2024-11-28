@@ -541,10 +541,10 @@
 {{-- Backdrop Modal Ganti Alamat Checkout --}}
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const modal = document.getElementById('customGantiAlamat');
-        const backdrop = document.getElementById('backdrop-ganti-alamat');
-        const openModalButton = document.getElementById('gantiAlamatButton');
-        const closeModalButtons = document.querySelectorAll('.modal-ganti-alamat-close');
+        const modal = document.getElementById('customModalOrder');
+        const backdrop = document.getElementById('backdrop-order-alamat');
+        const openModalButton = document.getElementById('historyOrderButton');
+        const closeModalButtons = document.querySelectorAll('.modal-order-close');
 
         // Cek jika modal dan backdrop ada sebelum melanjutkan
         if (modal && backdrop) {
@@ -574,6 +574,38 @@
             console.warn("Elemen modal atau backdrop tidak ditemukan di halaman.");
         }
     });
+</script>
+
+{{-- Backdrop Modal Order History --}}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    // JavaScript for showing/hiding modal
+    const modal = document.getElementById('customModalOrder');
+    const backdrop = document.getElementById('modal-order-backdrop');
+    const openModalButtons = document.querySelectorAll('.historyOrderButton');
+    const closeModalButtons = document.querySelectorAll('.modal-order-close');
+
+    // Tambahkan event listener untuk setiap tombol dengan kelas .historyOrderButton
+    openModalButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            modal.classList.remove('hidden');
+            backdrop.classList.remove('hidden');
+        });
+    });
+
+    closeModalButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            modal.classList.add('hidden');
+            backdrop.classList.add('hidden');
+        });
+    });
+
+    backdrop.addEventListener('click', function () {
+        modal.classList.add('hidden');
+        backdrop.classList.add('hidden');
+    });
+});
+
 </script>
 
 
