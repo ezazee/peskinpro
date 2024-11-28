@@ -22,10 +22,18 @@ class ProductController extends Controller
         return view('backend.pages.product.create',compact('products','categories','welcomeMessage','user'));
     }
 
-    public function list(){
+    public function list(Request $request){
         $user = Auth::user();
         $welcomeMessage = 'List Products'; 
-        $products = Product::with(['category', 'imagedetail','sizes'])->paginate(10);
+        $query = htmlspecialchars($request->input('query'), ENT_QUOTES, 'UTF-8');
+        $products = Product::with(['sizes', 'category', 'imagedetail'])
+        ->when($query, function ($q) use ($query) {
+            $q->where('name', 'like', "%{$query}%") 
+              ->orWhereHas('category', function ($q) use ($query) {
+                  $q->where('name', 'like', "%{$query}%");
+              });
+        })
+        ->paginate(10);
         $categories = Category::all();
         return view('backend.pages.product.list',compact('products','categories','welcomeMessage','user'));
     }

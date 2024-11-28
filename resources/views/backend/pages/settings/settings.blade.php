@@ -6,533 +6,555 @@
 
 <div class="container-xxl">
 
+    {{-- Banner Settings Home --}}
     <div class="row">
-         <div class="col-lg-12">
-              <div class="card">
-                   <div class="card-header">
-                        <h4 class="card-title d-flex align-items-center gap-1"><iconify-icon icon="solar:settings-bold-duotone" class="text-primary fs-20"></iconify-icon>Banner Settings</h4>
-                   </div>
-                   <div class="card-body">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title d-flex align-items-center gap-1">
+                        <iconify-icon icon="solar:settings-bold-duotone" class="text-primary fs-20"></iconify-icon>
+                        Banner Settings Home
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <form action="{{ route('settings.banner') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <div class="mb-3">
+                                    <label class="form-label">Add Image Desktop</label>
+                                    <input type="file" name="banner_desktop" class="form-control">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Add Image Mobile</label>
+                                    <input type="file" name="banner_mobile" class="form-control">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Upload</button>
+                            </form>
+                        </div>
+                        <div class="col-lg-8">
+                            <table class="table table-hover table-centered">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Banner Desktop</th>
+                                        <th scope="col">Banner Mobile</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($banners as $key => $banner)
+                                    <tr>
+                                        <td>{{ $key+1 }}</td>
+                                        <td>
+                                            <img src="{{ asset($banner->banner_desktop) }}" class="card-img-top"
+                                                alt="Banner Image" class="card-img-top" alt="Banner Image"
+                                                style="max-height: 50px; object-fit: cover;">
+                                        </td>
+                                        <td>
+                                            <img src="{{ asset($banner->banner_mobile) }}" class="card-img-top"
+                                                alt="Banner Image" class="card-img-top" alt="Banner Image"
+                                                style="max-height: 50px; object-fit: cover;">
+                                        </td>
+                                        <td>
+                                            <form action="{{ route('deletebanner', $banner->id) }}" method="POST"
+                                                onsubmit="return confirm('Are you sure you want to delete this banner?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn btn-danger btn-sm">
+                                                    <iconify-icon icon="solar:trash-bin-minimalistic-2-broken"
+                                                        class="align-middle fs-18"></iconify-icon>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    {{-- Popup Settings --}}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title d-flex align-items-center gap-1">
+                        <iconify-icon icon="solar:settings-bold-duotone" class="text-primary fs-20"></iconify-icon>
+                        Popup Settings
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <form action="{{ route('settings.add_popup') }}" method="POST"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <div class="mb-3">
+                                    <label class="form-label">Add Image Popup</label>
+                                    <input type="file" name="popup_image" class="form-control">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Upload</button>
+                            </form>
+                        </div>
+                        <div class="col-lg-8">
+                            <table class="table table-hover table-centered">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Images</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($popupImages as $image => $id)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>
+                                            @if(!empty($image))
+                                            <img src="{{ asset('storage/'.$image) }}" class="card-img-top"
+                                                alt="Banner Image" style="max-height: 50px; object-fit: cover;">
+                                            @else
+                                            -
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if(!empty($image))
+                                            <form action="{{ route('settings.delete_popup') }}" method="POST"
+                                                onsubmit="return confirm('Are you sure you want to delete this banner?');">
+                                                @csrf
+                                                <button type="submit" class="btn btn btn-danger btn-sm">
+                                                    <iconify-icon icon="solar:trash-bin-minimalistic-2-broken"
+                                                        class="align-middle fs-18"></iconify-icon>
+                                                </button>
+                                            </form>
+                                            @else
+                                            -
+                                            @endif
+
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    {{-- Banner Bundle Settings --}}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title d-flex align-items-center gap-1">
+                        <iconify-icon icon="solar:settings-bold-duotone" class="text-primary fs-20"></iconify-icon>
+                        Banner Bundle Settings
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <form action="{{ route('settings.bannerbundle') }}" method="POST"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <div class="mb-3">
+                                    <label class="form-label">Add Image Head Bundle</label>
+                                    <input type="file" name="banner_bundle_head" class="form-control">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Add Image Bundle 1 </label>
+                                    <input type="file" name="banner_bundle_one" class="form-control">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Add Image Bundle 2</label>
+                                    <input type="file" name="banner_bundle_two" class="form-control">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Add Image Bundle 3</label>
+                                    <input type="file" name="banner_bundle_tree" class="form-control">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Upload</button>
+                            </form>
+                        </div>
+
+                        <div class="col-lg-8">
+                            <table class="table table-hover table-centered">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th scope="col">Image Head Bundle</th>
+                                        <th scope="col">Image Bundle 1</th>
+                                        <th scope="col">Image Bundle 2</th>
+                                        <th scope="col">Image Bundle 3</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($setting as $item)
+                                    <tr>
+                                        <td>
+                                            @if(!empty($item->banner_bundle_head))
+                                            <img src="{{ asset('storage/'. $item->banner_bundle_head) }}"
+                                                class="card-img-top" alt="Banner Image" class="card-img-top"
+                                                alt="Banner Image" style="max-height: 50px; object-fit: cover;">
+                                            @else
+                                            -
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if(!empty($item->banner_bundle_one))
+                                            <img src="{{ asset('storage/'. $item->banner_bundle_one) }}"
+                                                class="card-img-top" alt="Banner Image" class="card-img-top"
+                                                alt="Banner Image" style="max-height: 50px; object-fit: cover;">
+                                            @else
+                                            -
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if(!empty($item->banner_bundle_two))
+                                            <img src="{{ asset('storage/'. $item->banner_bundle_two) }}"
+                                                class="card-img-top" alt="Banner Image" class="card-img-top"
+                                                alt="Banner Image" style="max-height: 50px; object-fit: cover;">
+                                            @else
+                                            -
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if(!empty($item->banner_bundle_tree))
+                                            <img src="{{ asset('storage/'. $item->banner_bundle_tree) }}"
+                                                class="card-img-top" alt="Banner Image" class="card-img-top"
+                                                alt="Banner Image" style="max-height: 50px; object-fit: cover;">
+                                            @else
+                                            -
+                                            @endif
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    {{-- Banner Knowlage --}}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title d-flex align-items-center gap-1">
+                        <iconify-icon icon="solar:settings-bold-duotone" class="text-primary fs-20"></iconify-icon>
+                        Banner Knowlage
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <form action="{{ route('settings.bannerknowlage') }}" method="POST"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <div class="mb-3">
+                                    <label class="form-label">Add Image Knowlage Home</label>
+                                    <input type="file" name="knowlage_home" class="form-control">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Add Image Knowlage Shop</label>
+                                    <input type="file" name="knowlage_shop" class="form-control">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Upload</button>
+                            </form>
+                        </div>
+
+                        <div class="col-lg-8">
+                            <table class="table table-hover table-centered">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th scope="col">Image Knowlage Home</th>
+                                        <th scope="col">Image Knowlage Shop</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($setting as $item)
+                                    <tr>
+                                        <td>
+                                            @if(!empty($item->knowlage_home))
+                                            <img src="{{ asset('storage/'. $item->knowlage_home) }}"
+                                                class="card-img-top" alt="Banner Image" class="card-img-top"
+                                                alt="Banner Image" style="max-height: 50px; object-fit: cover;">
+                                            @else
+                                            -
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if(!empty($item->knowlage_shop))
+                                            <img src="{{ asset('storage/'. $item->knowlage_shop) }}"
+                                                class="card-img-top" alt="Banner Image" class="card-img-top"
+                                                alt="Banner Image" style="max-height: 50px; object-fit: cover;">
+                                            @else
+                                            -
+                                            @endif
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    {{-- Banner Knowlage --}}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title d-flex align-items-center gap-1">
+                        <iconify-icon icon="solar:settings-bold-duotone" class="text-primary fs-20"></iconify-icon>
+                        Banner Shop
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <form action="{{ route('settings.bannershop') }}" method="POST"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <div class="mb-3">
+                                    <label class="form-label">Add Image Head 1</label>
+                                    <input type="file" name="bannershop_head_one" class="form-control">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Add Image Head 2</label>
+                                    <input type="file" name="bannershop_head_two" class="form-control">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Add Image Produk Terlaris</label>
+                                    <input type="file" name="banner_produk_terlaris" class="form-control">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Upload</button>
+                            </form>
+                        </div>
+
+                        <div class="col-lg-8">
+                            <table class="table table-hover table-centered">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th scope="col">Image Head 1</th>
+                                        <th scope="col">Image Head 2</th>
+                                        <th scope="col">Image Produk Terlaris</th> </tr> </thead> <tbody>
+                                                @foreach ($setting as $item)
+                                    <tr>
+                                        <td>
+                                            @if(!empty($item->bannershop_head_one))
+                                            <img src="{{ asset('storage/'. $item->bannershop_head_one) }}"
+                                                class="card-img-top" alt="Banner Image" class="card-img-top"
+                                                alt="Banner Image" style="max-height: 50px; object-fit: cover;">
+                                            @else
+                                            -
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if(!empty($item->bannershop_head_two))
+                                            <img src="{{ asset('storage/'. $item->bannershop_head_two) }}"
+                                                class="card-img-top" alt="Banner Image" class="card-img-top"
+                                                alt="Banner Image" style="max-height: 50px; object-fit: cover;">
+                                            @else
+                                            -
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if(!empty($item->banner_produk_terlaris))
+                                            <img src="{{ asset('storage/'. $item->banner_produk_terlaris) }}"
+                                                class="card-img-top" alt="Banner Image" class="card-img-top"
+                                                alt="Banner Image" style="max-height: 50px; object-fit: cover;">
+                                            @else
+                                            -
+                                            @endif
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                    </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+        {{-- Banner Flash Sale --}}
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title d-flex align-items-center gap-1">
+                            <iconify-icon icon="solar:settings-bold-duotone" class="text-primary fs-20"></iconify-icon>
+                            Banner Flash Sale
+                        </h4>
+                    </div>
+                    <div class="card-body">
                         <div class="row">
-                             <div class="col-lg-4">
-                                  <form action="{{ route('settings.banner') }}" method="POST" enctype="multipart/form-data">
+                            <div class="col-lg-4">
+                                <form action="{{ route('settings.bannerflashsale') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
-                                       <div class="mb-3">
-                                            <label class="form-label">Add Image Desktop</label>
-                                            <input type="file" name="banner_desktop" class="form-control">
-                                       </div>
-                                       <div class="mb-3">
-                                        <label class="form-label">Add Image Mobile</label>
-                                        <input type="file" name="banner_mobile" class="form-control">
-                                        </div>
-                                       <button type="submit" class="btn btn-primary">Upload</button>
-                                  </form>
-                             </div>
-                             <div class="col-lg-8">
+                                    <div class="mb-3">
+                                        <label class="form-label">Background Flash sale</label>
+                                        <input type="file" name="bg_flashsale" class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Banner Home Flash Sale</label>
+                                        <input type="file" name="banner_flashsale_home" class="form-control">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mb-3">Upload</button>
+                                </form>
+                                <form action="{{ route('settings.timerflashsale') }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="mb-3">
+                                        <label class="form-label">Timer Flash Sale</label>
+                                        <input type="datetime-local" name="timer_flashsale" class="form-control" id="timerFlashSale">
+                                    </div>
+                                    <button type="submit" class="btn-sm btn btn-primary mb-3">Save</button>
+                                </form>
+                            </div>
+    
+                            <div class="col-lg-8">
                                 <table class="table table-hover table-centered">
                                     <thead class="table-light">
                                         <tr>
-                                            <th scope="col">No</th>
-                                            <th scope="col">Banner Desktop</th>
-                                            <th scope="col">Banner Mobile</th>
-                                            <th scope="col">Action</th>
+                                            <th scope="col">Background Flash sale</th>
+                                            <th scope="col">Image Home Flash Sale</th>
+                                            <th scope="col">Timer Flash Sale</th>
+                                         </tr> 
+                                        </thead>
+                                        <tbody>
+                                        @foreach ($setting as $item)
+                                        <tr>
+                                            <td>
+                                                @if(!empty($item->bg_flashsale))
+                                                <img src="{{ asset('storage/'. $item->bg_flashsale) }}"
+                                                    class="card-img-top" alt="Banner Image" class="card-img-top"
+                                                    alt="Banner Image" style="max-height: 50px; object-fit: cover;">
+                                                @else
+                                                -
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if(!empty($item->banner_flashsale_home))
+                                                <img src="{{ asset('storage/'. $item->banner_flashsale_home) }}"
+                                                    class="card-img-top" alt="Banner Image" class="card-img-top"
+                                                    alt="Banner Image" style="max-height: 50px; object-fit: cover;">
+                                                @else
+                                                -
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if(!empty($item->timer_flashsale))
+                                                {{ \Carbon\Carbon::parse($item->timer_flashsale)->translatedFormat('d F Y, H:i:s') }}
+                                                @else
+                                                -
+                                                @endif
+                                            </td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($banners as $key => $banner)
-                                       <tr>
-                                        <td>{{ $key+1 }}</td>
-                                        <td>
-                                            <img src="{{ asset($banner->banner_desktop) }}" class="card-img-top" alt="Banner Image"  class="card-img-top" alt="Banner Image" style="max-height: 50px; object-fit: cover;">
-                                        </td>
-                                        <td>
-                                            <img src="{{ asset($banner->banner_mobile) }}" class="card-img-top" alt="Banner Image"  class="card-img-top" alt="Banner Image" style="max-height: 50px; object-fit: cover;">
-                                        </td>
-                                        <td>
-                                            <form action="{{ route('deletebanner', $banner->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this banner?');">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn btn-danger btn-sm"><iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon></button>
-                                            </form>
-                                        </td>
-                                       </tr>
-                                       @endforeach
-                                    </tbody>
+                                        @endforeach
+                                        </tbody>
                                 </table>
-                             </div>
+                            </div>
                         </div>
-                   </div>
-              </div>
-
-         </div>
-    </div>
-
-    <div class="row">
-         <div class="col-lg-12">
-              <div class="card">
-                   <div class="card-header">
-                        <h4 class="card-title d-flex align-items-center gap-1"><iconify-icon icon="solar:shop-2-bold-duotone" class="text-primary fs-20"></iconify-icon>Store Settings</h4>
-                   </div>
-                   <div class="card-body">
-                        <div class="row">
-                             <div class="col-lg-6">
-                                  <form>
-                                       <div class="mb-3">
-                                            <label for="store-name" class="form-label">Store Name</label>
-                                            <input type="text" id="store-name" class="form-control" placeholder="Enter name">
-                                       </div>
-                                  </form>
-                             </div>
-                             <div class="col-lg-6">
-                                  <form>
-                                       <div class="mb-3">
-                                            <label for="owner-name" class="form-label">Store Owner Full Name</label>
-                                            <input type="text" id="owner-name" class="form-control" placeholder="Full name">
-                                       </div>
-                                  </form>
-                             </div>
-                             <div class="col-lg-6">
-                                  <div class="mb-3">
-                                       <label for="schedule-number" class="form-label">Owner Phone number</label>
-                                       <input type="number" id="schedule-number" name="schedule-number" class="form-control" placeholder="Number">
-                                  </div>
-                             </div>
-                             <div class="col-lg-6">
-                                  <form>
-                                       <div class="mb-3">
-                                            <label for="schedule-email" class="form-label">Owner Email</label>
-                                            <input type="email" id="schedule-email" name="schedule-email" class="form-control" placeholder="Email">
-                                       </div>
-                                  </form>
-                             </div>
-                             <div class="col-lg-12">
-                                  <div class="mb-3">
-                                       <label for="address" class="form-label">Full Address</label>
-                                       <textarea class="form-control bg-light-subtle" id="address" rows="3" placeholder="Type address"></textarea>
-                                  </div>
-                             </div>
-                             <div class="col-lg-4">
-                                  <form>
-                                       <div class="mb-3">
-                                            <label for="your-zipcode" class="form-label">Zip-Code</label>
-                                            <input type="number" id="your-zipcode" class="form-control" placeholder="zip-code">
-                                       </div>
-                                  </form>
-                             </div>
-                             <div class="col-lg-4">
-                                  <form>
-                                       <div class="mb-3">
-                                            <label for="choices-city" class="form-label">City</label>
-                                            <select class="form-control" id="choices-city" data-choices data-choices-groups data-placeholder="Select City" name="choices-city">
-                                                 <option value="">Choose a city</option>
-                                                 <optgroup label="UK">
-                                                      <option value="London">London</option>
-                                                      <option value="Manchester">Manchester</option>
-                                                      <option value="Liverpool">Liverpool</option>
-                                                 </optgroup>
-                                                 <optgroup label="FR">
-                                                      <option value="Paris">Paris</option>
-                                                      <option value="Lyon">Lyon</option>
-                                                      <option value="Marseille">Marseille</option>
-                                                 </optgroup>
-                                                 <optgroup label="DE" disabled>
-                                                      <option value="Hamburg">Hamburg</option>
-                                                      <option value="Munich">Munich</option>
-                                                      <option value="Berlin">Berlin</option>
-                                                 </optgroup>
-                                                 <optgroup label="US">
-                                                      <option value="New York">New York</option>
-                                                      <option value="Washington" disabled>
-                                                           Washington
-                                                      </option>
-                                                      <option value="Michigan">Michigan</option>
-                                                 </optgroup>
-                                                 <optgroup label="SP">
-                                                      <option value="Madrid">Madrid</option>
-                                                      <option value="Barcelona">Barcelona</option>
-                                                      <option value="Malaga">Malaga</option>
-                                                 </optgroup>
-                                                 <optgroup label="CA">
-                                                      <option value="Montreal">Montreal</option>
-                                                      <option value="Toronto">Toronto</option>
-                                                      <option value="Vancouver">Vancouver</option>
-                                                 </optgroup>
-                                            </select>
-                                       </div>
-                                  </form>
-                             </div>
-                             <div class="col-lg-4">
-                                  <form>
-                                       <label for="choices-country" class="form-label">Country</label>
-                                       <select class="form-control" id="choices-country" data-choices data-choices-groups data-placeholder="Select Country" name="choices-country">
-                                            <option value="">Choose a country</option>
-                                            <optgroup label="">
-                                                 <option value="">United Kingdom</option>
-                                                 <option value="Fran">France</option>
-                                                 <option value="Netherlands">Netherlands</option>
-                                                 <option value="U.S.A">U.S.A</option>
-                                                 <option value="Denmark">Denmark</option>
-                                                 <option value="Canada">Canada</option>
-                                                 <option value="Australia">Australia</option>
-                                                 <option value="India">India</option>
-                                                 <option value="Germany">Germany</option>
-                                                 <option value="Spain">Spain</option>
-                                                 <option value="United Arab Emirates">United Arab Emirates</option>
-                                            </optgroup>
-                                       </select>
-                                  </form>
-                             </div>
-                        </div>
-                   </div>
-              </div>
-         </div>
-    </div>
+                    </div>
+                </div>
+    
+            </div>
+        </div>
 
     <div class="row">
-         <div class="col-lg-12">
-              <div class="card">
-                   <div class="card-header">
-                        <h4 class="card-title d-flex align-items-center gap-1"><iconify-icon icon="solar:compass-bold-duotone" class="text-primary fs-20"></iconify-icon>Localization Settings</h4>
-                   </div>
-                   <div class="card-body">
-                        <div class="row">
-                             <div class="col-lg-6">
-                                  <form>
-                                       <div class="mb-3">
-                                            <label for="choices-country1" class="form-label">Country</label>
-                                            <select class="form-control" id="choices-country1" data-choices data-choices-groups data-placeholder="Select Country" name="choices-country">
-                                                 <option value="">Choose a country</option>
-                                                 <optgroup label="">
-                                                      <option value="">United Kingdom</option>
-                                                      <option value="Fran">France</option>
-                                                      <option value="Netherlands">Netherlands</option>
-                                                      <option value="U.S.A">U.S.A</option>
-                                                      <option value="Denmark">Denmark</option>
-                                                      <option value="Canada">Canada</option>
-                                                      <option value="Australia">Australia</option>
-                                                      <option value="India">India</option>
-                                                      <option value="Germany">Germany</option>
-                                                      <option value="Spain">Spain</option>
-                                                      <option value="United Arab Emirates">United Arab Emirates</option>
-                                                 </optgroup>
-                                            </select>
-                                       </div>
-                                  </form>
-                             </div>
-                             <div class="col-lg-6">
-                                  <form>
-                                       <div class="mb-3">
-                                            <label for="choices-language" class="form-label">Language</label>
-                                            <select class="form-control" id="choices-language" data-choices data-choices-groups data-placeholder="Select language" name="choices-language">
-                                                 <option value="">English</option>
-                                                 <optgroup label="">
-                                                      <option value="">Russian</option>
-                                                      <option value="Arabic">Arabic</option>
-                                                      <option value="Spanish">Spanish</option>
-                                                      <option value="Turkish">Turkish</option>
-                                                      <option value="German">German</option>
-                                                      <option value="Armenian">Armenian</option>
-                                                      <option value="Italian">Italian</option>
-                                                      <option value="Catalán">Catalán</option>
-                                                      <option value="Hindi">Hindi</option>
-                                                      <option value="Japanese">Japanese</option>
-                                                      <option value="French">French</option>
-                                                 </optgroup>
-                                            </select>
-
-                                       </div>
-                                  </form>
-                             </div>
-                             <div class="col-lg-6">
-                                  <form>
-                                       <div class="mb-3">
-                                            <label for="choices-currency" class="form-label">Currency</label>
-                                            <select class="form-control" id="choices-currency" data-choices data-choices-groups data-placeholder="Select Currency" name="choices-currency">
-                                                 <option value="">Us Dollar</option>
-                                                 <optgroup label="">
-                                                      <option value="">Pound</option>
-                                                      <option value="Indian Rupee">Indian Rupee</option>
-                                                      <option value="Euro">Euro</option>
-                                                      <option value="Australian Dollar">Australian Dollar</option>
-                                                      <option value="Japanese Yen">Japanese Yen</option>
-                                                      <option value="Korean Won">Korean Won</option>
-                                                 </optgroup>
-                                            </select>
-                                       </div>
-                                  </form>
-                             </div>
-                             <div class="col-lg-6">
-                                  <form>
-                                       <div class="mb-3">
-                                            <label for="choices-length" class="form-label">Length Class</label>
-                                            <select class="form-control" id="choices-length" data-choices data-choices-groups data-placeholder="Select Length" name="choices-length">
-                                                 <option value="">Centimeter</option>
-                                                 <optgroup label="">
-                                                      <option value="">Millimeter</option>
-                                                      <option value="Inch">Inch</option>
-                                                 </optgroup>
-                                            </select>
-                                       </div>
-                                  </form>
-                             </div>
-                             <div class="col-lg-6">
-                                  <form>
-                                       <div class="">
-                                            <label for="choices-weight" class="form-label">Weight Class</label>
-                                            <select class="form-control" id="choices-weight" data-choices data-choices-groups data-placeholder="Select Weight" name="choices-weight">
-                                                 <option value="">Kilogram</option>
-                                                 <optgroup label="">
-                                                      <option value="">Gram</option>
-                                                      <option value="Pound">Pound</option>
-                                                      <option value="Ounce">Ounce</option>
-                                                 </optgroup>
-                                            </select>
-                                       </div>
-                                  </form>
-                             </div>
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title d-flex align-items-center gap-1">
+                        <iconify-icon icon="solar:shop-2-bold-duotone" class="text-primary fs-20"></iconify-icon>Flash
+                        Sale & Best Seller Settings
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table align-middle mb-0 table-hover table-centered">
+                                <thead class="bg-light-subtle">
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Product Name</th>
+                                        <th>Price</th>
+                                        <th>Stock</th>
+                                        <th>Category</th>
+                                        <th>Flash Sale</th>
+                                        <th>Best Seller</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($expandedProducts as $index => $item)
+                                    <tr>
+                                        <td>
+                                            {{ $index+1 }}
+                                        </td>
+                                        <td>{{ $item['name'] }} -
+                                            {{ $item['size']->size }}ML</td>
+                                        <td>
+                                            Rp{{ number_format($item['size']->price - $item['size']->discount, 0, ',', '.') }}
+                                        </td>
+                                        <td> {{ $item['size']->stock }} Pcs</td>
+                                        <td> {{ $item['category']->name }}</td>
+                                        <td>
+                                            <a href="{{ route('update.promotion', $item['size']->id) }}"
+                                                class="badge border {{ $item['size']->promotion === 'yes' ? 'border-success text-success' : 'border-danger text-danger' }} px-2 py-1 fs-13">
+                                                {{ $item['size']->promotion === 'yes' ? 'Yes' : 'No' }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('update.bestseller', $item['size']->id) }}"
+                                                class="badge border {{ $item['size']->bestseller === 'yes' ? 'border-success text-success' : 'border-danger text-danger' }} px-2 py-1 fs-13">
+                                                {{ $item['size']->bestseller === 'yes' ? 'Yes' : 'No' }}
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
-                   </div>
-              </div>
-         </div>
-    </div>
-
-    <div class="row">
-         <div class="col-lg-3">
-              <div class="card">
-                   <div class="card-header">
-                        <h4 class="card-title d-flex align-items-center gap-1"><iconify-icon icon="solar:box-bold-duotone" class="text-primary fs-20"></iconify-icon>Categories Settings</h4>
-                   </div>
-                   <div class="card-body">
-                        <p>Category Product Count </p>
-                        <div class="d-flex gap-2 align-items-center mb-3">
-                             <div class="form-check">
-                                  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
-                                  <label class="form-check-label" for="flexRadioDefault1">
-                                       Yes
-                                  </label>
-                             </div>
-                             <div class="form-check">
-                                  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                                  <label class="form-check-label" for="flexRadioDefault2">
-                                       No
-                                  </label>
-                             </div>
-                        </div>
-                        <form>
-                             <div class="mb-1 pb-1">
-                                  <label for="items-par-page" class="form-label">Default Items Per Page</label>
-                                  <input type="number" id="items-par-page" class="form-control" placeholder="000">
-                             </div>
-                        </form>
-                   </div>
-              </div>
-         </div>
-         <div class="col-lg-3">
-              <div class="card">
-                   <div class="card-header">
-                        <h4 class="card-title d-flex align-items-center gap-1"><iconify-icon icon="solar:chat-square-check-bold-duotone" class="text-primary fs-20"></iconify-icon>Reviews Settings</h4>
-                   </div>
-                   <div class="card-body">
-                        <p>Allow Reviews </p>
-                        <div class="d-flex gap-2 align-items-center mb-3">
-                             <div class="form-check">
-                                  <input class="form-check-input" type="radio" name="flexRadioDefault2" id="flexRadioDefault3" checked>
-                                  <label class="form-check-label" for="flexRadioDefault3">
-                                       Yes
-                                  </label>
-                             </div>
-                             <div class="form-check">
-                                  <input class="form-check-input" type="radio" name="flexRadioDefault2" id="flexRadioDefault4">
-                                  <label class="form-check-label" for="flexRadioDefault4">
-                                       No
-                                  </label>
-                             </div>
-                        </div>
-                        <p class="mt-3 pt-1">Allow Guest Reviews </p>
-                        <div class="d-flex gap-2 align-items-center mb-2">
-                             <div class="form-check">
-                                  <input class="form-check-input" type="radio" name="flexRadioDefault3" id="flexRadioDefault5">
-                                  <label class="form-check-label" for="flexRadioDefault5">
-                                       Yes
-                                  </label>
-                             </div>
-                             <div class="form-check">
-                                  <input class="form-check-input" type="radio" name="flexRadioDefault3" id="flexRadioDefault6" checked>
-                                  <label class="form-check-label" for="flexRadioDefault6">
-                                       No
-                                  </label>
-                             </div>
-                        </div>
-                   </div>
-              </div>
-         </div>
-         <div class="col-lg-3">
-              <div class="card">
-                   <div class="card-header">
-                        <h4 class="card-title d-flex align-items-center gap-1"><iconify-icon icon="solar:ticket-bold-duotone" class="text-primary fs-20"></iconify-icon>Vouchers Settings</h4>
-                   </div>
-                   <div class="card-body">
-                        <form>
-                             <div class="mb-3">
-                                  <label for="min-vouchers" class="form-label">Minimum Vouchers</label>
-                                  <input type="number" id="min-vouchers" class="form-control" placeholder="000" value="1">
-                             </div>
-                        </form>
-                        <form>
-                             <div class="">
-                                  <label for="mex-vouchers" class="form-label">Maximum Vouchers</label>
-                                  <input type="number" id="mex-vouchers" class="form-control" placeholder="000" value="12">
-                             </div>
-                        </form>
-                   </div>
-              </div>
-         </div>
-         <div class="col-lg-3">
-              <div class="card">
-                   <div class="card-header">
-                        <h4 class="card-title d-flex align-items-center gap-1"><iconify-icon icon="solar:ticket-sale-bold-duotone" class="text-primary fs-20"></iconify-icon>Tax Settings</h4>
-                   </div>
-                   <div class="card-body">
-                        <p>Prices with Tax</p>
-                        <div class="d-flex gap-2 align-items-center mb-3">
-                             <div class="form-check">
-                                  <input class="form-check-input" type="radio" name="flexRadioDefault4" id="flexRadioDefault7" checked>
-                                  <label class="form-check-label" for="flexRadioDefault7">
-                                       Yes
-                                  </label>
-                             </div>
-                             <div class="form-check">
-                                  <input class="form-check-input" type="radio" name="flexRadioDefault4" id="flexRadioDefault8">
-                                  <label class="form-check-label" for="flexRadioDefault8">
-                                       No
-                                  </label>
-                             </div>
-                        </div>
-                        <form>
-                             <div class="mb-1 pb-1">
-                                  <label for="items-tax" class="form-label">Default Tax Rate</label>
-                                  <input type="text" id="items-tax" class="form-control" placeholder="000" value="18%">
-                             </div>
-                        </form>
-                   </div>
-              </div>
-         </div>
-    </div>
-
-    <div class="row">
-         <div class="col-lg-12">
-              <div class="card">
-                   <div class="card-header">
-                        <h4 class="card-title d-flex align-items-center gap-1"><iconify-icon icon="solar:users-group-two-rounded-bold-duotone" class="text-primary fs-20"></iconify-icon>Customers Settings</h4>
-                   </div>
-                   <div class="card-body">
-                        <div class="row justify-content-between g-3">
-                             <div class="col-lg-2 border-end">
-                                  <p>Customers Online</p>
-                                  <div class="d-flex gap-2 align-items-center">
-                                       <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault5" id="flexRadioDefault9" checked="">
-                                            <label class="form-check-label" for="flexRadioDefault9">
-                                                 Yes
-                                            </label>
-                                       </div>
-                                       <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault5" id="flexRadioDefault10">
-                                            <label class="form-check-label" for="flexRadioDefault10">
-                                                 No
-                                            </label>
-                                       </div>
-                                  </div>
-                             </div>
-                             <div class="col-lg-2 border-end">
-                                  <p>Customers Activity</p>
-                                  <div class="d-flex gap-2 align-items-center">
-                                       <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault6" id="flexRadioDefault11" checked="">
-                                            <label class="form-check-label" for="flexRadioDefault11">
-                                                 Yes
-                                            </label>
-                                       </div>
-                                       <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault6" id="flexRadioDefault12">
-                                            <label class="form-check-label" for="flexRadioDefault12">
-                                                 No
-                                            </label>
-                                       </div>
-                                  </div>
-                             </div>
-                             <div class="col-lg-2 border-end">
-                                  <p>Customer Searches</p>
-                                  <div class="d-flex gap-2 align-items-center">
-                                       <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault7" id="flexRadioDefault13" checked="">
-                                            <label class="form-check-label" for="flexRadioDefault13">
-                                                 Yes
-                                            </label>
-                                       </div>
-                                       <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault7" id="flexRadioDefault14">
-                                            <label class="form-check-label" for="flexRadioDefault14">
-                                                 No
-                                            </label>
-                                       </div>
-                                  </div>
-                             </div>
-                             <div class="col-lg-2 border-end">
-                                  <p>Allow Guest Checkout</p>
-                                  <div class="d-flex gap-2 align-items-center">
-                                       <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault8" id="flexRadioDefault15">
-                                            <label class="form-check-label" for="flexRadioDefault15">
-                                                 Yes
-                                            </label>
-                                       </div>
-                                       <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault8" id="flexRadioDefault16" checked="">
-                                            <label class="form-check-label" for="flexRadioDefault16">
-                                                 No
-                                            </label>
-                                       </div>
-                                  </div>
-                             </div>
-                             <div class="col-lg-2">
-                                  <p>Login Display Price</p>
-                                  <div class="d-flex gap-2 align-items-center">
-                                       <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault9" id="flexRadioDefault17">
-                                            <label class="form-check-label" for="flexRadioDefault17">
-                                                 Yes
-                                            </label>
-                                       </div>
-                                       <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="flexRadioDefault9" id="flexRadioDefault18" checked="">
-                                            <label class="form-check-label" for="flexRadioDefault18">
-                                                 No
-                                            </label>
-                                       </div>
-                                  </div>
-                             </div>
-                        </div>
-                        <div class="row mt-3">
-                             <div class="col-lg-6">
-                                  <form>
-                                       <div class="">
-                                            <label for="login-attempts" class="form-label">Max Login Attempts</label>
-                                            <input type="text" id="login-attempts" class="form-control" placeholder="max" value="1 hour">
-                                       </div>
-                                  </form>
-                             </div>
-
-                        </div>
-                   </div>
-              </div>
-         </div>
-    </div>
-
-    <div class="text-end">
-         <a href="#!" class="btn btn-danger">Cancel</a>
-         <a href="#!" class="btn btn-success">Save Change</a>
+                        <!-- end table-responsive -->
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
+<script>
+    const timerFlashSale = document.getElementById('timerFlashSale');
+
+    const now = new Date();
+    const minDateTime = new Date(now.getTime() + 24 * 60 * 60 * 1000); 
+    const year = minDateTime.getFullYear();
+    const month = String(minDateTime.getMonth() + 1).padStart(2, '0');
+    const day = String(minDateTime.getDate()).padStart(2, '0');
+    const hours = String(minDateTime.getHours()).padStart(2, '0');
+    const minutes = String(minDateTime.getMinutes()).padStart(2, '0');
+
+    // Setel nilai min ke elemen input
+    timerFlashSale.min = `${year}-${month}-${day}T${hours}:${minutes}`;
+</script>
 @endsection

@@ -23,7 +23,13 @@
             <a href="{{ route('profile.address') }}"
                 class="category-item flex items-center gap-3 w-full px-5 py-4 rounded-lg cursor-pointer duration-300 hover:bg-white mt-1.5 {{ request()->is('address') ? 'active' : '' }}">
                 <span class="ph ph-tag text-xl"></span>
-                <strong class="heading6">My Address</strong>
+                <strong class="heading6">List Alamat</strong>
+            </a>
+
+            <a href="{{ route('recent_order') }}"
+                class="category-item flex items-center gap-3 w-full px-5 py-4 rounded-lg cursor-pointer duration-300 hover:bg-white mt-1.5 {{ request()->is('order') ? 'active' : '' }}">
+                <span class="ph ph-receipt text-xl"></span>
+                <strong class="heading6">Riwayat Order</strong>
             </a>
 
             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">

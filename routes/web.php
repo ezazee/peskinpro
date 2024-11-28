@@ -17,6 +17,10 @@ use App\Http\Controllers\CouponsController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\BankController;
+
+
 
 
 /*
@@ -37,31 +41,8 @@ Route::get('/ongkir', [CheckOngkirController::class, 'index'])->name('index');
 Route::post('/ongkir', [CheckOngkirController::class, 'check_ongkir'])->name('check_ongkir');
 Route::get('/cities/{province_id}', [CheckOngkirController::class, 'getCities'])->name('getCities');
 
-// settings
-Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');
-Route::post('/banner', [SettingsController::class, 'banner'])->name('settings.banner');
-Route::delete('/banner/delete/s{id}', [SettingsController::class, 'deletebanner'])->name('deletebanner');
-
-Route::middleware(['userOrGuest'])->group(function () {
-    Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
-    Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
-    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-    Route::post('/cart/increase', [CartController::class, 'increaseQuantity'])->name('cart.increase');
-    Route::post('/cart/decrease', [CartController::class, 'decreaseQuantity'])->name('cart.decrease');
-    Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
-    Route::get('/detail/{slug}', [ShopController::class, 'detail'])->name('shop.detail');
-});
-
-Route::middleware(['auth', 'role:user'])->group(function () {
-    Route::get('/checkout', [ChekoutController::class, 'index'])->name('chekout.index');
-    Route::post('/checkout/process', [ChekoutController::class, 'processCheckout'])->name('checkout.process');
-
-    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
-    Route::put('/profile/update/{id}', [ProfileController::class, 'update'])->name('profile.update');
-    Route::get('/address', [ProfileController::class, 'address'])->name('profile.address');
-
-});
-
+Route::get('/artikel', [ArticleController::class, 'blogarticle'])->name('blogarticle');
+Route::get('/artikel/{slug}', [ArticleController::class, 'articlebyTittle'])->name('articlebyTittle');
 
 Route::get('/login', [AuthenticationController::class, 'index'])->name('login');
 Route::post('/login/user', [AuthenticationController::class, 'userLogin'])->name('userLogin');
@@ -71,7 +52,36 @@ Route::get('/pskinpro', [AuthenticationController::class, 'showadminLogin'])->na
 Route::get('/register', [AuthenticationController::class, 'show_register'])->name('show_register');
 Route::post('/register', [AuthenticationController::class, 'register'])->name('register');
 Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logout');
+Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
+Route::get('/detail/{slug}', [ShopController::class, 'detail'])->name('shop.detail');
 
+Route::middleware(['userOrGuest'])->group(function () {
+    Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+    Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+    Route::post('/cart/increase', [CartController::class, 'increaseQuantity'])->name('cart.increase');
+    Route::post('/cart/decrease', [CartController::class, 'decreaseQuantity'])->name('cart.decrease');
+});
+
+Route::middleware(['auth', 'role:user'])->group(function () {
+    Route::get('/checkout', [ChekoutController::class, 'index'])->name('chekout.index');
+    // Route::get('/checkout/process', [ChekoutController::class, 'Checkout'])->name('checkout.process');
+    Route::post('/checkout/process', [ChekoutController::class, 'Checkout'])->name('checkout.process');
+    Route::get('/pembayaran/{invoice_number}', [ChekoutController::class, 'payment'])->name('payment');
+    Route::post('/payment/process', [ChekoutController::class, 'processpayment'])->name('processpayment');
+    Route::post('/pembayaran/{invoice_number}', [ChekoutController::class, 'pembayaran'])->name('pembayaran');
+
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::put('/profile/update/{id}', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/address', [ProfileController::class, 'address'])->name('profile.address');
+    Route::get('/address/edit/{id}', [ProfileController::class, 'editaddress'])->name('edit.address');
+    Route::post('/update-address/{id}', [ProfileController::class, 'updateAddress'])->name('updateAddress');
+    Route::post('/address', [ProfileController::class, 'add_address'])->name('profile.add_address');
+    Route::delete('/address/delete{id}', [ProfileController::class, 'delete_address'])->name('delete_address');
+    Route::post('/set-default-address/{id}', [ProfileController::class, 'setDefaultAddress'])->name('set_default_address');
+    Route::get('/order', [ProfileController::class, 'recent_order'])->name('recent_order');
+    Route::get('/detail-order', [ProfileController::class, 'detail_order'])->name('detail-order');
+});
 
 
 Route::middleware(['auth', 'role:Administrator'])->group(function () {
@@ -94,18 +104,55 @@ Route::middleware(['auth', 'role:Administrator'])->group(function () {
 
     // orders
     Route::get('/orders/list', [OrdersController::class, 'list'])->name('orders.list');
+    Route::get('/process/list', [OrdersController::class, 'proceslist'])->name('orders.proceslist');
+    Route::get('/pendingreview/list', [OrdersController::class, 'pendingreview'])->name('orders.pendingreview');
+    Route::get('/shipping/list', [OrdersController::class, 'shippinglist'])->name('orders.shippinglist');
+    Route::get('/canceled/list', [OrdersController::class, 'canceledlist'])->name('orders.canceledlist');
+    Route::get('/completed/list', [OrdersController::class, 'completedlist'])->name('orders.completedlist');
     Route::get('/orders/detail/{orderNumber}', [OrdersController::class, 'detail'])->name('orders.detail');
     Route::get('/pos', [OrdersController::class, 'pos'])->name('orders.pos');
     Route::post('/add_cart/pos', [OrdersController::class, 'add_cart_pos'])->name('add_cart_pos');
     Route::get('/cart/delete/{id}', [OrdersController::class, 'remove'])->name('cart.delete');
     Route::get('/cart/clearall', [OrdersController::class, 'clearall'])->name('cart.clearall');
     Route::post('/orders/pos', [OrdersController::class, 'pos_order'])->name('pos_order');
+    Route::post('/order/accept/{order}', [OrdersController::class, 'accept'])->name('order.accept');
+    Route::post('/order/reject/{order}', [OrdersController::class, 'reject'])->name('order.reject');
+    Route::post('/order/delivered/{order}', [OrdersController::class, 'delivered'])->name('order.delivered');
+
+
+    Route::get('/returnandrefund/list', [OrdersController::class, 'returnrefundlist'])->name('orders.returnrefundlist');
+    // orders return
+    Route::get('/return/list', [OrdersController::class, 'returnlist'])->name('orders.returnlist');
+    Route::post('/return', [OrdersController::class, 'returnorder'])->name('orders.return');
+    // order refund
+    Route::get('/refund/list', [OrdersController::class, 'refundlist'])->name('orders.refundlist');
+    Route::post('/refund', [OrdersController::class, 'refundorder'])->name('orders.refund');
+
+    // cetak
+    Route::get('/receipt/{orderId}', [OrdersController::class, 'showReceipt'])->name('receipt.show');
+
+
+    // settings
+    Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');
+    Route::post('/banner', [SettingsController::class, 'banner'])->name('settings.banner');
+    Route::delete('/banner/delete/s{id}', [SettingsController::class, 'deletebanner'])->name('deletebanner');
+    Route::get('/update-bestseller/{id}', [SettingsController::class, 'updateBestseller'])->name('update.bestseller');
+    Route::get('/update-promotion/{id}', [SettingsController::class, 'updatePromotion'])->name('update.promotion');
+
+    Route::post('/add/popup', [SettingsController::class, 'add_popup'])->name('settings.add_popup');
+    Route::post('/delete/popup', [SettingsController::class, 'delete_popup'])->name('settings.delete_popup');
+
+    Route::post('/add/bannerbundle', [SettingsController::class, 'bannerbundle'])->name('settings.bannerbundle');
+    Route::post('/add/bannerknowlage', [SettingsController::class, 'bannerknowlage'])->name('settings.bannerknowlage');
+    Route::post('/add/bannershop', [SettingsController::class, 'bannershop'])->name('settings.bannershop');
+    Route::post('/add/bannerflashsale', [SettingsController::class, 'bannerflashsale'])->name('settings.bannerflashsale');
+    Route::post('/add/timerflashsale', [SettingsController::class, 'timerflashsale'])->name('settings.timerflashsale');
 
     // invoice
     Route::get('/invoice', [InvoiceController::class, 'index'])->name('invoice.index');
     Route::get('/invoice/detail/{invoiceNumber}', [InvoiceController::class, 'detail'])->name('invoice.detail');
 
-        // users
+    // users
     Route::get('/users/list', [UsersController::class, 'index'])->name('users.index');
     Route::get('/users/create', [UsersController::class, 'create'])->name('users.create');
     Route::post('/users/add', [UsersController::class, 'add_admin'])->name('users.add_admin');
@@ -128,14 +175,24 @@ Route::middleware(['auth', 'role:Administrator'])->group(function () {
     Route::delete('/article/delete/{id}', [ArticleController::class, 'destroy'])->name('article.destroy');
     Route::put('/article/update/{id}', [ArticleController::class, 'update'])->name('article.update');
 
+    // report
+    Route::get('/report', [ReportController::class, 'index'])->name('report.index');
+    Route::get('/report/generate', [ReportController::class, 'generate'])->name('report.generate');
+    Route::get('/report/pdf', [ReportController::class, 'generatePdf'])->name('report.generatePdf');
+
+    Route::get('/users/profile', [UsersController::class, 'profile'])->name('users.profile');
+
+    // bank
+    Route::get('/bank', [BankController::class, 'index'])->name('bank.index');
+    Route::post('/bank/update/{id}', [BankController::class, 'update'])->name('bank.update');
+    Route::post('/bank', [BankController::class, 'create'])->name('bank.create');
+    Route::get('/bank/edit/{slug}', [BankController::class, 'edit'])->name('bank.edit');
+    Route::delete('/bank/delete/{id}', [BankController::class, 'destroy'])->name('bank.destroy');
 
 
 });
 
-
-
-
-Route::get('/about-us', function() {
+Route::get('/about-us', function () {
     return view('frontend.pages.about-us');
 });
 
@@ -144,27 +201,25 @@ Route::get('/contact-us', function () {
 });
 
 
-Route::get('/faq', function() {
+Route::get('/faq', function () {
     return view('frontend.pages.faq');
 });
 
 
-Route::get('/search-result', function() {
+Route::get('/search-result', function () {
     return view('frontend.pages.search-result');
 });
 
-Route::get('/return-and-refunds', function() {
+Route::get('/return-and-refunds', function () {
     return view('frontend.pages.return-and-refunds');
 });
 
-Route::get('/payment', function() {
-    return view('frontend.pages.payment');
+
+Route::get('/receipt', function () {
+    return view('backend.pages.invoice.receipt_order');
 });
 
-Route::get('/artikel', function() {
-    return view('frontend.pages.artikel');
-});
 
-Route::get('/artikel-detail', function() {
-    return view('frontend.pages.artikel-detail');
+Route::get('/detail-order', function () {
+    return view('frontend.pages.detail-order');
 });

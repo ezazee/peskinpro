@@ -541,10 +541,10 @@
 {{-- Backdrop Modal Ganti Alamat Checkout --}}
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const modal = document.getElementById('customGantiAlamat');
-        const backdrop = document.getElementById('backdrop-ganti-alamat');
-        const openModalButton = document.getElementById('gantiAlamatButton');
-        const closeModalButtons = document.querySelectorAll('.modal-ganti-alamat-close');
+        const modal = document.getElementById('customModalOrder');
+        const backdrop = document.getElementById('backdrop-order-alamat');
+        const openModalButton = document.getElementById('historyOrderButton');
+        const closeModalButtons = document.querySelectorAll('.modal-order-close');
 
         // Cek jika modal dan backdrop ada sebelum melanjutkan
         if (modal && backdrop) {
@@ -576,35 +576,76 @@
     });
 </script>
 
-
-{{-- Timer Countdown --}}
+{{-- Backdrop Modal Order History --}}
 <script>
-    // Set the date we're counting down to (replace with your own date/time)
-    const countdownDate = new Date("Nov 30, 2024 23:59:59").getTime();
+document.addEventListener("DOMContentLoaded", function () {
+    // JavaScript for showing/hiding modal
+    const modal = document.getElementById('customModalOrder');
+    const backdrop = document.getElementById('modal-order-backdrop');
+    const openModalButtons = document.querySelectorAll('.historyOrderButton');
+    const closeModalButtons = document.querySelectorAll('.modal-order-close');
 
-    // Update the countdown every 1 second
+    // Tambahkan event listener untuk setiap tombol dengan kelas .historyOrderButton
+    openModalButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            modal.classList.remove('hidden');
+            backdrop.classList.remove('hidden');
+        });
+    });
+
+    closeModalButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            modal.classList.add('hidden');
+            backdrop.classList.add('hidden');
+        });
+    });
+
+    backdrop.addEventListener('click', function () {
+        modal.classList.add('hidden');
+        backdrop.classList.add('hidden');
+    });
+});
+
+</script>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const countdownElement = document.querySelector(".countdown-time");
+    const timerFlashsale = countdownElement.getAttribute("data-timer");
+
+    if (!timerFlashsale || isNaN(new Date(timerFlashsale).getTime())) {
+        document.querySelector(".countdown-day").textContent = "0";
+        document.querySelector(".countdown-hour").textContent = "00";
+        document.querySelector(".countdown-minute").textContent = "00";
+        document.querySelector(".countdown-second").textContent = "00";
+        countdownElement.innerHTML = "<div class='heading6 text-white'>Flash Sale Ended</div>";
+        return;
+    }
+
+    const countdownDate = new Date(timerFlashsale).getTime();
+
     const countdownFunction = setInterval(() => {
         const now = new Date().getTime();
         const timeRemaining = countdownDate - now;
 
-        // Calculate days, hours, minutes, and seconds
         const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
         const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
 
-        // Display the result in the countdown elements
         document.querySelector(".countdown-day").textContent = days;
-        document.querySelector(".countdown-hour").textContent = hours;
-        document.querySelector(".countdown-minute").textContent = minutes;
-        document.querySelector(".countdown-second").textContent = seconds;
+        document.querySelector(".countdown-hour").textContent = hours.toString().padStart(2, '0');
+        document.querySelector(".countdown-minute").textContent = minutes.toString().padStart(2, '0');
+        document.querySelector(".countdown-second").textContent = seconds.toString().padStart(2, '0');
 
-        // If the countdown is finished, stop it
         if (timeRemaining < 0) {
             clearInterval(countdownFunction);
-            document.querySelector(".countdown-time").textContent = "Flash Sale Ended";
+            countdownElement.innerHTML = "<div class='heading6 text-white'>Flash Sale Ended</div>";
         }
     }, 1000);
+});
+
 </script>
 
 

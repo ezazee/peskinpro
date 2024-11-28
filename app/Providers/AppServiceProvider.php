@@ -6,7 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Cart;
-
+use App\Models\Order;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -37,6 +37,29 @@ class AppServiceProvider extends ServiceProvider
             }
             // dd($cartItemCount);
             $view->with('cartItemCount', $cartItemCount);
+        });
+
+        View::composer('backend.components.sidebar', function ($view) {
+            $pendingReviewCount = Order::whereHas('invoice', function ($query) {
+                $query->whereNotNull('bukti_tf')
+                      ->where('payment_status', 'unpaid');
+            })
+            ->where('status', 'pending')
+            ->count();
+        
+            $processinglist = Order::with(['user', 'alamat', 'products', 'invoice', 'shipping'])
+                ->where('status', 'processing')
+                ->count();
+
+            $shippinglist = Order::with(['user', 'alamat', 'products', 'invoice', 'shipping'])
+                ->where('status', 'shipping')
+                ->count();
+        
+            $view->with([
+                'pendingReviewCount' => $pendingReviewCount,
+                'processinglist' => $processinglist,
+                'shippinglist' => $shippinglist
+            ]);
         });
     }
 }

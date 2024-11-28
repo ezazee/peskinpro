@@ -27,6 +27,7 @@ class CheckOngkirController extends Controller
         $availableCouriers = ['jne', 'tiki', 'pos'];
         $originCityId = 152;
         $results = [];
+
         foreach ($availableCouriers as $courier) {
             $cost = RajaOngkir::ongkosKirim([
                 'origin'        => $originCityId, 
@@ -39,8 +40,6 @@ class CheckOngkirController extends Controller
                 $results[$courier] = $cost;
             }
         }   
-
-        // dd($cost);
         return response()->json($results);
     }
 }

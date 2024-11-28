@@ -100,19 +100,15 @@
                     <div>
                         <h4 class="card-title">All Customers List</h4>
                     </div>
-                    <div class="dropdown">
-                        <a href="#" class="dropdown-toggle btn btn-sm btn-outline-light rounded"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            This Month
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end">
-                            <!-- item-->
-                            <a href="#!" class="dropdown-item">Download</a>
-                            <!-- item-->
-                            <a href="#!" class="dropdown-item">Export</a>
-                            <!-- item-->
-                            <a href="#!" class="dropdown-item">Import</a>
-                        </div>
+
+                    <div class="d-flex align-items-center gap-2">
+                        <!-- Form Search -->
+                        <form action="{{ route('customers.index') }}" method="GET" class="d-flex align-items-center me-2">
+                            <input type="text" name="query" class="form-control form-control-sm" 
+                                   placeholder="Search Customer..." 
+                                   value="{{ request('query') }}">
+                            <button type="submit" class="btn btn-sm btn-outline-secondary ms-1">Search</button>
+                        </form>
                     </div>
                 </div>
                 <div>
@@ -151,17 +147,27 @@
                                     <td>{{ $item->email }}</td>
                                     <td> {{ $item->no_telp }} </td>
                                     @if ($item->alamat->isEmpty())
-                                    <td>N/A</td>
-                                    <td>N/A</td>
-                                    <td>N/A</td>
+                                        <td>N/A</td>
+                                        <td>N/A</td>
+                                        <td>N/A</td>
                                     @else
-                                        @foreach ($item->alamat as $alam)
-                                            <td>{{ $alam->street ?? 'N/A' }}</td>
-                                            <td>{{ $alam->city->name ?? 'N/A' }}</td>
-                                            <td>{{ $alam->province->name ?? 'N/A' }}</td>
-                                        @endforeach
+                                    @php
+                                    $defaultAlamat = $item->alamat->where('default', 'yes');
+                                    @endphp
+                                        @if ($defaultAlamat->isEmpty())
+                                            <td>N/A</td>
+                                            <td>N/A</td>
+                                            <td>N/A</td>
+                                        @else
+                                            @foreach ($defaultAlamat as $alam)
+                                                <td>{{ $alam->street ?? 'N/A' }}</td>
+                                                <td>{{ $alam->city->name ?? 'N/A' }}</td>
+                                                <td>{{ $alam->province->name ?? 'N/A' }}</td>
+                                            @endforeach
+                                        @endif
                                     @endif
-                                                            
+
+
                                     <td>
                                         @if ($item->status == 'active')
                                         <span class="badge bg-success-subtle text-success py-1 px-2">Active</span>
@@ -172,112 +178,127 @@
                                     <td>
                                         <div class="d-flex gap-2">
                                             <a class="btn btn-light btn-sm" data-bs-toggle="modal"
-                                            href="#exampleModalToggle-{{ $item->slug }}" role="button">
-                                            <iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon>
-                                        </a>
-                                        <div class="modal fade" id="exampleModalToggle-{{ $item->slug }}" aria-hidden="true"
-                                            aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-                                            <div class="modal-dialog modal-dialog-centered modal-lg">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalToggleLabel">Detail Customers
-                                                        </h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                            aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="row">
-                                                            <div class="col-lg-4">
-                                                                <div class="mb-3">
-                                                                    <label class="form-label">First Name</label>
-                                                                    <input type="text" name="first_name"
-                                                                        class="form-control"
-                                                                        value="{{ $item->first_name }}" readonly>
+                                                href="#exampleModalToggle-{{ $item->slug }}" role="button">
+                                                <iconify-icon icon="solar:eye-broken" class="align-middle fs-18">
+                                                </iconify-icon>
+                                            </a>
+                                            <div class="modal fade" id="exampleModalToggle-{{ $item->slug }}"
+                                                aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+                                                tabindex="-1">
+                                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalToggleLabel">Detail
+                                                                Customers
+                                                            </h5>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="row">
+                                                                <div class="col-lg-4">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label">First Name</label>
+                                                                        <input type="text" name="first_name"
+                                                                            class="form-control"
+                                                                            value="{{ $item->first_name }}" readonly>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label">Last Name</label>
+                                                                        <input type="text" name="last_name"
+                                                                            class="form-control"
+                                                                            value="{{ $item->last_name }}" readonly>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4">
+                                                                    <div class="mb-3">
+                                                                        <label for="role-tag"
+                                                                            class="form-label">Email</label>
+                                                                        <input type="email" name="email"
+                                                                            class="form-control"
+                                                                            value="{{ $item->email }}" readonly>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4">
+                                                                    <div class="mb-3">
+                                                                        <label for="role-tag" class="form-label">Phone
+                                                                            Number</label>
+                                                                        <input type="email" class="form-control"
+                                                                            value="{{ $item->no_telp }}" readonly>
+                                                                    </div>
+                                                                </div>
+                                                                @if ($item->alamat->isEmpty())
+                                                                <div class="col-lg-4">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label">Province</label>
+                                                                        <input type="text" class="form-control"
+                                                                            value="No Province" readonly>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label">City</label>
+                                                                        <input type="text" class="form-control"
+                                                                            value="No City" readonly>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-12">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label">Address</label>
+                                                                        <textarea class="form-control bg-light-subtle"
+                                                                            rows="5" readonly>No Address</textarea>
+                                                                    </div>
+                                                                </div>
+                                                                @else
+                                                                @foreach ($defaultAlamat as $amat)
+                                                                <div class="col-lg-4">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label">Province</label>
+                                                                        <input type="text" class="form-control"
+                                                                            value="{{ $amat->province->name }}"
+                                                                            readonly>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label">City</label>
+                                                                        <input type="text" class="form-control"
+                                                                            value="{{ $amat->city->name }}" readonly>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-12">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label">Address</label>
+                                                                        <textarea class="form-control bg-light-subtle"
+                                                                            rows="5"
+                                                                            readonly>{{ $amat->street }}</textarea>
+                                                                    </div>
+                                                                </div>
+                                                                @endforeach
+                                                                @endif
+                                                                <div class="col-lg-6">
+                                                                    <p>User Status :
+                                                                        @if ($item->status == 'active')
+                                                                        <span
+                                                                            class="badge bg-success-subtle text-success py-1 px-2">Active</span>
+                                                                        @else
+                                                                        <span
+                                                                            class="badge bg-danger-subtle text-danger py-1 px-2">In
+                                                                            Active</span>
+                                                                        @endif
+                                                                    </p>
+                                                                </div>
+                                                                <div class="text-end">
+                                                                    <p class="small mb-0">Created at:
+                                                                        {{ $item->created_at }}</p>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-lg-4">
-                                                                <div class="mb-3">
-                                                                    <label class="form-label">Last Name</label>
-                                                                    <input type="text" name="last_name" class="form-control"
-                                                                        value="{{ $item->last_name }}" readonly>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-4">
-                                                                <div class="mb-3">
-                                                                    <label for="role-tag" class="form-label">Email</label>
-                                                                    <input type="email" name="email" class="form-control"
-                                                                        value="{{ $item->email }}" readonly>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-4">
-                                                                <div class="mb-3">
-                                                                    <label for="role-tag" class="form-label">Phone Number</label>
-                                                                    <input type="email" class="form-control"
-                                                                        value="{{ $item->no_telp }}" readonly>
-                                                                </div>
-                                                            </div>
-                                                            @if ($item->alamat->isEmpty())
-                                                            <div class="col-lg-4">
-                                                                <div class="mb-3">
-                                                                    <label class="form-label">Province</label>
-                                                                    <input type="text" class="form-control"
-                                                                        value="No Province" readonly>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-4">
-                                                                <div class="mb-3">
-                                                                    <label class="form-label">City</label>
-                                                                    <input type="text" class="form-control"
-                                                                        value="No City" readonly>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-12">
-                                                                <div class="mb-3">
-                                                                    <label class="form-label">Address</label>
-                                                                    <textarea class="form-control bg-light-subtle" rows="5" readonly>No Address</textarea>
-                                                                </div>
-                                                            </div>
-                                                            @else
-                                                            @foreach ($item->alamat as $amat)
-                                                            <div class="col-lg-4">
-                                                                <div class="mb-3">
-                                                                    <label class="form-label">Province</label>
-                                                                    <input type="text" class="form-control"
-                                                                        value="{{ $amat->province->name }}" readonly>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-4">
-                                                                <div class="mb-3">
-                                                                    <label class="form-label">City</label>
-                                                                    <input type="text" class="form-control"
-                                                                        value="{{ $amat->city->name }}" readonly>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-12">
-                                                                <div class="mb-3">
-                                                                    <label class="form-label">Address</label>
-                                                                    <textarea class="form-control bg-light-subtle" rows="5" readonly>{{ $amat->street }}</textarea>
-                                                                </div>
-                                                            </div>
-                                                            @endforeach
-                                                            @endif
-                                                            <div class="col-lg-6">
-                                                                <p>User Status : 
-                                                                    @if ($item->status == 'active')
-                                                                    <span class="badge bg-success-subtle text-success py-1 px-2">Active</span>
-                                                                    @else
-                                                                    <span class="badge bg-danger-subtle text-danger py-1 px-2">In Active</span>
-                                                                    @endif
-                                                                </p>
-                                                            </div>
-                                                            <div class="text-end">
-                                                                <p class="small mb-0">Created at: {{ $item->created_at }}</p>
-                                                            </div>                                                        
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
                                             <a href="{{ route('users.edit_admin', $item->slug) }}"
                                                 class="btn btn-soft-primary btn-sm">
                                                 <iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18">

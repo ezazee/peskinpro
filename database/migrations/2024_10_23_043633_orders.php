@@ -16,13 +16,17 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('order_number')->unique();
             $table->decimal('total_amount', 10, 2);
-            $table->enum('status', ['pending', 'processing', 'completed', 'canceled'])->default('pending');
+            $table->enum('status', ['pending', 'processing', 'completed', 'canceled','shipping','return','refund'])->default('pending');
             $table->unsignedBigInteger('alamat_id')->nullable();
+            $table->unsignedBigInteger('shipping_id')->nullable();
             $table->enum('payment_method', ['transfer', 'qris', 'cash'])->default('cash');
-            $table->timestamps();
+            $table->decimal('kembali', 10, 2)->nullable();
+            $table->string('kode_bayar')->nullable();
 
+            $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('alamat_id')->references('id')->on('alamats')->onDelete('cascade');
+            $table->foreign('shipping_id')->references('id')->on('shippings')->onDelete('cascade');
         });
     }
 

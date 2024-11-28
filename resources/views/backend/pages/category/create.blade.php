@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-xl-3 col-lg-4">
             <div class="card">
-                @if(isset($category)) 
+                @if(isset($category))
                 <!-- Jika sedang edit -->
                 <form action="{{ route('category.update', $category->id) }}" method="POST">
                     @method('POST') <!-- method POST untuk update -->
@@ -35,8 +35,13 @@
 
         <div class="col-xl-9 col-lg-8">
             <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">List Categories</h4>
+                <div class="card-header d-flex justify-content-between align-items-center gap-1">
+                    <h4 class="card-title flex-grow-1">All Categories</h4>
+
+                    <form action="" method="" class="d-flex align-items-center me-2">
+                        <input type="text" name="query" class="form-control form-control-sm" placeholder="Search Categories...">
+                        <button type="submit" class="btn btn-sm btn-outline-secondary ms-1">Search</button>
+                    </form>
                 </div>
                 <div class="card-body">
                     <table class="table table-hover table-centered">
@@ -54,13 +59,13 @@
                                 <td>{{ $item->name }}</td>
                                 <td class="d-flex gap-2">
                                     <a href="{{ route('category.edit', $item->slug) }}" class="btn btn-primary btn-sm">Edit</a>
-                                    
+
                                     <form action="{{ route('category.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this category?');">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                     </form>
-                                </td>                                
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>

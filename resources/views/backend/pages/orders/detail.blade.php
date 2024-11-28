@@ -1,6 +1,6 @@
 @extends('backend.master.master-app')
 
-@section('title', 'Detail Orders')
+@section('title', 'Detail Order')
 
 @section('content')
 <div class="container-xxl">
@@ -13,28 +13,143 @@
                         <div class="card-body">
                             <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
                                 <div>
-                                   <h4 class="fw-medium text-dark d-flex align-items-center gap-2">
-                                        #{{ $orders->order_number }}
-                                        @if ($orders->invoice->payment_status == 'paid')
-                                             <span class="badge bg-success-subtle text-success px-2 py-1 fs-13">Paid</span>
-                                        @elseif ($orders->invoice->payment_status == 'unpaid')
-                                             <span class="badge bg-secondary-subtle text-secondary px-2 py-1 fs-13">Unpaid</span>
-                                        @else
-                                             <span class="badge bg-danger-subtle text-danger px-2 py-1 fs-13">Refund</span>
+                                    <h4 class="fw-medium text-dark d-flex align-items-center gap-2">
+                                        #{{ $orders->order_number }} 
+                                        @if ($orders->returns)
+                                        @foreach ($orders->returns as $item)
+                                        - #{{ $item->return_number }} 
+                                        @endforeach
+                                        @elseif($orders->refunds)
+                                        @foreach ($orders->refunds as $item)
+                                        - #{{ $item->refund_number }} 
+                                        @endforeach
                                         @endif
-                                        <span class="border border-warning text-warning fs-13 px-2 py-1 rounded">In Progress</span>
-                                   </h4>
+                                        @if ($orders->invoice->payment_status == 'paid')
+                                        <span class="badge bg-success-subtle text-success px-2 py-1 fs-13">Paid</span>
+                                        @elseif ($orders->invoice->payment_status == 'unpaid')
+                                        <span
+                                            class="badge bg-secondary-subtle text-secondary px-2 py-1 fs-13">Unpaid</span>
+                                        @else
+                                        <span class="badge bg-danger-subtle text-danger px-2 py-1 fs-13">Refund</span>
+                                        @endif
+                                        @if ($orders->status == 'pending')
+                                        <span
+                                            class="border border-warning text-secondary fs-13 px-2 py-1 rounded">Pending</span>
+                                        @elseif ($orders->status == 'processing')
+                                        <span class="badge bg-warning-subtle text-warning px-2 py-1 fs-13">In
+                                            Progress</span>
+                                        @elseif ($orders->status == 'canceled')
+                                        <span class="badge bg-danger-subtle text-danger px-2 py-1 fs-13">Canceled</span>
+                                        @elseif ($orders->status == 'completed')
+                                        <span
+                                            class="badge bg-success-subtle text-success px-2 py-1 fs-13">Completed</span>
+                                        @elseif ($orders->status == 'shipping')
+                                        <span class="badge bg-info-subtle text-info px-2 py-1 fs-13">Shipping</span>
+                                        @elseif ($orders->status == 'return')
+                                        <span class="badge bg-danger-subtle text-danger px-2 py-1 fs-13">Return</span>
+                                        @else
+                                        <span class="badge bg-danger-subtle text-danger px-2 py-1 fs-13">Refund</span>
+                                        @endif
+                                    </h4>
                                     <p class="mb-0">Order / Order Details / #{{ $orders->order_number }} -
                                         {{ $orders->created_at->format('d F Y') }}</p>
+                                        @if ($orders->returns)
+                                        @foreach ($orders->returns as $item)
+                                        <p>*Reason: {{ $item->reason }}</p>
+                                        @endforeach
+                                        @elseif($orders->refunds)
+                                        @foreach ($orders->refunds as $item)
+                                        <p>*Reason: {{ $item->reason }}</p>
+                                        @endforeach
+                                        @endif
                                 </div>
                                 <div>
-                                    <a href="#!" class="btn btn-outline-secondary">Refund</a>
-                                    <a href="#!" class="btn btn-outline-secondary">Return</a>
+                                    @if (!$hasReturns)
+                                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal"
+                                        data-bs-target="#ReturnModal">Return</button>
+                                    @endif
+                                    @if (!$hasRefunds)
+                                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal"
+                                        data-bs-target="#RefundModal">Refund</button>
+                                    @endif
                                 </div>
+
+                                {{-- modal return --}}
+                                <div class="modal fade" id="ReturnModal" tabindex="-1"
+                                    aria-labelledby="ReturnModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="ReturnModalLabel">Return Order</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <form action="{{ route('orders.return') }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="order_id" value="{{ $orders->id }}">
+                                                <input type="hidden" name="order_number"
+                                                    value="{{ $orders->order_number }}">
+                                                <div class="modal-body">
+                                                    <div class="mb-3">
+                                                        <label for="recipient-name"
+                                                            class="col-form-label">Nominal:</label>
+                                                        <input type="number" class="form-control" id="recipient-name"
+                                                            name="nominal" placeholder="Rp10.000">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="message-text" class="col-form-label">Reason:</label>
+                                                        <textarea class="form-control" id="message-text"
+                                                            name="reason"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-primary">Send</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- end modal retun --}}
+
+                                {{-- modal Refund --}}
+                                <div class="modal fade" id="RefundModal" tabindex="-1"
+                                    aria-labelledby="RefundModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="RefundModalLabel">Refund Order</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <form action="s" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="order_id" value="{{ $orders->id }}">
+                                                <input type="hidden" name="order_number"
+                                                    value="{{ $orders->order_number }}">
+                                                <div class="modal-body">
+                                                    <div class="mb-3">
+                                                        <label for="recipient-name"
+                                                            class="col-form-label">Nominal:</label>
+                                                            <input type="text" class="form-control" name="nominal" value="{{ $orders->total_amount }}" placeholder="Rp{{ number_format($orders->total_amount, 2) }}" readonly>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="message-text" class="col-form-label">Reason:</label>
+                                                        <textarea class="form-control" id="message-text"
+                                                            name="reason"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn btn-primary">Send</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{-- end modal Refund --}}
 
                             </div>
 
-                            <div class="mt-4">
+                            {{-- <div class="mt-4">
                                 <h4 class="fw-medium text-dark">Progress</h4>
                             </div>
                             <div class="row row-cols-xxl-5 row-cols-md-2 row-cols-1">
@@ -88,16 +203,14 @@
                                     </div>
                                     <p class="mb-0 mt-2">Delivered</p>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                         <div
                             class="card-footer d-flex flex-wrap align-items-center justify-content-between bg-light-subtle gap-2">
                             <p class="border rounded mb-0 px-2 py-1 bg-body"><i
-                                    class='bx bx-arrow-from-left align-middle fs-16'></i> Estimated shipping date :
-                                <span class="text-dark fw-medium">Apr 25 , 2024</span></p>
-                            <div>
-                                <a href="#!" class="btn btn-primary">Make As Ready To Ship</a>
-                            </div>
+                                    class='bx bx-arrow-from-left align-middle fs-16'></i> Estimated shipping :
+                                <span class="text-dark fw-medium">{{ $orders->shipping->shipping_service ?? '-' }}
+                                    {{ $orders->shipping->estimated_delivery ?? '-' }}</span></p>
                         </div>
                     </div>
                     <div class="card">
@@ -138,24 +251,23 @@
                                                             $purchasedSizeId = $product->pivot->size_id;
                                                             $purchasedSize = $product->sizes->firstWhere('id',
                                                             $purchasedSizeId);
-                                                            $subtotal = ($purchasedSize->price *
-                                                            $product->pivot->quantity) - ($purchasedSize->discount *
-                                                            $product->pivot->quantity);
+                                                            $subtotal = $product->pivot->harga *
+                                                            $product->pivot->quantity;
                                                             $totalAmount += $subtotal;
-                                                            $hemat += $purchasedSize->discount *
+                                                            $hemat += $product->pivot->discount *
                                                             $product->pivot->quantity;
                                                             @endphp
-                                                            {{ $purchasedSize->size }}
+                                                            {{ $purchasedSize->size }}ML
                                                         </p>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td> {{ $product->pivot->quantity }}</td>
                                             <td>x</td>
-                                            <td>Rp{{ number_format($purchasedSize->price - $purchasedSize->discount, 2) }}
+                                            <td>Rp{{ number_format($product->pivot->harga, 2) }}
                                             </td>
                                             <td>
-                                                Rp{{ number_format(($purchasedSize->price * $product->pivot->quantity) - ($purchasedSize->discount * $product->pivot->quantity), 2) }}
+                                                Rp{{ number_format(($product->pivot->harga * $product->pivot->quantity), 2) }}
                                             </td>
                                         </tr>
                                         @endforeach
@@ -164,7 +276,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card">
+                    {{-- <div class="card">
                         <div class="card-header">
                             <h4 class="card-title">Order Timeline</h4>
                         </div>
@@ -283,7 +395,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
@@ -321,7 +433,9 @@
                                             </iconify-icon> Delivery Charge :
                                         </p>
                                     </td>
-                                    <td class="text-end text-dark fw-medium px-0">$00.00</td>
+                                    <td class="text-end text-dark fw-medium px-0">
+                                        {{ number_format($orders->shipping->shipping_cost ?? 0, 2) == 0 ? '-' : number_format($orders->shipping->shipping_cost, 2) }}
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -332,7 +446,7 @@
                         <p class="fw-medium text-dark mb-0">Total Amount</p>
                     </div>
                     <div>
-                        <p class="fw-medium text-dark mb-0"> Rp{{ number_format($totalAmount, 2) }}</p>
+                        <p class="fw-medium text-dark mb-0"> Rp{{ number_format($orders->total_amount, 2) }}</p>
                     </div>
 
                 </div>
@@ -345,7 +459,7 @@
                     <div class="d-flex align-items-center gap-3 mb-3">
                         <div>
                             <p class="mb-1 text-dark fw-medium">{{ strtoupper($orders->payment_method) }}
-                         </p>
+                            </p>
                         </div>
                         <div class="ms-auto">
                             <iconify-icon icon="solar:check-circle-broken" class="fs-22 text-success"></iconify-icon>
@@ -353,48 +467,84 @@
                     </div>
                     <p class="text-dark mb-1 fw-medium">Invoice Code : <span class="text-muted fw-normal fs-13">
                             #{{ $orders->invoice->invoice_number }}</span></p>
+                    @if ($orders->payment_method == 'cash')
+
+                    @else
                     <p class="text-dark mb-0 fw-medium">Proof of payment
-                         : <a class="btn btn-sm"><iconify-icon icon="solar:eye-scan-bold" class="fs-4 text-success"></iconify-icon>
-                         </a></p>
+                        : <a class="btn btn-sm">
+                            <iconify-icon icon="solar:eye-scan-bold" class="fs-4 text-success" data-bs-toggle="modal"
+                                data-bs-target="#buktiModal-{{ $orders->id }}"></iconify-icon>
+                        </a></p>
+
+                    <div class="modal fade" id="buktiModal-{{ $orders->id }}" tabindex="-1"
+                        aria-labelledby="buktiModalLabel-{{ $orders->id }}" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="buktiModalLabel-{{ $orders->id }}">
+                                        Bukti Transfer</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    @if($orders->invoice && !is_null($orders->invoice->bukti_tf))
+                                    <img src="{{ asset('storage/' . $orders->invoice->bukti_tf) }}" alt="Bukti Transfer"
+                                        class="img-fluid">
+                                    @else
+                                    <p>No bukti transfer available.</p>
+                                    @endif
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
                 </div>
             </div>
+            @if($orders->alamat)
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">Customer Details</h4>
                 </div>
                 <div class="card-body">
                     <div class="d-flex align-items-center gap-2">
-                        <img src="assets/images/users/avatar-1.jpg" alt=""
+                        @if($user->images)
+                        <img src="{{ asset('storage/' . $orders->$user->images) }}" alt=""
                             class="avatar rounded-3 border border-light border-3">
+                        @else
+                        <img src="{{ asset('/backend/assets/images/blank-profile.png') }}" alt="Default Profile Image"
+                            class="avatar rounded-3 border border-light border-3">
+                        @endif
+
                         <div>
-                            <p class="mb-1">Gaston Lapierre</p>
-                            <a href="#!" class="link-primary fw-medium">hello@dundermuffilin.com</a>
+                            <p class="mb-1">{{ $orders->user->name }}</p>
+                            <a href="#!" class="link-primary fw-medium">{{$orders->user->email}}</a>
                         </div>
                     </div>
                     <div class="d-flex justify-content-between mt-3">
+                        <h5 class="">Recipient</h5>
+                    </div>
+                    <p class="mb-1">{{ $orders->alamat->penerima }}</p>
+                    <div class="d-flex justify-content-between mt-3">
                         <h5 class="">Contact Number</h5>
                     </div>
-                    <p class="mb-1">(723) 732-760-5760</p>
+                    <p class="mb-1">{{ $orders->alamat->no_telp }}</p>
 
                     <div class="d-flex justify-content-between mt-3">
                         <h5 class="">Shipping Address</h5>
                     </div>
 
                     <div>
-                        <p class="mb-1">Wilson's Jewelers LTD</p>
-                        <p class="mb-1">1344 Hershell Hollow Road ,</p>
-                        <p class="mb-1">Tukwila, WA 98168 ,</p>
-                        <p class="mb-1">United States</p>
-                        <p class="">(723) 732-760-5760</p>
+                        <p class="mb-1">{{ $orders->alamat->street }}</p>
+                        <p class="mb-1">{{ $orders->alamat->city->name }} , {{ $orders->alamat->province->name }}</p>
+                        <p class="mb-1">Indonesia</p>
                     </div>
-
-                    <div class="d-flex justify-content-between mt-3">
-                        <h5 class="">Billing Address</h5>
-                    </div>
-
-                    <p class="mb-1">Same as shipping address</p>
                 </div>
             </div>
+            @endif
         </div>
     </div>
 </div>

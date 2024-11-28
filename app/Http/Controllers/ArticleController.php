@@ -20,12 +20,14 @@ class ArticleController extends Controller
         return view('backend.pages.article.create',compact('welcomeMessage','user'));
     }
 
-    public function list(){
+    public function list(Request $request){
         $user = Auth::user();
         $welcomeMessage = 'List Article';
-        $articles = Article::with(['tag'])->paginate(10);
+        $query = htmlspecialchars($request->input('query'), ENT_QUOTES, 'UTF-8');
 
-        // dd($articles);
+        $articles = Article::with(['tag'])
+                        ->where('tittle', 'like', '%' . $query . '%')
+                        ->paginate(10);
         return view('backend.pages.article.list',compact('welcomeMessage','user','articles'));
     }
 
@@ -117,5 +119,83 @@ class ArticleController extends Controller
         $article->delete();
         Alert::error('Deleted', 'Article deleted successfully');
         return redirect()->route('article.list')->with('success', 'Article deleted successfully.');
+    }
+
+
+    public function blogarticle(){
+        $articles = Article::with('tag')
+        ->where('status', 'public')
+        ->orderby('id', 'desc')
+        ->paginate(15);
+
+        $startOfWeek = Carbon::now()->startOfWeek();
+        $endOfWeek = Carbon::now()->endOfWeek();
+
+        $popularArticles = Article::where('status', 'public')
+                        ->whereBetween('created_at', [$startOfWeek, $endOfWeek])
+                        ->orderBy('view', 'desc')
+                        ->take(4)
+                        ->get();
+
+        if ($popularArticles->isEmpty()) {
+            $startOfLastWeek = Carbon::now()->subWeek()->startOfWeek();
+            $endOfLastWeek = Carbon::now()->subWeek()->endOfWeek();
+
+            $popularArticles = Article::where('status', 'public')
+                            ->whereBetween('created_at', [$startOfLastWeek, $endOfLastWeek])
+                            ->orderBy('view', 'desc')
+                            ->take(4)
+                            ->get();
+        }
+
+        $tags = Tag::take(10)->get();
+        return view('frontend.pages.artikel',compact('articles','tags','popularArticles'));
+    }
+
+    public function articlebyTittle($slug){
+        $articles = Article::where('slug', $slug)->where('status', 'public')->first();
+
+        if (!$articles) {
+            return redirect()->back()->with('error', 'This article is not available or not publicly accessible.');
+        }
+        $articles->increment('view');
+
+        $startOfWeek = Carbon::now()->startOfWeek();
+        $endOfWeek = Carbon::now()->endOfWeek();
+
+        $popularArticles = Article::where('status', 'public')
+                        ->whereBetween('created_at', [$startOfWeek, $endOfWeek])
+                        ->orderBy('view', 'desc')
+                        ->take(4)
+                        ->get();
+
+        if ($popularArticles->isEmpty()) {
+            $startOfLastWeek = Carbon::now()->subWeek()->startOfWeek();
+            $endOfLastWeek = Carbon::now()->subWeek()->endOfWeek();
+
+            $popularArticles = Article::where('status', 'public')
+                            ->whereBetween('created_at', [$startOfLastWeek, $endOfLastWeek])
+                            ->orderBy('view', 'desc')
+                            ->take(4)
+                            ->get();
+        }
+
+        $relatedArticles = Article::where('status', 'public')
+        ->whereHas('tag', function ($query) use ($articles) {
+            $query->whereIn('tags.id', $articles->tag->pluck('id'));
+        })
+        ->where('id', '!=', $articles->id)
+        ->orderBy('view', 'desc')
+        ->take(3)
+        ->get();
+
+        $meta_title = $articles->tittle;
+        $meta_description = $articles->description;
+        $meta_keywords = $articles->keyword;
+        // dd($meta_keywords);
+        $tags = Tag::take(10)->get();
+        return view('frontend.pages.artikel-detail',compact('articles','popularArticles','tags','relatedArticles', 'meta_title', 
+        'meta_description', 
+        'meta_keywords'));
     }
 }

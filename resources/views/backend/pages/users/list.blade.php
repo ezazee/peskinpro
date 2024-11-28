@@ -6,15 +6,17 @@
 
     <div class="card overflow-hiddenCoupons">
         <div class="card-body p-0">
-            <div class="d-flex card-header justify-content-between align-items-center">
-                <div>
-                    <h4 class="card-title">All Users List</h4>
-                </div>
-                <div class="dropdown">
-                    <a href="{{ route('users.create') }}" class="btn btn-sm btn-primary">
-                        Add User
-                    </a>
-                </div>
+            <div class="card-header d-flex justify-content-between align-items-center gap-1">
+                <h4 class="card-title flex-grow-1">All Users List</h4>
+
+                <form action="" method="" class="d-flex align-items-center me-2">
+                    <input type="text" name="query" class="form-control form-control-sm" placeholder="Search Products...">
+                    <button type="submit" class="btn btn-sm btn-outline-secondary ms-1">Search</button>
+                </form>
+
+                <a href="{{ route('product.index') }}" class="btn btn-sm btn-primary">
+                    Add User
+                </a>
             </div>
             <div class="table-responsive">
                 <table class="table align-middle mb-0 table-hover table-centered">
@@ -110,7 +112,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-6">
-                                                            <p>User Status : 
+                                                            <p>User Status :
                                                                 @if ($user->status == 'active')
                                                                 <span class="badge bg-success-subtle text-success py-1 px-2">Active</span>
                                                                 @else
@@ -120,7 +122,7 @@
                                                         </div>
                                                         <div class="text-end">
                                                             <p class="small mb-0">Created at: {{ $user->created_at }}</p>
-                                                        </div>                                                        
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

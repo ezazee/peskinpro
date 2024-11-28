@@ -94,7 +94,7 @@
                                 </div>
                             </div>
 
-                            <div class="text-title mt-5">Quantity:</div>
+                            <div class="text-title mt-5">Jumlah:</div>
                             <div class="choose-quantity flex items-center max-xl:flex-wrap lg:justify-between gap-5 mt-3">
                                 <div
                                     class="quantity-block md:p-3 max-md:py-1.5 max-md:px-3 flex items-center justify-between rounded-lg border border-line sm:w-[140px] w-[120px] flex-shrink-0">
@@ -114,11 +114,11 @@
                                 <div class="text-secondary">53453412</div>
                             </div>
                             <div class="flex items-center gap-1 mt-3">
-                                <div class="text-title">Categories:</div>
+                                <div class="text-title">Kategori:</div>
                                 <div class="list-category text-secondary">{{ $products->category->name }}</div>
                             </div>
                         </div>
-                        <div class="list-payment mt-7">
+                        {{-- <div class="list-payment mt-7">
                             <div
                                 class="main-content lg:pt-8 pt-6 lg:pb-6 pb-4 sm:px-4 px-3 border border-line rounded-xl relative max-md:w-2/3 max-sm:w-full">
                                 <div
@@ -144,7 +144,7 @@
 
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -156,7 +156,7 @@
                         <div class="tab-item heading5 has-line-before text-secondary2 hover:text-black duration-300 active">
                             Deskripsi</div>
                         <div class="tab-item heading5 has-line-before text-secondary2 hover:text-black duration-300">
-                            Ingredients</div>
+                            Bahan-Bahan</div>
                     </div>
                 </div>
                 <div class="desc-block mt-8">

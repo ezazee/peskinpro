@@ -17,6 +17,8 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
             $table->integer('quantity');
             $table->foreignId('size_id')->constrained('product_sizes');
+            $table->decimal('harga', 10, 2);
+            $table->decimal('discount', 10, 2);
             $table->timestamps();
         });
     }
