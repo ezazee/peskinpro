@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Article;
+use App\Models\Settings;
 use Illuminate\Support\Str;
 
 
@@ -50,7 +51,9 @@ class ShopController extends Controller
         ->orderby('id', 'desc')
         ->take(3)
         ->get();
-        return view('frontend.pages.shop',compact('products','articles','expandedPromo','productbestseller'));
+        $settings = Settings::all();
+        $timerFlashsale = Settings::first()->timer_flashsale;
+        return view('frontend.pages.shop',compact('products','articles','expandedPromo','productbestseller','settings','timerFlashsale'));
     }
 
     public function detail($slug){

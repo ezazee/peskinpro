@@ -609,34 +609,34 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 
 
-{{-- Timer Countdown --}}
 <script>
-    // Set the date we're counting down to (replace with your own date/time)
-    const countdownDate = new Date("Nov 30, 2024 23:59:59").getTime();
+document.addEventListener("DOMContentLoaded", () => {
+    const countdownElement = document.querySelector(".countdown-time");
+    const timerFlashsale = countdownElement.getAttribute("data-timer");
 
-    // Update the countdown every 1 second
+    const countdownDate = new Date(timerFlashsale).getTime();
+
     const countdownFunction = setInterval(() => {
         const now = new Date().getTime();
         const timeRemaining = countdownDate - now;
 
-        // Calculate days, hours, minutes, and seconds
         const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
         const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
 
-        // Display the result in the countdown elements
         document.querySelector(".countdown-day").textContent = days;
-        document.querySelector(".countdown-hour").textContent = hours;
-        document.querySelector(".countdown-minute").textContent = minutes;
-        document.querySelector(".countdown-second").textContent = seconds;
+        document.querySelector(".countdown-hour").textContent = hours.toString().padStart(2, '0');
+        document.querySelector(".countdown-minute").textContent = minutes.toString().padStart(2, '0');
+        document.querySelector(".countdown-second").textContent = seconds.toString().padStart(2, '0');
 
-        // If the countdown is finished, stop it
         if (timeRemaining < 0) {
             clearInterval(countdownFunction);
-            document.querySelector(".countdown-time").textContent = "Flash Sale Ended";
+            countdownElement.innerHTML = "<div class='heading6 text-white'>Flash Sale Ended</div>";
         }
     }, 1000);
+});
+
 </script>
 
 
