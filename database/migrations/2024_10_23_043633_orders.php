@@ -20,6 +20,9 @@ return new class extends Migration
             $table->unsignedBigInteger('alamat_id')->nullable();
             $table->unsignedBigInteger('shipping_id')->nullable();
             $table->enum('payment_method', ['transfer', 'qris', 'cash'])->default('cash');
+            $table->decimal('kembali', 10, 2)->nullable();
+            $table->string('kode_bayar')->nullable();
+
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('alamat_id')->references('id')->on('alamats')->onDelete('cascade');

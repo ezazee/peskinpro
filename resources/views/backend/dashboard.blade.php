@@ -46,14 +46,14 @@
                                         </div>
                                     </div> <!-- end col -->
                                     <div class="col-6 text-end">
-                                        <p class="text-muted mb-0 text-truncate">New Product</p>
-                                        <h3 class="text-dark mt-1 mb-0">540</h3>
+                                        <p class="text-muted mb-0 text-truncate">Total Product</p>
+                                        <h3 class="text-dark mt-1 mb-0">{{ $totalproduct }}</h3>
                                     </div> <!-- end col -->
                                 </div> <!-- end row-->
                             </div> <!-- end card body -->
                             <div class="card-footer py-2 bg-light bg-opacity-50">
                                 <div class="d-flex align-items-center justify-content-between">
-                                    <a href="#!" class="text-reset fw-semibold fs-12">View More</a>
+                                    <a href="{{ route('product.list') }}" class="text-reset fw-semibold fs-12">View More</a>
                                 </div>
                             </div> <!-- end card body -->
                         </div> <!-- end card -->

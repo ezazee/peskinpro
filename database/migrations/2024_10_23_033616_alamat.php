@@ -15,7 +15,9 @@ return new class extends Migration
             $table->string('penerima'); 
             $table->string('label'); 
             $table->foreignId('province_id')->constrained('provinces')->onDelete('cascade'); 
-            $table->foreignId('city_id')->constrained('cities')->onDelete('cascade'); 
+            $table->foreignId('city_id')->constrained('cities')->onDelete('cascade');
+            $table->string('kecamatan')->nullable();
+            $table->string('kelurahan')->nullable();
             $table->string('street'); 
             $table->string('postal_code');
             $table->string('no_telp');

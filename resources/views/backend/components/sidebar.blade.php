@@ -145,6 +145,15 @@
                       </li>
 
                       <li class="nav-item">
+                        <a class="nav-link" href="{{ route('bank.index') }}">
+                            <span class="nav-icon">
+                                <iconify-icon icon="solar:banknote-2-bold"></iconify-icon>
+                            </span>
+                            <span class="nav-text"> Bank </span>
+                        </a>
+                    </li>
+
+                      <li class="nav-item">
                           <a class="nav-link" href="{{ route('settings.index') }}">
                               <span class="nav-icon">
                                   <iconify-icon icon="solar:settings-bold-duotone"></iconify-icon>

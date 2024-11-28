@@ -149,7 +149,7 @@
 
                             </div>
 
-                            <div class="mt-4">
+                            {{-- <div class="mt-4">
                                 <h4 class="fw-medium text-dark">Progress</h4>
                             </div>
                             <div class="row row-cols-xxl-5 row-cols-md-2 row-cols-1">
@@ -203,7 +203,7 @@
                                     </div>
                                     <p class="mb-0 mt-2">Delivered</p>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                         <div
                             class="card-footer d-flex flex-wrap align-items-center justify-content-between bg-light-subtle gap-2">
@@ -257,7 +257,7 @@
                                                             $hemat += $product->pivot->discount *
                                                             $product->pivot->quantity;
                                                             @endphp
-                                                            {{ $purchasedSize->size }}
+                                                            {{ $purchasedSize->size }}ML
                                                         </p>
                                                     </div>
                                                 </div>
@@ -276,7 +276,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card">
+                    {{-- <div class="card">
                         <div class="card-header">
                             <h4 class="card-title">Order Timeline</h4>
                         </div>
@@ -395,7 +395,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>

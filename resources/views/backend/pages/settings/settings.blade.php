@@ -426,7 +426,7 @@
                                     @csrf
                                     <div class="mb-3">
                                         <label class="form-label">Timer Flash Sale</label>
-                                        <input type="datetime-local" name="timer_flashsale" class="form-control">
+                                        <input type="datetime-local" name="timer_flashsale" class="form-control" id="timerFlashSale">
                                     </div>
                                     <button type="submit" class="btn-sm btn btn-primary mb-3">Save</button>
                                 </form>
@@ -543,4 +543,18 @@
     </div>
 </div>
 
+<script>
+    const timerFlashSale = document.getElementById('timerFlashSale');
+
+    const now = new Date();
+    const minDateTime = new Date(now.getTime() + 24 * 60 * 60 * 1000); 
+    const year = minDateTime.getFullYear();
+    const month = String(minDateTime.getMonth() + 1).padStart(2, '0');
+    const day = String(minDateTime.getDate()).padStart(2, '0');
+    const hours = String(minDateTime.getHours()).padStart(2, '0');
+    const minutes = String(minDateTime.getMinutes()).padStart(2, '0');
+
+    // Setel nilai min ke elemen input
+    timerFlashSale.min = `${year}-${month}-${day}T${hours}:${minutes}`;
+</script>
 @endsection

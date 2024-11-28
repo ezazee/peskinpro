@@ -18,6 +18,8 @@ use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\BankController;
+
 
 
 
@@ -126,6 +128,10 @@ Route::middleware(['auth', 'role:Administrator'])->group(function () {
     Route::get('/refund/list', [OrdersController::class, 'refundlist'])->name('orders.refundlist');
     Route::post('/refund', [OrdersController::class, 'refundorder'])->name('orders.refund');
 
+    // cetak
+    Route::get('/receipt/{orderId}', [OrdersController::class, 'showReceipt'])->name('receipt.show');
+
+
     // settings
     Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');
     Route::post('/banner', [SettingsController::class, 'banner'])->name('settings.banner');
@@ -176,6 +182,14 @@ Route::middleware(['auth', 'role:Administrator'])->group(function () {
 
     Route::get('/users/profile', [UsersController::class, 'profile'])->name('users.profile');
 
+    // bank
+    Route::get('/bank', [BankController::class, 'index'])->name('bank.index');
+    Route::post('/bank/update/{id}', [BankController::class, 'update'])->name('bank.update');
+    Route::post('/bank', [BankController::class, 'create'])->name('bank.create');
+    Route::get('/bank/edit/{slug}', [BankController::class, 'edit'])->name('bank.edit');
+    Route::delete('/bank/delete/{id}', [BankController::class, 'destroy'])->name('bank.destroy');
+
+
 });
 
 Route::get('/about-us', function () {
@@ -200,3 +214,12 @@ Route::get('/return-and-refunds', function () {
     return view('frontend.pages.return-and-refunds');
 });
 
+
+Route::get('/receipt', function () {
+    return view('backend.pages.invoice.receipt_order');
+});
+
+
+Route::get('/detail-order', function () {
+    return view('frontend.pages.detail-order');
+});
