@@ -24,4 +24,13 @@ class Kernel extends ConsoleKernel
 
         require base_path('routes/console.php');
     }
+
+    protected function scheduled(Schedule $schedule)
+    {
+        $schedule->call(function () {
+            Order::where('status', 'pending')
+                ->where('created_at', '<', now()->subMinutes(30))
+                ->update(['status' => 'canceled']);
+        })->everyMinute();
+    }
 }

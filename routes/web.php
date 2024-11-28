@@ -70,6 +70,8 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('/pembayaran/{invoice_number}', [ChekoutController::class, 'payment'])->name('payment');
     Route::post('/payment/process', [ChekoutController::class, 'processpayment'])->name('processpayment');
     Route::post('/pembayaran/{invoice_number}', [ChekoutController::class, 'pembayaran'])->name('pembayaran');
+    Route::post('/update-order-status', [ChekoutController::class, 'updateStatus'])->name('update-order-status');
+
 
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::put('/profile/update/{id}', [ProfileController::class, 'update'])->name('profile.update');
@@ -80,7 +82,7 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::delete('/address/delete{id}', [ProfileController::class, 'delete_address'])->name('delete_address');
     Route::post('/set-default-address/{id}', [ProfileController::class, 'setDefaultAddress'])->name('set_default_address');
     Route::get('/order', [ProfileController::class, 'recent_order'])->name('recent_order');
-    Route::get('/detail-order', [ProfileController::class, 'detail_order'])->name('detail-order');
+    Route::get('/detail-order/{order_number}', [ProfileController::class, 'detail_order'])->name('detail-order');
 });
 
 
@@ -217,9 +219,4 @@ Route::get('/return-and-refunds', function () {
 
 Route::get('/receipt', function () {
     return view('backend.pages.invoice.receipt_order');
-});
-
-
-Route::get('/detail-order', function () {
-    return view('frontend.pages.detail-order');
 });

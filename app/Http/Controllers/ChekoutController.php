@@ -82,6 +82,19 @@ class ChekoutController extends Controller
         return view('frontend.pages.bayar-sekarang', compact('user', 'orders','invoice','subtotal','bank'));
     }
 
+    public function updateStatus(Request $request)
+    {
+        $order = Order::find($request->order_id);
+
+        if ($order && $order->status === 'pending') {
+            $order->status = 'canceled';
+            $order->save();
+            return response()->json(['message' => 'Order status updated to canceled']);
+        }
+
+        return response()->json(['message' => 'Order not found or already updated'], 404);
+    }
+
     public function processpayment(Request $request)
     {
         if (is_null($request->alamat_id) || $request->alamat_id == '') {

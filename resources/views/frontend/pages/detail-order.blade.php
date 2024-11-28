@@ -12,37 +12,15 @@
                         <div class="order-tracking pb-5">
                             <div class="tracking-steps">
                                 <!-- Step 1 -->
-                                <div class="step completed">
-                                    <div class="step-icon"></div>
-                                    <div class="step-info">
-                                        <p class="step-title">Pesanan Dibuat</p>
-                                        <p class="step-date">10 November 2024, 01:00 WIB</p>
-                                    </div>
-                                </div>
-                                <!-- Step 2 -->
-                                <div class="step completed">
-                                    <div class="step-icon"></div>
-                                    <div class="step-info">
-                                        <p class="step-title">Pesanan Diproses</p>
-                                        <p class="step-date">10 November 2024, 02:00 WIB</p>
-                                    </div>
-                                </div>
-                                <!-- Step 3 -->
-                                <div class="step active">
-                                    <div class="step-icon"></div>
-                                    <div class="step-info">
-                                        <p class="step-title">Pesanan Dikirim</p>
-                                        <p class="step-date">11 November 2024, 09:00 WIB</p>
-                                    </div>
-                                </div>
-                                <!-- Step 4 -->
-                                <div class="step">
-                                    <div class="step-icon"></div>
-                                    <div class="step-info">
-                                        <p class="step-title">Pesanan Selesai</p>
-                                        <p class="step-date">Estimasi: 12 November 2024</p>
-                                    </div>
-                                </div>
+                                @if ($orders->status == 'pending')
+                                    @include('frontend.components.status-order.pending')
+                                @elseif ($orders->status == 'processing')
+                                    @include('frontend.components.status-order.processing')
+                                @elseif ($orders->status == 'shipping')
+                                    @include('frontend.components.status-order.shipping')
+                                @else
+                                    @include('frontend.components.status-order.default')
+                                @endif
                             </div>
                         </div>
 
@@ -51,40 +29,56 @@
                             <div class="info-box">
                                 <div class="flex justify-between items-center">
                                     <p class="highlight-text text-bold">Tanggal Pembelian:</p>
-                                    <p class="highlight-text text-right">12-Oktober-2024</p>
+                                    <p class="highlight-text text-right">{{ \Carbon\Carbon::parse($orders->created_at)->format('d-F-Y') }}</p>
                                 </div>
                                 <div class="flex justify-between items-center">
                                     <p class="highlight-text text-bold">ID Transaksi:</p>
-                                    <p class="highlight-text text-right">TKP01-XEYNJLV9</p>
+                                    <p class="highlight-text text-right">{{ $orders->invoice->invoice_number }}</p>
                                 </div>
                             </div>
                         </div>
 
                         <div class="product-detail mt-5">
                             <h6 class="section-title">Detail Produk</h6>
-                            <div
-                                class="prd_item flex flex-wrap items-center justify-between gap-3 py-2 border-b border-line">
-                                <a href="product-default.html" class="flex items-center gap-5">
+                            @php
+                            $totalAmount = 0;
+                            $hemat = 0;
+                            @endphp
+                            @foreach ($orders->products as $product)
+                            <div class="prd_item flex flex-wrap items-center justify-between gap-3 py-2 border-b border-line">
+                                <a class="flex items-center gap-5">
                                     <div
                                         class="bg-img flex-shrink-0 md:w-[100px] w-20 aspect-square rounded-lg overflow-hidden">
-                                        <img src="assets/images/product/fashion/1-1.png"
+                                        <img src="{{ asset('storage/' . $product->front_image) }}"
                                             alt="Contrasting sheepskin sweatshirt" class="w-full h-full object-cover" />
                                     </div>
                                     <div>
-                                        <div class="prd_name text-title">Contrasting sheepskin sweatshirt</div>
+                                        <div class="prd_name text-title">{{ $product->name }}</div>
                                         <div class="caption1 text-secondary mt-2">
-                                            <span class="prd_size uppercase">XL</span>
+                                            <span class="prd_size uppercase">  
+                                                @php
+                                                $purchasedSizeId = $product->pivot->size_id;
+                                                $purchasedSize = $product->sizes->firstWhere('id',
+                                                $purchasedSizeId);
+                                                $subtotal = $product->pivot->harga *
+                                                $product->pivot->quantity;
+                                                $totalAmount += $subtotal;
+                                                $hemat += $product->pivot->discount *
+                                                $product->pivot->quantity;
+                                                @endphp
+                                                {{ $purchasedSize->size }}ML</span>
                                             <span>/</span>
-                                            <span class="prd_color capitalize">Yellow</span>
+                                            <span class="prd_color capitalize">{{ $product->category->name }}</span>
                                         </div>
                                     </div>
                                 </a>
                                 <div class="text-title">
-                                    <span class="prd_quantity">1</span>
+                                    <span class="prd_quantity">{{ $product->pivot->quantity }}</span>
                                     <span> X </span>
-                                    <span class="prd_price">$45.00</span>
+                                    <span class="prd_price">Rp{{ number_format($product->pivot->harga, 2) }}</span>
                                 </div>
                             </div>
+                            @endforeach
                         </div>
 
                         <!-- Shipping and Payment Information Section -->
@@ -93,26 +87,28 @@
                             <div class="info-box">
                                 <div class="flex justify-between items-center">
                                     <p class="highlight-text text-bold">Kurir:</p>
-                                    <p class="highlight-text text-right">Kurir: Kurir Rekomendasi - Reguler</p>
+                                    <p class="highlight-text text-right">Kurir: {{ $orders->shipping->shipping_service }}</p>
                                 </div>
+                                @if ($orders->shipping && $orders->shipping->tracking_number)
                                 <div class="flex justify-between items-center">
-                                    <p class="highlight-text text-bold">No Resi:</p>
-                                    <p class="highlight-text text-right">TKP01-XEYNJLV9</p>
+                                        <p class="highlight-text text-bold">No Resi:</p>
+                                        <p class="highlight-text text-right">{{ $orders->shipping->tracking_number }}</p>
                                 </div>
+                                @endif
                                 <div class="flex justify-between">
                                     <p class="highlight-text text-bold">Alamat:</p>
-                                    <p class="highlight-text text-right">Jln. Dukuh Patra No.75 RT.01/RW.13 Menteng Dalam,
-                                        Tebet<br>
-                                        Tebet, Kota Administrasi Jakarta Selatan<br>
-                                        DKI Jakarta 12870</p>
+                                    <p class="highlight-text text-right">{{ $orders->alamat->street  }}<br>
+                                        Kecamatan {{ $orders->alamat->kecamatan  }}, Kelurahan {{ $orders->alamat->kelurahan  }} <br>
+                                        Kota/Kab {{ $orders->alamat->city->name }} , {{ $orders->alamat->province->name }}<br>
+                                        {{ $orders->alamat->postal_code }}</p>
                                 </div>
                                 <div class="flex justify-between items-center">
                                     <p class="highlight-text text-bold">Nama Penerima:</p>
-                                    <p class="highlight-text text-right">Reza</p>
+                                    <p class="highlight-text text-right">{{ $orders->alamat->penerima }}</p>
                                 </div>
                                 <div class="flex justify-between items-center">
                                     <p class="highlight-text text-bold">No Whatsapp:</p>
-                                    <p class="highlight-text text-right">054321358143</p>
+                                    <p class="highlight-text text-right">{{ $orders->alamat->no_telp }}</p>
                                 </div>
                             </div>
                         </div>
@@ -121,27 +117,27 @@
                             <div class="info-box">
                                 <div class="flex justify-between items-center">
                                     <p class="highlight-text text-bold">Metode Pemvbayaran:</p>
-                                    <p class="highlight-text text-right">Gopay</p>
+                                    <p class="highlight-text text-right">{{ $orders->payment_method }}</p>
                                 </div>
                                 <div class="flex justify-between items-center">
                                     <p class="highlight-text text-bold">Subtotal Harga Barang:</p>
-                                    <p class="highlight-text text-right">Rp54.900</p>
+                                    <p class="highlight-text text-right">Rp{{ number_format($orders->total_amount - $orders->shipping->shipping_cost, 2) }}</p>
                                 </div>
-                                <div class="flex justify-between">
+                                {{-- <div class="flex justify-between">
                                     <p class="highlight-text text-bold">Kupon Diskon Barang dari Platform:</p>
                                     <p class="highlight-text text-right">Rp29.048 </p>
-                                </div>
+                                </div> --}}
                                 <div class="flex justify-between items-center">
                                     <p class="highlight-text text-bold">Total Ongkos Kirim:</p>
-                                    <p class="highlight-text text-right">Rp11.500</p>
+                                    <p class="highlight-text text-right">Rp{{ number_format($orders->shipping->shipping_cost, 2) }}</p>
                                 </div>
-                                <div class="flex justify-between items-center">
+                                {{-- <div class="flex justify-between items-center">
                                     <p class="highlight-text text-bold">Kupon Diskon Ongkos Kirim:</p>
                                     <p class="highlight-text text-right">-Rp11.500</p>
-                                </div>
+                                </div> --}}
                                 <div class="flex justify-between items-center mt-5">
                                     <p class="highlight-text text-bold">Total Belanja:</p>
-                                    <p class="highlight-text text-right text-bold">Rp26.252</p>
+                                    <p class="highlight-text text-right text-bold">Rp{{ number_format($orders->total_amount, 2) }}</p>
                                 </div>
                             </div>
                         </div>

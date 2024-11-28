@@ -100,24 +100,46 @@ class ProfileController extends Controller
         return back()->with('success', 'Alamat deleted successfully!');
     }
 
-    public function recent_order()
+    public function recent_order(Request $request)
     {
         $user = Auth::user();
-        $orders = Order::where('user_id', $user->id)
+            $orders = Order::where('user_id', $user->id)
             ->with(['user', 'alamat', 'products', 'invoice', 'shipping'])
             ->orderBy('created_at', 'desc')
             ->paginate(10);
-        $activeTab = 'all'; // Default tab
-        return view('frontend.pages.profile.recent-order', compact('user', 'orders', 'activeTab'));
+
+            $tabs = [
+                'all' => 'All',
+                'pending' => 'Pending',
+                'shipping' => 'Delivery',
+                'completed' => 'Completed',
+                'canceled' => 'Canceled',
+            ];
+        
+            $activeTab = $request->get('tab', 'all');
+        
+            if ($activeTab !== 'all') {
+                $orders = Order::with('products')
+                    ->where('status', $activeTab)
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+            } else {
+                $orders = Order::with('products')->get();
+            }
+
+        return view('frontend.pages.profile.recent-order', compact('user', 'orders', 'activeTab','tabs'));
     }
 
-    public function detail_order() {
+    public function detail_order($order_number) {
         $user = Auth::user();
-        $orders = Order::where('user_id', $user->id)
-            ->with(['user', 'alamat', 'products', 'invoice', 'shipping'])
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
-        $activeTab = 'all'; // Default tab
+        $orders = Order::with(['user', 'alamat', 'products', 'invoice','shipping','returns','refunds'])
+        ->where('order_number', $order_number)
+        ->firstOrFail();
+        if ($orders->status === 'canceled') {
+            return back()->with('error', 'Order ini telah dibatalkan.');
+        }
+
+        $activeTab = 'all';
         return view('frontend.pages.detail-order', compact('user', 'orders', 'activeTab'));
     }
 

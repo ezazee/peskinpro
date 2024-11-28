@@ -61,7 +61,7 @@
                     </div>
                     <div class="right lg:w-5/12">
                         <div class="payment-block">
-                            <div class="heading5">Pembayaran:</div>
+                            <div class="heading5">Pembayaran: </div><p id="countdown" class="text-red-500 "></p>
                             <div class="list-payment mt-5">
                                 @foreach ($bank as $payment)
                                     <div class="type bg-surface p-5 border border-line rounded-lg mt-5">
@@ -161,4 +161,39 @@
             alert('Nomor Virtual Account berhasil disalin!');
         }
     </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const createdAt = new Date("{{ $orders->created_at }}");
+        const expirationTime = new Date(createdAt.getTime() + 30 * 60000);
+        const countdownElement = document.getElementById('countdown');
+
+        function updateCountdown() {
+            const now = new Date();
+            const timeRemaining = expirationTime - now;
+
+            if (timeRemaining <= 0) {
+                countdownElement.innerText = "Waktu pembayaran telah habis!";
+                clearInterval(interval);
+
+                fetch('{{ route("update-order-status") }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({ order_id: {{ $orders->id }} })
+                }).then(response => response.json())
+                  .then(data => console.log(data.message));
+            } else {
+                const minutes = Math.floor(timeRemaining / 60000);
+                const seconds = Math.floor((timeRemaining % 60000) / 1000);
+                countdownElement.innerText = `Waktu tersisa: ${minutes} menit ${seconds} detik`;
+            }
+        }
+
+        const interval = setInterval(updateCountdown, 1000);
+        updateCountdown();
+    });
+</script>
 @endsection
