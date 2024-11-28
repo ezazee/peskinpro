@@ -24,7 +24,7 @@ class HomeController extends Controller
         ->take(3)
         ->get();
         $settings = Settings::all();
-        $timerFlashsale = Settings::first()->timer_flashsale;
+        $timerFlashsale = Settings::first()->timer_flashsale ?? '';
 
         // dd($settings);
         $products = Product::with('category','sizes')->orderby('created_at', 'desc')->get();

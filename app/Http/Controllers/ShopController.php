@@ -52,7 +52,7 @@ class ShopController extends Controller
         ->take(3)
         ->get();
         $settings = Settings::all();
-        $timerFlashsale = Settings::first()->timer_flashsale;
+        $timerFlashsale = Settings::first()->timer_flashsale ?? '';
         return view('frontend.pages.shop',compact('products','articles','expandedPromo','productbestseller','settings','timerFlashsale'));
     }
 
