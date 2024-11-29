@@ -138,7 +138,9 @@
       <div class="section-title">Penerima:</div>
       <div><strong>{{ $order->user->name }}</strong></div>
       <div>{{ $order->alamat->street }},</div>
-      <div>{{ $order->alamat->city->name }} , {{ $order->alamat->province->name }} , Indonesia ({{ $order->alamat->postal_code }})</div>
+      <div>Kecamatan {{ $order->alamat->kecamatan  }}, Kelurahan {{ $order->alamat->kelurahan  }}</div>
+      <div>Kota/Kab {{ $order->alamat->city->name }} , {{ $order->alamat->province->name }} ,</div>
+      <div>Indonesia ({{ $order->alamat->postal_code }})</div>
     </div>
 
     <!-- Informasi Kontak -->

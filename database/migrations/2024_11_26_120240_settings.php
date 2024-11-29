@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
             $table->string('popup_image')->nullable();
+            $table->string('headnavbanner')->nullable();
             $table->string('banner_bundle_head')->nullable();
             $table->string('banner_bundle_one')->nullable();
             $table->string('banner_bundle_two')->nullable();
@@ -29,7 +30,7 @@ return new class extends Migration
             $table->string('banner_produk_terlaris')->nullable();
             $table->timestamps();
         });
-
+        
     }
 
     /**

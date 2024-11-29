@@ -79,6 +79,61 @@
         </div>
     </div>
 
+    {{-- gift header Settings --}}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title d-flex align-items-center gap-1">
+                        <iconify-icon icon="solar:settings-bold-duotone" class="text-primary fs-20"></iconify-icon>
+                        Headnav Banner Settings
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <form action="{{ route('settings.headnavbanner') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <div class="mb-3">
+                                    <label class="form-label">Add Image</label>
+                                    <input type="file" name="headnavbanner" class="form-control">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Upload</button>
+                            </form>
+                        </div>
+                        <div class="col-lg-8">
+                            <table class="table table-hover table-centered">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">Images</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($setting as $item)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>
+                                            @if(!empty($item->headnavbanner))
+                                            <img src="{{ asset('storage/'. $item->headnavbanner) }}"
+                                                class="card-img-top" alt="Banner Image" class="card-img-top"
+                                                alt="Banner Image" style="max-height: 50px; object-fit: cover;">
+                                            @else
+                                            -
+                                            @endif
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     {{-- Popup Settings --}}
     <div class="row">
         <div class="col-lg-12">
@@ -354,8 +409,11 @@
                                     <tr>
                                         <th scope="col">Image Head 1</th>
                                         <th scope="col">Image Head 2</th>
-                                        <th scope="col">Image Produk Terlaris</th> </tr> </thead> <tbody>
-                                                @foreach ($setting as $item)
+                                        <th scope="col">Image Produk Terlaris</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($setting as $item)
                                     <tr>
                                         <td>
                                             @if(!empty($item->bannershop_head_one))
@@ -386,7 +444,7 @@
                                         </td>
                                     </tr>
                                     @endforeach
-                                    </tbody>
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -397,89 +455,92 @@
     </div>
 
 
-        {{-- Banner Flash Sale --}}
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title d-flex align-items-center gap-1">
-                            <iconify-icon icon="solar:settings-bold-duotone" class="text-primary fs-20"></iconify-icon>
-                            Banner Flash Sale
-                        </h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-lg-4">
-                                <form action="{{ route('settings.bannerflashsale') }}" method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    <div class="mb-3">
-                                        <label class="form-label">Background Flash sale</label>
-                                        <input type="file" name="bg_flashsale" class="form-control">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label">Banner Home Flash Sale</label>
-                                        <input type="file" name="banner_flashsale_home" class="form-control">
-                                    </div>
-                                    <button type="submit" class="btn btn-primary mb-3">Upload</button>
-                                </form>
-                                <form action="{{ route('settings.timerflashsale') }}" method="POST" enctype="multipart/form-data">
-                                    @csrf
-                                    <div class="mb-3">
-                                        <label class="form-label">Timer Flash Sale</label>
-                                        <input type="datetime-local" name="timer_flashsale" class="form-control" id="timerFlashSale">
-                                    </div>
-                                    <button type="submit" class="btn-sm btn btn-primary mb-3">Save</button>
-                                </form>
-                            </div>
-    
-                            <div class="col-lg-8">
-                                <table class="table table-hover table-centered">
-                                    <thead class="table-light">
-                                        <tr>
-                                            <th scope="col">Background Flash sale</th>
-                                            <th scope="col">Image Home Flash Sale</th>
-                                            <th scope="col">Timer Flash Sale</th>
-                                         </tr> 
-                                        </thead>
-                                        <tbody>
-                                        @foreach ($setting as $item)
-                                        <tr>
-                                            <td>
-                                                @if(!empty($item->bg_flashsale))
-                                                <img src="{{ asset('storage/'. $item->bg_flashsale) }}"
-                                                    class="card-img-top" alt="Banner Image" class="card-img-top"
-                                                    alt="Banner Image" style="max-height: 50px; object-fit: cover;">
-                                                @else
-                                                -
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if(!empty($item->banner_flashsale_home))
-                                                <img src="{{ asset('storage/'. $item->banner_flashsale_home) }}"
-                                                    class="card-img-top" alt="Banner Image" class="card-img-top"
-                                                    alt="Banner Image" style="max-height: 50px; object-fit: cover;">
-                                                @else
-                                                -
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if(!empty($item->timer_flashsale))
-                                                {{ \Carbon\Carbon::parse($item->timer_flashsale)->translatedFormat('d F Y, H:i:s') }}
-                                                @else
-                                                -
-                                                @endif
-                                            </td>
-                                        </tr>
-                                        @endforeach
-                                        </tbody>
-                                </table>
-                            </div>
+    {{-- Banner Flash Sale --}}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title d-flex align-items-center gap-1">
+                        <iconify-icon icon="solar:settings-bold-duotone" class="text-primary fs-20"></iconify-icon>
+                        Banner Flash Sale
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <form action="{{ route('settings.bannerflashsale') }}" method="POST"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <div class="mb-3">
+                                    <label class="form-label">Background Flash sale</label>
+                                    <input type="file" name="bg_flashsale" class="form-control">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Banner Home Flash Sale</label>
+                                    <input type="file" name="banner_flashsale_home" class="form-control">
+                                </div>
+                                <button type="submit" class="btn btn-primary mb-3">Upload</button>
+                            </form>
+                            <form action="{{ route('settings.timerflashsale') }}" method="POST"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <div class="mb-3">
+                                    <label class="form-label">Timer Flash Sale</label>
+                                    <input type="datetime-local" name="timer_flashsale" class="form-control"
+                                        id="timerFlashSale">
+                                </div>
+                                <button type="submit" class="btn-sm btn btn-primary mb-3">Save</button>
+                            </form>
+                        </div>
+
+                        <div class="col-lg-8">
+                            <table class="table table-hover table-centered">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th scope="col">Background Flash sale</th>
+                                        <th scope="col">Image Home Flash Sale</th>
+                                        <th scope="col">Timer Flash Sale</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($setting as $item)
+                                    <tr>
+                                        <td>
+                                            @if(!empty($item->bg_flashsale))
+                                            <img src="{{ asset('storage/'. $item->bg_flashsale) }}" class="card-img-top"
+                                                alt="Banner Image" class="card-img-top" alt="Banner Image"
+                                                style="max-height: 50px; object-fit: cover;">
+                                            @else
+                                            -
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if(!empty($item->banner_flashsale_home))
+                                            <img src="{{ asset('storage/'. $item->banner_flashsale_home) }}"
+                                                class="card-img-top" alt="Banner Image" class="card-img-top"
+                                                alt="Banner Image" style="max-height: 50px; object-fit: cover;">
+                                            @else
+                                            -
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if(!empty($item->timer_flashsale))
+                                            {{ \Carbon\Carbon::parse($item->timer_flashsale)->translatedFormat('d F Y, H:i:s') }}
+                                            @else
+                                            -
+                                            @endif
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
-    
             </div>
+
         </div>
+    </div>
 
     <div class="row">
         <div class="col-lg-12">
@@ -547,7 +608,7 @@
     const timerFlashSale = document.getElementById('timerFlashSale');
 
     const now = new Date();
-    const minDateTime = new Date(now.getTime() + 24 * 60 * 60 * 1000); 
+    const minDateTime = new Date(now.getTime() + 24 * 60 * 60 * 1000);
     const year = minDateTime.getFullYear();
     const month = String(minDateTime.getMonth() + 1).padStart(2, '0');
     const day = String(minDateTime.getDate()).padStart(2, '0');
@@ -556,5 +617,6 @@
 
     // Setel nilai min ke elemen input
     timerFlashSale.min = `${year}-${month}-${day}T${hours}:${minutes}`;
+
 </script>
 @endsection

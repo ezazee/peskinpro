@@ -142,8 +142,8 @@ Route::middleware(['auth', 'role:Administrator'])->group(function () {
     Route::get('/update-promotion/{id}', [SettingsController::class, 'updatePromotion'])->name('update.promotion');
 
     Route::post('/add/popup', [SettingsController::class, 'add_popup'])->name('settings.add_popup');
+    Route::post('/add/headnav', [SettingsController::class, 'headnavbanner'])->name('settings.headnavbanner');
     Route::post('/delete/popup', [SettingsController::class, 'delete_popup'])->name('settings.delete_popup');
-
     Route::post('/add/bannerbundle', [SettingsController::class, 'bannerbundle'])->name('settings.bannerbundle');
     Route::post('/add/bannerknowlage', [SettingsController::class, 'bannerknowlage'])->name('settings.bannerknowlage');
     Route::post('/add/bannershop', [SettingsController::class, 'bannershop'])->name('settings.bannershop');

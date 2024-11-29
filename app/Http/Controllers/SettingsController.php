@@ -266,7 +266,6 @@ class SettingsController extends Controller
     
         $bg_flashsale = $settings ? $settings->bg_flashsale : null;
         $banner_flashsale_home = $settings ? $settings->banner_flashsale_home : null;
-        $timer_flashsale = $settings ? $settings->timer_flashsale : null;
     
         if ($request->hasFile('bg_flashsale')) {
             $bg_flashsale = $request->file('bg_flashsale')->store('uploads/banners', 'public');
@@ -311,6 +310,34 @@ class SettingsController extends Controller
         }
 
         return back()->with('success', 'timer saved successfully!');
+    }
+
+    public function headnavbanner(Request $request){
+        $request->validate([
+            'headnavbanner' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+        
+        $settings = Settings::first();
+    
+        $headnavbanner = $settings ? $settings->headnavbanner : null;
+       
+    
+        if ($request->hasFile('headnavbanner')) {
+            $headnavbanner = $request->file('headnavbanner')->store('uploads/banners', 'public');
+        }
+    
+    
+        if ($settings) {
+            $settings->update([
+                'headnavbanner' => $headnavbanner,
+            ]);
+        } else {
+            Settings::create([
+                'headnavbanner' => $headnavbanner,
+            ]);
+        }
+    
+        return back()->with('success', 'Image saved successfully!');
     }
 
     
