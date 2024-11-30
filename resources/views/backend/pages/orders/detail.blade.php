@@ -159,7 +159,7 @@
                             @elseif($orders->status === 'shipping')
                                 @include('backend.components.progress.shipping')
                             @else
-                                @include('backend.components.progress.')
+                                @include('backend.components.progress.delivered')
                             @endif
                         </div>
                         <div
