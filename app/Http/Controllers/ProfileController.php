@@ -12,6 +12,7 @@ use App\Models\Province;
 use App\Models\Order;
 use App\Models\City;
 use App\Models\Alamat;
+use App\Models\Settings;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -22,6 +23,7 @@ class ProfileController extends Controller
 {
     public function index()
     {
+        $settings = Settings::all();
         $user = Auth::user();
         $orders = Order::where('user_id', $user->id)
             ->with(['user', 'alamat', 'products', 'invoice', 'shipping'])
@@ -36,18 +38,20 @@ class ProfileController extends Controller
             ->count();
         $totalOrders = Order::where('user_id', $user->id)
             ->count();
-        return view('frontend.pages.profile.profile', compact('user', 'orders', 'pendingOrdersCount', 'canceledOrdersCount', 'totalOrders'));
+        return view('frontend.pages.profile.profile', compact('user', 'orders', 'pendingOrdersCount', 'canceledOrdersCount', 'totalOrders', 'settings'));
     }
 
     public function address()
     {
+        $settings = Settings::all();
         $user = Auth::user()->load('role', 'alamat', 'cart');
         $provinces = Province::pluck('name', 'province_id');
-        return view('frontend.pages.profile.addres', compact('user', 'provinces'));
+        return view('frontend.pages.profile.addres', compact('user', 'provinces', 'settings'));
     }
 
     public function add_address(Request $request)
     {
+        $settings = Settings::all();
         $user = Auth::user();
 
         if ($user->alamat()->count() >= 5) {
@@ -80,6 +84,7 @@ class ProfileController extends Controller
 
     public function setDefaultAddress($id)
     {
+        $settings = Settings::all();
         $user = Auth::user();
 
         Alamat::where('user_id', $user->id)->update(['default' => null]);
@@ -102,6 +107,7 @@ class ProfileController extends Controller
 
     public function recent_order(Request $request)
     {
+        $settings = Settings::all();
         $user = Auth::user();
             $orders = Order::where('user_id', $user->id)
             ->with(['user', 'alamat', 'products', 'invoice', 'shipping'])
@@ -115,9 +121,9 @@ class ProfileController extends Controller
                 'completed' => 'Completed',
                 'canceled' => 'Canceled',
             ];
-        
+
             $activeTab = $request->get('tab', 'all');
-        
+
             if ($activeTab !== 'all') {
                 $orders = Order::with('products')
                     ->where('status', $activeTab)
@@ -127,10 +133,11 @@ class ProfileController extends Controller
                 $orders = Order::with('products')->get();
             }
 
-        return view('frontend.pages.profile.recent-order', compact('user', 'orders', 'activeTab','tabs'));
+        return view('frontend.pages.profile.recent-order', compact('user', 'orders', 'activeTab','tabs', 'settings'));
     }
 
     public function detail_order($order_number) {
+        $settings = Settings::all();
         $user = Auth::user();
         $orders = Order::with(['user', 'alamat', 'products', 'invoice','shipping','returns','refunds'])
         ->where('order_number', $order_number)
@@ -140,12 +147,13 @@ class ProfileController extends Controller
         }
 
         $activeTab = 'all';
-        return view('frontend.pages.detail-order', compact('user', 'orders', 'activeTab'));
+        return view('frontend.pages.detail-order', compact('user', 'orders', 'activeTab', 'settings'));
     }
 
 
     public function update(Request $request, $id)
     {
+        $settings = Settings::all();
         $users = User::findOrFail($id);
 
         $request->validate([
@@ -187,16 +195,18 @@ class ProfileController extends Controller
 
     public function editaddress($id)
     {
+        $settings = Settings::all();
         $user = Auth::user();
         $alamat = Alamat::where('id', $id)->firstOrFail();
         $provinces = Province::all();
         $cities = City::where('province_id', $alamat->province_id)->get();
-        return view('frontend.pages.profile.edit-address', compact('user', 'alamat', 'provinces', 'cities'));
+        return view('frontend.pages.profile.edit-address', compact('user', 'alamat', 'provinces', 'cities', 'settings'));
     }
 
 
     public function updateAddress(Request $request, $id)
     {
+        $settings = Settings::all();
         $alamat = Alamat::findOrFail($id);
 
         $alamat->update([

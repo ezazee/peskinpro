@@ -194,19 +194,8 @@ Route::middleware(['auth', 'role:Administrator'])->group(function () {
 
 });
 
-Route::get('/about-us', function () {
-    return view('frontend.pages.about-us');
-});
 
-Route::get('/contact-us', function () {
-    return view('frontend.pages.contact-us');
-});
-
-
-Route::get('/faq', function () {
-    return view('frontend.pages.faq');
-});
-
+Route::get('/faq', [HomeController::class, 'faq'])->name('home.faq');
 
 Route::get('/search-result', function () {
     return view('frontend.pages.search-result');
@@ -214,9 +203,4 @@ Route::get('/search-result', function () {
 
 Route::get('/return-and-refunds', function () {
     return view('frontend.pages.return-and-refunds');
-});
-
-
-Route::get('/receipt', function () {
-    return view('backend.pages.invoice.receipt_order');
 });

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Settings;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
@@ -17,8 +18,9 @@ class AuthenticationController extends Controller
         if (Auth::check()) {
             return redirect()->route('home.index');
         }
+        $settings = Settings::all();
 
-        return view('frontend.pages.auth.login');
+        return view('frontend.pages.auth.login', compact('settings'));
     }
 
     public function show_register(){
@@ -42,25 +44,25 @@ class AuthenticationController extends Controller
             'email' => 'required|email',
             'password' => 'required|string|min:6',
         ]);
-    
+
         $user = User::where('email', $request->email)->first();
-    
+
         if (!$user) {
             return back()->withErrors(['email' => 'Email tidak ditemukan. Silahkan Register terlebih dahulu.'])->withInput();
         }
-        
+
         if (Auth::attempt($request->only('email', 'password'))) {
             $guestCartId = session()->getId();
             $guestCart = Cart::where('guest_id', $guestCartId)->first();
-    
+
             if ($guestCart) {
                 $userCart = Auth::user()->cart ?? Cart::create(['user_id' => Auth::id()]);
-    
+
                 foreach ($guestCart->items as $guestCartItem) {
                     $existingItem = $userCart->items()
                         ->where('product_size_id', $guestCartItem->product_size_id)
                         ->first();
-    
+
                     if ($existingItem) {
                         $existingItem->quantity += $guestCartItem->quantity;
                         $existingItem->save();
@@ -72,21 +74,21 @@ class AuthenticationController extends Controller
                         ]);
                     }
                 }
-    
+
                 $guestCart->delete();
             }
-    
+
             if ($user->role === 'user') {
                 return redirect()->route('home.index');
             } elseif ($user->role === 'Administrator') {
                 return redirect()->route('dashboard.index');
             }
         }
-    
+
         return back()->withErrors(['password' => 'Password salah.'])->withInput();
     }
-    
-    
+
+
 
 
     public function register(Request $request){
@@ -102,7 +104,7 @@ class AuthenticationController extends Controller
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|unique:users,email',
             'password' => 'required|confirmed',
-            'term' => 'accepted', 
+            'term' => 'accepted',
         ],$messages);
 
         if ($validator->fails()) {
@@ -128,7 +130,7 @@ class AuthenticationController extends Controller
 
     public function logout(Request $request)
     {
-        Auth::logout(); 
+        Auth::logout();
 
         $request->session()->invalidate();
 

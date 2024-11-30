@@ -13,13 +13,13 @@
                     <a href="/artikel" class="caption1 has-line-before duration-300 w-fit pt-2">Update</a>
                     <a href="/return-and-refunds" class="caption1 has-line-before duration-300 w-fit pt-2">Return &
                         Refunds</a>
-                    <a href="/faq" class="caption1 has-line-before duration-300 w-fit pt-2">FAQ</a>
+                    <a href="{{ route('home.faq') }}" class="caption1 has-line-before duration-300 w-fit pt-2">FAQ</a>
                 </div>
                 <!-- Metode Pembayaran -->
                 <div class="item flex flex-col w-full sm:w-1/2 md:w-auto">
                     <div class="heading6 pb-3">Metode Pembayaran</div>
                     <div class="grid grid-cols-3 sm:grid-cols-4 gap-3">
-                        <img src="{{ asset('frontend/assets/images/payment/mandiri.png') }}" alt="Mandiri"
+                        <img src="{{ asset('frontend/assets/images/payment/bri.png') }}" alt="BRI"
                             class="w-full mx-auto" style="width: 90px">
                         <img src="{{ asset('frontend/assets/images/payment/qris.png') }}" alt="QRIS"
                             class="w-full mx-auto" style="width: 90px">

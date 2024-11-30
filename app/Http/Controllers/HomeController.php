@@ -17,7 +17,7 @@ class HomeController extends Controller
         $productsfacialcare = Product::whereHas('category', function ($query) {
             $query->where('name', 'Facial Care');
         })->with(['category', 'sizes'])->take(3)->get();
-        
+
         $articles = Article::with('tag')
         ->where('status', 'public')
         ->orderby('id', 'desc')
@@ -29,5 +29,10 @@ class HomeController extends Controller
         // dd($settings);
         $products = Product::with('category','sizes')->orderby('created_at', 'desc')->get();
         return view('frontend.index',compact('banners','productsfacialcare','products','articles','settings','timerFlashsale'));
+    }
+
+    public function faq(){
+        $settings = Settings::all();
+        return view('frontend.pages.faq', compact('settings'));
     }
 }

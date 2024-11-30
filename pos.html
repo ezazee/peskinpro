@@ -11,6 +11,7 @@
       align-items: center;
       margin: 0;
       font-family: Arial, sans-serif;
+      background-color: #f8f8f8;
     }
 
     .receipt {
@@ -24,25 +25,30 @@
     }
 
     .receipt .logo {
-      align-items: center;
-      font-weight: bold;
-      width:35px;
-      margin-bottom: 10px;
+      display: block;
+      margin: 0 auto 10px;
+      width: 70px;
+    }
+
+    .receipt .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .receipt .header h1 {
+      font-size: 18px;
+      margin: 0;
+    }
+
+    .receipt .header p {
+      font-size: 12px;
+      margin: 5px 0;
     }
 
     .receipt .date-time {
       text-align: center;
       font-size: 12px;
       margin-bottom: 15px;
-    }
-
-    .receipt .token {
-      text-align: center;
-      font-weight: bold;
-      font-size: 16px;
-      padding: 10px;
-      border: 1px dashed #000;
-      margin: 15px 0;
     }
 
     .receipt .details {
@@ -62,21 +68,13 @@
     .receipt .total {
       margin: 15px 0;
       font-weight: bold;
+      text-align: right;
     }
 
-    .receipt .operator {
+    .receipt .footer {
       text-align: center;
-      margin: 15px 0;
-    }
-
-    .receipt .operator-logo-top {
-      text-align: center;
-    }
-
-    .receipt .operator .brand {
-      margin-top: 10px;
-      font-weight: bold;
-      width: 50px;
+      font-size: 12px;
+      margin-top: 15px;
     }
 
     .receipt .zigzag {
@@ -94,54 +92,47 @@
 </head>
 <body>
   <div class="receipt">
-    <div class="operator-logo-top">
-        <img src="https://raw.githubusercontent.com/ezazee/peskinpro/refs/heads/dev/public/frontend/assets/images/logo/peskin.png" class="logo"></img>
+    <img src="https://raw.githubusercontent.com/ezazee/peskinpro/refs/heads/dev/public/frontend/assets/images/logo/peskin.png" class="logo" alt="PE Skin Pro">
+    <div class="header">
+      <h1>PE Skin Pro</h1>
+      <p>Jl. Dukuh Patra No.75 RT.01/RW.13, Tebet, Jakarta Selatan</p>
+      <p>Contact: 0812-1234-5678 | Email: adm.peskinproid@gmail.com</p>
     </div>
-    <div class="date-time">Wed, May 27, 2020 • 9:27:53 AM</div>
-    <div class="token">0237-7746-8981-9028-5626</div>
+    <div class="date-time">Mon, Nov 27, 2023 • 10:00 AM</div>
     <div class="details">
       <div class="row">
-        <span>Token Type</span>
-        <span>Credit</span>
+        <span>Invoice Number</span>
+        <span>#INV20231127</span>
       </div>
       <div class="row">
         <span>Customer Name</span>
-        <span>Victor Shoaga</span>
+        <span>Reza</span>
       </div>
       <div class="row">
-        <span>Customer Type</span>
-        <span>R3</span>
+        <span>Payment Method</span>
+        <span>Bank Transfer</span>
       </div>
       <div class="row">
-        <span>Address</span>
-        <span>7953 Oakland St.<br>Honolulu, HI 96815</span>
+        <span>Product</span>
+        <span>Honey Cleansing Gel</span>
       </div>
       <div class="row">
-        <span>Meter Number</span>
-        <span>04172997324</span>
+        <span>Price</span>
+        <span>135,000 IDR</span>
       </div>
       <div class="row">
-        <span>Amount</span>
-        <span>950 NGN</span>
-      </div>
-      <div class="row">
-        <span>Tax</span>
-        <span>50 NGN</span>
-      </div>
-      <div class="total">
-        <div class="row">
-          <span>Total</span>
-          <span>1000 NGN</span>
-        </div>
+        <span>Quantity</span>
+        <span>1 pcs</span>
       </div>
     </div>
-    <div class="operator">
-      <span>Operator</span><br>
-      <span>Ade</span>
-      <p>
-        <img src="https://raw.githubusercontent.com/ezazee/peskinpro/refs/heads/dev/public/frontend/assets/images/logo/peskin.png" class="brand"></img>
-      </p>
+    <div class="total">
+      Total: 135,000 IDR
     </div>
+    <div class="footer">
+      <p>Thank you for shopping with us!</p>
+      <p>Powered by PE Skin Pro</p>
+    </div>
+    <div class="zigzag"></div>
   </div>
 </body>
 </html>
