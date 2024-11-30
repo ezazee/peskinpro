@@ -14,6 +14,7 @@ use App\Models\Order;
 use App\Models\Invoice;
 use App\Models\Shipping;
 use App\Models\ProductSize;
+use App\Models\Settings;
 use App\Models\Bank;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -30,6 +31,7 @@ class ChekoutController extends Controller
 
     public function Checkout(Request $request)
     {
+        $settings = Settings::all();
         $user = Auth::user();
         $defaultAddresses = $user->alamat()
             ->where('default', 'yes')
@@ -52,7 +54,7 @@ class ChekoutController extends Controller
                 return redirect()->back()->with('error', 'Tidak ada item yang ditemukan.');
             }
 
-            return view('frontend.pages.checkout', compact('cartItems','user','defaultAddresses'));
+            return view('frontend.pages.checkout', compact('cartItems','user','defaultAddresses','settings'));
         } else {
             return redirect()->back()->with('error', 'Tidak ada item yang dipilih.');
         }
@@ -60,11 +62,13 @@ class ChekoutController extends Controller
 
     public function payment($invoice_number)
     {
+        $settings = Settings::all();
         $bank = Bank::all();
         $invoice = Invoice::where('invoice_number', $invoice_number)->firstOrFail();
 
         if ($invoice->payment_status === 'paid') {
-            return redirect()->route('some.route')->with('message', 'Pembayaran sudah diselesaikan.');
+            Alert::toast('Pembayaran sudah diselesaikan.', 'warning');
+            return redirect()->back()->with('message', 'Pembayaran sudah diselesaikan.');
         }
 
         $user = Auth::user();
@@ -79,7 +83,7 @@ class ChekoutController extends Controller
                     $subtotal = $orders->products->sum(function ($product) {
                     return $product->pivot->harga;
                 });
-        return view('frontend.pages.bayar-sekarang', compact('user', 'orders','invoice','subtotal','bank'));
+        return view('frontend.pages.bayar-sekarang', compact('user', 'orders','invoice','subtotal','bank','settings'));
     }
 
     public function updateStatus(Request $request)
@@ -185,7 +189,7 @@ class ChekoutController extends Controller
         $invoice = Invoice::where('invoice_number', $invoice_number)->firstOrFail();
 
         if ($invoice->payment_status === 'paid') {
-            return redirect()->route('some.route')->with('message', 'Pembayaran sudah diselesaikan.');
+            return redirect()->back()->with('message', 'Pembayaran sudah diselesaikan.');
         }
 
         $user = Auth::user();

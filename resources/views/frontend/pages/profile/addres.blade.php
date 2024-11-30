@@ -32,8 +32,10 @@
                                         <div class="address-item rounded-frame relative p-4 mb-4 active">
                                             <strong class="address-title block mb-2">{{ $defaultAddress->label }}</strong>
                                             <p class="name-text">{{ $defaultAddress->penerima }}</p>
-                                            <p class="address-description text-secondary py-3">{{ $defaultAddress->street }}
-                                            </p>
+                                            <div>{{ $defaultAddress->street }},</div>
+                                            <div>Kecamatan {{ $defaultAddress->kecamatan  }}, Kelurahan {{ $defaultAddress->kelurahan  }}</div>
+                                            <div>Kota/Kab {{ $defaultAddress->city->name }} , {{ $defaultAddress->province->name }} ,</div>
+                                            <div>Indonesia ({{ $defaultAddress->postal_code }})</div>
                                             <p class="contact-text">{{ $defaultAddress->no_telp }}</p>
                                             <span class="check-badge absolute top-4 right-4">Default</span>
                                             <div class="action-list mt-3 flex gap-3">
@@ -55,6 +57,9 @@
                                                 class="address-item rounded-frame relative p-4 mb-4 {{ $item->default === 'yes' ? 'active' : '' }}">
                                                 <strong class="address-title block mb-2">{{ $item->label }}</strong>
                                                 <p class="name-text">{{ $item->penerima }}</p>
+                                                <div>Kecamatan {{ $item->kecamatan  }}, Kelurahan {{ $item->kelurahan  }}</div>
+                                                <div>Kota/Kab {{ $item->city->name }} , {{ $item->province->name }} ,</div>
+                                                <div>Indonesia ({{ $item->postal_code }})</div>
                                                 <p class="address-description text-secondary py-3">{{ $item->street }}</p>
                                                 <p class="contact-text">{{ $item->no_telp }}</p>
                                                 <div class="action-list mt-3 flex gap-3">

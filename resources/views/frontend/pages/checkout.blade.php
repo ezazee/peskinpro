@@ -26,11 +26,8 @@
                                     <div class="address-item rounded-frame relative p-4 mt-7">
                                         <strong class="address-title block mb-2">{{ $item->label }}</strong>
                                         <p class="name-text">{{ $item->penerima }}</p>
-                                        <p class="address-description text-secondary py-2">{{ $item->street }} ,
-                                            {{ $item->city->name }}, {{ $item->province->name }}, Indonesia</p>
-                                        <p class="contact-text">{{ $item->no_telp }}</p>
-                                        <button id="gantiAlamatButton"
-                                            class="text-bold bg-light-primary border border-primary rounded-md w-1/3 px-4 py-2 mt-5">
+                                        <p class="address-description text-secondary py-2">{{ $item->street }}, Kecamatan {{ $item->kecamatan  }}, Kelurahan {{ $item->kelurahan  }} <br> Kota/Kab {{ $item->city->name }} , {{ $item->province->name }} , <br>Indonesia ({{ $item->postal_code }}) </p>
+                                        <button id="gantiAlamatButton" class="text-bold bg-light-primary border border-primary rounded-md w-1/3 px-4 py-2 mt-5">
                                             <i class="ph ph-map-pin-line pr-2"></i>
                                             <span class="text-left">Pilih Alamat Lain</span>
                                         </button>

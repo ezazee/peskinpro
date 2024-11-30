@@ -57,6 +57,7 @@ class ShopController extends Controller
     }
 
     public function detail($slug){
+        $settings = Settings::all();
         $products = Product::with(['category', 'imagedetail','sizes'])->where('slug', $slug)->firstOrFail();
         $produkserupa = Product::with(['category', 'imagedetail'])
         ->where('category_id', $products->category_id)
@@ -69,6 +70,6 @@ class ShopController extends Controller
         $meta_keywords = $products->category->name . ', Skincare, Peskinpro ID';
         $meta_price = $products->sizes->first()->price;
 
-        return view('frontend.pages.detail',compact('products','produkserupa','meta_title','meta_description','meta_keywords','meta_price'));
+        return view('frontend.pages.detail',compact('products','produkserupa','meta_title','meta_description','meta_keywords','meta_price','settings'));
     }
 }

@@ -19,6 +19,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\BankController;
+use App\Http\Controllers\FaqController;
+
 
 
 
@@ -190,6 +192,14 @@ Route::middleware(['auth', 'role:Administrator'])->group(function () {
     Route::post('/bank', [BankController::class, 'create'])->name('bank.create');
     Route::get('/bank/edit/{slug}', [BankController::class, 'edit'])->name('bank.edit');
     Route::delete('/bank/delete/{id}', [BankController::class, 'destroy'])->name('bank.destroy');
+
+    // faq
+    Route::get('/faq/list', [FaqController::class, 'index'])->name('faq.index');
+    Route::get('/faq/create', [FaqController::class, 'create'])->name('faq.create');
+    Route::post('/faq/create', [FaqController::class, 'add'])->name('faq.add');
+    Route::delete('/faq/delete/{id}', [FaqController::class, 'destroy'])->name('faq.destroy');
+    Route::get('/faq/edit/{id}', [FaqController::class, 'edit'])->name('faq.edit');
+    Route::put('/faq/update/{id}', [FaqController::class, 'update'])->name('faq.update');
 
 
 });

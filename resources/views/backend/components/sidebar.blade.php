@@ -238,6 +238,26 @@
                           </div>
                       </li>
 
+                      <li class="nav-item">
+                        <a class="nav-link menu-arrow" href="#sidebarArticle" data-bs-toggle="collapse"
+                            role="button" aria-expanded="false" aria-controls="sidebarArticle">
+                            <span class="nav-icon">
+                                <iconify-icon icon="solar:question-circle-bold-duotone"></iconify-icon>
+                            </span>
+                            <span class="nav-text"> FAQ </span>
+                        </a>
+                        <div class="collapse" id="sidebarArticle">
+                            <ul class="nav sub-navbar-nav">
+                                <li class="sub-nav-item">
+                                    <a class="sub-nav-link" href="{{ route('faq.index') }}">List</a>
+                                </li>
+                                <li class="sub-nav-item">
+                                    <a class="sub-nav-link" href="{{ route('faq.create') }}">Create</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
                       {{-- <li class="menu-title mt-2">Other Apps</li>
 
                       <li class="nav-item">

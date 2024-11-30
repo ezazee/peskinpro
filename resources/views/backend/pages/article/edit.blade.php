@@ -40,22 +40,6 @@
                                     <input type="text" name="tags" class="form-control" value="{{ isset($articles) ? implode(',', $articles->tag->pluck('nama_tags')->toArray()) : '' }}">
                                 </div>
                             </div>
-                            <div class="col-lg-6">
-                                <div class="d-flex gap-2 align-items-center">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="status" value="public"
-                                            id="status-public" {{ old('status', $articles->status) == 'public' ? 'checked' : '' }}>
-                                        <label class="form-check-label">Publish</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 mb-3">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="status" value="scheduled"
-                                        id="status-scheduled" {{ old('status', $articles->status) == 'scheduled' ? 'checked' : '' }} >
-                                    <label class="form-check-label">Scheduled</label>
-                                </div>
-                            </div>
                             <div class="col-lg-6" id="date-field" style="display: none;">
                                 <div class="mb-3">
                                     <label for="start-date" class="form-label text-dark">Date</label>
@@ -94,24 +78,6 @@
                             <div class="mb-3">
                                 <label for="simpleinput" class="form-label">Deskriptions</label>
                                 <input type="text" name="description" class="form-control"  value="{{ old('description', $articles->description) }}">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="mb-3">
-                                    <label for="simpleinput" class="form-label">Generate Link Embed</label>
-                                    <input type="text" class="form-control" placeholder="">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="simpleinput" class="form-label"></label>
-                                    <input type="text" class="form-control">
-                                </div>
                             </div>
                         </div>
                     </div>

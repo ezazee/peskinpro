@@ -1,18 +1,5 @@
 @extends('frontend.master.master-app')
 
-{{-- <div class="block-button flex flex-col items-center gap-y-4 mt-5">
-    <form id="checkout-form" action="{{ route('checkout.process') }}" method="POST">
-        @csrf
-        <input type="hidden" name="cart_items" id="cart-items" value="">
-
-        <button class="checkout-btn button-main text-center w-full bg-primary border-primary">
-            Checkout Sekarang
-        </button>
-    </form>
-    <a class="text-button hover-underline" href="{{ route('home.index') }}">Lanjutkan
-        Berbelanja</a>
-</div> --}}
-
 @section('content')
     <section>
         <div class="checkout-block md:py-20 py-10">
@@ -44,12 +31,12 @@
                         </div>
                         <!-- Checkout Button with form submission -->
                         <div class="flex flex-col items-center">
-                            <button type="submit"
-                                class="checkout-btn button-main text-center w-full text-white font-semibold rounded-md px-5 mt-3 py-3">
+                            @if ($orders->status !== 'canceled')
+                            <button type="submit" id="submitButton"  class="checkout-btn button-main text-center w-full text-white font-semibold rounded-md px-5 mt-3 py-3">
                                 Selesaikan Pembayaran
                             </button>
-                            <a class="text-button hover-underline mt-3" href="{{ route('home.index') }}">Lanjutkan
-                                Berbelanja</a>
+                            @endif
+                            <a class="text-button hover-underline mt-3" href="{{ route('home.index') }}">Lanjutkan Berbelanja</a>
                         </div>
 
                         <div class="text-center mt-3 text-sm text-gray-500">
@@ -57,15 +44,15 @@
                                 Return
                                 & Refunds</a>.
                         </div>
-                        </form>
                     </div>
                     <div class="right lg:w-5/12">
                         <div class="payment-block">
                             <div class="heading5">Pembayaran: </div><p id="countdown" class="text-red-500 "></p>
+                            @if ($orders->status !== 'canceled')
                             <div class="list-payment mt-5">
                                 @foreach ($bank as $payment)
                                     <div class="type bg-surface p-5 border border-line rounded-lg mt-5">
-                                        <input class="cursor-pointer" type="radio" id="credit" name="payment" />
+                                        <input class="cursor-pointer" type="radio" id="credit" name="bank_id" value="{{ $payment->id }}" />
                                         <label class="text-button pl-2 cursor-pointer"
                                             for="credit">{{ $payment->nama_bank }} -
                                             (A/N)
@@ -87,10 +74,12 @@
                                     </div>
                                 @endforeach
                             </div>
+                            @endif
+
+                            @if ($orders->status !== 'canceled')
                             {{-- Upload --}}
                             <div class="filter-item text-content w-full p-7 mt-5 border border-line rounded-xl active">
-                                <form
-                                    action="{{ route('pembayaran', ['invoice_number' => $invoice->invoice_number ?? '']) }}"
+                                <form id="paymentForm" action="{{ route('pembayaran', ['invoice_number' => $invoice->invoice_number ?? '']) }}"
                                     method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="upload_image col-span-full">
@@ -128,7 +117,9 @@
                                             </div>
                                         </div>
                                     </div>
+                                </form>
                             </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -194,6 +185,12 @@
 
         const interval = setInterval(updateCountdown, 1000);
         updateCountdown();
+    });
+</script>
+
+<script>
+    document.getElementById('submitButton').addEventListener('click', function () {
+        document.getElementById('paymentForm').submit();
     });
 </script>
 @endsection

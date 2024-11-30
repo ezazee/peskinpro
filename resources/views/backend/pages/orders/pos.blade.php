@@ -234,7 +234,7 @@
                                 <a href="javascript:void(0);" class="btn btn-primary btn-icon flex-fill" data-bs-toggle="modal" data-bs-target="#hold-order"><span class="me-1 d-flex align-items-center"><img src="{{ asset('backend/pos/img/icons/cash-pay.svg') }}" alt="Payment Method" class="me-2"
                                     style="width: 30px; height: 30px;"></span>Cash</a>
                                 <a href="javascript:void(0);" class="btn btn-secondary btn-icon flex-fill" data-bs-toggle="modal" data-bs-target="#transfer"><span class="me-1 d-flex align-items-center"><img src="{{ asset('backend/pos/img/icons/credit-card.svg') }}" alt="Payment Method" class="me-2"
-                                    style="width: 30px; height: 30px;"></span>Transfer</a>
+                                    style="width: 30px; height: 30px;"></span>Debit/CC</a>
                                 <a href="javascript:void(0);" class="btn btn-success btn-icon flex-fill" data-bs-toggle="modal" data-bs-target="#qris"><span class="me-1 d-flex align-items-center">   <img src="{{ asset('backend/pos/img/icons/qr-scan.svg') }}" alt="Payment Method" class="me-2"
                                     style="width: 30px; height: 30px;"></span>Qris</a>
                             </div>
@@ -361,7 +361,7 @@
 			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">
 					<div class="modal-header p-4">
-						<h5>Transfer Order</h5>
+						<h5>Debit/CC Order</h5>
 						<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">×</span>
 						</button>
@@ -370,7 +370,7 @@
                         <form id="payment-form" action="{{ route('pos_order') }}" method="POST">
                             @csrf
                             <input type="hidden" name="total_amount" value="{{ $subtotal }}">
-                            <input type="hidden" name="payment_method" value="transfer"> 
+                            <input type="hidden" name="payment_method" value="debit"> 
 
                             @foreach ($cartItems as $item)
                                 <input type="hidden" name="products[{{ $loop->index }}][id]"

@@ -42,7 +42,7 @@ class ArticleController extends Controller
             'tittle' => $request->tittle,
             'slug' => Str::slug($request->tittle),
             'content' => $request->content,
-            'status' => $request->status,
+            'status' => 'public',
             'start_date' => Carbon::parse($request->start_date)->format('Y-m-d'),
             'start_time' => Carbon::parse($request->start_time)->format('H:i'),
             'keyword' => $request->keyword,

@@ -45,6 +45,7 @@ class ProfileController extends Controller
     {
         $settings = Settings::all();
         $user = Auth::user()->load('role', 'alamat', 'cart');
+        // dd($user);
         $provinces = Province::pluck('name', 'province_id');
         return view('frontend.pages.profile.addres', compact('user', 'provinces', 'settings'));
     }
