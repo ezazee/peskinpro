@@ -60,7 +60,6 @@
                                                 <div>Kecamatan {{ $item->kecamatan  }}, Kelurahan {{ $item->kelurahan  }}</div>
                                                 <div>Kota/Kab {{ $item->city->name }} , {{ $item->province->name }} ,</div>
                                                 <div>Indonesia ({{ $item->postal_code }})</div>
-                                                <p class="address-description text-secondary py-3">{{ $item->street }}</p>
                                                 <p class="contact-text">{{ $item->no_telp }}</p>
                                                 <div class="action-list mt-3 flex gap-3">
                                                     <a href="{{ route('edit.address', $item->id) }}" class="link-text">Edit

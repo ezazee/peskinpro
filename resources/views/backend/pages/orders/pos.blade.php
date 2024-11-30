@@ -69,6 +69,24 @@
 
 <body>
     @include('sweetalert::alert')
+
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        @if(session('log'))
+            <script>
+                console.log("Log from backend:", @json(session('log')));
+            </script>
+        @endif
     <div class="pos-pg-wrapper ms-0">
         <div class="content pos-design p-0">
             <div class="btn-row d-sm-flex align-items-center">

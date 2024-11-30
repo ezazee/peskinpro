@@ -15,46 +15,68 @@
                             <div class="grid sm:grid-cols-2 gap-4 gap-y-5 flex-wrap">
                                 <!-- Nama Penerima -->
                                 <div>
+                                    <label>Penerima</label>
                                     <input class="border-line px-4 py-3 w-full rounded-lg" id="namaPenerima" type="text"
                                         placeholder="Nama Penerima" value="{{ $alamat->penerima }}" name="penerima" />
                                 </div>
 
                                 <!-- Label Alamat -->
                                 <div>
+                                    <label>Alamat</label>
                                     <input class="border-line px-4 py-3 w-full rounded-lg" id="lastName" type="text"
                                         placeholder="Label Alamat" value="{{ $alamat->label }}" name="label"/>
                                 </div>
+                                <div>
+                                    <label>Provinsi</label>
+                                    <select name="province" id="province" class="border-line px-4 py-3 w-full rounded-lg">
+                                        <option value="">Select a province</option>
+                                        @foreach ($provinces as $province)
+                                        <option value="{{ $province->id }}"
+                                            {{ $alamat->province_id == $province->id ? 'selected' : '' }}>
+                                            {{ $province->name }}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div>
+                                    <label>Kota/Kabupaten</label>
+                                    <select name="city_destination" id="city_destination"
+                                        class="border-line px-4 py-3 w-full rounded-lg">
+                                        <option value="">Select a city</option>
+                                        @foreach ($cities as $city)
+                                        <option value="{{ $city->city_id }}"
+                                            {{ $alamat->city_id == $city->city_id ? 'selected' : '' }}>
+                                            {{ $city->name }}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
 
-                                <select name="province" id="province" class="border-line px-4 py-3 w-full rounded-lg">
-                                    <option value="">Select a province</option>
-                                    @foreach ($provinces as $province)
-                                    <option value="{{ $province->id }}"
-                                        {{ $alamat->province_id == $province->id ? 'selected' : '' }}>
-                                        {{ $province->name }}
-                                    </option>
-                                    @endforeach
-                                </select>
-                                <select name="city_destination" id="city_destination"
-                                    class="border-line px-4 py-3 w-full rounded-lg">
-                                    <option value="">Select a city</option>
-                                    @foreach ($cities as $city)
-                                    <option value="{{ $city->city_id }}"
-                                        {{ $alamat->city_id == $city->city_id ? 'selected' : '' }}>
-                                        {{ $city->name }}
-                                    </option>
-                                    @endforeach
-                                </select>
+                                <div>
+                                    <label>Kecamatan</label>
+                                    <input class="border-line px-4 py-3 w-full rounded-lg" id="namaPenerima" type="text"
+                                        placeholder="Nama Penerima" value="{{ $alamat->kecamatan }}" name="kecamatan" />
+                                </div>
+
+                                <!-- Label Alamat -->
+                                <div>
+                                    <label>Kelurahan</label>
+                                    <input class="border-line px-4 py-3 w-full rounded-lg" id="lastName" type="text"
+                                        placeholder="Label Alamat" value="{{ $alamat->kelurahan }}" name="kelurahan"/>
+                                </div>
 
                                 <!-- Alamat and Kode Pos fields -->
                                 <div class="grid grid-cols-3 gap-4 col-span-full">
                                     <!-- Alamat field (2/3 width) -->
                                     <div class="col-span-2">
+                                        <label>Alamat Lengkap</label>
                                         <input class="border-line px-4 py-3 w-full rounded-lg" id="apartment"
                                             type="text" value="{{ $alamat->street }}" name="street" />
                                     </div>
 
                                     <!-- Kode Pos field (1/3 width) -->
                                     <div class="col-span-1">
+                                        <label>Kode Pos</label>
                                         <input class="border-line px-4 py-3 w-full rounded-lg" id="postal" type="text"
                                             placeholder="Kode Pos" value="{{ $alamat->postal_code }}" name="postal_code" />
                                     </div>
@@ -62,6 +84,7 @@
 
                                 <!-- No WhatsApp -->
                                 <div class="col-span-full">
+                                    <label>No WhatsApp</label>
                                     <input class="border-line px-4 py-3 w-full rounded-lg" id="whatsapp" type="number"
                                         placeholder="No WhatsApp" value="{{ $alamat->no_telp }}" name="no_telp"/>
                                 </div>

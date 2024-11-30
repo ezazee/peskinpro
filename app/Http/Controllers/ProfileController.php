@@ -96,6 +96,7 @@ class ProfileController extends Controller
             $address->save();
         }
 
+        Alert::toast('Alamat Default Berhasil Diubah!!', 'success');
         return response()->json(['success' => true]);
     }
 
@@ -103,6 +104,7 @@ class ProfileController extends Controller
     {
         $alamat = Alamat::findOrFail($id);
         $alamat->delete();
+        Alert::toast('Alamat Berhasil Dihapus!!', 'success');
         return back()->with('success', 'Alamat deleted successfully!');
     }
 
