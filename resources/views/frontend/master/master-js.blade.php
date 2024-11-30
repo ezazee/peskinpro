@@ -380,10 +380,10 @@
 {{-- Backdrop Modal Ganti Alamat Checkout --}}
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const modal = document.getElementById('customModalOrder');
-        const backdrop = document.getElementById('backdrop-order-alamat');
-        const openModalButton = document.getElementById('historyOrderButton');
-        const closeModalButtons = document.querySelectorAll('.modal-order-close');
+        const modal = document.getElementById('customGantiAlamat');
+        const backdrop = document.getElementById('backdrop-ganti-alamat');
+        const openModalButton = document.getElementById('gantiAlamatButton');
+        const closeModalButtons = document.querySelectorAll('.modal-ganti-close');
 
         // Cek jika modal dan backdrop ada sebelum melanjutkan
         if (modal && backdrop) {
