@@ -383,7 +383,7 @@
         const modal = document.getElementById('customGantiAlamat');
         const backdrop = document.getElementById('backdrop-ganti-alamat');
         const openModalButton = document.getElementById('gantiAlamatButton');
-        const closeModalButtons = document.querySelectorAll('.modal-ganti-close');
+        const closeModalButtons = document.querySelectorAll('.modal-ganti-alamat-close');
 
         // Cek jika modal dan backdrop ada sebelum melanjutkan
         if (modal && backdrop) {

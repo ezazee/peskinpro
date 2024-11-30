@@ -86,7 +86,7 @@
             </div>
             <div class="footer-bottom py-3 flex flex-wrap items-center justify-between gap-5 border-t border-line">
                 <div class="copyright caption1 text-secondary text-center w-full sm:w-auto">
-                    ©2024 Anvogue. All Rights Reserved.
+                    ©2024 PE Skin Professional. All Rights Reserved.
                 </div>
             </div>
         </div>
