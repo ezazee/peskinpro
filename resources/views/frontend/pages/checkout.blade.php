@@ -106,7 +106,7 @@
                                         alamat
                                         dulu ya!</em></p>
                                 <button
-                                    class="text-bold bg-light-primary border border-primary rounded-md w-1/3 px-4 py-2 mt-1">
+                                class="text-bold bg-light-primary border border-primary rounded-md w-full px-4 py-2 mt-5 flex items-center justify-center">
                                     <i class="ph ph-file-plus pr-2"></i>
                                     <a href="{{ route('profile.address') }}" class="text-left">Tambahkan Alamat</a>
                                 </button>

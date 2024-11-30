@@ -45,6 +45,7 @@
                     displayResults(results);
                 } else {
                     console.error('Error:', response.statusText);
+                    loadingOverlay.classList.add('hidden');
                 }
             } catch (error) {
                 console.error('Error:', error);
