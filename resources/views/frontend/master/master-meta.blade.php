@@ -59,5 +59,6 @@
         <meta name="twitter:title" content="PESkin Pro Indonesia Official">
         <meta name="twitter:description" content="Your source for high-quality PES skins and resources.">
         <meta name="twitter:image" content="{{ asset('frontend/assets/images/logo/peskin.png') }}">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
     @endif
 </head>

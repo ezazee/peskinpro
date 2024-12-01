@@ -92,33 +92,63 @@
                 selectElement.appendChild(groupOption);
             }
 
-            // Handle the change event to update the total cost and shipping details
-            selectElement.addEventListener('change', function() {
-                const selectedOption = selectElement.options[selectElement.selectedIndex];
-                const selectedCost = parseFloat(selectedOption.value.split('|')[2]);
-                const selectedEstimated = selectedOption.value.split('|')[3];
-                const subtotal = parseFloat(document.getElementById('subtotal').value);
+            //
+            function calculateTotal() {
+                const subtotal = parseFloat(document.getElementById('subtotal').value) || 0;
+                const shippingElement = document.getElementById('pengiriman');
+                const shippingCost = parseFloat(document.getElementById('shipping_cost').value) || 0;
 
-                if (selectedOption.value) {
-                    const shippingCost = `Rp${formatNumber(selectedCost)}`;
-                    const totalAmount = subtotal + selectedCost;
+                const discountElement = document.getElementById('discount-chekout');
+                const discountInput = document.getElementById('discount_value');
+                const discount = discountElement ? parseFloat(discountElement.textContent.replace('Rp', '').replace(/\./g, '')) || 0 : 0;
+
+                discountInput.value = discount;
+                
+                const totalElement = document.getElementById('total');
+
+                if (shippingElement && shippingElement.textContent.trim() !== '-' && shippingCost > 0) {
+                    const totalAmount = subtotal + shippingCost - discount;
                     const formattedTotal = `Rp${formatNumber(totalAmount)}`;
+                    totalElement.textContent = formattedTotal;
+                    document.getElementById('total_amount').value = totalAmount;
+                } else {
+                    totalElement.textContent = 'Pilih Ongkir Terlebih Dahulu';
+                    document.getElementById('total_amount').value = '';
+                }
+            }
 
+            selectElement.addEventListener('change', function () {
+                const selectedOption = selectElement.options[selectElement.selectedIndex];
+                const selectedCost = parseFloat(selectedOption.value.split('|')[2]) || 0;
+                const selectedEstimated = selectedOption.value.split('|')[3] || '';
+
+                if (selectedCost > 0) {
+                    const shippingCost = `Rp${formatNumber(selectedCost)}`;
                     document.getElementById('pengiriman').textContent = shippingCost;
                     document.getElementById('shipping_cost').value = selectedCost;
-                    document.getElementById('shipping_courier').value = selectedOption.value.split('|')[
-                        0];
-                    document.getElementById('total').textContent = formattedTotal;
-                    document.getElementById('total_amount').value = totalAmount;
+                    document.getElementById('shipping_courier').value = selectedOption.value.split('|')[0];
                     document.getElementById('estimated_days').value = `${selectedEstimated} Hari`;
                 } else {
                     document.getElementById('pengiriman').textContent = '-';
                     document.getElementById('shipping_cost').value = '';
-                    document.getElementById('total_amount').value = '';
                     document.getElementById('estimated_days').value = '';
                 }
+
+                calculateTotal();
             });
-        }
+
+            const discountElement = document.getElementById('discount-chekout');
+            if (discountElement) {
+                const observer = new MutationObserver(() => {
+                    calculateTotal();
+                });
+                observer.observe(discountElement, { childList: true, subtree: true });
+            }
+            function formatNumber(num) {
+                return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            }
+            calculateTotal();
+            }
 
         function formatNumber(number) {
             return number.toLocaleString('id-ID'); // Formats the number as Indonesian currency

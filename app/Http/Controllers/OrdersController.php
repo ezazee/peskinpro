@@ -476,7 +476,6 @@ class OrdersController extends Controller
     public function showReceipt($orderId)
     {
         $order = Order::with(['user', 'products', 'alamat'])->findOrFail($orderId);
-        // dd($order);
         return view('backend.pages.invoice.label', compact('order'));
     }
 

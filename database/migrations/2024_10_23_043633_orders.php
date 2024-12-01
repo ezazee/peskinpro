@@ -23,6 +23,7 @@ return new class extends Migration
             $table->decimal('kembali', 10, 2)->nullable();
             $table->string('kode_bayar')->nullable();
             $table->unsignedBigInteger('bank_id')->nullable();
+            $table->decimal('discount_chekout', 10, 2);
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('alamat_id')->references('id')->on('alamats')->onDelete('cascade');

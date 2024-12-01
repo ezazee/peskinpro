@@ -101,8 +101,7 @@
                                         No
                                     </th>
                                     <th>Coupons Code</th>
-                                    <th>Discount Products</th>
-                                    <th>Coupons Types</th>
+                                    <th>Minimum Purchase</th>
                                     <th>Coupons Limits</th>
                                     <th>Start Date</th>
                                     <th>End Date</th>
@@ -120,18 +119,11 @@
                                     <td>
                                         {{ $item->coupons_code }}
                                     </td>
-                                    <td>{{ $item->product }}</td>
-                                    <td>{{ $item->type }}</td>
+                                    <td>Rp{{ number_format($item->minimum_purchase, 0, ',', '.') }}</td>
                                     <td>{{ $item->limits }}</td>
                                     <td>{{ $item->start_date }}</td>
                                     <td>{{ $item->end_date }}</td>
-                                    @if ($item->type == 'freeshiping')
-                                    <td>{{ $item->jumlah }}</td>
-                                    @elseif( $item->type == 'percentage' )
-                                    <td>{{ $item->jumlah }} %</td>
-                                    @else
-                                    <td>{{ $item->jumlah }}</td>
-                                    @endif
+                                    <td>Rp{{ number_format($item->jumlah, 0, ',', '.') }}</td>
                                     <td>
                                         @if ($item->status == 'active')
                                         <span class="badge text-success bg-success-subtle fs-12"><i
@@ -143,10 +135,6 @@
                                     </td>
                                     <td>
                                         <div class="d-flex gap-2">
-                                            <a href="#!" class="btn btn-light btn-sm">
-                                                <iconify-icon icon="solar:eye-broken" class="align-middle fs-18">
-                                                </iconify-icon>
-                                            </a>
                                             <a href="#!" class="btn btn-soft-primary btn-sm">
                                                 <iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18">
                                                 </iconify-icon>

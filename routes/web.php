@@ -73,6 +73,8 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::post('/payment/process', [ChekoutController::class, 'processpayment'])->name('processpayment');
     Route::post('/pembayaran/{invoice_number}', [ChekoutController::class, 'pembayaran'])->name('pembayaran');
     Route::post('/update-order-status', [ChekoutController::class, 'updateStatus'])->name('update-order-status');
+    Route::post('/apply-coupon', [ChekoutController::class, 'applyCoupon'])->name('apply.coupon');
+
 
 
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');

@@ -16,6 +16,7 @@ use App\Models\Shipping;
 use App\Models\ProductSize;
 use App\Models\Settings;
 use App\Models\Bank;
+use App\Models\Coupons;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -38,27 +39,42 @@ class ChekoutController extends Controller
             ->with(['province', 'city'])
             ->get();
         $cartItemsInput = $request->input('cart_items');
-
+    
         if (empty($cartItemsInput)) {
             return redirect()->back()->with('error', 'Tidak ada item yang dipilih.');
         }
-
+    
         $selectedItems = explode(',', $cartItemsInput);
-
+    
         if (count($selectedItems) > 0) {
             $cartItems = CartItem::whereIn('id', $selectedItems)
-            ->with(['product', 'productSize'])
-            ->get();
-
+                ->with(['product', 'productSize'])
+                ->get();
+    
             if ($cartItems->isEmpty()) {
                 return redirect()->back()->with('error', 'Tidak ada item yang ditemukan.');
             }
-
-            return view('frontend.pages.checkout', compact('cartItems','user','defaultAddresses','settings'));
+    
+            $cartTotal = $cartItems->sum(function ($item) {
+                return $item->productSize->price * $item->quantity;
+            });
+    
+            $validCoupons = Coupons::where('status', 'active')
+                ->where('start_date', '<=', now())
+                ->where('end_date', '>=', now())
+                ->get();
+    
+            $validCoupons = $validCoupons->filter(function ($coupon) use ($cartTotal) {
+                return $coupon->meetsMinimumPurchase($cartTotal) && $coupon->hasAvailableUses();
+            });
+    
+            return view('frontend.pages.checkout', compact('cartItems', 'user', 'defaultAddresses', 'settings', 'validCoupons', 'cartTotal'));
         } else {
             return redirect()->back()->with('error', 'Tidak ada item yang dipilih.');
         }
     }
+    
+    
 
     public function payment($invoice_number)
     {
@@ -101,6 +117,7 @@ class ChekoutController extends Controller
 
     public function processpayment(Request $request)
     {
+        // dd($request);
         if (is_null($request->alamat_id) || $request->alamat_id == '') {
             Alert::toast('Tambahkan alamat terlebih dahulu!!', 'warning');
             return redirect()->route('profile.address')->with('error', 'Tambahkan alamat terlebih dahulu!!');
@@ -118,15 +135,27 @@ class ChekoutController extends Controller
         $shippingCost = $request->shipping_cost;
         $shippingService = $request->shipping_courier;
         $estimated_days = $request->estimated_days;
-
+        $discount_chekout = $request->discount_value;
+        
         $order = Order::create([
             'user_id' => $userId,
             'order_number' => 'ORD' . strtoupper(uniqid()),
             'total_amount' => $total_amount,
             'status' => 'pending',
+            'discount_chekout' => $discount_chekout,
             'payment_method' => 'transfer',
             'alamat_id' => $alamatId
         ]);
+
+        if (!empty($discount_chekout)) {
+            $couponCode = $request->coupon_code; 
+            $coupon = Coupons::where('coupons_code', $couponCode)->first();
+        
+            if ($coupon) {
+                $coupon->limits = $coupon->limits - 1;
+                $coupon->save();
+            }
+        }
 
         foreach ($request->products as $product) {
             $productId = $product['id'];
@@ -152,36 +181,37 @@ class ChekoutController extends Controller
             }
         }
 
-        $shipping = Shipping::create([
-            'shipping_service' => $shippingService,
-            'shipping_cost' => $shippingCost,
-            'estimated_delivery' => $estimated_days,
-            'status' => 'pending',
-        ]);
+            $shipping = Shipping::create([
+                'shipping_service' => $shippingService,
+                'shipping_cost' => $shippingCost,
+                'estimated_delivery' => $estimated_days,
+                'status' => 'pending',
+            ]);
 
-        $invoice = $order->invoice()->create([
-            'invoice_number' => 'INV' . strtoupper(uniqid()),
-            'amount' => $total_amount,
-            'invoice_date' => now(),
-            'payment_status' => 'unpaid',
-        ]);
+            $invoice = $order->invoice()->create([
+                'invoice_number' => 'INV' . strtoupper(uniqid()),
+                'amount' => $total_amount,
+                'invoice_date' => now(),
+                'payment_status' => 'unpaid',
+            ]);
 
-        if ($shipping) {
-            $order->shipping_id = $shipping->id;
-            $order->save();
-        } else {
-            return back()->with('error', 'Shipping creation failed.');
-        }
+            if ($shipping) {
+                $order->shipping_id = $shipping->id;
+                $order->save();
+            } else {
+                return back()->with('error', 'Shipping creation failed.');
+            }
 
-        $user = Auth::user();
-        $cart = Auth::user()->cart;
-        if ($cart) {
-            $cart->items()->delete();
-        }
-        $invoice_number = $invoice->invoice_number;
+            $user = Auth::user();
+            $cart = Auth::user()->cart;
+            if ($cart) {
+                $cart->items()->delete();
+            }
+            
+            $invoice_number = $invoice->invoice_number;
 
-        return redirect()->route('payment', ['invoice_number' => $invoice_number])
-        ->with(compact('user', 'order', 'shipping', 'subtotal'));
+            return redirect()->route('payment', ['invoice_number' => $invoice_number])
+            ->with(compact('user', 'order', 'shipping', 'subtotal'));
     }
 
     public function pembayaran(Request $request, $invoice_number)
