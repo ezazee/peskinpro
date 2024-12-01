@@ -208,6 +208,8 @@ Route::middleware(['auth', 'role:Administrator'])->group(function () {
 
 
 Route::get('/faq', [HomeController::class, 'faq'])->name('home.faq');
+Route::get('/detail-faq', [HomeController::class, 'detail_faq'])->name('home.detailfaq');
+
 
 Route::get('/search-result', function () {
     return view('frontend.pages.search-result');

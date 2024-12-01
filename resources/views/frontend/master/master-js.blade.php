@@ -247,79 +247,56 @@
     }
 </script>
 
-{{-- <script>
-    // faqs
-    const menuTab = document.querySelector(".menu-tab");
-    const listQuestion = document.querySelector(".list-question");
-    const tabQuestions = document.querySelectorAll(".tab-question");
-    const questionItems = document.querySelectorAll(".question-item");
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const faqLinks = document.querySelectorAll('.faq-link');
+        const faqTabs = document.querySelectorAll('.faq-tab');
 
-    if (tabItems) {
-        tabItems.forEach((tabItem) => {
-            tabQuestions.forEach((tabQuestion) => {
-                let activeMenuTab = menuTab.querySelector(".active");
+        // Fungsi untuk mengaktifkan tab dan memperbarui status link
+        const activateFaq = (link) => {
+            const targetId = link.getAttribute('href').substring(1); // Ambil ID dari link
+            const targetTab = document.getElementById(targetId);
 
-                if (
-                    activeMenuTab.getAttribute("data-item") ===
-                    tabQuestion.getAttribute("data-item")
-                ) {
-                    tabQuestion.classList.add("active");
-                }
+            // Reset active states
+            faqLinks.forEach(item => item.classList.remove('active'));
+            faqTabs.forEach(tab => tab.classList.remove('active'));
 
-                tabItem.addEventListener("click", () => {
-                    if (
-                        tabItem.getAttribute("data-item") ===
-                        tabQuestion.getAttribute("data-item")
-                    ) {
-                        listQuestion
-                            .querySelector(".active")
-                            .classList.remove("active");
-                        tabQuestion.classList.add("active");
-                    }
-                });
-            });
-        });
-    }
-
-    if (questionItems) {
-        questionItems.forEach((item, index) => {
-            item.addEventListener("click", () => {
-                item.classList.toggle("open");
-
-                removeOpen(index);
-            });
-        });
-    }
-
-    function removeOpen(index1) {
-        questionItems.forEach((item2, index2) => {
-            if (index1 != index2) {
-                item2.classList.remove("open");
+            // Aktifkan link yang diklik dan tab terkait
+            link.classList.add('active');
+            if (targetTab) {
+                targetTab.classList.add('active');
             }
+        };
+
+        // Menambahkan event listener untuk klik pada link FAQ
+        faqLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                // Jika URL tidak mengarah ke halaman lain, tampilkan tab
+                if (!link.href.includes('#')) {
+                    return;
+                }
+                e.preventDefault(); // Mencegah halaman untuk melakukan scroll atau update hash
+                activateFaq(link); // Aktifkan tab yang sesuai
+
+                // Arahkan ke halaman lain jika ada href
+                if (link.getAttribute('href') !== '#') {
+                    window.location.href = link.getAttribute(
+                    'href'); // Navigasi ke halaman lain
+                }
+            });
         });
-    }
+
+        // Aktifkan tab berdasarkan hash di URL
+        const currentHash = window.location.hash;
+        if (currentHash) {
+            const activeLink = document.querySelector(`.faq-link[href="${currentHash}"]`);
+            if (activeLink) activateFaq(activeLink);
+        } else {
+            activateFaq(faqLinks[0]); // Defaultkan ke tab pertama
+        }
+    });
 </script>
 
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const items = document.querySelectorAll('.item-faq');
-
-        items.forEach(item => {
-            item.querySelector('.title').addEventListener('click', () => {
-                // Toggle the open class
-                item.classList.toggle('open');
-
-                // Optionally: Close other items when one is opened
-                items.forEach(otherItem => {
-                    if (otherItem !== item) {
-                        otherItem.classList.remove('open');
-                    }
-                });
-            });
-        });
-    });
-</script> --}}
 
 
 {{-- Backdrop Modal New Address --}}
