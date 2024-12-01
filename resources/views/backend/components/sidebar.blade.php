@@ -86,22 +86,22 @@
                                       <a class="sub-nav-link" href="{{ route('orders.list') }}">List All</a>
                                   </li>
                                   <li class="sub-nav-item">
-                                    <a class="sub-nav-link" href="{{ route('orders.pendingreview') }}">Pending Review  
+                                    <a class="sub-nav-link" href="{{ route('orders.pendingreview') }}">Pending Review
                                         <span class="badge bg-danger text-end m-1">{{ $pendingReviewCount }}</span>
                                     </a>
                                   </li>
                                   <li class="sub-nav-item">
-                                    <a class="sub-nav-link" href="{{ route('orders.proceslist') }}">Processing List 
+                                    <a class="sub-nav-link" href="{{ route('orders.proceslist') }}">Processing List
                                         <span class="badge bg-danger text-end m-1">{{ $processinglist }}</span>
                                     </a>
                                   </li>
                                   <li class="sub-nav-item">
-                                    <a class="sub-nav-link" href="{{ route('orders.shippinglist') }}">Shipping List 
+                                    <a class="sub-nav-link" href="{{ route('orders.shippinglist') }}">Shipping List
                                         <span class="badge bg-danger text-end m-1">{{ $shippinglist }}</span>
                                     </a>
                                   </li>
                                   <li class="sub-nav-item">
-                                    <a class="sub-nav-link" href="{{ route('orders.completedlist') }}">Completed List 
+                                    <a class="sub-nav-link" href="{{ route('orders.completedlist') }}">Completed List
                                     </a>
                                   </li>
                                   <li class="sub-nav-item">
@@ -239,14 +239,14 @@
                       </li>
 
                       <li class="nav-item">
-                        <a class="nav-link menu-arrow" href="#sidebarArticle" data-bs-toggle="collapse"
-                            role="button" aria-expanded="false" aria-controls="sidebarArticle">
+                        <a class="nav-link menu-arrow" href="#sideBarFaq" data-bs-toggle="collapse"
+                            role="button" aria-expanded="false" aria-controls="sideBarFaq">
                             <span class="nav-icon">
                                 <iconify-icon icon="solar:question-circle-bold-duotone"></iconify-icon>
                             </span>
                             <span class="nav-text"> FAQ </span>
                         </a>
-                        <div class="collapse" id="sidebarArticle">
+                        <div class="collapse" id="sideBarFaq">
                             <ul class="nav sub-navbar-nav">
                                 <li class="sub-nav-item">
                                     <a class="sub-nav-link" href="{{ route('faq.index') }}">List</a>
