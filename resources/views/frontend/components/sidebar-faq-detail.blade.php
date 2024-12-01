@@ -3,7 +3,7 @@
         <ul class="flex flex-col gap-5">
             @foreach ($categories as $item)
             <li>
-                <a href="#{{$item->slug}}" class="faq-link block p-3 rounded-lg bg-white shadow faq-link-general">
+                <a href="/faq#{{$item->slug}}" class="faq-link block p-3 rounded-lg bg-white shadow faq-link-general">
                     {{$item->nama_kategori}}
                 </a>
             </li>

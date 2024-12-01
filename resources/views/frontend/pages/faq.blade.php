@@ -7,22 +7,16 @@
             @include('frontend.components.sidebar-faq')
             <!-- FAQ Content -->
             <section class="faq-content w-3/4">
-                <div id="general" class="faq-tab">
-                    <h2 class="faq-heading heading4">General Questions</h2>
+                @foreach ($categories as $item)
+                <div id="{{$item->slug}}" class="faq-tab">
+                    <h2 class="faq-heading heading4">{{$item->nama_kategori}}</h2>
                     <ul class="faq-list">
-                        <li><a href="/detail-faq" class="faq-link">What is your return policy?</a></li>
-                        <li><a href="/detail-faq" class="faq-link">How can I contact support?</a></li>
-                        <li><a href="/detail-faq" class="faq-link">What are your hours of operation?</a></li>
+                        @foreach ($item->faqs as $faq)
+                        <li><a href="{{ route('faq.detail', $faq->slug) }}" class="faq-link">{{ $faq->title }}</a></li>
+                        @endforeach
                     </ul>
                 </div>
-                <div id="orders" class="faq-tab">
-                    <h2 class="faq-heading heading4">Orders Questions</h2>
-                    <ul class="faq-list">
-                        <li><a href="/detail-faq" class="faq-link">What is your return policy?</a></li>
-                        <li><a href="/detail-faq" class="faq-link">How can I contact support?</a></li>
-                        <li><a href="/detail-faq" class="faq-link">What are your hours of operation?</a></li>
-                    </ul>
-                </div>
+                @endforeach
                 <!-- Quote Block -->
                 <div
                     class="quote-block md:mt-6 mt-4 py-4 md:px-6 px-4 border bg-light-primary border-line md:rounded-lg rounded-lg flex items-start md:gap-6 gap-4">

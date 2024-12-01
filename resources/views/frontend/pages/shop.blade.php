@@ -1,6 +1,14 @@
 @extends('frontend.master.master-app')
 
 @section('content')
+    @php
+        use Carbon\Carbon;
+        $flashSaleEndTime = Carbon::parse($timerFlashsale ?? ''); 
+        $currentTime = Carbon::now();
+        $isFlashSaleExpired = $flashSaleEndTime->isPast();
+    @endphp
+
+    @if (!$isFlashSaleExpired)
     {{-- Flash Sale Promotion --}}
     <section id="flashSaleProduct" class="flash-sale-block md:py-20 py-4 relative overflow-hidden">
         <!-- Background Image -->
@@ -114,7 +122,7 @@
             </div>
         </div>
     </section>
-
+    @endif
     {{-- Banner Iklan --}}
     @include('frontend.components.banner-promo-shop')
 

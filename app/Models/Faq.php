@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Faq extends Model
 {
     use HasFactory;
-    protected $fillable = ['title', 'description', 'kategori_faq_id'];
+    protected $fillable = ['title','slug', 'description', 'kategori_faq_id'];
 
     public function kategori()
     {

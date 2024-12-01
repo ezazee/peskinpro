@@ -3,56 +3,12 @@
     <div class="faq-container py-10">
         <div class="container flex flex-wrap justify-center gap-6">
             <!-- FAQ Sidebar -->
-            @include('frontend.components.sidebar-faq')
+            @include('frontend.components.sidebar-faq-detail')
             <!-- FAQ Content -->
             <section class="faq-content w-3/4">
-                <h2 class="faq-heading heading4">What is your return policy?</h2>
+                <h2 class="faq-heading heading4">{{ $faq->title }}</h2>
                 <div class="content md:mt-8 mt-5">
-                    <div class="blog-description body1">The poblano yogurt is a key component here, but I totally understand
-                        if you want to skip out on it because of time, lack of poblanos, or you're anti-chile. No problem,
-                        just about any flavor-forward yogurt slather will do in its place. You could simply crush a clove of
-                        garlic into some paste with a pinch of salt, and stir that in your favorite plain yogurt - also
-                        delicious. Or, whisk a tablespoon of harissa paste into your yogurt.</div>
-                    <div class="heading4 md:mt-8 mt-5">How did SKIMS start?</div>
-                    <div class="body1 mt-4">This is such a hard question! Honestly, every time we drop a new collection I get
-                        obsessed with it. The pieces that have been my go-tos though are some of our simplest styles that we
-                        launched with. I wear our Fits Everybody Thong every single day – it is the only underwear I have
-                        now, it’s so comfortable and stretchy and light enough that you can wear anything over it.</div>
-                    <div class="list-img grid sm:grid-cols-2 gap-[30px] md:mt-8 mt-5">
-                        <div>
-                            <img src="./assets/images/blog/1.png" alt="img" class="w-full rounded-3xl">
-                        </div>
-                        <div>
-                            <img src="./assets/images/blog/2.png" alt="img" class="w-full rounded-3xl">
-                        </div>
-                    </div>
-                    <div class="body1 mt-4">For bras, I love our Cotton Jersey Scoop Bralette – it's lined with this amazing
-                        power mesh so you get great support and is so comfy I can sleep in it. I also love our Seamless
-                        Sculpt Bodysuit – it's the perfect all in one sculpting, shaping and smoothing shapewear piece with
-                        different levels of support woven throughout.</div>
-                    <div class="heading4 md:mt-8 mt-5">How did SKIMS start?</div>
-                    <div class="body1 mt-4">This is such a hard question! Honestly, every time we drop a new collection I
-                        get obsessed with it. The pieces that have been my go-tos though are some of our simplest styles
-                        that we launched with. I wear our Fits Everybody Thong every single day – it is the only underwear I
-                        have now, it's so comfortable and stretchy and light enough that you can wear anything over it.
-                    </div>
-                    <div
-                        class="quote-block md:mt-8 mt-5 py-6 md:px-10 px-6 border border-line md:rounded-[20px] rounded-2xl flex items-center md:gap-10 gap-6">
-                        <i class="ph-fill ph-quotes text-green text-3xl rotate-180 flex-shrink-0"></i>
-                        <div>
-                            <div class="heading6">"For bras, I love our Cotton Jersey Scoop Bralette – it's lined with this
-                                amazing power mesh so you get great support and is so comfy I can sleep in it."</div>
-                            <div class="text-button-uppercase text-secondary mt-4">- Anthony Bourdain</div>
-                        </div>
-                    </div>
-                    <div class="body1 md:mt-8 mt-5">For bras, I love our Cotton Jersey Scoop Bralette – it's lined with this
-                        amazing power mesh so you get great support and is so comfy I can sleep in it. I also love our
-                        Seamless Sculpt Bodysuit – it's the perfect all in one sculpting, shaping and smoothing shapewear
-                        piece with different levels of support woven throughout.</div>
-                    <div class="body1 mt-4">For bras, I love our Cotton Jersey Scoop Bralette – it’s lined with this amazing
-                        power mesh so you get great support and is so comfy I can sleep in it. I also love our Seamless
-                        Sculpt Bodysuit – it’s the perfect all in one sculpting, shaping and smoothing shapewear piece with
-                        different levels of support woven throughout.</div>
+                    {!! $faq->description !!}
                 </div>
                 <!-- Quote Block -->
                 <div

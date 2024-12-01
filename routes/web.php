@@ -57,6 +57,11 @@ Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logou
 Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
 Route::get('/detail/{slug}', [ShopController::class, 'detail'])->name('shop.detail');
 
+Route::get('/faq', [FaqController::class, 'faq'])->name('home.faq');
+Route::get('/faq/detail/{slug}', [FaqController::class, 'faqdetail'])->name('faq.detail');
+
+
+
 Route::middleware(['userOrGuest'])->group(function () {
     Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
     Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
@@ -202,13 +207,8 @@ Route::middleware(['auth', 'role:Administrator'])->group(function () {
     Route::delete('/faq/delete/{id}', [FaqController::class, 'destroy'])->name('faq.destroy');
     Route::get('/faq/edit/{id}', [FaqController::class, 'edit'])->name('faq.edit');
     Route::put('/faq/update/{id}', [FaqController::class, 'update'])->name('faq.update');
-
-
 });
 
-
-Route::get('/faq', [HomeController::class, 'faq'])->name('home.faq');
-Route::get('/detail-faq', [HomeController::class, 'detail_faq'])->name('home.detailfaq');
 
 
 Route::get('/search-result', function () {

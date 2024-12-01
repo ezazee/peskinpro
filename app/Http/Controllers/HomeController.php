@@ -26,7 +26,6 @@ class HomeController extends Controller
         $settings = Settings::all();
         $timerFlashsale = Settings::first()->timer_flashsale ?? '';
 
-        // dd($settings);
         $products = Product::with('category','sizes')->orderby('created_at', 'desc')->get();
         $products = Product::all();
         $expandedPromo = $products->flatMap(function ($product) {
@@ -45,15 +44,5 @@ class HomeController extends Controller
             });
         });
         return view('frontend.index',compact('banners','productsfacialcare','products','articles','settings','timerFlashsale','expandedPromo'));
-    }
-
-    public function faq(){
-        $settings = Settings::all();
-        return view('frontend.pages.faq', compact('settings'));
-    }
-
-    public function detail_faq() {
-        $settings = Settings::all();
-        return view('frontend.pages.faq-detail', compact('settings'));
     }
 }

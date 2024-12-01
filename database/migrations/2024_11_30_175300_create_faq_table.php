@@ -10,7 +10,8 @@ return new class extends Migration
     {
         Schema::create('faqs', function (Blueprint $table) {
             $table->id();
-            $table->string('title'); 
+            $table->string('title');
+            $table->string('slug'); 
             $table->text('description');
             $table->unsignedBigInteger('kategori_faq_id');
             $table->timestamps();

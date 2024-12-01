@@ -4,93 +4,16 @@
 
 <div class="container-xxl">
     <div class="row">
-        <div class="col-md-6 col-xl-3">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <div>
-                            <h4 class="card-title mb-2">Pending Review</h4>
-                            <p class="text-muted fw-medium fs-22 mb-0">210</p>
-                        </div>
-                        <div>
-                            <div class="avatar-md bg-primary bg-opacity-10 rounded">
-                                <iconify-icon icon="solar:clipboard-remove-broken"
-                                    class="fs-32 text-primary avatar-title"></iconify-icon>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 col-xl-3">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <div>
-                            <h4 class="card-title mb-2">Pending Payment</h4>
-                            <p class="text-muted fw-medium fs-22 mb-0">608</p>
-                        </div>
-                        <div>
-                            <div class="avatar-md bg-primary bg-opacity-10 rounded">
-                                <iconify-icon icon="solar:clock-circle-broken" class="fs-32 text-primary avatar-title">
-                                </iconify-icon>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 col-xl-3">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <div>
-                            <h4 class="card-title mb-2">Delivered</h4>
-                            <p class="text-muted fw-medium fs-22 mb-0">200</p>
-                        </div>
-                        <div>
-                            <div class="avatar-md bg-primary bg-opacity-10 rounded">
-                                <iconify-icon icon="solar:clipboard-check-broken"
-                                    class="fs-32 text-primary avatar-title"></iconify-icon>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 col-xl-3">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <div>
-                            <h4 class="card-title mb-2">In Progress</h4>
-                            <p class="text-muted fw-medium fs-22 mb-0">656</p>
-                        </div>
-                        <div>
-                            <div class="avatar-md bg-primary bg-opacity-10 rounded">
-                                <iconify-icon icon="solar:inbox-line-broken" class="fs-32 text-primary avatar-title">
-                                </iconify-icon>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
         <div class="col-xl-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center gap-1">
                     <h4 class="card-title flex-grow-1">All Coupons List</h4>
-
+{{-- 
                     <form action="" method="" class="d-flex align-items-center me-2">
                         <input type="text" name="query" class="form-control form-control-sm" placeholder="Search Products...">
                         <button type="submit" class="btn btn-sm btn-outline-secondary ms-1">Search</button>
-                    </form>
+                    </form> --}}
 
-                    <a href="{{ route('product.index') }}" class="btn btn-sm btn-primary">
-                        Add Product
-                    </a>
                 </div>
                 <div>
                     <div class="table-responsive">

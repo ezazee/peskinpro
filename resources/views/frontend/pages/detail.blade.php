@@ -111,7 +111,7 @@
                         <div class="more-infor mt-6">
                             <div class="flex items-center gap-1 mt-3">
                                 <div class="text-title">SKU:</div>
-                                <div class="text-secondary">53453412</div>
+                                <div class="text-secondary">{{  $products->sku}}</div>
                             </div>
                             <div class="flex items-center gap-1 mt-3">
                                 <div class="text-title">Kategori:</div>

@@ -205,14 +205,15 @@ class ChekoutController extends Controller
             $user = Auth::user();
             $cart = Auth::user()->cart;
             if ($cart) {
-                $cart->items()->delete();
+                $purchasedProductIds = collect($request->products)->pluck('id')->toArray();
+                $cart->items()->whereIn('product_id', $purchasedProductIds)->delete();
             }
             
             $invoice_number = $invoice->invoice_number;
 
             return redirect()->route('payment', ['invoice_number' => $invoice_number])
             ->with(compact('user', 'order', 'shipping', 'subtotal'));
-    }
+        }
 
     public function pembayaran(Request $request, $invoice_number)
     {
