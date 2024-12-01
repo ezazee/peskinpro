@@ -8,7 +8,7 @@ use App\Models\Product;
 use App\Models\Article;
 use App\Models\Settings;
 use Illuminate\Support\Str;
-
+use Illuminate\Support\Facades\DB;
 
 class ShopController extends Controller
 {
@@ -30,20 +30,24 @@ class ShopController extends Controller
             });
         });
 
-        $productbestseller = $products->flatMap(function ($product) {
-            return $product->sizes->filter(function ($size) {
-                return $size->bestseller === 'yes';
-            })->map(function ($size) use ($product) {
-                return [
-                    'id' => $product->id,
-                    'name' => $product->name,
-                    'slug' => $product->slug,
-                    'front_image' => $product->front_image,
-                    'back_image' => $product->back_image,
-                    'category' => $product->category,
-                    'size' => $size,
-                ];
-            });
+        $productbestseller = Product::withCount(['orders as total_sold' => function ($query) {
+            $query->select(DB::raw("sum(order_product.quantity)"));
+        }])
+        ->with(['category', 'sizes']) 
+        ->orderByDesc('total_sold') 
+        ->take(3)
+        ->get()
+        ->map(function ($product) {
+            return [
+                'id' => $product->id,
+                'name' => $product->name,
+                'slug' => $product->slug,
+                'front_image' => $product->front_image,
+                'back_image' => $product->back_image,
+                'total_sold' => $product->total_sold,
+                'category' => $product->category ? $product->category->name : 'No category',
+                'sizes' => $product->sizes,
+            ];
         });
         
         $articles = Article::with('tag')

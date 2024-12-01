@@ -41,13 +41,6 @@
                                             <div class="action-list mt-3 flex gap-3">
                                                 <a href="{{ route('edit.address', $defaultAddress->id) }}"
                                                     class="link-text">Edit Address</a>
-                                                {{-- <form action="{{ route('delete_address', $defaultAddress->id) }}"
-                                                    method="POST"
-                                                    onsubmit="return confirm('Are you sure you want to delete this address?');">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="link-text">Delete</button>
-                                                </form> --}}
                                             </div>
                                         </div>
                                     @endif
@@ -64,12 +57,6 @@
                                                 <div class="action-list mt-3 flex gap-3">
                                                     <a href="{{ route('edit.address', $item->id) }}" class="link-text">Edit
                                                         Address</a>
-                                                    {{-- <form action="{{ route('delete_address', $item->id) }}" method="POST"
-                                                        onsubmit="return confirm('Are you sure you want to delete this address?');">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="link-text">Delete</button>
-                                                    </form> --}}
                                                 </div>
                                                 @if ($item->default === 'yes')
                                                     <span class="check-badge absolute top-4 right-4">Default</span>

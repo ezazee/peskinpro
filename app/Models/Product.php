@@ -22,6 +22,12 @@ class Product extends Model
         'howtouse',
     ];
 
+
+    public function sizes()
+    {
+        return $this->hasMany(ProductSize::class);
+    }
+
     public function images()
     {
         return $this->hasMany(ProductImage::class);
@@ -35,11 +41,6 @@ class Product extends Model
     public function imagedetail()
     {
         return $this->hasMany(ProductImage::class);
-    }
-
-    public function sizes()
-    {
-        return $this->hasMany(ProductSize::class);
     }
     
     public function cartItems()

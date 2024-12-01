@@ -83,11 +83,14 @@
                     </div>
                 </div>
                 </div>
-                <a href="/shop#allProduct" class="text-button text-primary pb-1 border-b-2 border-primary">Lihat Detail</a>
+                @foreach ($expandedPromo as $item)
+                @if(isset($item) && !empty($item))
+                    <a href="/shop#allProduct" class="text-button text-primary pb-1 border-b-2 border-primary">Lihat Detail</a>
+                @endif
+                @endforeach
+                   
             </div>
-            <div class="list-product three-product hide-last-product hide-product-sold grid xl:grid-cols-4 sm:grid-cols-3 grid-cols-2 md:gap-[30px] gap-4 md:mt-10 mt-6"
-                data-gender="men">
-                
+            <div class="list-product three-product hide-last-product hide-product-sold grid xl:grid-cols-4 sm:grid-cols-3 grid-cols-2 md:gap-[30px] gap-4 md:mt-10 mt-6" data-gender="men">
                 @foreach ($settings as $item)
                 @if (!empty($item->banner_flashsale_home))
                 <a href="/shop" class="banner rounded-[20px] overflow-hidden relative flex items-center justify-center">
@@ -99,15 +102,12 @@
                 @endif
                 @endforeach
                 <!-- List product -->
-                @foreach ($products as $item)
+                @foreach ($expandedPromo as $item)
                     <div class="product-item grid-type style-5">
-                        <a href="{{ route('shop.detail', ['slug' => $item->slug]) }}">
+                        <a href="{{ route('shop.detail', ['slug' => $item['slug']]) }}">
                             <div class="product-main cursor-pointer block">
                                 <div class="product-thumb bg-white relative overflow-hidden rounded-2xl">
-                                    @if (
-                                        $item->sizes->pluck('discount')->filter(function ($discount) {
-                                                return $discount > 0;
-                                            })->isNotEmpty())
+                                    @if ($item['size']->discount > 0)
                                         <div
                                             class="product-tag text-button-uppercase text-white bg-red px-3 py-0.5 inline-block rounded-full absolute top-3 left-3 z-[1]">
                                             Diskon
@@ -115,27 +115,29 @@
                                     @endif
                                     <div class="product-img w-full h-full aspect-[3/4]">
                                         <img class="w-full h-full object-cover duration-700"
-                                            src="{{ asset('storage/' . $item->front_image) }}" alt="img" />
+                                            src="{{ asset('storage/' . $item['front_image']) }}"
+                                            alt="{{ $item['name'] }}" />
                                         <img class="w-full h-full object-cover duration-700"
-                                            src="{{ asset('storage/' . $item->back_image) }}" alt="img" />
+                                            src="{{ asset('storage/' . $item['back_image']) }}" alt="{{ $item['name'] }}" />
                                     </div>
                                 </div>
 
                                 <div class="product-infor mt-4 lg:mb-7">
                                     <div class="product-name text-title duration-300">
-                                        {{ $item->name }}
+                                        {{ $item['name'] }}
                                         <div
                                             class="product-price-block flex items-center gap-2 flex-wrap mt-1 duration-300 relative z-[1]">
                                             <div class="product-price text-title">
                                                 @php
-                                                    $sizePrices = $item->sizes->pluck('price')->sort()->toArray();
-                                                    $sizeDiscounts = $item->sizes->pluck('discount')->sort()->toArray();
-
-                                                    $minPrice = $sizePrices ? min($sizePrices) : $item->price;
-                                                    $maxDiscount = $sizeDiscounts ? max($sizeDiscounts) : 0;
-
-                                                    $effectivePrice = $minPrice - $maxDiscount;
+                                                    $sizePrices = $item['size']->price;
+                                                    $sizeDiscounts = $item['size']->discount;
+                                                    $minPrice = !empty($sizePrices)
+                                                        ? $sizePrices
+                                                        : $item['size']->price ?? 0;
+                                                    $maxDiscount = !empty($sizeDiscounts) ? $sizeDiscounts : 0;
+                                                    $effectivePrice = max($minPrice - $maxDiscount, 0);
                                                 @endphp
+
 
                                                 @if ($effectivePrice > 0)
                                                     Rp {{ number_format($effectivePrice, 0, ',', '.') }}

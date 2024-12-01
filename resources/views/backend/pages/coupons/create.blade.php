@@ -9,46 +9,16 @@
             <div class="col-lg-5">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Coupon Status</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="d-flex gap-2 align-items-center">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="status" value="active"
-                                            checked=''>
-                                        <label class="form-check-label">
-                                            Active
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="status" value="inactive">
-                                    <label class="form-check-label">
-                                        In Active
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Date Schedule</h4>
+                        <h4 class="card-title">Date Coupons</h4>
                     </div>
                     <div class="card-body">
                         <div class="mb-3">
                             <label for="start-date" class="form-label text-dark">Start Date</label>
-                            <input type="date" name="start_date" class="form-control flatpickr-input active"
-                                placeholder="dd-mm-yyyy">
+                            <input type="date" name="start_date" class="form-control flatpickr-input active" placeholder="dd-mm-yyyy">
                         </div>
                         <div class="mb-3">
                             <label for="end-date" class="form-label text-dark">End Date</label>
-                            <input type="date" name="end_date" class="form-control flatpickr-input active"
-                                placeholder="dd-mm-yyyy">
+                            <input type="date" name="end_date" class="form-control flatpickr-input active" placeholder="dd-mm-yyyy">
                         </div>
                     </div>
                 </div>
@@ -64,54 +34,17 @@
                             <div class="col-lg-4">
                                 <div class="mb-3">
                                     <label for="coupons-code" class="form-label">Coupons Code</label>
-                                    <input type="text" id="coupons-code" name="coupons_code" class="form-control"
-                                        placeholder="Enter Code">
+                                    <input type="text" id="coupons-code" name="coupons_code" class="form-control" placeholder="Enter Code">
                                 </div>
-                            </div>
+                            </div>                            
                             <div class="col-lg-4">
-                                <label for="product-categories" class="form-label">Discount Products</label>
-                                <select class="form-control" name="product"  data-choices data-choices-groups required>
-                                    <option value="">Choose a category</option>
-                                    @foreach($categories as $category)
-                                    <option value="{{ $category->name }}">{{ $category->name }}</option>
-                                    @endforeach
-                                </select>
+                                <label for="product-categories" class="form-label">Minimum Purchase</label>
+                                <input type="number" name="minimum_purchase" class="form-control" placeholder="Minimum Purchase">
                             </div>
                             <div class="col-lg-4">
                                 <div class="mb-3">
                                     <label for="coupons-limits" class="form-label">Coupons Limits</label>
-                                    <input type="number" name="limits" class="form-control"
-                                        placeholder="limits nu">
-                                </div>
-                            </div>
-                        </div>
-                        <h4 class="card-title mb-3 mt-2">Coupons Types</h4>
-                        <div class="row mb-3">
-                            <div class="col-lg-4">
-                                <div class="d-flex gap-2 align-items-center">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="type" value="freeshiping"
-                                            checked=''>
-                                        <label class="form-check-label">
-                                            Free Shipping
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="type" value="percentage">
-                                    <label class="form-check-label" >
-                                        Percentage
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="type" value="fix-amount">
-                                    <label class="form-check-label">
-                                        Fixed Amount
-                                    </label>
+                                    <input type="number" name="limits" class="form-control" placeholder="Limits number">
                                 </div>
                             </div>
                         </div>
@@ -119,8 +52,7 @@
                             <div class="col-lg-12">
                                 <div class="">
                                     <label class="form-label">Discount Value</label>
-                                    <input type="text" name="jumlah" class="form-control"
-                                        placeholder="value enter">
+                                    <input type="text" name="jumlah" class="form-control" placeholder="Enter discount value">
                                 </div>
                             </div>
                         </div>
@@ -132,7 +64,23 @@
             </div>
         </div>
     </form>
-
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        var couponInput = $('#coupons-code');
+        
+        couponInput.on('input', function() {
+            var currentValue = couponInput.val();
+            if (!currentValue.startsWith('PE')) {
+                couponInput.val('PE' + currentValue.substring(2));
+            }
+        });
+
+        if (!couponInput.val().startsWith('PE')) {
+            couponInput.val('PE');
+        }
+    });
+</script>
 @endsection

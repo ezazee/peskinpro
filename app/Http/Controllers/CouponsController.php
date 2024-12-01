@@ -29,13 +29,13 @@ class CouponsController extends Controller
     public function add(Request $request){
 
         $coupons = Coupons::create([
-            'status' => $request->status,
+            'status' => 'active',
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
             'coupons_code' => $request->coupons_code,
-            'product' => $request->product,
+            'minimum_purchase' => $request->minimum_purchase,
             'limits' => $request->limits,
-            'type'=> $request->type,
+            'type'=> 'fixed_amount',
             'jumlah' => $request->jumlah
           ]);
 
@@ -49,4 +49,5 @@ class CouponsController extends Controller
 
         return back()->with('success', 'Coupons deleted successfully!');
     }
+
 }

@@ -77,7 +77,7 @@
                                                     class="flex-shrink-0 w-12 h-12 rounded" />
                                                 <div class="info flex flex-col">
                                                     <strong
-                                                        class="product_name text-button">{{ $firstProduct->name }}</strong>
+                                                        class="product_name text-button">{{ Str::limit($firstProduct->name, 20) }}</strong>
                                                     <span
                                                         class="product_tag caption1 text-secondary">{{ $firstProduct->category->name }}
                                                         ,

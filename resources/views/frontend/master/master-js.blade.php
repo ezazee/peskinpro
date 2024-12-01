@@ -352,7 +352,6 @@
 {{-- Backdrop Modal Voucher Promo --}}
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        // JavaScript for showing/hiding modal
         const modal = document.getElementById('customModalVoucher');
         const backdrop = document.getElementById('backdrop-voucher');
         const openModalButton = document.getElementById('addVoucherButton');
@@ -376,6 +375,57 @@
         });
     });
 </script>
+
+
+<script>
+    function applyCoupon(event, couponCode, discountAmount) {
+        const button = event.target;
+        const couponId = button.getAttribute('data-coupon-id');
+        
+        button.disabled = true;
+        button.innerText = "Sedang Digunakan...";
+    
+        const discountElement = document.getElementById('discount-chekout');
+        if (discountElement) {
+            discountElement.innerText = `Rp.${discountAmount.toLocaleString()}`;
+        }
+    
+        const cartTotalElement = document.getElementById('cart-total');
+        if (cartTotalElement) {
+            const cartTotal = parseInt(cartTotalElement.innerText.replace('Rp.', '').replace(',', '')) || 0;
+            const updatedCartTotal = cartTotal - discountAmount;
+            cartTotalElement.innerText = `Rp.${updatedCartTotal.toLocaleString()}`;
+        }
+
+        const couponCodeInput = document.getElementById('coupon_code');
+        if (couponCodeInput) {
+            couponCodeInput.value = couponCode;
+        }
+    
+        const allCouponButtons = document.querySelectorAll('.coupon-button');
+        allCouponButtons.forEach(btn => {
+            if (btn !== button) {
+                btn.disabled = false;
+                btn.innerText = "Gunakan";
+            }
+        });
+    
+        button.innerText = "Dipakai";
+        button.classList.add('disabled');
+        button.setAttribute('disabled', 'true');
+        
+        const jsonDisplayElement = document.getElementById('json-display');
+        if (jsonDisplayElement) {
+            jsonDisplayElement.innerText = JSON.stringify({
+                coupon_id: couponId,
+                coupon_code: couponCode,
+                discount_amount: discountAmount
+            }, null, 2);
+        }
+    }
+    </script>
+       
+    
 
 {{-- Backdrop Modal Ganti Alamat Checkout --}}
 <script>

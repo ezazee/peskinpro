@@ -23,9 +23,6 @@
                     <p class="address-description text-secondary py-3">{{ $adds->street }}</p>
                     <p class="contact-text">{{ $adds->no_telp }}</p>
                     <span class="check-badge absolute top-4 right-4">Default</span>
-                    <div class="action-list mt-3 flex gap-3">
-                        <a href="#" class="link-text">Edit Address</a>
-                    </div>
                 </div>
                 @endforeach
                 @endif
@@ -36,9 +33,6 @@
                             <p class="name-text">{{ $item->penerima }}</p>
                             <p class="address-description text-secondary py-3">{{ $item->street }}</p>
                             <p class="contact-text">{{ $item->no_telp }}</p>
-                            <div class="action-list mt-3 flex gap-3">
-                                <a href="#" class="link-text">Edit Address</a>                               
-                            </div>
                             @if ($item->default === 'yes')
                             <span class="check-badge absolute top-4 right-4">Default</span>
                             @else

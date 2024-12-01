@@ -13,15 +13,16 @@
                                 <div class="text-title">Rp.<span
                                         class="discount">{{ number_format($subtotal, 0, ',', '.') }}</span></div>
                             </div>
-                            <div class="discount-block py-5 flex justify-between border-b border-line">
-                                <div class="text-title">Diskon</div>
-                                <div class="text-title">-Rp.<span class="discount">0</span></div>
-                            </div>
                             <div class="ship-block py-5 flex justify-between border-b border-line">
                                 <div class="text-title">Pengiriman</div>
                                 <div class="text-title">
                                     Rp{{ number_format($orders->shipping->shipping_cost, 0, ',', '.') }}
                                 </div>
+                            </div>
+                            <div class="discount-block py-5 flex justify-between border-b border-line">
+                                <div class="text-title">Diskon</div>
+                                <div class="text-title">-Rp.<span class="discount">{{ number_format($orders->discount_chekout ?? 0, 0, ',', '.') }}
+                                </span></div>
                             </div>
                             <div class="total-cart-block pt-5 flex justify-between">
                                 <div class="heading5">Total</div>

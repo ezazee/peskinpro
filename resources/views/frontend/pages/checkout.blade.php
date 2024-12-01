@@ -34,8 +34,8 @@
                             </div>
                             <div class="discount-block py-5 flex justify-between border-b border-line">
                                 <div class="text-title">Diskon</div>
-                                <div class="text-title">-Rp.<span class="discount">0</span></div>
-                            </div>
+                                <div class="text-title">-<span id="discount-chekout">0</span></div>
+                            </div>                            
                             <div class="total-cart-block pt-5 flex justify-between">
                                 <div class="heading5">Total</div>
                                 <div class="heading5 total-cart" id="total">
@@ -44,7 +44,6 @@
                             </div>
                         </div>
 
-                        <!-- Button for Gunakan Voucher styled like image -->
                         <div class="block-button flex flex-col items-center gap-y-2 mt-5">
                             <button id="addVoucherButton"
                                 class="checkout-btn text-bold rounded-md text-start bg-light-primary border border-primary w-3/4 px-4 py-2 flex justify-between items-center gap-2">
@@ -54,7 +53,6 @@
                             </button>
                         </div>
 
-                        <!-- Checkout Button with form submission -->
                         <form action="{{ route('processpayment') }}"
                             class="block-button flex flex-col items-center gap-y-4 mt-5" method="POST">
                             @csrf
@@ -63,6 +61,8 @@
                             <input type="hidden" id="total_amount" name="total_amount" value="">
                             <input type="hidden" id="shipping_courier" name="shipping_courier" value="">
                             <input type="hidden" id="estimated_days" name="estimated_days" value="">
+                            <input type="hidden" id="discount_value" name="discount_value" value="">
+                            <input type="hidden" id="coupon_code" name="coupon_code" value="">
                             @foreach ($defaultAddresses as $item)
                                 <input type="hidden" name="alamat_id" value="{{ $item->id }}">
                             @endforeach
@@ -147,7 +147,7 @@
                                             </div>
                                             <div class="flex items-center justify-between w-full">
                                                 <div>
-                                                    <div class="name text-title">{{ $item->product->name }}</div>
+                                                    <div class="name text-title">{{ Str::limit($item->product->name, 20) }}</div>
                                                     <div class="caption1 text-secondary mt-2">
                                                         <span class="capitalize">{{ $item->productSize->size }}ML</span>
                                                     </div>
