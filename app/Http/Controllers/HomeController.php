@@ -35,4 +35,9 @@ class HomeController extends Controller
         $settings = Settings::all();
         return view('frontend.pages.faq', compact('settings'));
     }
+
+    public function detail_faq() {
+        $settings = Settings::all();
+        return view('frontend.pages.faq-detail', compact('settings'));
+    }
 }
