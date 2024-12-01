@@ -118,33 +118,6 @@
                                 <div class="list-category text-secondary">{{ $products->category->name }}</div>
                             </div>
                         </div>
-                        {{-- <div class="list-payment mt-7">
-                            <div
-                                class="main-content lg:pt-8 pt-6 lg:pb-6 pb-4 sm:px-4 px-3 border border-line rounded-xl relative max-md:w-2/3 max-sm:w-full">
-                                <div
-                                    class="heading6 px-5 bg-white absolute -top-[14px] left-1/2 -translate-x-1/2 whitespace-nowrap">
-                                    Pembayaran Aman Menggunakan</div>
-                                <div class="list grid grid-cols-4">
-                                    <div class="item flex items-center justify-center lg:px-3 px-1">
-                                        <img src="{{ asset('frontend/assets/images/payment/mandiri.png') }}" alt="payment"
-                                            class="w-full">
-                                    </div>
-                                    <div class="item flex items-center justify-center lg:px-3 px-1">
-                                        <img src="{{ asset('frontend/assets/images/payment/gopay.png') }}" alt="payment"
-                                            class="w-full">
-                                    </div>
-                                    <div class="item flex items-center justify-center lg:px-3 px-1">
-                                        <img src="{{ asset('frontend/assets/images/payment/bca.webp') }}" alt="payment"
-                                            class="w-full">
-                                    </div>
-                                    <div class="item flex items-center justify-center lg:px-3 px-1">
-                                        <img src="{{ asset('frontend/assets/images/payment/qris.png') }}" alt="payment"
-                                            class="w-full">
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -187,10 +160,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="desc-item specifications" data-item="Ingredients">
+                    <div class="desc-item" data-item="Bahan-Bahan">
                         <div class="grid md:grid-cols-2 items-center gap-8 gap-y-5">
                             <div class="left">
-                                <div class="heading6">Ingredients</div>
+                                <div class="heading6">Bahan</div>
                                 <div class="list-feature grid grid-cols-1 sm:grid-cols-2 gap-y-2 py-3">
                                     @foreach (explode("\n", $products->ingredients) as $ingredient)
                                         <div class="item flex gap-1 text-secondary mt-1">
