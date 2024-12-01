@@ -249,26 +249,34 @@
                                         <div class="product-name text-title duration-300">
                                             {{ $item->name }}
                                             <div
-                                                class="product-price-block flex items-center gap-2 flex-wrap mt-1 duration-300 relative z-[1]">
-                                                <div class="product-price text-title">
-                                                    @if ($item->discount && $item->discount > 0)
-                                                        Rp {{ number_format($item->price - $item->discount, 0, ',', '.') }}
-                                                    @else
-                                                        Rp {{ number_format($item->price, 0, ',', '.') }}
-                                                    @endif
-                                                </div>
+                                            class="product-price-block flex items-center gap-2 flex-wrap mt-1 duration-300 relative z-[1]">
+                                            <div class="product-price text-title">
+                                                @php
+                                                    $sizePrices = $item->sizes->pluck('price')->sort()->toArray();
+                                                    $sizeDiscounts = $item->sizes->pluck('discount')->sort()->toArray();
 
-                                                @if ($item->discount && $item->discount > 0)
-                                                    <div
-                                                        class="product-origin-price caption1 text-secondary2 line-through">
-                                                        <del>Rp {{ number_format($item->price, 0, ',', '.') }}</del>
-                                                    </div>
-                                                    <div
-                                                        class="product-sale caption1 text-white font-medium bg-primary px-3 py-0.5 inline-block rounded-full">
-                                                        -{{ number_format(100 * ($item->discount / $item->price), 0) }}%
-                                                    </div>
+                                                    $minPrice = $sizePrices ? min($sizePrices) : $item->price;
+                                                    $maxDiscount = $sizeDiscounts ? max($sizeDiscounts) : 0;
+
+                                                    $effectivePrice = $minPrice - $maxDiscount;
+                                                @endphp
+
+                                                @if ($effectivePrice > 0)
+                                                    Rp {{ number_format($effectivePrice, 0, ',', '.') }}
+                                                @else
+                                                    Rp {{ number_format($minPrice, 0, ',', '.') }}
                                                 @endif
                                             </div>
+                                            @if ($minPrice > 0 && $maxDiscount > 0)
+                                                <div class="product-origin-price caption1 text-secondary2 line-through">
+                                                    <del>Rp {{ number_format($minPrice, 0, ',', '.') }}</del>
+                                                </div>
+                                                <div
+                                                    class="product-sale caption1 text-white font-medium bg-primary px-3 py-0.5 inline-block rounded-full">
+                                                    -{{ number_format(100 * ($maxDiscount / $minPrice), 0) }}%
+                                                </div>
+                                            @endif
+                                        </div>
                                         </div>
                                     </div>
                                 </div>

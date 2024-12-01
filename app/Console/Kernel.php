@@ -17,9 +17,12 @@ class Kernel extends ConsoleKernel
     {
         $schedule->call(function () {
             $orders = Order::where('status', 'pending')
-                ->where('created_at', '<', now()->subMinutes(30))
-                ->get();
-        
+            ->where('created_at', '<', now()->subMinutes(30)) 
+            ->whereHas('invoice', function ($query) {
+                $query->where('payment_status', 'unpaid');
+            })
+            ->get();
+            
             foreach ($orders as $order) {
                 $orderItems = $order->products;
         

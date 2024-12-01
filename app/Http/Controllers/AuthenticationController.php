@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Cart;
 use App\Models\CartItem;
 
+
 class AuthenticationController extends Controller
 {
     public function index(){
@@ -24,13 +25,15 @@ class AuthenticationController extends Controller
     }
 
     public function show_register(){
+        $settings = Settings::all();
         if (Auth::check()) {
             return redirect()->route('home.index');
         }
-        return view('frontend.pages.auth.regist');
+        return view('frontend.pages.auth.regist',compact('settings'));
     }
 
     public function showadminLogin(){
+        
         if (Auth::check()) {
             return redirect()->route('dashboard.index');
         }
@@ -92,7 +95,6 @@ class AuthenticationController extends Controller
 
 
     public function register(Request $request){
-        // dd($request);
         $messages = [
             'password.required' => 'Kata sandi wajib diisi.',
             'password.min' => 'Kata sandi harus terdiri dari minimal :min karakter.',

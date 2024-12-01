@@ -3,6 +3,7 @@
 @section('content')
     @php
         use Carbon\Carbon;
+
         $flashSaleEndTime = Carbon::parse($timerFlashsale ?? ''); 
         $currentTime = Carbon::now();
         $isFlashSaleExpired = $flashSaleEndTime->isPast();
@@ -146,7 +147,6 @@
                                     </div>
                                 </div>
                                 <div class="right">
-                                    @foreach($productbestseller as $item)
                                         @foreach($item['sizes'] as $size)
                                             <div class="text-title">
                                                 <span class="product-price">
@@ -160,18 +160,11 @@
                                                         
                                                         $effectivePrice = max($minPrice - $maxDiscount, 0);
                                                     @endphp
-                                
-                                                    @if ($effectivePrice > 0)
                                                         Rp {{ number_format($effectivePrice, 0, ',', '.') }}
-                                                    @else
-                                                        Rp {{ number_format($minPrice, 0, ',', '.') }}
-                                                    @endif
                                                 </span>
                                             </div>
                                         @endforeach
-                                    @endforeach
                                 </div>
-                                
                             </a>
                         </div>
                     @endforeach
