@@ -59,7 +59,7 @@ Route::get('/detail/{slug}', [ShopController::class, 'detail'])->name('shop.deta
 
 Route::get('/faq', [FaqController::class, 'faq'])->name('home.faq');
 Route::get('/faq/detail/{slug}', [FaqController::class, 'faqdetail'])->name('faq.detail');
-
+Route::get('/return-and-refunds', [HomeController::class, 'returnrefund'])->name('returnrefund');
 
 
 Route::middleware(['userOrGuest'])->group(function () {
@@ -213,8 +213,4 @@ Route::middleware(['auth', 'role:Administrator'])->group(function () {
 
 Route::get('/search-result', function () {
     return view('frontend.pages.search-result');
-});
-
-Route::get('/return-and-refunds', function () {
-    return view('frontend.pages.return-and-refunds');
 });

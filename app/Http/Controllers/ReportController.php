@@ -63,6 +63,12 @@ class ReportController extends Controller
                     ];
                 });
             });
+
+            $totalReturns = '';
+            $totalRefunds = '';
+            $totalAmount = '';
+            $adjustedTotal = '';
+            $request->status = '';
         
         } elseif ($type === 'order') {
             $query = Order::with(['user', 'alamat', 'products', 'invoice', 'shipping', 'returns', 'refunds'])
@@ -72,30 +78,32 @@ class ReportController extends Controller
                 $status = strtolower($request->status); 
                 $query->whereRaw('LOWER(status) = ?', [$status]);
             }
-    
+
             $data = $query->get();
+
+            $statuses = ['processing', 'completed', 'shipping', 'return', 'refund'];
+    
+            $totalReturns = $data->filter(function($order) {
+                return strtolower($order->status) === 'return';
+            })->sum(function($order) {
+                return $order->returns->sum('nominal'); 
+            });
+        
+            $totalRefunds = $data->filter(function($order) {
+                return strtolower($order->status) === 'refund';
+            })->sum(function($order) {
+                return $order->refunds->sum('nominal');
+            });
+        
+            $totalAmount = $data->filter(function($order) use ($statuses) {
+                return in_array(strtolower($order->status), $statuses);
+            })->sum('total_amount');
+        
+            $adjustedTotal = $totalAmount - $totalReturns - $totalRefunds;
+
         }
     
-        $statuses = ['processing', 'completed', 'shipping', 'return', 'refund'];
-    
-        $totalReturns = $data->filter(function($order) {
-            return strtolower($order->status) === 'return';
-        })->sum(function($order) {
-            return $order->returns->sum('nominal'); 
-        });
-    
-        $totalRefunds = $data->filter(function($order) {
-            return strtolower($order->status) === 'refund';
-        })->sum(function($order) {
-            return $order->refunds->sum('nominal');
-        });
-    
-        $totalAmount = $data->filter(function($order) use ($statuses) {
-            return in_array(strtolower($order->status), $statuses);
-        })->sum('total_amount');
-    
-        $adjustedTotal = $totalAmount - $totalReturns - $totalRefunds;
-    
+
         $totalStockSold = $data->sum('stock_sold');
     
         return view('backend.pages.report.index', compact('welcomeMessage','user','data', 'startDate', 'endDate', 'type','totalStockSold','totalAmount','totalReturns','totalRefunds','adjustedTotal'));
@@ -146,7 +154,13 @@ class ReportController extends Controller
                     ];
                 });
             });
-        
+
+            $totalReturns = '';
+            $totalRefunds = '';
+            $totalAmount = '';
+            $adjustedTotal = '';
+            $request->status = '';
+
         }  elseif ($type === 'order') {
             $query = Order::with(['user', 'alamat', 'products', 'invoice', 'shipping', 'returns', 'refunds'])
                 ->whereBetween('created_at', [$startDate, $endDate]);
@@ -155,29 +169,33 @@ class ReportController extends Controller
                 $status = strtolower($request->status); 
                 $query->whereRaw('LOWER(status) = ?', [$status]);
             }
-    
+
             $data = $query->get();
+
+            $statuses = ['processing', 'completed', 'shipping', 'return', 'refund'];
+    
+            $totalReturns = $data->filter(function($order) {
+                return strtolower($order->status) === 'return';
+            })->sum(function($order) {
+                return $order->returns->sum('nominal'); 
+            });
+        
+            $totalRefunds = $data->filter(function($order) {
+                return strtolower($order->status) === 'refund';
+            })->sum(function($order) {
+                return $order->refunds->sum('nominal');
+            });
+        
+            $totalAmount = $data->filter(function($order) use ($statuses) {
+                return in_array(strtolower($order->status), $statuses);
+            })->sum('total_amount');
+        
+            $adjustedTotal = $totalAmount - $totalReturns - $totalRefunds;
+    
+
         }
     
-        $statuses = ['processing', 'completed', 'shipping', 'return', 'refund'];
-    
-        $totalReturns = $data->filter(function($order) {
-            return strtolower($order->status) === 'return';
-        })->sum(function($order) {
-            return $order->returns->sum('nominal'); 
-        });
-    
-        $totalRefunds = $data->filter(function($order) {
-            return strtolower($order->status) === 'refund';
-        })->sum(function($order) {
-            return $order->refunds->sum('nominal');
-        });
-    
-        $totalAmount = $data->filter(function($order) use ($statuses) {
-            return in_array(strtolower($order->status), $statuses);
-        })->sum('total_amount');
-    
-        $adjustedTotal = $totalAmount - $totalReturns - $totalRefunds;
+        
     
         $totalStockSold = $data->sum('stock_sold');
         
