@@ -144,10 +144,12 @@
                             <div class="right">
                                 <div class="heading6">Apa Efeknya?</div>
                                 <div class="list-feature">
+                                    @foreach (explode("\n", $products->effect) as $effects)
                                     <div class="item flex gap-1 text-secondary mt-1">
                                         <i class="ph ph-dot text-2xl"></i>
-                                        <p>Mencerahkan.</p>
+                                        <p>{{ trim($effects) }}</p>
                                     </div>
+                                @endforeach
                                     <div class="item flex gap-1 text-secondary mt-1">
                                         <i class="ph ph-dot text-2xl"></i>
                                         <p>Melembabkan.</p>

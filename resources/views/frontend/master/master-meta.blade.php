@@ -45,19 +45,19 @@
 
     @else
         <title>PESkin Pro Indonesia Official</title>
-        <meta name="description" content="Welcome to PESkin Pro Indonesia Official website. Your source for high-quality PES skins and resources.">
+        <meta name="description" content="Welcome to PESkin Pro Indonesia Official website. Your Trusted Skin Partner">
         <meta name="keywords" content="PESkin, PES, Pro Evolution Soccer, skins, Indonesia">
         <meta name="author" content="PESkin Pro Indonesia">
 
         <meta property="og:title" content="PESkin Pro Indonesia Official">
-        <meta property="og:description" content="Your source for high-quality PES skins and resources.">
+        <meta property="og:description" content="Your Trusted Skin Partner">
         <meta property="og:image" content="{{ asset('frontend/assets/images/logo/peskin.png') }}">
         <meta property="og:url" content="{{ request()->url() }}">
         <meta property="og:type" content="website">
 
         <meta name="twitter:card" content="summary_large_image">
         <meta name="twitter:title" content="PESkin Pro Indonesia Official">
-        <meta name="twitter:description" content="Your source for high-quality PES skins and resources.">
+        <meta name="twitter:description" content="Your Trusted Skin Partner">
         <meta name="twitter:image" content="{{ asset('frontend/assets/images/logo/peskin.png') }}">
         <meta name="csrf-token" content="{{ csrf_token() }}">
     @endif
