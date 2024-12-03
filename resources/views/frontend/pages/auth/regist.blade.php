@@ -32,6 +32,9 @@
                     <div class="pass mt-5">
                         <input class="border-line px-4 pt-3 pb-3 w-full rounded-lg" id="password" type="password"
                             placeholder="Password *" name="password" required />
+                            <button id="togglePassword" type="button"
+                                class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500">
+                            </button>
                         @if ($errors->has('password'))
                         <span class="text-red text-sm">{{ $errors->first('password') }}</span>
                         @endif
@@ -39,6 +42,9 @@
                     <div class="confirm-pass mt-5">
                         <input class="border-line px-4 pt-3 pb-3 w-full rounded-lg" id="confirmPassword" type="password"
                             placeholder="Masukan Ulang Password *" name="password_confirmation" required />
+                            <button id="togglePassword" type="button"
+                                class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500">
+                            </button>
                         @if ($errors->has('password_confirmation'))
                         <span class="text-red text-sm">{{ $errors->first('password_confirmation') }}</span>
                         @endif

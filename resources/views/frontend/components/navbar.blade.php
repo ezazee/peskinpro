@@ -6,7 +6,7 @@
                 <i class="icon-category text-2xl"></i>
             </div>
             <a href="/" class="flex items-center">
-                <img src="{{ asset('frontend/assets/images/logo/peskin.png') }}" alt="PeskinPro" style="width: 90px">
+                <img src="{{ asset('frontend/assets/images/logo/peskin.png') }}" alt="PeskinPro" style="width: 80px">
             </a>
             <div class="menu-main h-full max-lg:hidden">
                 <ul class="flex items-center gap-8 h-full">

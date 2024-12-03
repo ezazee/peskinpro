@@ -113,7 +113,7 @@
                                                 <span
                                                     class="ph ph-image text-5xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-secondary"></span>
                                                 <img id="preview"
-                                                    src="https://i.pinimg.com/736x/68/ed/dc/68eddcea02ceb29abde1b1c752fa29eb.jpg"
+                                                    src="{{ asset('frontend/assets/images/payment/bukti-tf.jpg') }}"
                                                     alt="avatar" class="upload_img relative z-[1] max-w-full h-auto" />
                                             </div>
                                         </div>
