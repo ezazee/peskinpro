@@ -171,6 +171,9 @@ Route::middleware(['auth', 'role:Administrator,Management,Admin,Finance,Writter'
     Route::put('/users/update/{id}', [UsersController::class, 'update_admin'])->name('users.update_admin');
     Route::delete('/users/delete/{id}', [UsersController::class, 'destroy'])->name('users.destroy');
 
+    Route::get('/users/profile/{id}', [UsersController::class, 'profile'])->name('users.profile');
+    Route::put('/profile/update/{id}', [UsersController::class, 'update_profile'])->name('users.update_profile');
+    
     Route::get('/customers/list', [UsersController::class, 'customers'])->name('customers.index');
 
     // coupons
@@ -192,8 +195,6 @@ Route::middleware(['auth', 'role:Administrator,Management,Admin,Finance,Writter'
     Route::get('/report', [ReportController::class, 'index'])->name('report.index');
     Route::get('/report/generate', [ReportController::class, 'generate'])->name('report.generate');
     Route::get('/report/pdf', [ReportController::class, 'generatePdf'])->name('report.generatePdf');
-
-    Route::get('/users/profile', [UsersController::class, 'profile'])->name('users.profile');
 
     // bank
     Route::get('/bank', [BankController::class, 'index'])->name('bank.index');

@@ -79,56 +79,56 @@ class UsersController extends Controller
     }
 
     public function update_admin(Request $request, $id)
-{
-    $users = User::findOrFail($id);
+    {
+        $users = User::findOrFail($id);
 
-    if ($request->hasFile('images')) {
-        $directory = 'profile';
+        if ($request->hasFile('images')) {
+            $directory = 'profile';
 
-        if (!Storage::exists($directory)) {
-            Storage::makeDirectory($directory);
+            if (!Storage::exists($directory)) {
+                Storage::makeDirectory($directory);
+            }
+
+            if ($users->images && Storage::exists($users->images)) {
+                Storage::delete($users->images);
+            }
+
+            $imagePath = $request->file('images')->store($directory, 'public');
+        } else {
+            $imagePath = $users->images;
         }
 
-        if ($users->images && Storage::exists($users->images)) {
-            Storage::delete($users->images);
+        $fullName = $request->input('first_name') . ' ' . $request->input('last_name');
+        $newSlug = Str::slug($fullName);
+
+        $updateData = [
+            'first_name' => $request->input('first_name'),
+            'last_name' => $request->input('last_name'),
+            'name' => $fullName,
+            'slug' => $newSlug,
+            'email' => $request->input('email'),
+            'no_telp' => $request->input('no_telp'),
+            'role_id' => $request->input('role_id'),
+            'status' => $request->input('status'),
+            'images' => $imagePath,
+        ];
+
+        if ($request->filled('password')) {
+            $request->validate([
+                'password' => 'required|confirmed|min:8',
+            ]);
+            $updateData['password'] = bcrypt($request->input('password'));
         }
 
-        $imagePath = $request->file('images')->store($directory, 'public');
-    } else {
-        $imagePath = $users->images;
-    }
+        $users->update($updateData);
 
-    $fullName = $request->input('first_name') . ' ' . $request->input('last_name');
-    $newSlug = Str::slug($fullName);
+        if ($users->role->name === 'user') {
+            Alert::info('Updated', 'Users updated successfully');
+            return redirect()->route('customers.index')->with('success', 'Users updated successfully.');
+        }
 
-    $updateData = [
-        'first_name' => $request->input('first_name'),
-        'last_name' => $request->input('last_name'),
-        'name' => $fullName,
-        'slug' => $newSlug,
-        'email' => $request->input('email'),
-        'no_telp' => $request->input('no_telp'),
-        'role_id' => $request->input('role_id'),
-        'status' => $request->input('status'),
-        'images' => $imagePath,
-    ];
-
-    if ($request->filled('password')) {
-        $request->validate([
-            'password' => 'required|confirmed|min:8',
-        ]);
-        $updateData['password'] = bcrypt($request->input('password'));
-    }
-
-    $users->update($updateData);
-
-    if ($users->role->name === 'user') {
         Alert::info('Updated', 'Users updated successfully');
-        return redirect()->route('customers.index')->with('success', 'Users updated successfully.');
-    }
-
-    Alert::info('Updated', 'Users updated successfully');
-    return redirect()->route('users.index')->with('success', 'Users updated successfully.');
+        return redirect()->route('users.index')->with('success', 'Users updated successfully.');
     }
 
 
@@ -164,9 +164,55 @@ class UsersController extends Controller
         return view('backend.pages.users.customers',compact('welcomeMessage','users','totalcustomers','user'));
     }
 
-    public function profile(){
-        $user = Auth::user();
-        $welcomeMessage = 'Profile Admin';
+    public function profile($id){
+        $user = User::with('role')->find($id);
+        $welcomeMessage = 'Profile ' . $user->name;
         return view('backend.pages.users.profile',compact('welcomeMessage','user'));
+    }
+
+    public function update_profile(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        if ($request->hasFile('images')) {
+            $directory = 'profile';
+
+            if (!Storage::exists($directory)) {
+                Storage::makeDirectory($directory);
+            }
+
+            if ($user->images && Storage::exists($user->images)) {
+                Storage::delete($user->images);
+            }
+
+            $imagePath = $request->file('images')->store($directory, 'public');
+        } else {
+            $imagePath = $user->images;
+        }
+
+        $fullName = $request->input('first_name') . ' ' . $request->input('last_name');
+        $newSlug = Str::slug($fullName);
+
+        $updateData = [
+            'first_name' => $request->input('first_name'),
+            'last_name' => $request->input('last_name'),
+            'name' => $fullName,
+            'slug' => $newSlug,
+            'email' => $request->input('email'),
+            'no_telp' => $request->input('no_telp'),
+            'images' => $imagePath,
+        ];
+
+        if ($request->filled('password')) {
+            $request->validate([
+                'password' => 'required|confirmed|min:8',
+            ]);
+            $updateData['password'] = bcrypt($request->input('password'));
+        }
+
+        $user->update($updateData);
+
+        Alert::info('Info', 'updated successfully');
+        return back()->with('success', 'Users updated successfully.');
     }
 }
