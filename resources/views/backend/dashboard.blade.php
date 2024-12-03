@@ -25,13 +25,13 @@
                                     </div> <!-- end col -->
                                     <div class="col-6 text-end">
                                         <p class="text-muted mb-0 text-truncate">Total Orders</p>
-                                        <h3 class="text-dark mt-1 mb-0">13, 647</h3>
+                                        <h3 class="text-dark mt-1 mb-0">{{ $totalOrders }}</h3>
                                     </div> <!-- end col -->
                                 </div> <!-- end row-->
                             </div> <!-- end card body -->
                             <div class="card-footer py-2 bg-light bg-opacity-50">
                                 <div class="d-flex align-items-center justify-content-between">
-                                    <a href="#!" class="text-reset fw-semibold fs-12">View More</a>
+                                    <a href="{{ route('orders.list') }}" class="text-reset fw-semibold fs-12">View More</a>
                                 </div>
                             </div> <!-- end card body -->
                         </div> <!-- end card -->
@@ -68,15 +68,10 @@
                                         </div>
                                     </div> <!-- end col -->
                                     <div class="col-6 text-end">
-                                        <p class="text-muted mb-0 text-truncate">Deals</p>
-                                        <h3 class="text-dark mt-1 mb-0">976</h3>
+                                        <p class="text-muted mb-0 text-truncate">Total Sold</p>
+                                        <h3 class="text-dark mt-1 mb-0">{{$totalSold}}</h3>
                                     </div> <!-- end col -->
                                 </div> <!-- end row-->
-                            </div> <!-- end card body -->
-                            <div class="card-footer py-2 bg-light bg-opacity-50">
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <a href="#!" class="text-reset fw-semibold fs-12">View More</a>
-                                </div>
                             </div> <!-- end card body -->
                         </div> <!-- end card -->
                     </div> <!-- end col -->
@@ -84,21 +79,16 @@
                         <div class="card overflow-hidden">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-6">
+                                    <div class="col-2">
                                         <div class="avatar-md bg-soft-primary rounded">
-                                            <i class="bx bx-dollar-circle avatar-title text-primary fs-24"></i>
+                                            <i class="bx bx-money avatar-title text-primary fs-24"></i>
                                         </div>
                                     </div> <!-- end col -->
-                                    <div class="col-6 text-end">
-                                        <p class="text-muted mb-0 text-truncate">Booked Revenue</p>
-                                        <h3 class="text-dark mt-1 mb-0">$123.6k</h3>
+                                    <div class="col-10 text-end">
+                                        <p class="text-muted mb-0 text-truncate">Income</p>
+                                        <h3 class="text-dark mt-1 mb-0">Rp{{ number_format($totalIncome, 0, ',', '.') }}</h3>
                                     </div> <!-- end col -->
                                 </div> <!-- end row-->
-                            </div> <!-- end card body -->
-                            <div class="card-footer py-2 bg-light bg-opacity-50">
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <a href="#!" class="text-reset fw-semibold fs-12">View More</a>
-                                </div>
                             </div> <!-- end card body -->
                         </div> <!-- end card -->
                     </div> <!-- end col -->

@@ -260,8 +260,7 @@ class OrdersController extends Controller
         $paymentMethod = $request->payment_method;
         $kembali = $request->kembali;
         $kode_bayar = $request->kode_bayar;
-
-
+        $discount_chekout = $request->discount_chekout ?? 0;
 
         if (empty($request->products) || count($request->products) === 0) {
             Alert::warning('Note', 'Please select the product first!');
@@ -275,6 +274,7 @@ class OrdersController extends Controller
             'status' => 'completed',
             'kembali' => $kembali,
             'kode_bayar' => $kode_bayar,
+            'discount_chekout' => $discount_chekout,
             'payment_method' => $paymentMethod,
         ]);
 

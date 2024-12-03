@@ -17,9 +17,11 @@ class DashboardController extends Controller
         $orders = Order::with(['user', 'alamat', 'products', 'invoice', 'shipping'])
         ->orderBy('created_at', 'desc')
         ->paginate(10);
+        $totalOrders = Order::count();
         $totalproduct = Product::count();
-        // dd($totalproduct);
-        return view('backend.dashboard',compact('user','orders','totalproduct'));
+        $totalSold = Order::whereIn('status', ['shipping', 'completed'])->count();
+        $totalIncome = Order::whereIn('status', ['shipping', 'completed','return','refund'])->sum('total_amount');
+        return view('backend.dashboard',compact('user','orders','totalproduct','totalOrders','totalSold','totalIncome'));
     }
 
 }

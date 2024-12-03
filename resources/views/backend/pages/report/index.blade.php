@@ -31,10 +31,10 @@
                                 <select class="form-select" name="status" id="inputStatus">
                                     <option value="all" {{ request('status') == '' ? 'selected' : '' }}>All</option>
                                     <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
-                                    <option value="completed" {{ request('status') == 'completed' ? 'selected' : '' }}>Completed</option>
                                     <option value="processing" {{ request('status') == 'processing' ? 'selected' : '' }}>Processing</option>
                                     <option value="shipping" {{ request('status') == 'shipping' ? 'selected' : '' }}>Shipping</option>
-                                    <option value="cancelled" {{ request('status') == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
+                                    <option value="completed" {{ request('status') == 'completed' ? 'selected' : '' }}>Completed</option>
+                                    <option value="canceled" {{ request('status') == 'canceled' ? 'selected' : '' }}>Cancelled</option>
                                 </select>
                             </div>                            
                             <div class="col-md-2 mt-3">

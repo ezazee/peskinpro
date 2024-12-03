@@ -9,6 +9,8 @@ use App\Models\Settings;
 use App\Models\Cart;
 use App\Models\CartItem;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
+
 
 class CartController extends Controller
 {
@@ -70,7 +72,7 @@ class CartController extends Controller
                 ]);
             }
         }
-    
+        Alert::toast('Produk ditambahkan ke troli.', 'success');
         return redirect()->back()->with('success', 'Product added to cart successfully!');
     }
     
@@ -106,7 +108,7 @@ class CartController extends Controller
                 }
             }
         }
-
+        Alert::toast('Produk dikeluarkan dari troli.', 'info');
         return redirect()->back()->with('success', 'Product removed from cart successfully!');
     }
 

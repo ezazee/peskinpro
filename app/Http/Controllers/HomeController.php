@@ -45,4 +45,9 @@ class HomeController extends Controller
         });
         return view('frontend.index',compact('banners','productsfacialcare','products','articles','settings','timerFlashsale','expandedPromo'));
     }
+
+    public function returnrefund(){
+        $settings = Settings::all();
+        return view('frontend.pages.return-and-refunds',compact('settings'));
+    }
 }
