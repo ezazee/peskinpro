@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Cart;
 use App\Models\CartItem;
+use RealRashid\SweetAlert\Facades\Alert;
 
 
 class AuthenticationController extends Controller
@@ -82,6 +83,7 @@ class AuthenticationController extends Controller
             }
 
             if ($user->role === 'user') {
+                Alert::toast('Login Berhasil.', 'success');
                 return redirect()->route('home.index');
             } elseif ($user->role === 'Administrator') {
                 return redirect()->route('dashboard.index');
@@ -125,7 +127,7 @@ class AuthenticationController extends Controller
             'role_id' => 3,
             'password' => bcrypt($request->password),
         ]);
-
+        Alert::toast('Register Berhasil Silahkan Login.', 'success');
         return redirect()->route('login')->with('success', 'Registration successful! Please login.');
     }
 
@@ -138,6 +140,7 @@ class AuthenticationController extends Controller
 
         $request->session()->regenerateToken();
 
+        Alert::toast('Anda Logout.', 'info');
         return redirect()->route('home.index');
     }
 }

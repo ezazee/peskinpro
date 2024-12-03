@@ -58,7 +58,7 @@
                                     </td>
                                     <td>
                                         <div class="d-flex gap-2">
-                                            <a href="#!" class="btn btn-soft-primary btn-sm">
+                                            <a href="{{ route('coupons.edit', $item->id) }}" class="btn btn-soft-primary btn-sm">
                                                 <iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18">
                                                 </iconify-icon>
                                             </a>

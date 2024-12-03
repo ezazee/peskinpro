@@ -95,7 +95,7 @@ Route::middleware(['auth', 'role:user'])->group(function () {
 });
 
 
-Route::middleware(['auth', 'role:Administrator'])->group(function () {
+Route::middleware(['auth', 'role:Administrator,Management,Admin,Finance,Writter'])->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
     Route::get('/product/create', [ProductController::class, 'index'])->name('product.index');
@@ -177,6 +177,8 @@ Route::middleware(['auth', 'role:Administrator'])->group(function () {
     Route::get('/coupons/list', [CouponsController::class, 'index'])->name('coupons.index');
     Route::get('/coupons/create', [CouponsController::class, 'create'])->name('coupons.create');
     Route::post('/coupons/create', [CouponsController::class, 'add'])->name('coupons.add');
+    Route::get('/coupons/edit/{id}', [CouponsController::class, 'edit'])->name('coupons.edit');
+    Route::put('/coupons/{id}/update', [CouponsController::class, 'update'])->name('coupons.update');
     Route::delete('/coupons/delete/{id}', [CouponsController::class, 'destroy'])->name('coupons.destroy');
 
     Route::get('/article/create', [ArticleController::class, 'create'])->name('article.create');

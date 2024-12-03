@@ -337,9 +337,10 @@
                     <div class="modal-body p-4">
                         <form id="payment-form" action="{{ route('pos_order') }}" method="POST">
                             @csrf
-                            <input type="hidden" name="total_amount" value="{{ $subtotal }}">
+                            <input type="hidden" name="total_amount" id="total_amount">
                             <input type="hidden" name="payment_method" value="cash"> 
                             <input type="hidden" name="kembali" id="kembalian-hidden">
+                            <input type="hidden" name="discount_chekout" id="discount_chekout" >
 
                             @foreach ($cartItems as $item)
                                 <input type="hidden" name="products[{{ $loop->index }}][id]"
@@ -356,9 +357,16 @@
 
                             <h6>Harga Total :</h6>
                             <h2 class="text-center p-4" id="subtotal">Rp{{ number_format($subtotal, 0, ',', '.') }}</h2>
+                            <h6>Discount :</h6>
+                            <h2 class="text-center p-1" id="discount_tampil">-Rp0</h2>
                             <h6>Kembalian : </h6>
                             <h2 class="text-center p-4" id="kembalian">Rp0</h2>
-                    
+
+                            <div class="input-block">
+                                <label>Discount</label>
+                                <input class="form-control" type="number" placeholder="Masukan Discount Jika Ada" />
+                            </div>
+
                             <div class="input-block">
                                 <label>Order Reference</label>
                                 <input class="form-control" id="uang-diberikan" type="number" placeholder="Uang yang diberikan" />
@@ -387,7 +395,8 @@
                     <div class="modal-body p-4">
                         <form id="payment-form" action="{{ route('pos_order') }}" method="POST">
                             @csrf
-                            <input type="hidden" name="total_amount" value="{{ $subtotal }}">
+                            <input type="hidden" name="total_amount" id="total_amount-debit">
+                            <input type="hidden" name="discount_chekout" id="discount_chekout-debit" >
                             <input type="hidden" name="payment_method" value="debit"> 
 
                             @foreach ($cartItems as $item)
@@ -404,8 +413,15 @@
                             @endforeach
 
                             <h6>Harga Total :</h6>
-                            <h2 class="text-center p-4" id="subtotal">Rp{{ number_format($subtotal, 0, ',', '.') }}</h2>
-                    
+                            <h2 class="text-center p-4" id="subtotal-debit">Rp{{ number_format($subtotal, 0, ',', '.') }}</h2>
+                            <h6>Discount :</h6>
+                            <h2 class="text-center p-1" id="discount_tampil-debit">-Rp0</h2>
+
+                            <div class="input-block">
+                                <label>Discount</label>
+                                <input class="form-control" id="discount-input-debit" type="number" placeholder="Masukan Discount Jika Ada" />
+                            </div>
+
                             <div class="input-block">
                                 <label>Kode Unik Pembayaran</label>
                                 <input class="form-control" type="text" name="kode_bayar" placeholder="Kode Unik Pembayaran" />
@@ -435,7 +451,8 @@
                     <div class="modal-body p-4">
                         <form id="payment-form" action="{{ route('pos_order') }}" method="POST">
                             @csrf
-                            <input type="hidden" name="total_amount" value="{{ $subtotal }}">
+                            <input type="hidden" name="total_amount" id="total_amount-qris">
+                            <input type="hidden" name="discount_chekout" id="discount_chekout-qris" >
                             <input type="hidden" name="payment_method" value="qris"> 
 
                             @foreach ($cartItems as $item)
@@ -450,10 +467,17 @@
                                 <input type="hidden" name="products[{{ $loop->index }}][discount]"
                                     value="{{ $item->productSize->discount }}">
                             @endforeach
-
+                            
                             <h6>Harga Total :</h6>
-                            <h2 class="text-center p-4" id="subtotal">Rp{{ number_format($subtotal, 0, ',', '.') }}</h2>
-                    
+                            <h2 class="text-center p-4" id="subtotal-qris">Rp{{ number_format($subtotal, 0, ',', '.') }}</h2>
+                            <h6>Discount :</h6>
+                            <h2 class="text-center p-1" id="discount_tampil-qris">-Rp0</h2>
+
+                            <div class="input-block">
+                                <label>Discount</label>
+                                <input class="form-control" id="discount-input-qris" type="number" placeholder="Masukan Discount Jika Ada" />
+                            </div>
+
                             <div class="input-block">
                                 <label>Kode Unik Pembayaran</label>
                                 <input class="form-control" type="text" name="kode_bayar" placeholder="Kode Unik Pembayaran" />
@@ -469,26 +493,112 @@
 		</div>
         {{-- end qris modal --}}
 
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const subtotalElement = document.getElementById("subtotal");
-            const uangDiberikanInput = document.getElementById("uang-diberikan");
-            const kembalianElement = document.getElementById("kembalian");
-            const kembalianHiddenInput = document.getElementById("kembalian-hidden");
-    
-            const subtotal = parseInt("{{ $subtotal }}", 10);
-    
-            uangDiberikanInput.addEventListener("input", () => {
-                const uangDiberikan = parseInt(uangDiberikanInput.value, 10) || 0;
-                const kembalian = uangDiberikan - subtotal;
-    
-                const formattedKembalian = kembalian >= 0 ? kembalian.toLocaleString() : "0";
-                kembalianElement.textContent = formattedKembalian;
-    
-                kembalianHiddenInput.value = kembalian >= 0 ? kembalian : 0;
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const subtotalElement = document.getElementById("subtotal");
+                const uangDiberikanInput = document.getElementById("uang-diberikan");
+                const kembalianElement = document.getElementById("kembalian");
+                const kembalianHiddenInput = document.getElementById("kembalian-hidden");
+                const discountInput = document.querySelector(".input-block input[placeholder='Masukan Discount Jika Ada']");
+                const discountChekoutInput = document.getElementById("discount_chekout");
+                const discountTampil = document.getElementById("discount_tampil");
+                const totalAmountInput = document.getElementById("total_amount");
+
+                let subtotal = parseInt("{{ $subtotal }}", 10);
+        
+                totalAmountInput.value = subtotal;
+        
+                discountInput.addEventListener("input", () => {
+                    const discount = parseInt(discountInput.value, 10) || 0;
+                    const totalAfterDiscount = subtotal - discount;
+        
+                    discountChekoutInput.value = discount;
+                    discountTampil.textContent = `-Rp${discount.toLocaleString()}`;
+                    subtotalElement.textContent = `Rp${totalAfterDiscount.toLocaleString()}`;
+                    totalAmountInput.value = totalAfterDiscount;
+                });
+        
+                uangDiberikanInput.addEventListener("input", () => {
+                    const uangDiberikan = parseInt(uangDiberikanInput.value, 10) || 0;
+                    const discount = parseInt(discountInput.value, 10) || 0;
+                    const totalAfterDiscount = subtotal - discount;
+                    const kembalian = uangDiberikan - totalAfterDiscount;
+        
+                    kembalianElement.textContent = `Rp${(kembalian >= 0 ? kembalian : 0).toLocaleString()}`;
+                    kembalianHiddenInput.value = kembalian >= 0 ? kembalian : 0;
+                });
             });
-        });
-    </script>
+        </script>
+        {{-- debit --}}
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const subtotalElement = document.getElementById("subtotal-debit");
+                const discountInput = document.getElementById("discount-input-debit");
+                const discountDisplay = document.getElementById("discount_tampil-debit");
+                const totalAmountInput = document.getElementById("total_amount-debit");
+                const discountCheckoutInput = document.getElementById("discount_chekout-debit");
+        
+                let subtotal = parseInt("{{ $subtotal }}", 10);
+        
+                totalAmountInput.value = subtotal;
+        
+                discountInput.addEventListener("input", function() {
+                    let discount = parseInt(discountInput.value, 10) || 0;
+        
+                    if (discount > subtotal) {
+                        alert("Diskon tidak boleh lebih besar dari total harga!");
+                        discount = 0; 
+                        discountInput.value = 0;
+                    }
+                    const totalAfterDiscount = subtotal - discount;
+                    discountDisplay.textContent = `-Rp${discount.toLocaleString()}`;
+                    subtotalElement.textContent = `Rp${totalAfterDiscount.toLocaleString()}`;
+                    totalAmountInput.value = totalAfterDiscount;
+                    discountCheckoutInput.value = discount;
+                });
+            });
+        </script>
+        {{-- qris --}}
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const subtotalElement = document.getElementById("subtotal-qris");
+                const discountInput = document.getElementById("discount-input-qris");
+                const discountTampil = document.getElementById("discount_tampil-qris");
+                const totalAmountInput = document.getElementById("total_amount-qris");
+                const discountCheckoutInput = document.getElementById("discount_chekout-qris");
+
+                let subtotal = parseInt("{{ $subtotal }}", 10);
+
+                totalAmountInput.value = subtotal;
+
+                subtotalElement.textContent = `Rp${subtotal.toLocaleString()}`;
+
+                discountInput.addEventListener("input", () => {
+                    const discount = parseInt(discountInput.value, 10) || 0;
+                    const totalAfterDiscount = subtotal - discount;
+
+                    if (discount > subtotal) {
+                        alert("Diskon tidak boleh lebih besar dari total harga!");
+                        discountInput.value = 0;  // Reset diskon
+                        discountTampil.textContent = `-Rp0`;
+                        subtotalElement.textContent = `Rp${subtotal.toLocaleString()}`;
+                        totalAmountInput.value = subtotal;
+                        discountCheckoutInput.value = 0;
+                        return;
+                    }
+
+                    discountTampil.textContent = `-Rp${discount.toLocaleString()}`;
+                    subtotalElement.textContent = `Rp${totalAfterDiscount.toLocaleString()}`;
+                    totalAmountInput.value = totalAfterDiscount;
+                    discountCheckoutInput.value = discount;
+                });
+            });
+        </script>
+
+        
+        
+
+        
     
     <!-- jQuery -->
     {{-- <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script> --}}

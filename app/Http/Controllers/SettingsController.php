@@ -9,6 +9,8 @@ use App\Models\Product;
 use App\Models\ProductSize;
 use App\Models\Settings;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
+
 
 
 class SettingsController extends Controller
@@ -33,8 +35,6 @@ class SettingsController extends Controller
 
         $popupImages = Settings::pluck('id','popup_image');
         $setting = Settings::all();
-
-        // dd($setting);
         return view('backend.pages.settings.settings',compact('banners','welcomeMessage','user','expandedProducts','popupImages','setting'));
     }
 
@@ -69,10 +69,10 @@ class SettingsController extends Controller
                 'banner_desktop' => $desktopImagePath,
                 'banner_mobile' => $mobileImagePath,
             ]);
-    
+            Alert::success('Success', 'Images uploaded successfully.');
             return back()->with('success', 'Images uploaded successfully.');
         }
-    
+        Alert::error('Deleted', 'Please upload valid images for both desktop and mobile.');
         return back()->withErrors('Please upload valid images for both desktop and mobile.');
     }
 
@@ -87,7 +87,7 @@ class SettingsController extends Controller
         $item = ProductSize::findOrFail($id);
         $item->bestseller = $item->bestseller === 'yes' ? 'no' : 'yes';
         $item->save();
-
+        Alert::success('Success', 'Images uploaded successfully.');
         return redirect()->back()->with('success', 'Bestseller status updated successfully.');
     }
 
@@ -96,7 +96,7 @@ class SettingsController extends Controller
         $item = ProductSize::findOrFail($id);
         $item->promotion = $item->promotion === 'yes' ? 'no' : 'yes';
         $item->save();
-
+        Alert::success('Success', 'Images uploaded successfully.');
         return redirect()->back()->with('success', 'Promotion status updated successfully.');
     }
     
@@ -117,7 +117,7 @@ class SettingsController extends Controller
                 'popup_image' => $popup_image,
             ]);
         }
-    
+        Alert::success('Success', 'Images uploaded successfully.');
         return back()->with('success', 'Popup image saved successfully!');
     }
 
@@ -126,7 +126,7 @@ class SettingsController extends Controller
         Settings::query()->update([
             'popup_image' => null,
         ]);
-
+        Alert::success('Success', 'Images uploaded successfully.');
         return back()->with('success', 'Popup image saved successfully!');
     }
 
@@ -177,7 +177,7 @@ class SettingsController extends Controller
                 'banner_bundle_tree' => $banner_bundle_tree,
             ]);
         }        
-
+        Alert::success('Success', 'Images uploaded successfully.');
         return back()->with('success', 'image saved successfully!');
     }
 
@@ -210,7 +210,7 @@ class SettingsController extends Controller
                 'knowlage_shop' => $knowlage_shop,
             ]);
         }        
-
+        Alert::success('Success', 'Images uploaded successfully.');
         return back()->with('success', 'image saved successfully!');
     }
 
@@ -252,7 +252,7 @@ class SettingsController extends Controller
                 'banner_produk_terlaris' => $banner_produk_terlaris,
             ]);
         }        
-
+        Alert::success('Success', 'Images uploaded successfully.');
         return back()->with('success', 'image saved successfully!');
     }
 
@@ -290,7 +290,7 @@ class SettingsController extends Controller
                 'banner_flashsale_home' => $banner_flashsale_home,
             ]);
         }
-    
+        Alert::success('Success', 'Images uploaded successfully.');
         return back()->with('success', 'Image saved successfully!');
     }
 
@@ -308,7 +308,7 @@ class SettingsController extends Controller
                 'timer_flashsale' => $timer_flashsale
             ]);
         }
-
+        Alert::success('Success', 'Images uploaded successfully.');
         return back()->with('success', 'timer saved successfully!');
     }
 
@@ -336,7 +336,7 @@ class SettingsController extends Controller
                 'headnavbanner' => $headnavbanner,
             ]);
         }
-    
+        Alert::success('Success', 'Images uploaded successfully.');
         return back()->with('success', 'Image saved successfully!');
     }
 
