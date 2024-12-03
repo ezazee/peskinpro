@@ -49,13 +49,18 @@
                                         @csrf
                                         <div class="mb-3">
                                             <label class="form-label fw-bold" for="example-email">Email</label>
-                                            <input type="email" id="example-email" name="email"
-                                                class="form-control bg-" placeholder="Enter your email">
+                                            <input type="email" id="example-email" name="email" class="form-control bg-" placeholder="Enter your email">
+                                            @error('email')
+                                                <span class="text-sm text-red">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label fw-bold" for="example-password">Password</label>
                                             <input type="password" name="password" class="form-control"
                                                 placeholder="Enter your password">
+                                            @error('password')
+                                                <span class="text-sm text-red">{{ $message }}</span>
+                                            @enderror
                                         </div>
 
                                         <div class="mb-1 text-center d-grid">
