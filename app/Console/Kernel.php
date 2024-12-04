@@ -16,30 +16,37 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         $schedule->call(function () {
-            $orders = Order::where('status', 'pending')
-            ->where('created_at', '<', now()->subMinutes(30))
-            ->whereHas('invoice', function ($query) {
-                $query->where('payment_status', 'unpaid');
-            })
-            ->get();
-            foreach ($orders as $order) {
-                $orderItems = $order->products;
-        
-                foreach ($orderItems as $item) {
-                    $productSize = ProductSize::where('product_id', $item->id)
-                                              ->where('id', $item->pivot->size_id)
-                                              ->first();
+            try {
+                $orders = Order::leftJoin('invoices', 'orders.id', '=', 'invoices.order_id')
+                    ->where('orders.status', 'pending')
+                    ->where('orders.created_at', '<', now()->subMinutes(30))
+                    ->where('invoices.payment_status', 'unpaid')
+                    ->get();
+                    
+                foreach ($orders as $order) {
+                    $orderItems = $order->products;
     
-                    if ($productSize) {
-                        $productSize->increment('stock', $item->pivot->quantity);
-                    } else {
-                        \Log::error('Product size not found for Product ID: ' . $item->id . ' and Size ID: ' . $item->pivot->size_id);
+                    foreach ($orderItems as $item) {
+                        $productSize = ProductSize::where('product_id', $item->id)
+                                                  ->where('id', $item->pivot->size_id)
+                                                  ->first();
+            
+                        if ($productSize) {
+                            $productSize->increment('stock', $item->pivot->quantity);
+                        } else {
+                            \Log::error('Product size not found for Product ID: ' . $item->id . ' and Size ID: ' . $item->pivot->size_id);
+                            dump('Product size not found for Product ID: ' . $item->id . ' and Size ID: ' . $item->pivot->size_id);
+                        }
                     }
+                    $order->update(['status' => 'canceled']);
                 }
-                $order->update(['status' => 'canceled']);
+            } catch (\Exception $e) {
+                \Log::error('Error during schedule run: ' . $e->getMessage());
+                dump('Error during schedule run: ' . $e->getMessage());
             }
         })->everyMinute();
     }
+    
     
 
     /**

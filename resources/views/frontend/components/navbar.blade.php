@@ -63,13 +63,9 @@
                 @if (Auth::check())
                     <div class="user-info flex items-center justify-center cursor-pointer relative">
                         <div class="avatar w-7 h-7 rounded-full bg-gray-300 overflow-hidden">
-                            <img src="https://media.istockphoto.com/id/517998264/vector/male-user-icon.jpg?b=1&s=612x612&w=0&k=20&c=XQPO5sxBVwANqHTIVNli3gnXLCbmcpOn-23biJPkO3E="
+                            <img src="{{ Auth::user()->images ? asset('storage/' . Auth::user()->images) : 'https://media.istockphoto.com/id/517998264/vector/male-user-icon.jpg?b=1&s=612x612&w=0&k=20&c=XQPO5sxBVwANqHTIVNli3gnXLCbmcpOn-23biJPkO3E=' }}" 
                                 alt="User Avatar" class="w-full h-full object-cover">
                         </div>
-                        {{-- <div class="user-name px-1 d-none d-md-block">
-                            <span class="text-sm font-semibold">{{ Auth::user()->name }}</span>
-                        </div> --}}
-                        <!-- Dropdown for logged-in user -->
                         <div
                             class="user-popup absolute top-[74px] right-[200px] w-[320px] p-7 rounded-xl bg-white shadow-lg">
                             <a href="/profile" class="button-main w-full text-center">Profile</a>
