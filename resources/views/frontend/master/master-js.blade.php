@@ -364,7 +364,7 @@
     
         const discountElement = document.getElementById('discount-chekout');
         if (discountElement) {
-            discountElement.innerText = `Rp.${discountAmount.toLocaleString()}`;
+            discountElement.innerText = `Rp.${discountAmount}`;
         }
     
         const cartTotalElement = document.getElementById('cart-total');
@@ -437,7 +437,6 @@
                 backdrop.classList.add('hidden');
             });
         } else {
-            console.warn("Elemen modal atau backdrop tidak ditemukan di halaman.");
         }
     });
 </script>
