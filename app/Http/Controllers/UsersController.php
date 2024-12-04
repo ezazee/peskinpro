@@ -154,7 +154,7 @@ class UsersController extends Controller
             });
         })
         ->with('alamat')
-        ->paginate(5);
+        ->paginate(10);
 
         $totalcustomers = User::whereHas('role', function($query) {
             $query->where('name', 'user');
