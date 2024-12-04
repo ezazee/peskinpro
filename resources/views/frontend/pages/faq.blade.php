@@ -6,7 +6,7 @@
             <!-- FAQ Sidebar -->
             @include('frontend.components.sidebar-faq')
             <!-- FAQ Content -->
-            <section class="faq-content w-3/4">
+            <section class="faq-content lg:w-3/4 w-4/6">
                 @foreach ($categories as $item)
                 <div id="{{$item->slug}}" class="faq-tab">
                     <h2 class="faq-heading heading4">{{$item->nama_kategori}}</h2>
@@ -100,4 +100,33 @@
     .faq-tab.active {
         display: block;
     }
+
+    /* Tampilan Mobile */
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+        padding: 0;
+    }
+
+    .faq-sidebar {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+    }
+
+    .faq-content {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .faq-tab {
+        margin-bottom: 20px;
+    }
+
+    .faq-link {
+        font-size: 16px;
+    }
+
+}
+
 </style>

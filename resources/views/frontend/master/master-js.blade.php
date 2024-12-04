@@ -358,15 +358,15 @@
     function applyCoupon(event, couponCode, discountAmount) {
         const button = event.target;
         const couponId = button.getAttribute('data-coupon-id');
-        
+
         button.disabled = true;
         button.innerText = "Sedang Digunakan...";
-    
+
         const discountElement = document.getElementById('discount-chekout');
         if (discountElement) {
             discountElement.innerText = `Rp.${discountAmount.toLocaleString()}`;
         }
-    
+
         const cartTotalElement = document.getElementById('cart-total');
         if (cartTotalElement) {
             const cartTotal = parseInt(cartTotalElement.innerText.replace('Rp.', '').replace(',', '')) || 0;
@@ -378,7 +378,7 @@
         if (couponCodeInput) {
             couponCodeInput.value = couponCode;
         }
-    
+
         const allCouponButtons = document.querySelectorAll('.coupon-button');
         allCouponButtons.forEach(btn => {
             if (btn !== button) {
@@ -386,11 +386,11 @@
                 btn.innerText = "Gunakan";
             }
         });
-    
+
         button.innerText = "Dipakai";
         button.classList.add('disabled');
         button.setAttribute('disabled', 'true');
-        
+
         const jsonDisplayElement = document.getElementById('json-display');
         if (jsonDisplayElement) {
             jsonDisplayElement.innerText = JSON.stringify({
@@ -401,8 +401,8 @@
         }
     }
     </script>
-       
-    
+
+
 
 {{-- Backdrop Modal Ganti Alamat Checkout --}}
 <script>
@@ -672,3 +672,53 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 </script>
+
+
+<script>
+    // Mendapatkan elemen input password dan tombol untuk toggle
+    const passwordField = document.getElementById("password");
+    const togglePasswordButton = document.getElementById("togglePasswordVisibility");
+
+    // Menambahkan event listener untuk tombol toggle
+    togglePasswordButton.addEventListener("click", function() {
+        // Menukar tipe input password antara 'password' dan 'text'
+        const type = passwordField.type === "password" ? "text" : "password";
+        passwordField.type = type;
+        // Menentukan ikon berdasarkan visibilitas password
+        const icon = type === "password" ? "ph ph-eye" :
+        "ph ph-eye-slash"; // Jika password terlihat, tampilkan ikon mata tertutup
+        this.innerHTML = `<i class="${icon}"></i>`; // Memperbarui ikon dalam tombol
+    });
+</script>
+
+
+<script>
+    // Mendapatkan elemen input dan tombol toggle untuk register password
+    const registerPasswordField = document.getElementById("register-password");
+    const toggleRegisterPasswordButton = document.getElementById("toggleRegisterPassword");
+
+    // Mendapatkan elemen input dan tombol toggle untuk confirm password
+    const confirmPasswordField = document.getElementById("confirm-password");
+    const toggleConfirmPasswordButton = document.getElementById("toggleConfirmPassword");
+
+    // Fungsi untuk toggle visibilitas password
+    function togglePasswordVisibility(field, button) {
+        const type = field.type === "password" ? "text" : "password";
+        field.type = type;
+
+        // Ganti ikon berdasarkan tipe input
+        const icon = type === "password" ? "ph ph-eye" : "ph ph-eye-slash";
+        button.innerHTML = `<i class="${icon}"></i>`;
+    }
+
+    // Event listener untuk tombol register password
+    toggleRegisterPasswordButton.addEventListener("click", function () {
+        togglePasswordVisibility(registerPasswordField, toggleRegisterPasswordButton);
+    });
+
+    // Event listener untuk tombol confirm password
+    toggleConfirmPasswordButton.addEventListener("click", function () {
+        togglePasswordVisibility(confirmPasswordField, toggleConfirmPasswordButton);
+    });
+</script>
+

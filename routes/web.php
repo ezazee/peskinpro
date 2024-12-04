@@ -60,6 +60,7 @@ Route::get('/detail/{slug}', [ShopController::class, 'detail'])->name('shop.deta
 Route::get('/faq', [FaqController::class, 'faq'])->name('home.faq');
 Route::get('/faq/detail/{slug}', [FaqController::class, 'faqdetail'])->name('faq.detail');
 Route::get('/return-and-refunds', [HomeController::class, 'returnrefund'])->name('returnrefund');
+Route::get('/syarat-ketentuan', [HomeController::class, 'ketentuanPengguna'])->name('ketentuan');
 
 
 Route::middleware(['userOrGuest'])->group(function () {
@@ -173,7 +174,7 @@ Route::middleware(['auth', 'role:Administrator,Management,Admin,Finance,Writter'
 
     Route::get('/users/profile/{id}', [UsersController::class, 'profile'])->name('users.profile');
     Route::put('/profile/update/{id}', [UsersController::class, 'update_profile'])->name('users.update_profile');
-    
+
     Route::get('/customers/list', [UsersController::class, 'customers'])->name('customers.index');
 
     // coupons

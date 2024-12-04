@@ -5,7 +5,7 @@
             <!-- FAQ Sidebar -->
             @include('frontend.components.sidebar-faq-detail')
             <!-- FAQ Content -->
-            <section class="faq-content w-3/4">
+            <section class="faq-content lg:w-3/4 w-4/6">
                 <h2 class="faq-heading heading4">{{ $faq->title }}</h2>
                 <div class="content md:mt-8 mt-5">
                     {!! $faq->description !!}
@@ -30,7 +30,6 @@
 <style>
     /* FAQ Container */
     .faq-container {
-        padding: 1.5rem;
         border-radius: 0.75rem;
     }
 
@@ -94,4 +93,31 @@
     .faq-tab.active {
         display: block;
     }
+        /* Tampilan Mobile */
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+        padding: 0;
+    }
+
+    .faq-sidebar {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+    }
+
+    .faq-content {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .faq-tab {
+        margin-bottom: 20px;
+    }
+
+    .faq-link {
+        font-size: 16px;
+    }
+
+}
 </style>

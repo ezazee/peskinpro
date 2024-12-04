@@ -35,7 +35,7 @@
                             <div class="discount-block py-5 flex justify-between border-b border-line">
                                 <div class="text-title">Diskon</div>
                                 <div class="text-title">-<span id="discount-chekout">0</span></div>
-                            </div>                            
+                            </div>
                             <div class="total-cart-block pt-5 flex justify-between">
                                 <div class="heading5">Total</div>
                                 <div class="heading5 total-cart" id="total">
@@ -94,7 +94,7 @@
                             <input type="checkbox" id="termsCheckbox" class="h-5 w-5">
                             <label for="termsCheckbox" class="text-sm text-gray-500">
                                 Dengan melanjutkan, kamu menyetujui
-                                <a href="#" class="text-primary underline">S&K Return & Refunds</a>.
+                                <a href="{{ route('returnrefund') }}" class="text-primary underline">S&K Return & Refunds</a>.
                             </label>
                         </div>
                     </div>
