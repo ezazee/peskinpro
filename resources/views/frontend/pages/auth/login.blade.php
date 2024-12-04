@@ -15,10 +15,14 @@
                             @enderror
                         </div>
                         <div class="pass mt-5 relative">
+                            <!-- Input Password -->
                             <input id="password" class="border-line px-4 pt-3 pb-3 w-full rounded-lg" name="password"
-                                type="password" placeholder="Password *" required />
-                            <button id="togglePassword" type="button"
+                                type="password" placeholder="Password" required />
+
+                            <!-- Tombol untuk menampilkan/menyembunyikan password dengan ID yang diperbarui -->
+                            <button id="togglePasswordVisibility" type="button"
                                 class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500">
+                                <i class="ph ph-eye"></i> <!-- Ikon mata untuk menampilkan password -->
                             </button>
 
                             @error('password')

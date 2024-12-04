@@ -41,7 +41,7 @@
                         </div>
 
                         <div class="text-center mt-3 text-sm text-gray-500">
-                            Dengan melanjutkan, kamu menyetujui <a href="#" class="text-primary underline">S&K
+                            Dengan melanjutkan, kamu menyetujui <a href="{{ route('returnrefund') }}" target="_blank" class="text-primary underline">S&K
                                 Return
                                 & Refunds</a>.
                         </div>

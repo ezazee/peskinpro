@@ -50,4 +50,8 @@ class HomeController extends Controller
         $settings = Settings::all();
         return view('frontend.pages.return-and-refunds',compact('settings'));
     }
+    public function ketentuanPengguna(){
+        $settings = Settings::all();
+        return view('frontend.pages.syarat-ketentuan',compact('settings'));
+    }
 }
