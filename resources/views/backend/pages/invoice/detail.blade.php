@@ -149,12 +149,16 @@
                                                 Rp{{ number_format($totalAmount, 2) }}
                                             </td>
                                         </tr>
+                                        @if (!is_null(optional(optional($invoices->order)->shipping)->shipping_cost))
                                         <tr>
                                             <td class="text-end p-0 pe-5 py-2">
                                                 <p class="mb-0">Ongkir : </p>
                                             </td>
-                                            <td class="text-end text-dark fw-medium  py-2">Rp{{ number_format($invoices->order->shipping->shipping_cost, 0, ',', '.') }}</td>
+                                            <td class="text-end text-dark fw-medium py-2">
+                                                Rp{{ number_format(optional(optional($invoices->order)->shipping)->shipping_cost, 0, ',', '.') }}
+                                            </td>
                                         </tr>
+                                        @endif                                                                               
                                         <tr class="border-top">
                                             <td class="text-end p-0 pe-5 py-2">
                                                 <p class="mb-0 text-dark fw-semibold">Grand Amount : </p>

@@ -111,40 +111,13 @@
                         <div class="more-infor mt-6">
                             <div class="flex items-center gap-1 mt-3">
                                 <div class="text-title">SKU:</div>
-                                <div class="text-secondary">53453412</div>
+                                <div class="text-secondary">{{  $products->sku}}</div>
                             </div>
                             <div class="flex items-center gap-1 mt-3">
                                 <div class="text-title">Kategori:</div>
                                 <div class="list-category text-secondary">{{ $products->category->name }}</div>
                             </div>
                         </div>
-                        {{-- <div class="list-payment mt-7">
-                            <div
-                                class="main-content lg:pt-8 pt-6 lg:pb-6 pb-4 sm:px-4 px-3 border border-line rounded-xl relative max-md:w-2/3 max-sm:w-full">
-                                <div
-                                    class="heading6 px-5 bg-white absolute -top-[14px] left-1/2 -translate-x-1/2 whitespace-nowrap">
-                                    Pembayaran Aman Menggunakan</div>
-                                <div class="list grid grid-cols-4">
-                                    <div class="item flex items-center justify-center lg:px-3 px-1">
-                                        <img src="{{ asset('frontend/assets/images/payment/mandiri.png') }}" alt="payment"
-                                            class="w-full">
-                                    </div>
-                                    <div class="item flex items-center justify-center lg:px-3 px-1">
-                                        <img src="{{ asset('frontend/assets/images/payment/gopay.png') }}" alt="payment"
-                                            class="w-full">
-                                    </div>
-                                    <div class="item flex items-center justify-center lg:px-3 px-1">
-                                        <img src="{{ asset('frontend/assets/images/payment/bca.webp') }}" alt="payment"
-                                            class="w-full">
-                                    </div>
-                                    <div class="item flex items-center justify-center lg:px-3 px-1">
-                                        <img src="{{ asset('frontend/assets/images/payment/qris.png') }}" alt="payment"
-                                            class="w-full">
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -171,10 +144,12 @@
                             <div class="right">
                                 <div class="heading6">Apa Efeknya?</div>
                                 <div class="list-feature">
+                                    @foreach (explode("\n", $products->effect) as $effects)
                                     <div class="item flex gap-1 text-secondary mt-1">
                                         <i class="ph ph-dot text-2xl"></i>
-                                        <p>Mencerahkan.</p>
+                                        <p>{{ trim($effects) }}</p>
                                     </div>
+                                @endforeach
                                     <div class="item flex gap-1 text-secondary mt-1">
                                         <i class="ph ph-dot text-2xl"></i>
                                         <p>Melembabkan.</p>
@@ -187,10 +162,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="desc-item specifications" data-item="Ingredients">
+                    <div class="desc-item" data-item="Bahan-Bahan">
                         <div class="grid md:grid-cols-2 items-center gap-8 gap-y-5">
                             <div class="left">
-                                <div class="heading6">Ingredients</div>
+                                <div class="heading6">Bahan</div>
                                 <div class="list-feature grid grid-cols-1 sm:grid-cols-2 gap-y-2 py-3">
                                     @foreach (explode("\n", $products->ingredients) as $ingredient)
                                         <div class="item flex gap-1 text-secondary mt-1">
@@ -249,26 +224,34 @@
                                         <div class="product-name text-title duration-300">
                                             {{ $item->name }}
                                             <div
-                                                class="product-price-block flex items-center gap-2 flex-wrap mt-1 duration-300 relative z-[1]">
-                                                <div class="product-price text-title">
-                                                    @if ($item->discount && $item->discount > 0)
-                                                        Rp {{ number_format($item->price - $item->discount, 0, ',', '.') }}
-                                                    @else
-                                                        Rp {{ number_format($item->price, 0, ',', '.') }}
-                                                    @endif
-                                                </div>
+                                            class="product-price-block flex items-center gap-2 flex-wrap mt-1 duration-300 relative z-[1]">
+                                            <div class="product-price text-title">
+                                                @php
+                                                    $sizePrices = $item->sizes->pluck('price')->sort()->toArray();
+                                                    $sizeDiscounts = $item->sizes->pluck('discount')->sort()->toArray();
 
-                                                @if ($item->discount && $item->discount > 0)
-                                                    <div
-                                                        class="product-origin-price caption1 text-secondary2 line-through">
-                                                        <del>Rp {{ number_format($item->price, 0, ',', '.') }}</del>
-                                                    </div>
-                                                    <div
-                                                        class="product-sale caption1 text-white font-medium bg-primary px-3 py-0.5 inline-block rounded-full">
-                                                        -{{ number_format(100 * ($item->discount / $item->price), 0) }}%
-                                                    </div>
+                                                    $minPrice = $sizePrices ? min($sizePrices) : $item->price;
+                                                    $maxDiscount = $sizeDiscounts ? max($sizeDiscounts) : 0;
+
+                                                    $effectivePrice = $minPrice - $maxDiscount;
+                                                @endphp
+
+                                                @if ($effectivePrice > 0)
+                                                    Rp {{ number_format($effectivePrice, 0, ',', '.') }}
+                                                @else
+                                                    Rp {{ number_format($minPrice, 0, ',', '.') }}
                                                 @endif
                                             </div>
+                                            @if ($minPrice > 0 && $maxDiscount > 0)
+                                                <div class="product-origin-price caption1 text-secondary2 line-through">
+                                                    <del>Rp {{ number_format($minPrice, 0, ',', '.') }}</del>
+                                                </div>
+                                                <div
+                                                    class="product-sale caption1 text-white font-medium bg-primary px-3 py-0.5 inline-block rounded-full">
+                                                    -{{ number_format(100 * ($maxDiscount / $minPrice), 0) }}%
+                                                </div>
+                                            @endif
+                                        </div>
                                         </div>
                                     </div>
                                 </div>

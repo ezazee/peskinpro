@@ -13,6 +13,11 @@ use App\Models\Returned;
 use App\Models\Shipping;
 use App\Models\ProductSize;
 use RealRashid\SweetAlert\Facades\Alert;
+use Mike42\Escpos\Printer;
+use Mike42\Escpos\PrintConnectors\FilePrintConnector;
+use Mike42\Escpos\PrintConnectors\UsbPrintConnector;
+use Illuminate\Support\Facades\Log;
+
 
 class OrdersController extends Controller
 {
@@ -255,8 +260,7 @@ class OrdersController extends Controller
         $paymentMethod = $request->payment_method;
         $kembali = $request->kembali;
         $kode_bayar = $request->kode_bayar;
-
-
+        $discount_chekout = $request->discount_chekout ?? 0;
 
         if (empty($request->products) || count($request->products) === 0) {
             Alert::warning('Note', 'Please select the product first!');
@@ -270,6 +274,7 @@ class OrdersController extends Controller
             'status' => 'completed',
             'kembali' => $kembali,
             'kode_bayar' => $kode_bayar,
+            'discount_chekout' => $discount_chekout,
             'payment_method' => $paymentMethod,
         ]);
 
@@ -310,6 +315,42 @@ class OrdersController extends Controller
         if ($cart) {
             $cart->items()->delete();
         }
+
+        try {
+            $printer = null;
+            foreach (glob('/dev/rfcomm*') as $device) {
+                Log::debug("Mencoba perangkat Bluetooth: " . $device);
+        
+                if (is_readable($device)) {
+                    $bluetoothConnector = new FilePrintConnector($device);
+                    $printer = new Printer($bluetoothConnector);
+                    Log::debug("Terhubung dengan printer Bluetooth: " . $device);
+                    break;
+                }
+            }
+        
+            if ($printer) {
+                Log::debug("Printer ditemukan, mulai pencetakan...");
+                $printer->setEmphasis(true);
+                $printer->text("===== STRUK PEMBAYARAN =====\n");
+                $printer->setEmphasis(false);
+                $printer->text("User ID: " . $userId . "\n");
+                $printer->text("Total Amount: Rp" . number_format($totalAmount, 0, ',', '.') . "\n");
+                $printer->text("Payment Method: " . $paymentMethod . "\n");
+                $printer->text("Kembalian: Rp" . number_format($kembali, 0, ',', '.') . "\n");
+                $printer->text("===========================\n");
+                $printer->text("Terima kasih atas pembelian Anda!\n");
+                $printer->close();
+                Log::debug("Pencetakan selesai.");
+            } else {
+                Log::error("Printer tidak ditemukan.");
+                throw new \Exception("Printer tidak ditemukan.");
+            }
+        } catch (\Exception $e) {
+            Log::error("Gagal mencetak struk: " . $e->getMessage());
+            return redirect()->back()->with('error', 'Gagal mencetak struk: ' . $e->getMessage());
+        }
+
         Alert::success('Success', 'Orders successfully!');
         return redirect()->back()->with('success', 'Orders Success.');    
     }
@@ -435,7 +476,6 @@ class OrdersController extends Controller
     public function showReceipt($orderId)
     {
         $order = Order::with(['user', 'products', 'alamat'])->findOrFail($orderId);
-        // dd($order);
         return view('backend.pages.invoice.label', compact('order'));
     }
 

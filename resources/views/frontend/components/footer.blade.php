@@ -13,13 +13,13 @@
                     <a href="/artikel" class="caption1 has-line-before duration-300 w-fit pt-2">Update</a>
                     <a href="/return-and-refunds" class="caption1 has-line-before duration-300 w-fit pt-2">Return &
                         Refunds</a>
-                    <a href="/faq" class="caption1 has-line-before duration-300 w-fit pt-2">FAQ</a>
+                    <a href="{{ route('home.faq') }}" class="caption1 has-line-before duration-300 w-fit pt-2">FAQ</a>
                 </div>
                 <!-- Metode Pembayaran -->
                 <div class="item flex flex-col w-full sm:w-1/2 md:w-auto">
                     <div class="heading6 pb-3">Metode Pembayaran</div>
                     <div class="grid grid-cols-3 sm:grid-cols-4 gap-3">
-                        <img src="{{ asset('frontend/assets/images/payment/mandiri.png') }}" alt="Mandiri"
+                        <img src="{{ asset('frontend/assets/images/payment/bri.png') }}" alt="BRI"
                             class="w-full mx-auto" style="width: 90px">
                         <img src="{{ asset('frontend/assets/images/payment/qris.png') }}" alt="QRIS"
                             class="w-full mx-auto" style="width: 90px">
@@ -35,7 +35,7 @@
                 <div class="item flex flex-col w-full sm:w-1/2 md:w-auto">
                     <div class="heading6 pb-3">Download Mobile App</div>
                     <div class="caption1 max-w-[300px] text-justify" style="max-width: 300px">
-                        Download Aplikasi PESkin Pro Untuk Mendapat Pengalaman Belanja Yang Lebih Menyenangkan
+                        Download Aplikasi PEskinpro Untuk Mendapat Pengalaman Belanja Yang Lebih Menyenangkan
                     </div>
                     <div class="flex gap-3 mt-4">
                         <a href="#">
@@ -56,29 +56,16 @@
                         PT Kilau Berlian Nusantara
                     </div>
                     <a target="_blank" href="https://mail.google.com/mail/?view=cm&fs=1&to=adm.peskinproid@gmail.com"
-                        class="caption1  font-bold pt-4 text-primary has-line-before duration-300 w-fit">adm.peskinproid@gmail.com</a>
+                        class="caption1  font-bold pt-2 text-primary has-line-before duration-300 w-fit">adm.peskinproid@gmail.com</a>
                     <a href="https://wa.me/6282123167895" target="_blank"
                         class="caption1 font-bold mb-4 text-primary has-line-before duration-300 w-fit">0821-2316-7895
                         (WhatsApp)</a>
-                    <div class="caption1 max-w-[300px] text-justify pt-4" style="max-width: 300px">
-                        Direktorat Jenderal Perlindungan Konsumen dan Tertib Niaga
-                       <p class="font-bold">0853-1111-1010 (WhatsApp)</p>
-                    </div>
 
                     <div class="list-social flex items-center gap-6 mt-4">
-                        <a href="https://www.facebook.com/" target="_blank">
-                            <div class="ph-bold ph-youtube-logo text-2xl text-primary"></div>
-                        </a>
-                        <a href="https://www.instagram.com/" target="_blank">
-                            <div class="ph-bold ph-facebook-logo text-2xl text-primary"></div>
-                        </a>
-                        <a href="https://www.twitter.com/" target="_blank">
+                        <a href="https://www.tiktok.com/@peskinproid" target="_blank">
                             <div class="ph-bold ph-tiktok-logo text-2xl text-primary"></div>
                         </a>
-                        <a href="https://www.youtube.com/" target="_blank">
-                            <div class="ph-bold ph-twitter-logo text-2xl text-primary"></div>
-                        </a>
-                        <a href="https://discordapp.com/users/775660528751214613" target="_blank">
+                        <a href="https://www.instagram.com/peskinproid/" target="_blank">
                             <div class="ph-bold ph-instagram-logo text-2xl text-primary"></div>
                         </a>
                     </div>
@@ -86,7 +73,7 @@
             </div>
             <div class="footer-bottom py-3 flex flex-wrap items-center justify-between gap-5 border-t border-line">
                 <div class="copyright caption1 text-secondary text-center w-full sm:w-auto">
-                    ©2024 Anvogue. All Rights Reserved.
+                    © {{ date('Y') }} PE Skin Professional. All Rights Reserved.
                 </div>
             </div>
         </div>

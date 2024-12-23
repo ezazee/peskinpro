@@ -12,3 +12,5 @@
 
      <!-- Theme Config js (Require in all Page) -->
      <script src="{{ asset('backend/assets/js/config.js')}}"></script>
+
+     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>

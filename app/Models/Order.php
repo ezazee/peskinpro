@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id', 'order_number', 'total_amount', 'status', 'alamat_id','payment_method','kembali','kode_bayar'];
+    protected $fillable = ['user_id', 'order_number', 'total_amount', 'status', 'alamat_id','payment_method','kembali','kode_bayar','bank_id','discount_chekout'];
 
     public function user()
     {
@@ -43,5 +43,15 @@ class Order extends Model
     public function refunds()
     {
         return $this->hasMany(Refuned::class);
+    }
+
+    public function bank()
+    {
+        return $this->belongsTo(Bank::class);
+    }
+
+    public function coupons()
+    {
+        return $this->belongsToMany(Coupon::class, 'order_coupon');
     }
 }

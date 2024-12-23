@@ -6,7 +6,6 @@
     <div class="container lg:pt-20 md:pt-14 pt-10">
         <div class="blog-content flex justify-between max-lg:flex-col gap-y-10">
             <div class="main xl:w-3/4 lg:w-2/3 lg:pr-[15px]">
-                <div class="blog-tag bg-primary text-white py-1 px-2.5 rounded-full text-button-uppercase inline-block">Skincare</div>
                 <div class="heading3 blog-title mt-3">{{ $articles->tittle }}</div>
                     <div class="flex items-center gap-2 mt-2">
                         <div class="blog-date caption1 text-secondary">{{ $articles->created_at->format('M d, Y') }}
@@ -23,7 +22,7 @@
                         <p>Tag:</p>
                         <div class="list flex items-center gap-3 flex-wrap">
                             @foreach ($articles->tag as $t)
-                            <div class="tags bg-surface py-1.5 px-4 rounded-full text-button-uppercase cursor-pointer duration-300 hover:bg-black hover:text-white"> {{ $t->nama_tags }} </div>
+                            <div class="tags bg-surface py-1.5 px-4 rounded-full text-button-uppercase duration-300 hover:bg-black hover:text-white"> {{ $t->nama_tags }} </div>
                             @endforeach
                         </div>
                     </div>
@@ -59,10 +58,7 @@
                             <img src="{{ asset('storage/' . $popular->images) }}"
                                 alt="img" class="w-20 h-20 object-cover rounded-lg flex-shrink-0" />
                             <div>
-                                @foreach ($popular->tag as $t)
-                                    <div class="blog-tag whitespace-nowrap bg-primary text-white py-0.5 px-2 rounded-full text-button-uppercase text-xs inline-block">
-                                    {{ $t->nama_tags }}</div>
-                                @endforeach
+                                <div class="blog-tag whitespace-nowrap bg-primary text-white py-0.5 px-2 rounded-full text-button-uppercase text-xs inline-block">{{ $popular->tag->first()->nama_tags }}</div>
                                 <div class="text-title mt-1">{{ $popular->tittle }}</div>
                             </div>
                         </div>
@@ -96,10 +92,8 @@
                                 <img src="{{ asset('storage/' . $item->images) }}" alt="{{ $item->tittle }}" class="w-full duration-500" />
                             </div>
                             <div class="blog-infor mt-7">
-                                @foreach ($item->tag as $t)   
                                 <div class="blog-tag bg-primary text-white py-1 px-2.5 rounded-full text-button-uppercase inline-block">
-                                    {{ $t->nama_tags }}</div>
-                                @endforeach
+                                    {{ $item->tag->first()->nama_tags }}</div>
                                 <div class="heading6 blog-title mt-3 duration-300">{{ $item->tittle }}</div>
                                 <div class="flex items-center gap-2 mt-2">
                                     <div class="blog-date caption1 text-secondary">{{ $item->created_at->format('M d, Y') }}4</div>

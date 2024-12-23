@@ -130,7 +130,7 @@
                                                     <div class="mb-3">
                                                         <label for="recipient-name"
                                                             class="col-form-label">Nominal:</label>
-                                                            <input type="text" class="form-control" name="nominal" value="{{ $orders->total_amount }}" placeholder="Rp{{ number_format($orders->total_amount, 2) }}" readonly>
+                                                            <input type="text" class="form-control" name="nominal" placeholder="Rp{{ number_format($orders->total_amount, 2) }}">
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="message-text" class="col-form-label">Reason:</label>
@@ -149,61 +149,18 @@
 
                             </div>
 
-                            {{-- <div class="mt-4">
+                            <div class="mt-4">
                                 <h4 class="fw-medium text-dark">Progress</h4>
                             </div>
-                            <div class="row row-cols-xxl-5 row-cols-md-2 row-cols-1">
-                                <div class="col">
-                                    <div class="progress mt-3" style="height: 10px;">
-                                        <div class="progress-bar progress-bar  progress-bar-striped progress-bar-animated bg-success"
-                                            role="progressbar" style="width: 100%" aria-valuenow="70" aria-valuemin="0"
-                                            aria-valuemax="70">
-                                        </div>
-                                    </div>
-                                    <p class="mb-0 mt-2">Order Confirming</p>
-                                </div>
-                                <div class="col">
-                                    <div class="progress mt-3" style="height: 10px;">
-                                        <div class="progress-bar progress-bar  progress-bar-striped progress-bar-animated bg-success"
-                                            role="progressbar" style="width: 100%" aria-valuenow="70" aria-valuemin="0"
-                                            aria-valuemax="70">
-                                        </div>
-                                    </div>
-                                    <p class="mb-0 mt-2">Payment Pending</p>
-                                </div>
-                                <div class="col">
-                                    <div class="progress mt-3" style="height: 10px;">
-                                        <div class="progress-bar progress-bar  progress-bar-striped progress-bar-animated bg-warning"
-                                            role="progressbar" style="width: 60%" aria-valuenow="70" aria-valuemin="0"
-                                            aria-valuemax="70">
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center gap-2 mt-2">
-                                        <p class="mb-0">Processing</p>
-                                        <div class="spinner-border spinner-border-sm text-warning" role="status">
-                                            <span class="visually-hidden">Loading...</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="progress mt-3" style="height: 10px;">
-                                        <div class="progress-bar progress-bar  progress-bar-striped progress-bar-animated bg-primary"
-                                            role="progressbar" style="width: 0%" aria-valuenow="70" aria-valuemin="0"
-                                            aria-valuemax="70">
-                                        </div>
-                                    </div>
-                                    <p class="mb-0 mt-2">Shipping</p>
-                                </div>
-                                <div class="col">
-                                    <div class="progress mt-3" style="height: 10px;">
-                                        <div class="progress-bar progress-bar  progress-bar-striped progress-bar-animated bg-primary"
-                                            role="progressbar" style="width: 0%" aria-valuenow="70" aria-valuemin="0"
-                                            aria-valuemax="70">
-                                        </div>
-                                    </div>
-                                    <p class="mb-0 mt-2">Delivered</p>
-                                </div>
-                            </div> --}}
+                            @if ($orders->status === 'pending')
+                                @include('backend.components.progress.pending')
+                            @elseif($orders->status === 'processing')
+                                @include('backend.components.progress.processing')
+                            @elseif($orders->status === 'shipping')
+                                @include('backend.components.progress.shipping')
+                            @else
+                                @include('backend.components.progress.delivered')
+                            @endif
                         </div>
                         <div
                             class="card-footer d-flex flex-wrap align-items-center justify-content-between bg-light-subtle gap-2">

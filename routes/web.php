@@ -19,6 +19,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\BankController;
+use App\Http\Controllers\FaqController;
+
 
 
 
@@ -55,6 +57,12 @@ Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logou
 Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
 Route::get('/detail/{slug}', [ShopController::class, 'detail'])->name('shop.detail');
 
+Route::get('/faq', [FaqController::class, 'faq'])->name('home.faq');
+Route::get('/faq/detail/{slug}', [FaqController::class, 'faqdetail'])->name('faq.detail');
+Route::get('/return-and-refunds', [HomeController::class, 'returnrefund'])->name('returnrefund');
+Route::get('/syarat-ketentuan', [HomeController::class, 'ketentuanPengguna'])->name('ketentuan');
+
+
 Route::middleware(['userOrGuest'])->group(function () {
     Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
     Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
@@ -70,9 +78,11 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('/pembayaran/{invoice_number}', [ChekoutController::class, 'payment'])->name('payment');
     Route::post('/payment/process', [ChekoutController::class, 'processpayment'])->name('processpayment');
     Route::post('/pembayaran/{invoice_number}', [ChekoutController::class, 'pembayaran'])->name('pembayaran');
+    Route::post('/update-order-status', [ChekoutController::class, 'updateStatus'])->name('update-order-status');
+    Route::post('/apply-coupon', [ChekoutController::class, 'applyCoupon'])->name('apply.coupon');
 
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
-    Route::put('/profile/update/{id}', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profiles/{id}/update', [ProfileController::class, 'update'])->name('usersprofiles');
     Route::get('/address', [ProfileController::class, 'address'])->name('profile.address');
     Route::get('/address/edit/{id}', [ProfileController::class, 'editaddress'])->name('edit.address');
     Route::post('/update-address/{id}', [ProfileController::class, 'updateAddress'])->name('updateAddress');
@@ -80,11 +90,11 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::delete('/address/delete{id}', [ProfileController::class, 'delete_address'])->name('delete_address');
     Route::post('/set-default-address/{id}', [ProfileController::class, 'setDefaultAddress'])->name('set_default_address');
     Route::get('/order', [ProfileController::class, 'recent_order'])->name('recent_order');
-    Route::get('/detail-order', [ProfileController::class, 'detail_order'])->name('detail-order');
+    Route::get('/detail-order/{order_number}', [ProfileController::class, 'detail_order'])->name('detail-order');
 });
 
 
-Route::middleware(['auth', 'role:Administrator'])->group(function () {
+Route::middleware(['auth', 'role:Administrator,Management,Admin,Finance,Writter'])->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
     Route::get('/product/create', [ProductController::class, 'index'])->name('product.index');
@@ -140,8 +150,8 @@ Route::middleware(['auth', 'role:Administrator'])->group(function () {
     Route::get('/update-promotion/{id}', [SettingsController::class, 'updatePromotion'])->name('update.promotion');
 
     Route::post('/add/popup', [SettingsController::class, 'add_popup'])->name('settings.add_popup');
+    Route::post('/add/headnav', [SettingsController::class, 'headnavbanner'])->name('settings.headnavbanner');
     Route::post('/delete/popup', [SettingsController::class, 'delete_popup'])->name('settings.delete_popup');
-
     Route::post('/add/bannerbundle', [SettingsController::class, 'bannerbundle'])->name('settings.bannerbundle');
     Route::post('/add/bannerknowlage', [SettingsController::class, 'bannerknowlage'])->name('settings.bannerknowlage');
     Route::post('/add/bannershop', [SettingsController::class, 'bannershop'])->name('settings.bannershop');
@@ -160,12 +170,17 @@ Route::middleware(['auth', 'role:Administrator'])->group(function () {
     Route::put('/users/update/{id}', [UsersController::class, 'update_admin'])->name('users.update_admin');
     Route::delete('/users/delete/{id}', [UsersController::class, 'destroy'])->name('users.destroy');
 
+    Route::get('/users/profile/{id}', [UsersController::class, 'profile'])->name('users.profile');
+    Route::put('/profile/update/{id}', [UsersController::class, 'update_profile'])->name('users.update_profile');
+
     Route::get('/customers/list', [UsersController::class, 'customers'])->name('customers.index');
 
     // coupons
     Route::get('/coupons/list', [CouponsController::class, 'index'])->name('coupons.index');
     Route::get('/coupons/create', [CouponsController::class, 'create'])->name('coupons.create');
     Route::post('/coupons/create', [CouponsController::class, 'add'])->name('coupons.add');
+    Route::get('/coupons/edit/{id}', [CouponsController::class, 'edit'])->name('coupons.edit');
+    Route::put('/coupons/{id}/update', [CouponsController::class, 'update'])->name('coupons.update');
     Route::delete('/coupons/delete/{id}', [CouponsController::class, 'destroy'])->name('coupons.destroy');
 
     Route::get('/article/create', [ArticleController::class, 'create'])->name('article.create');
@@ -180,8 +195,6 @@ Route::middleware(['auth', 'role:Administrator'])->group(function () {
     Route::get('/report/generate', [ReportController::class, 'generate'])->name('report.generate');
     Route::get('/report/pdf', [ReportController::class, 'generatePdf'])->name('report.generatePdf');
 
-    Route::get('/users/profile', [UsersController::class, 'profile'])->name('users.profile');
-
     // bank
     Route::get('/bank', [BankController::class, 'index'])->name('bank.index');
     Route::post('/bank/update/{id}', [BankController::class, 'update'])->name('bank.update');
@@ -189,37 +202,17 @@ Route::middleware(['auth', 'role:Administrator'])->group(function () {
     Route::get('/bank/edit/{slug}', [BankController::class, 'edit'])->name('bank.edit');
     Route::delete('/bank/delete/{id}', [BankController::class, 'destroy'])->name('bank.destroy');
 
-
+    // faq
+    Route::get('/faq/list', [FaqController::class, 'index'])->name('faq.index');
+    Route::get('/faq/create', [FaqController::class, 'create'])->name('faq.create');
+    Route::post('/faq/create', [FaqController::class, 'add'])->name('faq.add');
+    Route::delete('/faq/delete/{id}', [FaqController::class, 'destroy'])->name('faq.destroy');
+    Route::get('/faq/edit/{id}', [FaqController::class, 'edit'])->name('faq.edit');
+    Route::put('/faq/update/{id}', [FaqController::class, 'update'])->name('faq.update');
 });
 
-Route::get('/about-us', function () {
-    return view('frontend.pages.about-us');
-});
-
-Route::get('/contact-us', function () {
-    return view('frontend.pages.contact-us');
-});
-
-
-Route::get('/faq', function () {
-    return view('frontend.pages.faq');
-});
 
 
 Route::get('/search-result', function () {
     return view('frontend.pages.search-result');
-});
-
-Route::get('/return-and-refunds', function () {
-    return view('frontend.pages.return-and-refunds');
-});
-
-
-Route::get('/receipt', function () {
-    return view('backend.pages.invoice.receipt_order');
-});
-
-
-Route::get('/detail-order', function () {
-    return view('frontend.pages.detail-order');
 });

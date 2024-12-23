@@ -35,7 +35,8 @@
                           </a>
                       </li>
 
-                      <li class="nav-item">
+                    @if (in_array(auth()->user()->role->name, ['Administrator','Management']))
+                    <li class="nav-item">
                           <a class="nav-link menu-arrow" href="#sidebarProducts" data-bs-toggle="collapse"
                               role="button" aria-expanded="false" aria-controls="sidebarProducts">
                               <span class="nav-icon">
@@ -54,7 +55,8 @@
                               </ul>
                           </div>
                       </li>
-
+                      @endif
+                    @if (in_array(auth()->user()->role->name, ['Administrator','Management']))
                       <li class="nav-item">
                           <a class="nav-link" href="{{ route('category.index') }}">
                               <span class="nav-icon">
@@ -63,6 +65,8 @@
                               <span class="nav-text"> Category </span>
                           </a>
                       </li>
+                    @endif
+                    @if (in_array(auth()->user()->role->name, ['Administrator','Admin']))
                       <li class="nav-item">
                         <a class="nav-link" href="{{ route('orders.pos') }}">
                             <span class="nav-icon">
@@ -70,8 +74,9 @@
                             </span>
                             <span class="nav-text"> Point Of Sale </span>
                         </a>
-                    </li>
-
+                        </li>
+                    @endif
+                    @if (in_array(auth()->user()->role->name, ['Administrator','Finance','Admin','Management']))
                       <li class="nav-item">
                           <a class="nav-link menu-arrow" href="#sidebarOrders" data-bs-toggle="collapse" role="button"
                               aria-expanded="false" aria-controls="sidebarOrders">
@@ -86,22 +91,22 @@
                                       <a class="sub-nav-link" href="{{ route('orders.list') }}">List All</a>
                                   </li>
                                   <li class="sub-nav-item">
-                                    <a class="sub-nav-link" href="{{ route('orders.pendingreview') }}">Pending Review  
+                                    <a class="sub-nav-link" href="{{ route('orders.pendingreview') }}">Pending Review
                                         <span class="badge bg-danger text-end m-1">{{ $pendingReviewCount }}</span>
                                     </a>
                                   </li>
                                   <li class="sub-nav-item">
-                                    <a class="sub-nav-link" href="{{ route('orders.proceslist') }}">Processing List 
+                                    <a class="sub-nav-link" href="{{ route('orders.proceslist') }}">Processing List
                                         <span class="badge bg-danger text-end m-1">{{ $processinglist }}</span>
                                     </a>
                                   </li>
                                   <li class="sub-nav-item">
-                                    <a class="sub-nav-link" href="{{ route('orders.shippinglist') }}">Shipping List 
+                                    <a class="sub-nav-link" href="{{ route('orders.shippinglist') }}">Shipping List
                                         <span class="badge bg-danger text-end m-1">{{ $shippinglist }}</span>
                                     </a>
                                   </li>
                                   <li class="sub-nav-item">
-                                    <a class="sub-nav-link" href="{{ route('orders.completedlist') }}">Completed List 
+                                    <a class="sub-nav-link" href="{{ route('orders.completedlist') }}">Completed List
                                     </a>
                                   </li>
                                   <li class="sub-nav-item">
@@ -111,8 +116,10 @@
                               </ul>
                           </div>
                       </li>
+                    @endif
 
-                      <li class="nav-item">
+                    @if (in_array(auth()->user()->role->name, ['Administrator','Admin','Finance','Management']))
+                    <li class="nav-item">
                         <a class="nav-link menu-arrow" href="#sidebarOrdersreturn" data-bs-toggle="collapse" role="button"
                             aria-expanded="false" aria-controls="sidebarOrdersreturn">
                             <span class="nav-icon">
@@ -134,7 +141,9 @@
                             </ul>
                         </div>
                     </li>
+                    @endif
 
+                    @if (in_array(auth()->user()->role->name, ['Administrator','Management','Admin','Finance']))
                       <li class="nav-item">
                           <a class="nav-link" href="{{ route('invoice.index') }}">
                               <span class="nav-icon">
@@ -143,7 +152,9 @@
                               <span class="nav-text"> Invoices </span>
                           </a>
                       </li>
+                    @endif
 
+                      @if (in_array(auth()->user()->role->name, ['Administrator','Finance']))
                       <li class="nav-item">
                         <a class="nav-link" href="{{ route('bank.index') }}">
                             <span class="nav-icon">
@@ -151,8 +162,9 @@
                             </span>
                             <span class="nav-text"> Bank </span>
                         </a>
-                    </li>
-
+                      </li>
+                      @endif
+                      @if (in_array(auth()->user()->role->name, ['Administrator']))
                       <li class="nav-item">
                           <a class="nav-link" href="{{ route('settings.index') }}">
                               <span class="nav-icon">
@@ -161,8 +173,9 @@
                               <span class="nav-text"> Settings </span>
                           </a>
                       </li>
-
-                      <li class="nav-item">
+                      @endif
+                    @if (in_array(auth()->user()->role->name, ['Administrator', 'Admin','Finance','Management']))
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ route('report.index') }}">
                             <span class="nav-icon">
                                 <iconify-icon icon="solar:notebook-square-bold-duotone"></iconify-icon>
@@ -170,9 +183,12 @@
                             <span class="nav-text"> Report </span>
                         </a>
                     </li>
+                    @endif
 
-                      <li class="menu-title mt-2">Users</li>
-
+                    @if (in_array(auth()->user()->role->name, ['Administrator','Management']))
+                        <li class="menu-title mt-2">Users</li>
+                    @endif
+                    @if (in_array(auth()->user()->role->name, ['Administrator','Management']))
                       <li class="nav-item">
                           <a class="nav-link menu-arrow" href="#sidebarCustomers" data-bs-toggle="collapse"
                               role="button" aria-expanded="false" aria-controls="sidebarCustomers">
@@ -183,11 +199,11 @@
                           </a>
                           <div class="collapse" id="sidebarCustomers">
                               <ul class="nav sub-navbar-nav">
-
+                                @if (in_array(auth()->user()->role->name, ['Administrator']))
                                   <li class="sub-nav-item">
                                       <a class="sub-nav-link" href="{{ route('users.index') }}">Administrator</a>
                                   </li>
-
+                                @endif
                                   <li class="sub-nav-item">
                                       <a class="sub-nav-link" href="{{ route('customers.index') }}">List
                                           Customers</a>
@@ -195,9 +211,13 @@
                               </ul>
                           </div>
                       </li>
+                    @endif
 
-                      <li class="menu-title mt-2">Other</li>
+                    @if (in_array(auth()->user()->role->name, ['Administrator','Admin','Management']))
+                    <li class="menu-title mt-2">Other</li>
+                    @endif
 
+                      @if (in_array(auth()->user()->role->name, ['Administrator', 'Writter']))
                       <li class="nav-item">
                           <a class="nav-link menu-arrow" href="#sidebarArticle" data-bs-toggle="collapse"
                               role="button" aria-expanded="false" aria-controls="sidebarArticle">
@@ -217,7 +237,8 @@
                               </ul>
                           </div>
                       </li>
-
+                      @endif
+                      @if (in_array(auth()->user()->role->name, ['Administrator', 'Admin','Management']))
                       <li class="nav-item">
                           <a class="nav-link menu-arrow" href="#sidebarCoupons" data-bs-toggle="collapse"
                               role="button" aria-expanded="false" aria-controls="sidebarCoupons">
@@ -237,26 +258,28 @@
                               </ul>
                           </div>
                       </li>
-
-                      {{-- <li class="menu-title mt-2">Other Apps</li>
-
+                    @endif
+                    @if (in_array(auth()->user()->role->name, ['Administrator']))
                       <li class="nav-item">
-                          <a class="nav-link" href="#">
-                              <span class="nav-icon">
-                                  <iconify-icon icon="solar:chat-round-bold-duotone"></iconify-icon>
-                              </span>
-                              <span class="nav-text"> Chat </span>
-                          </a>
-                      </li>
-
-                      <li class="nav-item">
-                          <a class="nav-link" href="#">
-                              <span class="nav-icon">
-                                  <iconify-icon icon="solar:mailbox-bold-duotone"></iconify-icon>
-                              </span>
-                              <span class="nav-text"> Email </span>
-                          </a>
-                      </li> --}}
+                        <a class="nav-link menu-arrow" href="#sideBarFaq" data-bs-toggle="collapse"
+                            role="button" aria-expanded="false" aria-controls="sideBarFaq">
+                            <span class="nav-icon">
+                                <iconify-icon icon="solar:question-circle-bold-duotone"></iconify-icon>
+                            </span>
+                            <span class="nav-text"> FAQ </span>
+                        </a>
+                        <div class="collapse" id="sideBarFaq">
+                            <ul class="nav sub-navbar-nav">
+                                <li class="sub-nav-item">
+                                    <a class="sub-nav-link" href="{{ route('faq.index') }}">List</a>
+                                </li>
+                                <li class="sub-nav-item">
+                                    <a class="sub-nav-link" href="{{ route('faq.create') }}">Create</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    @endif
                   </ul>
               </div>
           </div>

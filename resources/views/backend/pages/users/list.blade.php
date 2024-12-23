@@ -9,12 +9,7 @@
             <div class="card-header d-flex justify-content-between align-items-center gap-1">
                 <h4 class="card-title flex-grow-1">All Users List</h4>
 
-                <form action="" method="" class="d-flex align-items-center me-2">
-                    <input type="text" name="query" class="form-control form-control-sm" placeholder="Search Products...">
-                    <button type="submit" class="btn btn-sm btn-outline-secondary ms-1">Search</button>
-                </form>
-
-                <a href="{{ route('product.index') }}" class="btn btn-sm btn-primary">
+                <a href="{{ route('users.create') }}" class="btn btn-sm btn-primary">
                     Add User
                 </a>
             </div>

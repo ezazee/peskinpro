@@ -1,5 +1,5 @@
 @extends('backend.master.master-app')
-    @if($users->role->name == 'user') 
+    @if($users->role->name == 'user')
         @section('title', 'Edit Customers')
     @else
         @section('title', 'Edit Users')
@@ -9,7 +9,7 @@
 <div class="container-xxl">
     <form action="{{ route('users.update_admin', $users->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
-        @method('PUT') 
+        @method('PUT')
         <div class="row">
             <div class="col-xl-3 col-lg-4">
                 <div class="card">
@@ -71,16 +71,31 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="mb-3">
-                                    <label for="role-tag" class="form-label">Password</label>
-                                    <input type="password" name="password" class="form-control" placeholder="Leave blank to keep current password">
+                                    <label for="edit-user-password" class="form-label">Password</label>
+                                    <div class="input-group">
+                                        <input type="password" id="edit-user-password" name="password" class="form-control" placeholder="Leave blank to keep current password">
+                                        <button type="button" id="toggleEditUserPassword" class="btn btn-outline-secondary">
+                                            <i class="bx bx-show"></i>
+                                        </button>
+                                    </div>
+                                    @error('password')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Confirm Password</label>
-                                    <input type="password" name="password_confirmation" class="form-control" placeholder="Leave blank to keep current password">
+                                    <label for="edit-user-confirm-password" class="form-label">Confirm Password</label>
+                                    <div class="input-group">
+                                        <input type="password" id="edit-user-password-confirmation" name="password_confirmation" class="form-control" placeholder="Leave blank to keep current password">
+                                        <button type="button" id="toggleEditUserPasswordConfirm" class="btn btn-outline-secondary">
+                                            <i class="bx bx-show"></i>
+                                        </button>
+                                    </div>
+                                    <small id="edit-user-password-error" class="text-danger" style="display:none;">Passwords do not match!</small>
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <p>User Status </p>
                                 <div class="d-flex gap-2 align-items-center">
@@ -107,7 +122,7 @@
                         @else
                             <a href="{{ route('users.index') }}" class="btn btn-danger">Cancel</a>
                         @endif
-                    </div>                    
+                    </div>
                 </div>
             </div>
         </div>

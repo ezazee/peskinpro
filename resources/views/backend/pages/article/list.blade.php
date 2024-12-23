@@ -62,7 +62,7 @@
                                         <div class="d-flex gap-2">
                                             <a href="{{ route('articlebyTittle', $item->slug) }}" class="btn btn-light btn-sm" target="_blank"><iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon></a>
                                             <a href="{{ route('article.edit', $item->slug) }}" class="btn btn-soft-primary btn-sm"><iconify-icon icon="solar:pen-2-broken" class="align-middle fs-18"></iconify-icon></a>
-                                            <form action="{{ route('article.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this product?');">
+                                            <form action="{{ route('article.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this article?');">
                                               @csrf
                                               @method('DELETE')
                                               <button type="submit" class="btn btn btn-danger btn-sm"><iconify-icon icon="solar:trash-bin-minimalistic-2-broken" class="align-middle fs-18"></iconify-icon></button>

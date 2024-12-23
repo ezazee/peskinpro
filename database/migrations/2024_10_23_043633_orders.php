@@ -19,21 +19,24 @@ return new class extends Migration
             $table->enum('status', ['pending', 'processing', 'completed', 'canceled','shipping','return','refund'])->default('pending');
             $table->unsignedBigInteger('alamat_id')->nullable();
             $table->unsignedBigInteger('shipping_id')->nullable();
-            $table->enum('payment_method', ['transfer', 'qris', 'cash'])->default('cash');
+            $table->enum('payment_method', ['transfer', 'qris', 'cash','debit'])->default('cash');
             $table->decimal('kembali', 10, 2)->nullable();
             $table->string('kode_bayar')->nullable();
-
+            $table->unsignedBigInteger('bank_id')->nullable();
+            $table->decimal('discount_chekout', 10, 2);
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('alamat_id')->references('id')->on('alamats')->onDelete('cascade');
             $table->foreign('shipping_id')->references('id')->on('shippings')->onDelete('cascade');
+            $table->foreign('bank_id')->references('id')->on('banks')->onDelete('set null');
         });
     }
 
     /**
      * Reverse the migrations.
      */
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('orders');    }
+        Schema::dropIfExists('orders');
+    }
 };

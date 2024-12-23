@@ -87,140 +87,6 @@
     }
 </script>
 
-{{-- Cart Modal --}}
-{{-- <script>
-    // Modal Cart
-    const cartIcon = document.querySelector(".cart-icon");
-    const modalCart = document.querySelector(".modal-cart-block");
-    const modalCartMain = document.querySelector(
-        ".modal-cart-block .modal-cart-main"
-    );
-    const closeCartIcon = document.querySelector(".modal-cart-main .close-btn");
-    const continueCartIcon = document.querySelector(".modal-cart-main .continue");
-    const addCartBtns = document.querySelectorAll(".add-cart-btn");
-
-    const openModalCart = () => {
-        modalCartMain.classList.add("open");
-    };
-
-    const closeModalCart = () => {
-        modalCartMain.classList.remove("open");
-    };
-
-    addCartBtns.forEach((item) => {
-        item.addEventListener("click", () => {
-            openModalCart();
-        });
-    });
-
-    cartIcon.addEventListener("click", openModalCart);
-    modalCart.addEventListener("click", closeModalCart);
-    closeCartIcon.addEventListener("click", closeModalCart);
-    continueCartIcon.addEventListener("click", closeModalCart);
-
-    modalCartMain.addEventListener("click", (e) => {
-        e.stopPropagation();
-    });
-
-    // Set cart length
-    const handleItemModalCart = () => {
-        cartStore = localStorage.getItem("cartStore");
-        cartStore = cartStore ? JSON.parse(cartStore) : [];
-
-        if (cartStore) {
-            cartIcon.querySelector("span").innerHTML = cartStore.length;
-        }
-
-        // Set cart item
-        const listItemCart = document.querySelector(
-            ".modal-cart-block .list-product"
-        );
-
-        listItemCart.innerHTML = "";
-
-        if (cartStore.length === 0) {
-            listItemCart.innerHTML = `<p class='mt-1'>No product in cart</p>`;
-        } else {
-            // Initial money to freeship in cart
-            let moneyForFreeship = 150;
-            let totalCart = 0;
-
-            cartStore.forEach((item) => {
-                totalCart = Number(totalCart) + Number(item.price)
-
-                // Create prd
-                const prdItem = document.createElement("div");
-                prdItem.setAttribute("data-item", item.id);
-                prdItem.classList.add(
-                    "item",
-                    "py-5",
-                    "flex",
-                    "items-center",
-                    "justify-between",
-                    "gap-3",
-                    "border-b",
-                    "border-line"
-                );
-                prdItem.innerHTML = `
-                <div class="infor flex items-center gap-3 w-full">
-                    <div class="bg-img w-[100px] aspect-square flex-shrink-0 rounded-lg overflow-hidden">
-                        <img src=${item.thumbImage[0]} alt='product'
-                            class='w-full h-full' />
-                    </div>
-                    <div class='w-full'>
-                        <div class="flex items-center justify-between w-full">
-                            <div class="name text-button">${item.name}</div>
-                            <div
-                                class="remove-cart-btn remove-btn caption1 font-semibold text-red underline cursor-pointer">
-                                Remove
-                            </div>
-                        </div>
-                        <div class="flex items-center justify-between gap-2 mt-3 w-full">
-                            <div class="flex items-center text-secondary2 capitalize">
-                                ${item.sizes[0]}/${item.variation[0].color}
-                            </div>
-                            <div class="product-price text-title">$${item.price}.00</div>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-                listItemCart.appendChild(prdItem);
-            });
-
-            // Set money to freeship in cart
-            modalCart.querySelector('.more-price').innerHTML = moneyForFreeship - totalCart
-            modalCart.querySelector('.tow-bar-block .progress-line').style.width = (totalCart / moneyForFreeship *
-                100) + '%'
-            modalCart.querySelector('.total-cart').innerHTML = '$' + totalCart + '.00'
-            if (moneyForFreeship - totalCart <= 0) {
-                modalCart.querySelector('.more-price').innerHTML = 0
-                modalCart.querySelector('.tow-bar-block .progress-line').style.width = '100%'
-            }
-        }
-
-        const prdItems = listItemCart.querySelectorAll(".item");
-        prdItems.forEach((prd) => {
-            const removeCartBtn = prd.querySelector(".remove-cart-btn");
-            removeCartBtn.addEventListener("click", () => {
-                const prdId = removeCartBtn.closest(".item").getAttribute("data-item");
-                // cartStore
-                const newArray = cartStore.filter((item) => item.id !== prdId);
-                localStorage.setItem("cartStore", JSON.stringify(newArray));
-                handleItemModalCart();
-
-                if (cartStore.length === 0) {
-                    modalCart.querySelector('.more-price').innerHTML = 0
-                    modalCart.querySelector('.tow-bar-block .progress-line').style.width = '0'
-                    modalCart.querySelector('.total-cart').innerHTML = '$0.00'
-                }
-            });
-        });
-    };
-
-    handleItemModalCart();
-</script> --}}
-
 {{-- Modal Promosi Utama --}}
 <script>
     // Modal Newsletter
@@ -352,33 +218,6 @@
     });
 </script>
 
-{{-- <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const swiper = new Swiper('.swiper-inshop', {
-            slidesPerView: 1,
-            spaceBetween: 20,
-            loop: true,
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-            breakpoints: {
-                640: {
-                    slidesPerView: 2,
-                    spaceBetween: 20,
-                },
-                1024: {
-                    slidesPerView: 3,
-                    spaceBetween: 30,
-                },
-            },
-        });
-    });
-</script> --}}
 
 <script>
     // Sidebar
@@ -409,78 +248,55 @@
 </script>
 
 <script>
-    // faqs
-    const menuTab = document.querySelector(".menu-tab");
-    const listQuestion = document.querySelector(".list-question");
-    const tabQuestions = document.querySelectorAll(".tab-question");
-    const questionItems = document.querySelectorAll(".question-item");
+    document.addEventListener('DOMContentLoaded', () => {
+        const faqLinks = document.querySelectorAll('.faq-link');
+        const faqTabs = document.querySelectorAll('.faq-tab');
 
-    if (tabItems) {
-        tabItems.forEach((tabItem) => {
-            tabQuestions.forEach((tabQuestion) => {
-                let activeMenuTab = menuTab.querySelector(".active");
+        // Fungsi untuk mengaktifkan tab dan memperbarui status link
+        const activateFaq = (link) => {
+            const targetId = link.getAttribute('href').substring(1); // Ambil ID dari link
+            const targetTab = document.getElementById(targetId);
 
-                if (
-                    activeMenuTab.getAttribute("data-item") ===
-                    tabQuestion.getAttribute("data-item")
-                ) {
-                    tabQuestion.classList.add("active");
-                }
+            // Reset active states
+            faqLinks.forEach(item => item.classList.remove('active'));
+            faqTabs.forEach(tab => tab.classList.remove('active'));
 
-                tabItem.addEventListener("click", () => {
-                    if (
-                        tabItem.getAttribute("data-item") ===
-                        tabQuestion.getAttribute("data-item")
-                    ) {
-                        listQuestion
-                            .querySelector(".active")
-                            .classList.remove("active");
-                        tabQuestion.classList.add("active");
-                    }
-                });
-            });
-        });
-    }
-
-    if (questionItems) {
-        questionItems.forEach((item, index) => {
-            item.addEventListener("click", () => {
-                item.classList.toggle("open");
-
-                removeOpen(index);
-            });
-        });
-    }
-
-    function removeOpen(index1) {
-        questionItems.forEach((item2, index2) => {
-            if (index1 != index2) {
-                item2.classList.remove("open");
+            // Aktifkan link yang diklik dan tab terkait
+            link.classList.add('active');
+            if (targetTab) {
+                targetTab.classList.add('active');
             }
-        });
-    }
-</script>
+        };
 
+        // Menambahkan event listener untuk klik pada link FAQ
+        faqLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                // Jika URL tidak mengarah ke halaman lain, tampilkan tab
+                if (!link.href.includes('#')) {
+                    return;
+                }
+                e.preventDefault(); // Mencegah halaman untuk melakukan scroll atau update hash
+                activateFaq(link); // Aktifkan tab yang sesuai
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const items = document.querySelectorAll('.item-faq');
-
-        items.forEach(item => {
-            item.querySelector('.title').addEventListener('click', () => {
-                // Toggle the open class
-                item.classList.toggle('open');
-
-                // Optionally: Close other items when one is opened
-                items.forEach(otherItem => {
-                    if (otherItem !== item) {
-                        otherItem.classList.remove('open');
-                    }
-                });
+                // Arahkan ke halaman lain jika ada href
+                if (link.getAttribute('href') !== '#') {
+                    window.location.href = link.getAttribute(
+                    'href'); // Navigasi ke halaman lain
+                }
             });
         });
+
+        // Aktifkan tab berdasarkan hash di URL
+        const currentHash = window.location.hash;
+        if (currentHash) {
+            const activeLink = document.querySelector(`.faq-link[href="${currentHash}"]`);
+            if (activeLink) activateFaq(activeLink);
+        } else {
+            activateFaq(faqLinks[0]); // Defaultkan ke tab pertama
+        }
     });
 </script>
+
 
 
 {{-- Backdrop Modal New Address --}}
@@ -513,7 +329,6 @@
 {{-- Backdrop Modal Voucher Promo --}}
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        // JavaScript for showing/hiding modal
         const modal = document.getElementById('customModalVoucher');
         const backdrop = document.getElementById('backdrop-voucher');
         const openModalButton = document.getElementById('addVoucherButton');
@@ -538,13 +353,64 @@
     });
 </script>
 
+
+<script>
+    function applyCoupon(event, couponCode, discountAmount) {
+        const button = event.target;
+        const couponId = button.getAttribute('data-coupon-id');
+
+        button.disabled = true;
+        button.innerText = "Sedang Digunakan...";
+
+        const discountElement = document.getElementById('discount-chekout');
+        if (discountElement) {
+            discountElement.innerText = `Rp.${discountAmount}`;
+        }
+
+        const cartTotalElement = document.getElementById('cart-total');
+        if (cartTotalElement) {
+            const cartTotal = parseInt(cartTotalElement.innerText.replace('Rp.', '').replace(',', '')) || 0;
+            const updatedCartTotal = cartTotal - discountAmount;
+            cartTotalElement.innerText = `Rp.${updatedCartTotal.toLocaleString()}`;
+        }
+
+        const couponCodeInput = document.getElementById('coupon_code');
+        if (couponCodeInput) {
+            couponCodeInput.value = couponCode;
+        }
+
+        const allCouponButtons = document.querySelectorAll('.coupon-button');
+        allCouponButtons.forEach(btn => {
+            if (btn !== button) {
+                btn.disabled = false;
+                btn.innerText = "Gunakan";
+            }
+        });
+
+        button.innerText = "Dipakai";
+        button.classList.add('disabled');
+        button.setAttribute('disabled', 'true');
+
+        const jsonDisplayElement = document.getElementById('json-display');
+        if (jsonDisplayElement) {
+            jsonDisplayElement.innerText = JSON.stringify({
+                coupon_id: couponId,
+                coupon_code: couponCode,
+                discount_amount: discountAmount
+            }, null, 2);
+        }
+    }
+    </script>
+
+
+
 {{-- Backdrop Modal Ganti Alamat Checkout --}}
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const modal = document.getElementById('customModalOrder');
-        const backdrop = document.getElementById('backdrop-order-alamat');
-        const openModalButton = document.getElementById('historyOrderButton');
-        const closeModalButtons = document.querySelectorAll('.modal-order-close');
+        const modal = document.getElementById('customGantiAlamat');
+        const backdrop = document.getElementById('backdrop-ganti-alamat');
+        const openModalButton = document.getElementById('gantiAlamatButton');
+        const closeModalButtons = document.querySelectorAll('.modal-ganti-alamat-close');
 
         // Cek jika modal dan backdrop ada sebelum melanjutkan
         if (modal && backdrop) {
@@ -571,7 +437,6 @@
                 backdrop.classList.add('hidden');
             });
         } else {
-            console.warn("Elemen modal atau backdrop tidak ditemukan di halaman.");
         }
     });
 </script>
@@ -806,3 +671,53 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 </script>
+
+
+<script>
+    // Mendapatkan elemen input password dan tombol untuk toggle
+    const passwordField = document.getElementById("password");
+    const togglePasswordButton = document.getElementById("togglePasswordVisibility");
+
+    // Menambahkan event listener untuk tombol toggle
+    togglePasswordButton.addEventListener("click", function() {
+        // Menukar tipe input password antara 'password' dan 'text'
+        const type = passwordField.type === "password" ? "text" : "password";
+        passwordField.type = type;
+        // Menentukan ikon berdasarkan visibilitas password
+        const icon = type === "password" ? "ph ph-eye" :
+        "ph ph-eye-slash"; // Jika password terlihat, tampilkan ikon mata tertutup
+        this.innerHTML = `<i class="${icon}"></i>`; // Memperbarui ikon dalam tombol
+    });
+</script>
+
+
+<script>
+    // Mendapatkan elemen input dan tombol toggle untuk register password
+    const registerPasswordField = document.getElementById("register-password");
+    const toggleRegisterPasswordButton = document.getElementById("toggleRegisterPassword");
+
+    // Mendapatkan elemen input dan tombol toggle untuk confirm password
+    const confirmPasswordField = document.getElementById("confirm-password");
+    const toggleConfirmPasswordButton = document.getElementById("toggleConfirmPassword");
+
+    // Fungsi untuk toggle visibilitas password
+    function togglePasswordVisibility(field, button) {
+        const type = field.type === "password" ? "text" : "password";
+        field.type = type;
+
+        // Ganti ikon berdasarkan tipe input
+        const icon = type === "password" ? "ph ph-eye" : "ph ph-eye-slash";
+        button.innerHTML = `<i class="${icon}"></i>`;
+    }
+
+    // Event listener untuk tombol register password
+    toggleRegisterPasswordButton.addEventListener("click", function () {
+        togglePasswordVisibility(registerPasswordField, toggleRegisterPasswordButton);
+    });
+
+    // Event listener untuk tombol confirm password
+    toggleConfirmPasswordButton.addEventListener("click", function () {
+        togglePasswordVisibility(confirmPasswordField, toggleConfirmPasswordButton);
+    });
+</script>
+

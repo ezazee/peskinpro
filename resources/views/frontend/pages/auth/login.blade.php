@@ -10,16 +10,24 @@
                         <div class="email">
                             <input class="border-line px-4 pt-3 pb-3 w-full rounded-lg" name="email" type="email"
                                 placeholder="Username or email address *" required />
-                                @error('email')
-                                    <span class="text-sm text-red">{{ $message }}</span>
-                                @enderror
+                            @error('email')
+                                <span class="text-sm text-red">{{ $message }}</span>
+                            @enderror
                         </div>
-                        <div class="pass mt-5">
-                            <input class="border-line px-4 pt-3 pb-3 w-full rounded-lg" name="password" type="password"
-                                placeholder="Password *" required />
-                                @error('password')
-                                    <span class="text-sm text-red">{{ $message }}</span>
-                                @enderror
+                        <div class="pass mt-5 relative">
+                            <!-- Input Password -->
+                            <input id="password" class="border-line px-4 pt-3 pb-3 w-full rounded-lg" name="password"
+                                type="password" placeholder="Password" required />
+
+                            <!-- Tombol untuk menampilkan/menyembunyikan password dengan ID yang diperbarui -->
+                            <button id="togglePasswordVisibility" type="button"
+                                class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500">
+                                <i class="ph ph-eye"></i> <!-- Ikon mata untuk menampilkan password -->
+                            </button>
+
+                            @error('password')
+                                <span class="text-sm text-red">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="flex items-center justify-between mt-5">
                             <div class="flex items-center">
@@ -29,7 +37,7 @@
                                 </div>
                                 <label for="remember" class="pl-2 cursor-pointer">Remember me</label>
                             </div>
-                            <a href="forgot-password.html" class="font-semibold hover:underline">Forgot Your Password? </a>
+                            <a href="#" class="font-semibold hover:underline">Forgot Your Password? </a>
                         </div>
                         <div class="block-button md:mt-7 mt-4">
                             <button class="button-main">Login</button>
@@ -40,7 +48,8 @@
                     <div class="text-content">
                         <div class="heading4">Pengguna Baru?</div>
                         <div class="mt-2 text-secondary">
-                            Belum punya akun? Daftar sekarang dan nikmati berbagai fitur menarik yang memudahkan aktivitasmu.
+                            Belum punya akun? Daftar sekarang dan nikmati berbagai fitur menarik yang memudahkan
+                            aktivitasmu.
                             Ayo, mulai perjalanan serumu bersama kami!
                         </div>
                         <div class="block-button md:mt-7 mt-4">

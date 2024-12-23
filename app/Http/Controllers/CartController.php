@@ -5,14 +5,18 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Settings;
 use App\Models\Cart;
 use App\Models\CartItem;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
+
 
 class CartController extends Controller
 {
     public function index()
     {
+        $settings = Settings::all();
         $cartItems = [];
 
         if (Auth::check()) {
@@ -24,7 +28,7 @@ class CartController extends Controller
         }
 
         $cartCollection = collect($cartItems);
-        return view('frontend.pages.cart', compact('cartCollection'));
+        return view('frontend.pages.cart', compact('cartCollection','settings'));
 
     }
     
@@ -68,7 +72,7 @@ class CartController extends Controller
                 ]);
             }
         }
-    
+        Alert::toast('Produk ditambahkan ke troli.', 'success');
         return redirect()->back()->with('success', 'Product added to cart successfully!');
     }
     
@@ -104,7 +108,7 @@ class CartController extends Controller
                 }
             }
         }
-
+        Alert::toast('Produk dikeluarkan dari troli.', 'info');
         return redirect()->back()->with('success', 'Product removed from cart successfully!');
     }
 

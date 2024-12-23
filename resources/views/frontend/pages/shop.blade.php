@@ -1,6 +1,15 @@
 @extends('frontend.master.master-app')
 
 @section('content')
+    @php
+        use Carbon\Carbon;
+
+        $flashSaleEndTime = Carbon::parse($timerFlashsale ?? ''); 
+        $currentTime = Carbon::now();
+        $isFlashSaleExpired = $flashSaleEndTime->isPast();
+    @endphp
+
+    @if (!$isFlashSaleExpired)
     {{-- Flash Sale Promotion --}}
     <section id="flashSaleProduct" class="flash-sale-block md:py-20 py-4 relative overflow-hidden">
         <!-- Background Image -->
@@ -114,7 +123,7 @@
             </div>
         </div>
     </section>
-
+    @endif
     {{-- Banner Iklan --}}
     @include('frontend.components.banner-promo-shop')
 
@@ -134,35 +143,31 @@
                                         class="w-[60px] h-20 flex-shrink-0 object-cover" />
                                     <div class="infor">
                                         <div class="product-name text-title">{{ $item['name'] }}</div>
-                                        <div class="caption2 product-brand text-secondary2 uppercase mt-1">
-                                            {{ $item['category']->name }}</div>
+                                        <div>{{ is_object($item['category']) ? $item['category']->name : $item['category'] }}</div>
                                     </div>
                                 </div>
                                 <div class="right">
-                                    <div class="text-title"><span class="product-price">
-                                            @php
-                                                $sizePrices = $item['size']->price;
-                                                $sizeDiscounts = $item['size']->discount;
-                                                $minPrice = !empty($sizePrices)
-                                                    ? $sizePrices
-                                                    : $item['size']->price ?? 0;
-                                                $maxDiscount = !empty($sizeDiscounts) ? $sizeDiscounts : 0;
-                                                $effectivePrice = max($minPrice - $maxDiscount, 0);
-                                            @endphp
-
-                                            @if ($effectivePrice > 0)
-                                                Rp {{ number_format($effectivePrice, 0, ',', '.') }}
-                                            @else
-                                                Rp {{ number_format($minPrice, 0, ',', '.') }}
-                                            @endif
-                                        </span></div>
+                                        @foreach($item['sizes'] as $size)
+                                            <div class="text-title">
+                                                <span class="product-price">
+                                                    @php
+                                                        $sizePrices = $size->price;
+                                                        $sizeDiscounts = $size->discount;
+                                                        
+                                                        $minPrice = !empty($sizePrices) ? $sizePrices : $size->price ?? 0;
+                                                        
+                                                        $maxDiscount = !empty($sizeDiscounts) ? $sizeDiscounts : 0;
+                                                        
+                                                        $effectivePrice = max($minPrice - $maxDiscount, 0);
+                                                    @endphp
+                                                        Rp {{ number_format($effectivePrice, 0, ',', '.') }}
+                                                </span>
+                                            </div>
+                                        @endforeach
                                 </div>
                             </a>
                         </div>
                     @endforeach
-                </div>
-                <div class="block-button mt-8">
-                    <div class="add-cart-btn button-main w-full text-center">Tambahkan Semua Best Seller Ke Chart</div>
                 </div>
             </div>
             @foreach ($settings as $item)

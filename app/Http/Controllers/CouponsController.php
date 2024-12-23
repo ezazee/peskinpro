@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Category;
 use App\Models\Coupons;
-
+use RealRashid\SweetAlert\Facades\Alert;
 
 
 class CouponsController extends Controller
@@ -29,24 +29,49 @@ class CouponsController extends Controller
     public function add(Request $request){
 
         $coupons = Coupons::create([
-            'status' => $request->status,
+            'status' => 'active',
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
             'coupons_code' => $request->coupons_code,
-            'product' => $request->product,
+            'minimum_purchase' => $request->minimum_purchase,
             'limits' => $request->limits,
-            'type'=> $request->type,
+            'type'=> 'fixed_amount',
             'jumlah' => $request->jumlah
           ]);
-
+        Alert::success('Success', 'Add Post Coupons');
         return back()->with('success', 'Coupons created successfully!');
     }
 
-    public function destroy($slug)
-    {
-        $coupons = Coupons::findOrFail($slug); 
-        $coupons->delete();
+    public function edit($id){
+        $user = Auth::user();
+        $welcomeMessage = 'Coupons Article';
+        $coupon = Coupons::where('id', $id)->firstOrFail();
+        return view('backend.pages.coupons.edit',compact('welcomeMessage','user','coupon'));
+    }
 
+    public function update(Request $request, $id)
+    {
+        $coupon = Coupons::findOrFail($id);
+
+        $coupon->update([
+            'coupons_code' => $request->coupons_code,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+            'minimum_purchase' => $request->minimum_purchase,
+            'limits' => $request->limits,
+            'jumlah' => $request->jumlah,
+        ]);
+        Alert::success('Success', 'Update Post Coupons');
         return back()->with('success', 'Coupons deleted successfully!');
     }
+
+
+    public function destroy($id)
+    {
+        $coupons = Coupons::findOrFail($id); 
+        $coupons->delete();
+        Alert::error('Deleted', 'Coupons deleted successfully');
+        return back()->with('success', 'Coupons deleted successfully!');
+    }
+
 }

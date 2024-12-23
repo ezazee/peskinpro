@@ -17,126 +17,106 @@
                                     class="w-1/2 px-4 py-2 border border-black rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
                             </div>
                             <div class="w-full overflow-x-auto">
-                                <div
-                                    class="menu-tab relative grid grid-cols-5 max-lg:w-[500px] max-md:max-w-max border-b border-line mt-3">
-                                    @php
-                                        $tabs = [
-                                            'all' => 'All',
-                                            'pending' => 'Pending',
-                                            'delivery' => 'Delivery',
-                                            'completed' => 'Completed',
-                                            'canceled' => 'Canceled',
-                                        ];
-                                    @endphp
-
+                                <div class="menu-tab relative grid grid-cols-5 max-lg:w-[500px] max-md:max-w-max border-b border-line mt-3">
                                     @foreach ($tabs as $key => $label)
-                                        <button
-                                            class="tab-item relative px-3 py-2.5 text-button text-secondary text-center duration-300 hover:text-black {{ $activeTab === $key ? 'active' : '' }}"
-                                            data-tab="{{ $key }}">
+                                        <button 
+                                            class="tab-item relative px-3 py-2.5 text-button text-secondary text-center duration-300 hover:text-black 
+                                            {{ $activeTab === $key ? 'active' : '' }}" 
+                                            data-tab="{{ $key }}"
+                                            onclick="window.location.href='?tab={{ $key }}'">
                                             {{ $label }}
                                         </button>
                                     @endforeach
                                 </div>
                             </div>
-
+                            
                             <div class="list_order">
-                                <div class="order_item mt-5 border border-line rounded-lg box-shadow-xs">
-                                    <div class="flex flex-wrap items-center justify-between gap-4 p-5 border-b border-line">
-                                        <div class="flex items-center gap-2">
-                                            <strong class="text-title">Order Number:</strong>
-                                            <strong class="order_number text-button uppercase">#ORD-ASDASDASD12</strong>
-                                        </div>
-                                        <div class="flex items-center gap-2">
-                                            <strong class="text-title">Order status:</strong>
-                                            <a href="#!"
-                                                class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-purple text-purple caption1 font-semibold">Delivery</a>
-                                        </div>
-                                    </div>
-                                    <div class="list_prd px-5">
-                                        <!-- Product 1 -->
-                                        <div
-                                            class="prd_item flex flex-wrap items-center justify-between gap-3 py-5 border-b border-line">
-                                            <a href="product-default.html" class="flex items-center gap-5">
-                                                <div
-                                                    class="bg-img flex-shrink-0 md:w-[100px] w-20 aspect-square rounded-lg overflow-hidden">
-                                                    <img src="assets/images/product/fashion/1-1.png"
-                                                        alt="Contrasting sheepskin sweatshirt"
-                                                        class="w-full h-full object-cover" />
-                                                </div>
-                                                <div>
-                                                    <div class="prd_name text-title">Contrasting sheepskin sweatshirt</div>
-                                                    <div class="caption1 text-secondary mt-2">
-                                                        <span class="prd_size uppercase">XL</span>
-                                                        <span>/</span>
-                                                        <span class="prd_color capitalize">Yellow</span>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <div class="text-title">
-                                                <span class="prd_quantity">1</span>
-                                                <span> X </span>
-                                                <span class="prd_price">$45.00</span>
+                                @foreach ($orders as $item)
+                                    <div class="order_item mt-5 border border-line rounded-lg box-shadow-xs">
+                                        <div class="flex flex-wrap items-center justify-between gap-4 p-5 border-b border-line">
+                                            <div class="flex items-center gap-2">
+                                                <strong class="text-title">Order Number:</strong>
+                                                <strong class="order_number text-button uppercase">#{{ $item->order_number }}</strong>
+                                            </div>
+                                            <div class="flex items-center gap-2">
+                                                <strong class="text-title">Order status:</strong>
+                                                <p class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-purple text-purple caption1 font-semibold">
+                                                    {{ $item->status }}
+                                                </p>
                                             </div>
                                         </div>
-
-                                        <!-- Button for additional product -->
-                                        <div class="prd_item flex justify-center py-5 border-b border-line">
-                                            <a href="/detail-order"
-                                                class="bg-light-primary text-primary font-semibold rounded-md px-5 py-2 w-full text-center hover:bg-blue-700">
-                                                +1 Produk Lainnya
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="order_item mt-5 border border-line rounded-lg box-shadow-xs">
-                                    <div class="flex flex-wrap items-center justify-between gap-4 p-5 border-b border-line">
-                                        <div class="flex items-center gap-2">
-                                            <strong class="text-title">Order Number:</strong>
-                                            <strong class="order_number text-button uppercase">#ORD-ASDASDASD12</strong>
-                                        </div>
-                                        <div class="flex items-center gap-2">
-                                            <strong class="text-title">Order status:</strong>
-                                            <a href="#!"
-                                                class="tag px-4 py-1.5 rounded-full bg-opacity-10 bg-purple text-purple caption1 font-semibold">Delivery</a>
-                                        </div>
-                                    </div>
-                                    <div class="list_prd px-5">
-                                        <!-- Product 1 -->
-                                        <div
-                                            class="prd_item flex flex-wrap items-center justify-between gap-3 py-5 border-b border-line">
-                                            <a href="product-default.html" class="flex items-center gap-5">
-                                                <div
-                                                    class="bg-img flex-shrink-0 md:w-[100px] w-20 aspect-square rounded-lg overflow-hidden">
-                                                    <img src="assets/images/product/fashion/1-1.png"
-                                                        alt="Contrasting sheepskin sweatshirt"
-                                                        class="w-full h-full object-cover" />
-                                                </div>
-                                                <div>
-                                                    <div class="prd_name text-title">Contrasting sheepskin sweatshirt</div>
-                                                    <div class="caption1 text-secondary mt-2">
-                                                        <span class="prd_size uppercase">XL</span>
-                                                        <span>/</span>
-                                                        <span class="prd_color capitalize">Yellow</span>
+                                        <div class="list_prd px-5">
+                                            @if ($item->products->isNotEmpty())
+                                                @php
+                                                $firstProduct = $item->products->first();
+                                                $firstSize = $firstProduct->sizes->first();
+                                                @endphp
+                                                <div class="prd_item flex flex-wrap items-center justify-between gap-3 py-5 border-b border-line">
+                                                    <a href="product-default.html" class="flex items-center gap-5">
+                                                        <div class="bg-img flex-shrink-0 md:w-[100px] w-20 aspect-square rounded-lg overflow-hidden">
+                                                            <img src="{{ asset('storage/' . $firstProduct->front_image) }}" alt="Product Image" class="w-full h-full object-cover" />
+                                                        </div>
+                                                        <div>
+                                                            <div class="prd_name text-title">{{ $firstProduct->name }}</div>
+                                                            <div class="caption1 text-secondary mt-2">
+                                                                <span class="prd_size uppercase">{{ $firstSize->size }} ml</span>
+                                                                <span>/</span>
+                                                                <span class="prd_color capitalize">{{ $firstProduct->category->name }}</span>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                    <div class="text-title">
+                                                        @foreach ($item->products as $it)
+                                                            <span class="prd_quantity">{{ $it->pivot->quantity }}</span>
+                                                            <span> X </span>
+                                                            <span class="prd_price">Rp{{ number_format($it->pivot->harga, 0, ',', '.') }}</span>
+                                                        @endforeach
                                                     </div>
                                                 </div>
-                                            </a>
-                                            <div class="text-title">
-                                                <span class="prd_quantity">1</span>
-                                                <span> X </span>
-                                                <span class="prd_price">$45.00</span>
-                                            </div>
-                                        </div>
+                            
+                                                @if ($item->status == 'pending' && 
+                                                    optional($item->invoice)->payment_status == 'unpaid' && 
+                                                    optional($item->invoice)->bukti_tf == '')
+                                                    <!-- Tombol Bayar Sekarang -->
+                                                    <div class="prd_item flex justify-center py-5 border-b border-line">
+                                                        <a href="{{ route('payment', ['invoice_number' => optional($item->invoice)->invoice_number ?? '']) }}" 
+                                                        class="button-main text-white font-semibold rounded-md px-5 py-2 w-full text-center hover:bg-blue-700">
+                                                        Bayar Sekarang
+                                                        </a>
+                                                    </div>
+                                                @elseif ($item->status == 'canceled')
+                                                    <!-- Tombol dengan Status Dibatalkan -->
+                                                    <div class="prd_item flex justify-center py-5 border-b border-line">
+                                                        <button disabled 
+                                                        class="bg-red text-white font-semibold rounded-md px-5 py-2 w-full text-center bg-red-500 cursor-not-allowed">
+                                                        Order Dibatalkan
+                                                        </button>
+                                                    </div>
+                                                @else
+                                                    <!-- Tombol Detail -->
+                                                    <div class="prd_item flex justify-center py-5 border-b border-line">
+                                                        <a href="{{ route('detail-order', ['order_number' => $item->order_number]) }}"
+                                                        class="button-main text-primary font-semibold rounded-md px-5 py-2 w-full text-center hover:bg-blue-700">
+                                                        Detail
+                                                        </a>
+                                                    </div>
+                                                @endif
 
-                                        <!-- Button for additional product -->
-                                        <div class="prd_item flex justify-center py-5 border-b border-line">
-                                            <button
-                                                class="historyOrderButton button-main text-primary font-semibold rounded-md px-5 py-2 w-full text-center hover:bg-blue-700">
-                                                Lihat Detail
-                                            </button>
+                                                @if ($item->products->count() > 1)
+                                                    <div class="prd_item flex justify-center py-5 border-b border-line">
+                                                        <a href="{{ route('detail-order', ['order_number' => $item->order_number]) }}"
+                                                        class="bg-light-primary text-primary font-semibold rounded-md px-5 py-2 w-full text-center hover:bg-blue-700">
+                                                        +1 Produk Lainnya
+                                                        </a>
+                                                    </div>
+                                                @endif
+
+                                            @endif
                                         </div>
                                     </div>
-                                </div>
+                                @endforeach
                             </div>
+                            
                         </div>
                     </div>
                 </div>

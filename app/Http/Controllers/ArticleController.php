@@ -9,15 +9,17 @@ use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Models\Article;
+use App\Models\Settings;
 use App\Models\Tag;
 use Carbon\Carbon;
 
 class ArticleController extends Controller
 {
     public function create(){
+        $settings = Settings::all();
         $user = Auth::user();
         $welcomeMessage = 'Add Article';
-        return view('backend.pages.article.create',compact('welcomeMessage','user'));
+        return view('backend.pages.article.create',compact('welcomeMessage','user', 'settings'));
     }
 
     public function list(Request $request){
@@ -40,7 +42,7 @@ class ArticleController extends Controller
             'tittle' => $request->tittle,
             'slug' => Str::slug($request->tittle),
             'content' => $request->content,
-            'status' => $request->status,
+            'status' => 'public',
             'start_date' => Carbon::parse($request->start_date)->format('Y-m-d'),
             'start_time' => Carbon::parse($request->start_time)->format('H:i'),
             'keyword' => $request->keyword,
@@ -87,7 +89,7 @@ class ArticleController extends Controller
         $articles->update([
             'tittle' => $request->tittle,
             'content' => $request->content,
-            'status' => $request->status,
+            'status' => 'public',
             'start_date' => Carbon::parse($request->start_date)->format('Y-m-d'),
             'start_time' => Carbon::parse($request->start_time)->format('H:i'),
             'keyword' => $request->keyword,
@@ -104,7 +106,7 @@ class ArticleController extends Controller
                 $tag = Tag::firstOrCreate(['slug' => $tagSlug], ['nama_tags' => $tagName]);
                 $tagIds[] = $tag->id;
             }
-            $articles->tag()->sync($tagIds); 
+            $articles->tag()->sync($tagIds);
         } else {
             $articles->tag()->detach();
         }
@@ -115,7 +117,7 @@ class ArticleController extends Controller
 
     public function destroy($id)
     {
-        $article = Article::findOrFail($id); 
+        $article = Article::findOrFail($id);
         $article->delete();
         Alert::error('Deleted', 'Article deleted successfully');
         return redirect()->route('article.list')->with('success', 'Article deleted successfully.');
@@ -128,6 +130,7 @@ class ArticleController extends Controller
         ->orderby('id', 'desc')
         ->paginate(15);
 
+        $settings = Settings::all();
         $startOfWeek = Carbon::now()->startOfWeek();
         $endOfWeek = Carbon::now()->endOfWeek();
 
@@ -149,11 +152,13 @@ class ArticleController extends Controller
         }
 
         $tags = Tag::take(10)->get();
-        return view('frontend.pages.artikel',compact('articles','tags','popularArticles'));
+        return view('frontend.pages.artikel',compact('articles','tags','popularArticles', 'settings'));
     }
 
     public function articlebyTittle($slug){
         $articles = Article::where('slug', $slug)->where('status', 'public')->first();
+
+        $settings = Settings::all();
 
         if (!$articles) {
             return redirect()->back()->with('error', 'This article is not available or not publicly accessible.');
@@ -194,8 +199,8 @@ class ArticleController extends Controller
         $meta_keywords = $articles->keyword;
         // dd($meta_keywords);
         $tags = Tag::take(10)->get();
-        return view('frontend.pages.artikel-detail',compact('articles','popularArticles','tags','relatedArticles', 'meta_title', 
-        'meta_description', 
-        'meta_keywords'));
+        return view('frontend.pages.artikel-detail',compact('articles','popularArticles','tags','relatedArticles', 'meta_title',
+        'meta_description',
+        'meta_keywords', 'settings'));
     }
 }

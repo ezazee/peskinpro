@@ -28,7 +28,7 @@
                           </div>
 
                           <!-- Notification -->
-                          <div class="dropdown topbar-item">
+                          {{-- <div class="dropdown topbar-item">
                               <button type="button" class="topbar-button position-relative"
                                   id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
                                   aria-expanded="false">
@@ -137,21 +137,25 @@
                                       </a>
                                   </div>
                               </div>
-                          </div>
+                          </div> --}}
                           <!-- User -->
                           <div class="dropdown topbar-item">
                               <a type="button" class="topbar-button" id="page-header-user-dropdown"
                                   data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  <span class="d-flex align-items-center">
-                                      <img class="rounded-circle" width="32"
-                                          src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
-                                          alt="avatar-3">
-                                  </span>
+                                @if($user->images)
+                                    <span class="align-items-center">
+                                        <img class="avatar-sm rounded-circle me-2" src="{{ asset('storage/' . $user->images) }}" alt="avatar-3">
+                                    </span>
+                                @else
+                                    <span class="d-flex align-items-center">
+                                            <img class="rounded-circle" width="32" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="avatar-3">
+                                    </span>
+                                @endif
                               </a>
                               <div class="dropdown-menu dropdown-menu-end">
                                   <!-- item-->
                                   <h6 class="dropdown-header">Welcome {{ $user->name }}!</h6>
-                                  <a class="dropdown-item" href="{{ route('users.profile') }}">
+                                  <a class="dropdown-item" href="{{ route('users.profile',$user->id) }}">
                                       <i class="bx bx-user-circle text-muted fs-18 align-middle me-1"></i><span
                                           class="align-middle">Profile</span>
                                   </a>

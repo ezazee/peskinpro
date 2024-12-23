@@ -120,7 +120,7 @@ class ProductController extends Controller
 
         $product->update([
             'name' => $request->name,
-            'slug' => Str::slug($request->name),
+            // 'slug' => Str::slug($request->name),
             'category_id' => $request->category_id,
             'description' => $request->description,
             'effect' => $request->effect,
@@ -162,7 +162,7 @@ class ProductController extends Controller
         }
 
         Alert::info('Updated', 'Category updated successfully');
-        return back()->with('success', 'Product updated successfully!');
+        return redirect()->back()->with('success', 'Product updated successfully!');
     }
 
 
