@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\User;
 use App\Models\Role;
+use App\Models\Order;
+use App\Models\Invoice;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -160,8 +162,13 @@ class UsersController extends Controller
             $query->where('name', 'user');
         })->count();
         $user = Auth::user();
+        $totalOrders = Order::count();
+        $totalAmount = Invoice::join('orders', 'invoices.order_id', '=', 'orders.id')
+        ->where('invoices.payment_status', 'paid')
+        ->whereIn('orders.status', ['processing', 'completed', 'shipping'])
+        ->sum('invoices.amount');
 
-        return view('backend.pages.users.customers',compact('welcomeMessage','users','totalcustomers','user'));
+        return view('backend.pages.users.customers',compact('welcomeMessage','users','totalcustomers','user','totalOrders','totalAmount'));
     }
 
     public function profile($id){
