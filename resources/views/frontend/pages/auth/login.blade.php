@@ -37,7 +37,7 @@
                                 </div>
                                 <label for="remember" class="pl-2 cursor-pointer">Remember me</label>
                             </div>
-                            <a href="forgot-password.html" class="font-semibold hover:underline">Forgot Your Password? </a>
+                            <a href="#" class="font-semibold hover:underline">Forgot Your Password? </a>
                         </div>
                         <div class="block-button md:mt-7 mt-4">
                             <button class="button-main">Login</button>

@@ -4,7 +4,7 @@
 <div class="container-xxl">
     <form action="{{ route('users.update_profile', $user->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
-        @method('PUT') 
+        @method('PUT')
         <div class="row">
             <div class="col-xl-3 col-lg-4">
                 <div class="card">
@@ -60,16 +60,27 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="mb-3">
-                                    <label for="role-tag" class="form-label">Password</label>
-                                    <input type="password" name="password" class="form-control" placeholder="Leave blank to keep current password">
+                                    <label for="profile-password" class="form-label">Password</label>
+                                    <div class="input-group">
+                                        <input type="password" id="profile-password" name="password" class="form-control" placeholder="Leave blank to keep current password">
+                                        <button type="button" id="toggleProfilePassword" class="btn btn-outline-secondary">
+                                            <i class="bx bx-show"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="mb-3">
-                                    <label class="form-label">Confirm Password</label>
-                                    <input type="password" name="password_confirmation" class="form-control" placeholder="Leave blank to keep current password">
+                                    <label for="profile-password-confirm" class="form-label">Confirm Password</label>
+                                    <div class="input-group">
+                                        <input type="password" id="profile-password-confirm" name="password_confirmation" class="form-control" placeholder="Leave blank to keep current password">
+                                        <button type="button" id="toggleProfilePasswordConfirm" class="btn btn-outline-secondary">
+                                            <i class="bx bx-show"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                     <div class="card-footer border-top">

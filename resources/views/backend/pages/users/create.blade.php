@@ -60,8 +60,13 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="mb-3">
-                                    <label for="password" class="form-label">Password</label>
-                                    <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+                                    <label for="create-user-password" class="form-label">Password</label>
+                                    <div class="input-group">
+                                        <input type="password" id="create-user-password" name="password" class="form-control" placeholder="Password" required>
+                                        <button type="button" id="toggleCreateUserPassword" class="btn btn-outline-secondary">
+                                            <i class="bx bx-show"></i>
+                                        </button>
+                                    </div>
                                     @error('password')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
@@ -69,11 +74,17 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="mb-3">
-                                    <label for="confirm_password" class="form-label">Confirm Password</label>
-                                    <input type="password" id="password_confirmation" name="password_confirmation" class="form-control" placeholder="Confirm Password" required>
-                                    <small id="passwordError" class="text-danger" style="display:none;">Passwords do not match!</small>
+                                    <label for="create-user-confirm-password" class="form-label">Confirm Password</label>
+                                    <div class="input-group">
+                                        <input type="password" id="create-user-password-confirmation" name="password_confirmation" class="form-control" placeholder="Confirm Password" required>
+                                        <button type="button" id="toggleCreateUserPasswordConfirm" class="btn btn-outline-secondary">
+                                            <i class="bx bx-show"></i>
+                                        </button>
+                                    </div>
+                                    <small id="create-user-password-error" class="text-danger" style="display:none;">Passwords do not match!</small>
                                 </div>
                             </div>
+
                             <div class="col-lg-6">
                                 <p>User Status </p>
                                 <div class="d-flex gap-2 align-items-center">
@@ -110,7 +121,7 @@
         const password = document.getElementById('password').value;
         const confirmPassword = this.value;
         const errorText = document.getElementById('passwordError');
-        
+
         if (password !== confirmPassword) {
             errorText.style.display = 'block';
         } else {
