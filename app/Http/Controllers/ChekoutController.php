@@ -96,8 +96,8 @@ class ChekoutController extends Controller
                 ->orderBy('created_at', 'desc')
                 ->first();
 
-                    $subtotal = $orders->products->sum(function ($product) {
-                    return $product->pivot->harga;
+                $subtotal = $orders->products->sum(function ($product) {
+                        return $product->pivot->harga * $product->pivot->quantity;
                 });
         return view('frontend.pages.bayar-sekarang', compact('user', 'orders','invoice','subtotal','bank','settings'));
     }

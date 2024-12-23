@@ -100,8 +100,8 @@
 
                 const discountElement = document.getElementById('discount-chekout');
                 const discountInput = document.getElementById('discount_value');
-                const discount = discountElement ? parseFloat(discountElement.textContent.replace('Rp', '').replace(/\./g, '')) || 0 : 0;
-
+                const discount = discountElement ? parseFloat(discountElement.textContent.replace('Rp', '').replace(/\./g, '').trim()) || 0 : 0;
+                
                 discountInput.value = discount;
                 
                 const totalElement = document.getElementById('total');

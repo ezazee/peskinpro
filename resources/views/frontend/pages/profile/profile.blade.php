@@ -136,7 +136,7 @@
                 </div>
                 {{-- Personal Information --}}
                 <div class="filter-item text-content w-full p-7 mt-5 border border-line rounded-xl active">
-                    <form action="{{ route('profile.update', $user->id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('usersprofiles', $user->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="heading5 pb-4">Informasi</div>

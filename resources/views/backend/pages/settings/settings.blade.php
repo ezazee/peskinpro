@@ -548,7 +548,7 @@
                 <div class="card-header">
                     <h4 class="card-title d-flex align-items-center gap-1">
                         <iconify-icon icon="solar:shop-2-bold-duotone" class="text-primary fs-20"></iconify-icon>Flash
-                        Sale & Best Seller Settings
+                        Sale & Bundling Settings
                     </h4>
                 </div>
                 <div class="card-body">
@@ -563,7 +563,7 @@
                                         <th>Stock</th>
                                         <th>Category</th>
                                         <th>Flash Sale</th>
-                                        <th>Best Seller</th>
+                                        <th>Bundling</th>
                                     </tr>
                                 </thead>
                                 <tbody>

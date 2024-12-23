@@ -81,10 +81,8 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::post('/update-order-status', [ChekoutController::class, 'updateStatus'])->name('update-order-status');
     Route::post('/apply-coupon', [ChekoutController::class, 'applyCoupon'])->name('apply.coupon');
 
-
-
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
-    Route::put('/profile/update/{id}', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profiles/{id}/update', [ProfileController::class, 'update'])->name('usersprofiles');
     Route::get('/address', [ProfileController::class, 'address'])->name('profile.address');
     Route::get('/address/edit/{id}', [ProfileController::class, 'editaddress'])->name('edit.address');
     Route::post('/update-address/{id}', [ProfileController::class, 'updateAddress'])->name('updateAddress');

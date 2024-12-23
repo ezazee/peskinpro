@@ -16,7 +16,8 @@ class HomeController extends Controller
         $banners = Banner::all();
         $productsfacialcare = Product::whereHas('category', function ($query) {
             $query->where('name', 'Facial Care');
-        })->with(['category', 'sizes'])->take(3)->get();
+        })->with(['category', 'sizes'])
+        ->get();
 
         $articles = Article::with('tag')
         ->where('status', 'public')
@@ -27,7 +28,6 @@ class HomeController extends Controller
         $timerFlashsale = Settings::first()->timer_flashsale ?? '';
 
         $products = Product::with('category','sizes')->orderby('created_at', 'desc')->get();
-        $products = Product::all();
         $expandedPromo = $products->flatMap(function ($product) {
             return $product->sizes->filter(function ($size) {
                 return $size->promotion === 'yes';

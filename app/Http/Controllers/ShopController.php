@@ -30,12 +30,28 @@ class ShopController extends Controller
             });
         });
 
-        $productbestseller = Product::withCount(['orders as total_sold' => function ($query) {
-            $query->select(DB::raw("sum(order_product.quantity)"));
-        }])
-        ->with(['category', 'sizes']) 
-        ->orderByDesc('total_sold') 
-        ->take(3)
+        // $productbestseller = Product::withCount(['orders as total_sold' => function ($query) {
+        //     $query->select(DB::raw("sum(order_product.quantity)"));
+        // }])
+        // ->with(['category', 'sizes']) 
+        // ->orderByDesc('total_sold') 
+        // ->take(3)
+        // ->get()
+        // ->map(function ($product) {
+        //     return [
+        //         'id' => $product->id,
+        //         'name' => $product->name,
+        //         'slug' => $product->slug,
+        //         'front_image' => $product->front_image,
+        //         'back_image' => $product->back_image,
+        //         'total_sold' => $product->total_sold,
+        //         'category' => $product->category ? $product->category->name : 'No category',
+        //         'sizes' => $product->sizes,
+        //     ];
+        // });
+
+        $productbestseller = Product::whereIn('id', [4, 2, 3])
+        ->with(['category', 'sizes'])
         ->get()
         ->map(function ($product) {
             return [
@@ -44,11 +60,13 @@ class ShopController extends Controller
                 'slug' => $product->slug,
                 'front_image' => $product->front_image,
                 'back_image' => $product->back_image,
-                'total_sold' => $product->total_sold,
+                'total_sold' => $product->orders()->sum('order_product.quantity'), // Menghitung jumlah total_sold
                 'category' => $product->category ? $product->category->name : 'No category',
                 'sizes' => $product->sizes,
             ];
         });
+
+        
         
         $articles = Article::with('tag')
         ->where('status', 'public')
