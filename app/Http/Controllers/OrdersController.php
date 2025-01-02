@@ -477,4 +477,18 @@ class OrdersController extends Controller
         Alert::success('Success', 'Orders successfully!');
         return redirect()->route('orders.pos')->with('success', 'Returns successfully.');   
     }
+
+    public function print_receipt($inv_number){
+        $order = Order::with(['user', 'alamat', 'products', 'invoice'])
+            ->whereHas('invoice', function ($query) use ($inv_number) {
+                $query->where('invoice_number', $inv_number);
+            })
+            ->first();
+
+        if (!$order) {
+            return redirect()->route('orders.index')->with('error', 'Order not found');
+        }
+        // dd($order);
+    return view('receipt.print-pos', compact('order'));
+    }
 }

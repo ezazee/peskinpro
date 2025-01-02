@@ -210,8 +210,9 @@ Route::middleware(['auth', 'role:Administrator,Management,Admin,Finance,Writter'
     Route::get('/faq/edit/{id}', [FaqController::class, 'edit'])->name('faq.edit');
     Route::put('/faq/update/{id}', [FaqController::class, 'update'])->name('faq.update');
 
-    // printt
+    // print
     Route::get('/backprint', [OrdersController::class, 'backprint'])->name('backprint');
+    Route::get('/print_receipt/{inv_number}', [OrdersController::class, 'print_receipt'])->name('print_receipt');
 
 });
 

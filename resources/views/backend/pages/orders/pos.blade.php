@@ -304,7 +304,7 @@
                                                     <td>Rp{{ number_format($item->total_amount, 2) }}</td>
                                                     <td class="action-table-data">
                                                         <div class="edit-delete-action">
-                                                            <a class="me-2 p-2" href="javascript:void(0);">
+                                                            <a class="me-2 p-2" href="{{ route('print_receipt', ['inv_number' => $item->invoice->invoice_number]) }}" target="_blank">
                                                                 <i data-feather="printer" class="feather-print"></i>
                                                             </a>
                                                         </div>
