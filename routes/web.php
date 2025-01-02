@@ -209,6 +209,10 @@ Route::middleware(['auth', 'role:Administrator,Management,Admin,Finance,Writter'
     Route::delete('/faq/delete/{id}', [FaqController::class, 'destroy'])->name('faq.destroy');
     Route::get('/faq/edit/{id}', [FaqController::class, 'edit'])->name('faq.edit');
     Route::put('/faq/update/{id}', [FaqController::class, 'update'])->name('faq.update');
+
+    // printt
+    Route::get('/backprint', [OrdersController::class, 'backprint'])->name('backprint');
+
 });
 
 

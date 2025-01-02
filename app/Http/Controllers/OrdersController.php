@@ -254,19 +254,20 @@ class OrdersController extends Controller
     }
 
 
-    public function pos_order(Request $request){
+    public function pos_order(Request $request)
+    {
         $userId = Auth::id();
         $total_amount = $request->total_amount;
         $paymentMethod = $request->payment_method;
         $kembali = $request->kembali;
         $kode_bayar = $request->kode_bayar;
         $discount_chekout = $request->discount_chekout ?? 0;
-
+    
         if (empty($request->products) || count($request->products) === 0) {
             Alert::warning('Note', 'Please select the product first!');
             return redirect()->back()->with('error', 'Mohon pilih produk terlebih dahulu.');
-        }        
-
+        }
+    
         $order = Order::create([
             'user_id' => $userId,
             'order_number' => 'ORD' . strtoupper(uniqid()),
@@ -277,17 +278,16 @@ class OrdersController extends Controller
             'discount_chekout' => $discount_chekout,
             'payment_method' => $paymentMethod,
         ]);
-
+    
         foreach ($request->products as $product) {
-            $productId = $product['id']; 
-            $quantity = $product['quantity']; 
+            $productId = $product['id'];
+            $quantity = $product['quantity'];
             $sizeId = $product['sizeid'];
             $harga = $product['harga'];
             $discount = $product['discount'];
-
     
             $productItem = Product::find($productId);
-                
+    
             $order->products()->attach($productId, [
                 'quantity' => $quantity,
                 'size_id' => $sizeId,
@@ -298,62 +298,56 @@ class OrdersController extends Controller
             $productSize = ProductSize::where('product_id', $productId)->where('id', $sizeId)->first();
             if ($productSize) {
                 $productSize->stock -= $quantity; 
-                $productSize->save(); 
+                $productSize->save();
             }
         }
-
+    
         $invoice = $order->invoice()->create([
             'invoice_number' => 'INV' . strtoupper(uniqid()),
             'amount' => $total_amount,
             'invoice_date' => now(),
             'payment_status' => 'paid',
         ]);
-
+    
         $order->save();
     
         $cart = Auth::user()->cart;
         if ($cart) {
             $cart->items()->delete();
         }
-
-        try {
-            $printer = null;
-            foreach (glob('/dev/rfcomm*') as $device) {
-                Log::debug("Mencoba perangkat Bluetooth: " . $device);
-        
-                if (is_readable($device)) {
-                    $bluetoothConnector = new FilePrintConnector($device);
-                    $printer = new Printer($bluetoothConnector);
-                    Log::debug("Terhubung dengan printer Bluetooth: " . $device);
-                    break;
-                }
-            }
-        
-            if ($printer) {
-                Log::debug("Printer ditemukan, mulai pencetakan...");
-                $printer->setEmphasis(true);
-                $printer->text("===== STRUK PEMBAYARAN =====\n");
-                $printer->setEmphasis(false);
-                $printer->text("User ID: " . $userId . "\n");
-                $printer->text("Total Amount: Rp" . number_format($totalAmount, 0, ',', '.') . "\n");
-                $printer->text("Payment Method: " . $paymentMethod . "\n");
-                $printer->text("Kembalian: Rp" . number_format($kembali, 0, ',', '.') . "\n");
-                $printer->text("===========================\n");
-                $printer->text("Terima kasih atas pembelian Anda!\n");
-                $printer->close();
-                Log::debug("Pencetakan selesai.");
-            } else {
-                Log::error("Printer tidak ditemukan.");
-                throw new \Exception("Printer tidak ditemukan.");
-            }
-        } catch (\Exception $e) {
-            Log::error("Gagal mencetak struk: " . $e->getMessage());
-            return redirect()->back()->with('error', 'Gagal mencetak struk: ' . $e->getMessage());
+    
+        $receiptData = [
+            'order_number' => $order->order_number,
+            'invoice_number' => $invoice->invoice_number,
+            'items' => [],
+            'total_amount' => $total_amount,
+            'payment_method' => $paymentMethod,
+            'discount_chekout' => $request->discount_chekout,
+            'kembali' => $kembali
+        ];
+    
+        foreach ($request->products as $product) {
+            $productId = $product['id'];
+            $quantity = $product['quantity'];
+            $sizeId = $product['sizeid'];
+            $harga = $product['harga'];
+            $discount = $product['discount'];
+    
+            $productDetails = Product::find($productId);
+    
+            $receiptData['items'][] = [
+                'id' => $productId,
+                'sku' => $productDetails->sku, 
+                'name' => $productDetails->name,  // Get the product name
+                'quantity' => $quantity,
+                'harga' => $harga,
+                'discount' => $discount,
+            ];
         }
-
         Alert::success('Success', 'Orders successfully!');
-        return redirect()->back()->with('success', 'Orders Success.');    
+        return view('receipt.print', compact('receiptData'));
     }
+    
 
     public function accept(Order $order)
     {
@@ -479,4 +473,8 @@ class OrdersController extends Controller
         return view('backend.pages.invoice.label', compact('order'));
     }
 
+    public function backprint(){
+        Alert::success('Success', 'Orders successfully!');
+        return redirect()->route('orders.pos')->with('success', 'Returns successfully.');   
+    }
 }

@@ -96,9 +96,31 @@
       .alamat {
         font-size: 10px !important; /* Ukuran font untuk alamat lebih kecil */
       }
+      .back-button {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background: #3498db;
+        color: white;
+        padding: 5px 10px;
+        text-decoration: none;
+        border-radius: 5px;
+      }
+
+      .back-button:hover {
+        background: #2980b9;
+      }
+
+      /* Hide back button from printing */
+      @media print {
+        .back-button {
+          display: none;
+        }
+      }
     </style>
   </head>
   <body>
+    <a href="{{ route('backprint')}}" class="back-button">Back</a>
     <div class="receipt">
       <img
         src="https://raw.githubusercontent.com/ezazee/peskinpro/refs/heads/dev/public/frontend/assets/images/logo/peskin.png"
@@ -113,21 +135,21 @@
         <p>0812-1234-5678</p>
         <p>adm.peskinproid@gmail.com</p>
       </div>
-      <div class="date-time">Mon, Nov 27, 2023 • 10:00 AM</div>
+      <div class="date-time">{{ now()->format('D, M d, Y • h:i A') }}</div>
 
       <div class="details">
         <div class="row">
-          <span>Invoice Number :</span>
-          <span>#INV20231127</span>
-        </div>
-        <div class="row">
-          <span>Customer Name :</span>
-          <span>Reza</span>
-        </div>
-        <div class="row">
-          <span>Payment Method :</span>
-          <span>Bank Transfer</span>
-        </div>
+            <span>Invoice Number :</span>
+            <span>#{{ $receiptData['invoice_number'] }}</span>
+          </div>
+          <div class="row">
+            <span>Order Number :</span>
+            <span>#{{ $receiptData['order_number'] }}</span>
+          </div>
+          <div class="row">
+            <span>Payment Method :</span>
+            <span>{{ strtoupper($receiptData['payment_method']) }}</span>
+          </div>
         <div style="text-align: center">
           ****************************************************************
         </div>
@@ -142,48 +164,20 @@
             </tr>
           </thead>
           <tbody>
+            {{-- @php
+            $totalAmount = 0; // Initialize a variable to hold the total amount
+          @endphp --}}
+            @foreach ($receiptData['items'] as $product)
             <tr>
-              <td>GF115</td>
-              <td>Honey Cleansing Gel 100 ml</td>
-              <td>1 pcs</td>
-              <td>135,000 IDR</td>
+                @php
+                $subtotal = $product['harga'] * $product['quantity']; 
+              @endphp
+              <td>{{ $product['sku'] }}</td>
+              <td>{{ $product['name'] }}</td>
+              <td>{{ $product['quantity'] }} pcs</td>
+              <td>{{ number_format($product['harga'], 0, ',', '.') }} IDR</td>
             </tr>
-            <tr>
-              <td>GF116</td>
-              <td>Prebiotic Pore-EX Pad 60 ml</td>
-              <td>3 pcs</td>
-              <td>405,000 IDR</td>
-            </tr>
-            <tr>
-              <td>T128</td>
-              <td>CICA-B5 Refreshing Toner 100 ml</td>
-              <td>2 pcs</td>
-              <td>270,000 IDR</td>
-            </tr>
-            <tr>
-              <td>SF318</td>
-              <td>Skin Awakening Glow Serum 15 ml</td>
-              <td>1 pcs</td>
-              <td>135,000 IDR</td>
-            </tr>
-            <tr>
-              <td>CF298</td>
-              <td>Hydro Restorative Cream 60 ml</td>
-              <td>1 pcs</td>
-              <td>135,000 IDR</td>
-            </tr>
-            <tr>
-              <td>CF311</td>
-              <td>VIT-C Tone Up Cream SPF50 25 ml</td>
-              <td>1 pcs</td>
-              <td>135,000 IDR</td>
-            </tr>
-            <tr>
-              <td>FB403</td>
-              <td>Prebiotic Feminine Mousse Cleanser 30 Pads</td>
-              <td>1 pcs</td>
-              <td>135,000 IDR</td>
-            </tr>
+            @endforeach
           </tbody>
         </table>
         <div style="text-align: center">
@@ -193,16 +187,27 @@
           <tbody>
             <tr>
               <td>Subtotal:</td>
-              <td class="total">1,350,000 IDR</td>
+              <td class="total">{{ number_format($subtotal, 0, ',', '.') }} IDR</td>
             </tr>
             <tr>
               <td>Discount:</td>
-              <td class="total">-40,500 IDR</td>
+              <td class="total">
+                @php
+                  $discount = $receiptData['discount_chekout'] ?? 0;
+                @endphp
+                {{ $discount == 0 ? '-0' : number_format($discount, 0, ',', '.') }} IDR
+              </td>
             </tr>
             <tr>
               <td>Amount Due:</td>
-              <td class="total">1,309,500 IDR</td>
+              <td class="total">{{ number_format($receiptData['total_amount'], 0, ',', '.') }} IDR</td>
             </tr>
+            @if($receiptData['kembali'] !== null)
+            <tr>
+                <td>Return:</td>
+                <td class="total">{{ number_format($receiptData['kembali'], 0, ',', '.') }} IDR</td>
+            </tr>
+            @endif
           </tbody>
         </table>
         <div style="text-align: center">
