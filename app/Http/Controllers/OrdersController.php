@@ -186,7 +186,7 @@ class OrdersController extends Controller
     public function pos(){
         $orders = Order::with(['user', 'alamat', 'products', 'invoice'])
         ->whereHas('user', function ($query) {
-            $query->where('role_id', 1);
+            $query->whereIn('role_id', [1, 4]);
         })
         ->orderBy('id', 'desc') 
         ->paginate(10);
