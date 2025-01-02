@@ -78,6 +78,7 @@
                                                             <p>No bukti transfer available.</p>
                                                         @endif
                                                     </div>
+                                                    @if(auth()->user()->hasAnyRole(['Administrator', 'Management', 'Finance']))
                                                     <div class="modal-footer">
                                                         <form action="{{ route('order.accept', $item->id) }}" method="POST" style="display: inline;">
                                                             @csrf
@@ -89,6 +90,7 @@
                                                         </form>
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                     </div>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
