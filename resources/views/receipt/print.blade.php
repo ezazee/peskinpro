@@ -129,9 +129,14 @@
       />
       <div class="header">
         <h1>PE SKINPRO ID</h1>
+        <p>PT Kilau Berlian Nusantara</p>
+        <p>02.809.009.0-416.000</p>
         <p class="alamat">
-          Jl. Dukuh Patra No.75 RT.01/RW.13, Tebet, Jakarta Selatan
+            Royal Spring Residence, Block Titanium No. 05, 006/006, Jati Padang, Ps. Minggu, Jakarta Selatan
         </p>
+        <p class="alamat">
+            Jl. Dukuh Patra No.75 001/013, Menteng Dalam, Tebet, Jakarta Selatan
+          </p>
         <p>0812-1234-5678</p>
         <p>adm.peskinproid@gmail.com</p>
       </div>
@@ -170,7 +175,7 @@
             @foreach ($receiptData['items'] as $product)
             <tr>
                 @php
-                $subtotal = $product['harga'] * $product['quantity']; 
+                $subtotal = $product['harga'] * $product['quantity'];
               @endphp
               <td>{{ $product['sku'] }}</td>
               <td>{{ $product['name'] }}</td>
@@ -215,12 +220,17 @@
         </div>
       </div>
       <div class="footer">
-        <p>Thank you for your purchase!</p>
-        <p>Follow Us To See More Update 😊</p>
-        <p>
-          <a href="#">Instagram</a> <a href="#">Facebook</a>
-          <a href="#">Website</a>
-        </p>
+        <p>Thank You For Your Purchase!</p>
+        <p>Follow Us To See More Update</p>
+        <li style="list-style: none;">
+            <i class="fa fa-brands fa-instagram"></i> <span>peskinpro.id</span>
+        </li>
+        <li style="list-style: none;">
+            <i class="fa fa-brands fa-tiktok"></i> <span>@peskinproid</span>
+        </li>
+        <li style="list-style: none;">
+            <i class="fa fa-solid fa-globe"></i> <span>www.peskinpro.id</span>
+        </li>
       </div>
       <div class="zigzag"></div>
     </div>
