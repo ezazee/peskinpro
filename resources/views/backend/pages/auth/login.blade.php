@@ -15,7 +15,7 @@
                         <div class="col-lg-6 py-lg-5">
                             <div class="d-flex flex-column h-100 justify-content-center">
                                 <div class="auth-logo mb-2">
-                                    <a href="index.html" class="logo-dark">
+                                    <a href="#" class="logo-dark">
                                         <img src="{{ asset('backend/assets/images/peskin.png') }}" height="100"
                                             alt="logo dark">
                                     </a>
@@ -54,19 +54,12 @@
                                             .toggle-password {
                                                 position: absolute;
                                                 right: 1rem;
-                                                /* Atur jarak dari kanan */
                                                 top: 50%;
-                                                /* Atur posisi vertikal */
                                                 transform: translateY(-50%);
-                                                /* Pusatkan tombol secara vertikal */
                                                 background: none;
-                                                /* Menghilangkan background */
                                                 border: none;
-                                                /* Menghilangkan border */
                                                 cursor: pointer;
-                                                /* Menambahkan cursor pointer */
                                                 color: gray;
-                                                /* Warna ikon */
                                             }
                                         </style>
 
@@ -83,7 +76,7 @@
                 <div class="col-xxl-5 d-none d-xxl-flex">
                     <div class="card h-100 mb-0 overflow-hidden">
                         <div class="d-flex flex-column h-100">
-                            <img src="{{ asset('frontend/assets/images/banner/face-care.jpg') }}" alt=""
+                            <img src="{{ asset('frontend/assets/images/banner/bg-pe.png') }}" alt="PE Skinpro"
                                 class="w-100 h-100">
                         </div>
                     </div>
