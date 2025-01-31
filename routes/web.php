@@ -20,10 +20,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\BankController;
 use App\Http\Controllers\FaqController;
-
-
-
-
+use App\Http\Controllers\InventoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -209,6 +206,29 @@ Route::middleware(['auth', 'role:Administrator,Management,Admin,Finance,Writter'
     Route::delete('/faq/delete/{id}', [FaqController::class, 'destroy'])->name('faq.destroy');
     Route::get('/faq/edit/{id}', [FaqController::class, 'edit'])->name('faq.edit');
     Route::put('/faq/update/{id}', [FaqController::class, 'update'])->name('faq.update');
+
+    // print
+    Route::get('/backprint', [OrdersController::class, 'backprint'])->name('backprint');
+    Route::get('/print_receipt/{inv_number}', [OrdersController::class, 'print_receipt'])->name('print_receipt');
+
+    // Inventory Management (LIST STOCK)
+    Route::get('/inventory/list-stock', [InventoryController::class, 'listStockIndex'])->name('listStock.index');
+    Route::get('/inventory/list-stock/edit', [InventoryController::class, 'listStockEdit'])->name('listStock.edit');
+    Route::get('/inventory/list-stock/create', [InventoryController::class, 'listStockCreate'])->name('listStock.create');
+
+    // Inventory Management (OOS Product) / ( Expired Product)
+    Route::get('/inventory/exp-product', [InventoryController::class, 'expProductIndex'])->name('expProduct.index');
+
+    // Inventory Management (Add Category Stock)
+    Route::get('/inventory/add-category', [InventoryController::class, 'addCategoryIndex'])->name('addCategory.index');
+
+    // Inventory Management (Transaction History)
+    Route::get('/inventory/transaction-history', [InventoryController::class, 'transactionHistoryIndex'])->name('transactionHistory.index');
+    Route::get('/inventory/transaction-history/detail', [InventoryController::class, 'transactionHistoryDetail'])->name('transactionHistory.detail');
+    Route::get('/inventory/transaction-history/create', [InventoryController::class, 'transactionHistoryCreate'])->name('transactionHistory.create');
+
+    // Inventory Management (Detail Supplier)
+    Route::get('/inventory/detail-supplier', [InventoryController::class, 'detailSupplierIndex'])->name('detailSupplier.index');
 });
 
 

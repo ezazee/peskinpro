@@ -67,7 +67,7 @@
                                         <th>Product Name</th>
                                         <th>Size</th>
                                         <th>Stock Available</th>
-                                        <th>Stock Sold</th>
+                                        <th>Stock Terjual</th>
                                         <th>Price</th>
                                     </tr>
                                 </thead>

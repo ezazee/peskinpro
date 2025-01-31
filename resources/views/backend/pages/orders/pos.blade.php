@@ -304,7 +304,7 @@
                                                     <td>Rp{{ number_format($item->total_amount, 2) }}</td>
                                                     <td class="action-table-data">
                                                         <div class="edit-delete-action">
-                                                            <a class="me-2 p-2" href="javascript:void(0);">
+                                                            <a class="me-2 p-2" href="{{ route('print_receipt', ['inv_number' => $item->invoice->invoice_number]) }}" target="_blank">
                                                                 <i data-feather="printer" class="feather-print"></i>
                                                             </a>
                                                         </div>
@@ -335,7 +335,7 @@
 						</button>
 					</div>
                     <div class="modal-body p-4">
-                        <form id="payment-form" action="{{ route('pos_order') }}" method="POST">
+                        <form id="payment-form" action="{{ route('pos_order') }}" method="POST" onsubmit="handleOrderSubmission(event)">
                             @csrf
                             <input type="hidden" name="total_amount" id="total_amount">
                             <input type="hidden" name="payment_method" value="cash"> 
@@ -594,12 +594,18 @@
                 });
             });
         </script>
+        <script>
+            if (sessionStorage.getItem('reload') !== 'true') {
+                // Jika halaman belum dimuat ulang, lakukan reload dan tandai
+                sessionStorage.setItem('reload', 'true');
+                window.location.reload();
+            } else {
+                // Reset flag jika sudah reload sekali
+                sessionStorage.removeItem('reload');
+            }
+        </script>
+   
 
-        
-        
-
-        
-    
     <!-- jQuery -->
     {{-- <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script> --}}
     <script src="{{ asset('backend/pos/js/jquery-3.7.1.min.js') }}"></script>

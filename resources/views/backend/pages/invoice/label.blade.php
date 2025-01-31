@@ -171,14 +171,18 @@
 
     <!-- Footer -->
     <div class="footer">
-      Thank you for your purchase! <br>
-      Follow Us To See More Update 😊  <br>
-      (ig, tiktok, website pe)
-
-      <p>
-        <img src="https://raw.githubusercontent.com/ezazee/peskinpro/refs/heads/dev/public/frontend/assets/images/logo/peskin.png" alt="Logo">
-      </p>
-    </div>
+        <p>Thank You For Your Purchase!</p>
+        <p>Follow Us To See More Update</p>
+        <li style="list-style: none;">
+            <i class="fa fa-brands fa-instagram"></i> <span>peskinpro.id</span>
+        </li>
+        <li style="list-style: none;">
+            <i class="fa fa-brands fa-tiktok"></i> <span>@peskinproid</span>
+        </li>
+        <li style="list-style: none;">
+            <i class="fa fa-solid fa-globe"></i> <span>www.peskinpro.id</span>
+        </li>
+      </div>
   </div>
   <script>
     window.onload = function () {
