@@ -81,7 +81,7 @@
                               <a class="nav-link menu-arrow" href="#sidebarInventory" data-bs-toggle="collapse"
                                   role="button" aria-expanded="false" aria-controls="sidebarInventory">
                                   <span class="nav-icon">
-                                      <iconify-icon icon="solar:t-shirt-bold-duotone"></iconify-icon>
+                                      <iconify-icon icon="solar:bag-5-bold-duotone"></iconify-icon>
                                   </span>
                                   <span class="nav-text"> Inventory Management </span>
                               </a>
@@ -99,7 +99,8 @@
                                               Stock</a>
                                       </li>
                                       <li class="sub-nav-item">
-                                          <a class="sub-nav-link" href="{{ route('transactionHistory.index') }}">Transaction History</a>
+                                          <a class="sub-nav-link"
+                                              href="{{ route('transactionHistory.index') }}">Transaction History</a>
                                       </li>
                                       <li class="sub-nav-item">
                                           <a class="sub-nav-link" href="{{ route('detailSupplier.index') }}">Detail

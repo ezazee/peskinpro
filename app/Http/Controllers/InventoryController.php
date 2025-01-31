@@ -55,6 +55,12 @@ class InventoryController extends Controller
         return view('backend.pages.inventory.transcation-history.detail', compact('user'));
     }
 
+    public function transactionHistoryCreate()
+    {
+        $user = Auth::user();
+        return view('backend.pages.inventory.transcation-history.create', compact('user'));
+    }
+
 
     // Detail Supplier
     public function detailSupplierIndex()

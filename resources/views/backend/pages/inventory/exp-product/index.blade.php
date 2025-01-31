@@ -31,7 +31,6 @@
                                         <th>Stock</th>
                                         <th>Category</th>
                                         <th>Expired</th>
-                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -58,20 +57,6 @@
                                             </p>
                                         </td>
                                         <td>01-04-2025</td>
-                                        <td>
-                                            <div class="d-flex gap-2">
-                                                <a href="{{ route('listStock.edit') }}"
-                                                    class="btn btn-soft-primary btn-sm"><iconify-icon
-                                                        icon="solar:pen-2-broken"
-                                                        class="align-middle fs-18"></iconify-icon></a>
-                                                <form action="#" method="POST"
-                                                    onsubmit="return confirm('Are you sure you want to delete this product?');">
-                                                    <button type="submit" class="btn btn btn-danger btn-sm"><iconify-icon
-                                                            icon="solar:trash-bin-minimalistic-2-broken"
-                                                            class="align-middle fs-18"></iconify-icon></button>
-                                                </form>
-                                            </div>
-                                        </td>
                                     </tr>
                                 </tbody>
                             </table>

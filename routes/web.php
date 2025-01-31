@@ -225,6 +225,7 @@ Route::middleware(['auth', 'role:Administrator,Management,Admin,Finance,Writter'
     // Inventory Management (Transaction History)
     Route::get('/inventory/transaction-history', [InventoryController::class, 'transactionHistoryIndex'])->name('transactionHistory.index');
     Route::get('/inventory/transaction-history/detail', [InventoryController::class, 'transactionHistoryDetail'])->name('transactionHistory.detail');
+    Route::get('/inventory/transaction-history/create', [InventoryController::class, 'transactionHistoryCreate'])->name('transactionHistory.create');
 
     // Inventory Management (Detail Supplier)
     Route::get('/inventory/detail-supplier', [InventoryController::class, 'detailSupplierIndex'])->name('detailSupplier.index');

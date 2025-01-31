@@ -75,7 +75,7 @@
 
             <div class="col-lg-8">
                 <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex align-items-center justify-content-between">
@@ -95,7 +95,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex align-items-center justify-content-between">
@@ -108,28 +108,6 @@
                                     <div>
                                         <div class="avatar-md bg-primary bg-opacity-10 rounded">
                                             <iconify-icon icon="solar:box-bold-duotone"
-                                                class="fs-32 text-primary avatar-title"></iconify-icon>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <div>
-                                        <h4 class="card-title mb-2 d-flex align-items-center gap-2">
-                                            Total Expense
-                                        </h4>
-                                        <p class="text-muted fw-medium fs-22 mb-0">
-                                            Rp.2,189
-                                        </p>
-                                    </div>
-                                    <div>
-                                        <div class="avatar-md bg-primary bg-opacity-10 rounded">
-                                            <iconify-icon icon="solar:chat-round-money-bold-duotone"
                                                 class="fs-32 text-primary avatar-title"></iconify-icon>
                                         </div>
                                     </div>
@@ -153,7 +131,6 @@
                                         <th>Date Order</th>
                                         <th>Product Name</th>
                                         <th>Total Stock</th>
-                                        <th>Total Amount</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -166,7 +143,6 @@
                                         </td>
                                         <td>Honey Cleansing Gel</td>
                                         <td>3000</td>
-                                        <td>Rp.15.000.000</td>
                                     </tr>
                                     <tr>
                                         <td>
@@ -177,7 +153,6 @@
                                         </td>
                                         <td>Honey Cleansing Gel</td>
                                         <td>3000</td>
-                                        <td>Rp.15.000.000</td>
                                     </tr>
                                     <tr>
                                         <td>
@@ -188,7 +163,6 @@
                                         </td>
                                         <td>Honey Cleansing Gel</td>
                                         <td>3000</td>
-                                        <td>Rp.15.000.000</td>
                                     </tr>
                                     <tr>
                                         <td>
@@ -199,7 +173,6 @@
                                         </td>
                                         <td>Honey Cleansing Gel</td>
                                         <td>3000</td>
-                                        <td>Rp.15.000.000</td>
                                     </tr>
                                     <tr>
                                         <td>
@@ -210,7 +183,6 @@
                                         </td>
                                         <td>Honey Cleansing Gel</td>
                                         <td>3000</td>
-                                        <td>Rp.15.000.000</td>
                                     </tr>
                                 </tbody>
                             </table>

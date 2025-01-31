@@ -11,7 +11,6 @@
                                 <tr>
                                     <th class="border-0 py-2">Product Name</th>
                                     <th class="border-0 py-2">Stock Quantity</th>
-                                    <th class="border-0 py-2">Amount Price</th>
                                     <th class="border-0 py-2">Category</th>
                                     <th class="border-0 py-2">Date of Order</th>
                                     <th class="border-0 py-2">Expired Product</th>
@@ -30,29 +29,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="quantity">
-                                            <div
-                                                class="input-step border bg-body-secondary p-1 rounded d-inline-flex overflow-visible">
-                                                <button type="button"
-                                                    class="minus bg-light text-dark border-0 rounded-1 fs-20 lh-1 h-100">
-                                                    -
-                                                </button>
-                                                <input type="number"
-                                                    class="text-dark text-center border-0 bg-body-secondary rounded h-100"
-                                                    value="1" min="0" max="100" readonly="" />
-                                                <button type="button"
-                                                    class="plus bg-light text-dark border-0 rounded-1 fs-20 lh-1 h-100">
-                                                    +
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text fs-15 bg-light text-dark">Rp.</i></span>
-                                            <input type="number" id="product-price" class="form-control"
-                                                placeholder="5452451">
-                                        </div>
+                                        <input type="number" name="stock[]" class="form-control" placeholder="Quantity" required>
                                     </td>
                                     <td>
                                         <select id="product-category" class="form-select">

@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex align-items-center justify-content-between">
@@ -26,7 +26,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <div class="card">
                             <div class="card-body">
                                 <div class="d-flex align-items-center justify-content-between">
@@ -46,34 +46,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <div>
-                                        <h4 class="card-title mb-2 d-flex align-items-center gap-2">
-                                            Total Expense
-                                        </h4>
-                                        <p class="text-muted fw-medium fs-22 mb-0">
-                                            Rp.2,189
-                                        </p>
-                                    </div>
-                                    <div>
-                                        <div class="avatar-md bg-primary bg-opacity-10 rounded">
-                                            <iconify-icon icon="solar:chat-round-money-bold-duotone"
-                                                class="fs-32 text-primary avatar-title"></iconify-icon>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
                         <h4 class="card-title">Transaction History</h4>
-                        <a href="#" class="btn btn-sm btn-primary">
+                        <a href="{{ route('transactionHistory.create') }}" class="btn btn-sm btn-primary">
                             Add Transaction
                         </a>
                     </div>
@@ -86,7 +64,6 @@
                                         <th>Date Order</th>
                                         <th>Product Name</th>
                                         <th>Total Stock</th>
-                                        <th>Total Amount</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -100,10 +77,10 @@
                                         </td>
                                         <td>Honey Cleansing Gel</td>
                                         <td>3000</td>
-                                        <td>Rp.15.000.000</td>
                                         <td>
                                             <div class="d-flex gap-2">
-                                                <a href="{{ route('transactionHistory.detail') }}" class="btn btn-soft-primary btn-sm"><iconify-icon
+                                                <a href="{{ route('transactionHistory.detail') }}"
+                                                    class="btn btn-soft-primary btn-sm"><iconify-icon
                                                         icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon>
                                                 </a>
                                             </div>
@@ -118,25 +95,6 @@
                                         </td>
                                         <td>Honey Cleansing Gel</td>
                                         <td>3000</td>
-                                        <td>Rp.15.000.000</td>
-                                        <td>
-                                            <div class="d-flex gap-2">
-                                                <a href="#" class="btn btn-soft-primary btn-sm"><iconify-icon
-                                                        icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <a href="javascript: void(0);" class="text-body">#INV2540</a>
-                                        </td>
-                                        <td>
-                                            05-21-2024
-                                        </td>
-                                        <td>Honey Cleansing Gel</td>
-                                        <td>3000</td>
-                                        <td>Rp.15.000.000</td>
                                         <td>
                                             <div class="d-flex gap-2">
                                                 <a href="#" class="btn btn-soft-primary btn-sm"><iconify-icon
@@ -154,7 +112,6 @@
                                         </td>
                                         <td>Honey Cleansing Gel</td>
                                         <td>3000</td>
-                                        <td>Rp.15.000.000</td>
                                         <td>
                                             <div class="d-flex gap-2">
                                                 <a href="#" class="btn btn-soft-primary btn-sm"><iconify-icon
@@ -172,7 +129,6 @@
                                         </td>
                                         <td>Honey Cleansing Gel</td>
                                         <td>3000</td>
-                                        <td>Rp.15.000.000</td>
                                         <td>
                                             <div class="d-flex gap-2">
                                                 <a href="#" class="btn btn-soft-primary btn-sm"><iconify-icon
@@ -190,7 +146,6 @@
                                         </td>
                                         <td>Honey Cleansing Gel</td>
                                         <td>3000</td>
-                                        <td>Rp.15.000.000</td>
                                         <td>
                                             <div class="d-flex gap-2">
                                                 <a href="#" class="btn btn-soft-primary btn-sm"><iconify-icon
@@ -208,7 +163,6 @@
                                         </td>
                                         <td>Honey Cleansing Gel</td>
                                         <td>3000</td>
-                                        <td>Rp.15.000.000</td>
                                         <td>
                                             <div class="d-flex gap-2">
                                                 <a href="#" class="btn btn-soft-primary btn-sm"><iconify-icon
@@ -226,7 +180,6 @@
                                         </td>
                                         <td>Honey Cleansing Gel</td>
                                         <td>3000</td>
-                                        <td>Rp.15.000.000</td>
                                         <td>
                                             <div class="d-flex gap-2">
                                                 <a href="#" class="btn btn-soft-primary btn-sm"><iconify-icon
@@ -244,7 +197,6 @@
                                         </td>
                                         <td>Honey Cleansing Gel</td>
                                         <td>3000</td>
-                                        <td>Rp.15.000.000</td>
                                         <td>
                                             <div class="d-flex gap-2">
                                                 <a href="#" class="btn btn-soft-primary btn-sm"><iconify-icon
@@ -262,7 +214,23 @@
                                         </td>
                                         <td>Honey Cleansing Gel</td>
                                         <td>3000</td>
-                                        <td>Rp.15.000.000</td>
+                                        <td>
+                                            <div class="d-flex gap-2">
+                                                <a href="#" class="btn btn-soft-primary btn-sm"><iconify-icon
+                                                        icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <a href="javascript: void(0);" class="text-body">#INV2540</a>
+                                        </td>
+                                        <td>
+                                            05-21-2024
+                                        </td>
+                                        <td>Honey Cleansing Gel</td>
+                                        <td>3000</td>
                                         <td>
                                             <div class="d-flex gap-2">
                                                 <a href="#" class="btn btn-soft-primary btn-sm"><iconify-icon
