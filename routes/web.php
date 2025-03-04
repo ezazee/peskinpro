@@ -21,6 +21,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\BankController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\AboutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +59,9 @@ Route::get('/faq', [FaqController::class, 'faq'])->name('home.faq');
 Route::get('/faq/detail/{slug}', [FaqController::class, 'faqdetail'])->name('faq.detail');
 Route::get('/return-and-refunds', [HomeController::class, 'returnrefund'])->name('returnrefund');
 Route::get('/syarat-ketentuan', [HomeController::class, 'ketentuanPengguna'])->name('ketentuan');
+
+Route::get('/about', [AboutController::class, 'index'])->name('about.index');
+
 
 
 Route::middleware(['userOrGuest'])->group(function () {
