@@ -33,9 +33,15 @@
                         <!-- Checkout Button with form submission -->
                         <div class="flex flex-col items-center">
                             @if ($orders->status !== 'canceled')
-                            <button type="submit" id="submitButton"  class="checkout-btn button-main text-center w-full text-white font-semibold rounded-md px-5 mt-3 py-3">
+                            <button type="submit" id="submitButton" class="checkout-btn button-main text-center w-full text-white font-semibold rounded-md px-5 mt-3 py-3">
                                 Selesaikan Pembayaran
                             </button>
+                            <form action="{{ route('order.OrderBatal', $orders->order_number) }}" method="POST">
+                                @csrf
+                                    <button type="submit" class="mt-2 bg-red text-white font-semibold rounded-md px-5 py-2 w-full text-center bg-red-500">
+                                        Batalkan Pesanan
+                                    </button>
+                            </form>
                             @endif
                             <a class="text-button hover-underline mt-3" href="{{ route('home.index') }}">Lanjutkan Berbelanja</a>
                         </div>

@@ -19,6 +19,18 @@ return new class extends Migration
             $table->foreignId('size_id')->constrained('product_sizes');
             $table->decimal('harga', 10, 2);
             $table->decimal('discount', 10, 2);
+
+            $table->foreignId('alamat_id')->nullable()->constrained('alamats')->onDelete('set null');
+            $table->string('penerima')->nullable();
+            $table->string('label')->nullable();
+            $table->string('province_name')->nullable();
+            $table->string('city_name')->nullable();
+            $table->string('kecamatan')->nullable();
+            $table->string('kelurahan')->nullable();
+            $table->string('street'); 
+            $table->string('postal_code');
+            $table->string('no_telp');
+
             $table->timestamps();
         });
     }

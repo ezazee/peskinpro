@@ -78,7 +78,7 @@
                                                             <p>No bukti transfer available.</p>
                                                         @endif
                                                     </div>
-                                                    @if(auth()->user()->hasAnyRole(['Administrator', 'Management', 'Finance']))
+                                                    @if(!in_array(auth()->user()->role, ['Administrator', 'Management', 'Finance']))
                                                     <div class="modal-footer">
                                                         <form action="{{ route('order.accept', $item->id) }}" method="POST" style="display: inline;">
                                                             @csrf

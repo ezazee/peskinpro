@@ -17,6 +17,7 @@ use App\Models\ProductSize;
 use App\Models\Settings;
 use App\Models\Bank;
 use App\Models\Coupons;
+use App\Models\Alamat;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -137,6 +138,8 @@ class ChekoutController extends Controller
         $estimated_days = $request->estimated_days;
         $discount_chekout = $request->discount_value;
         
+        $alamat = Alamat::with(['province', 'city'])->find($alamatId);
+
         $order = Order::create([
             'user_id' => $userId,
             'order_number' => 'ORD' . strtoupper(uniqid()),
@@ -171,7 +174,17 @@ class ChekoutController extends Controller
                 'quantity' => $quantity,
                 'size_id' => $sizeId,
                 'harga' => $harga,
-                'discount' => $discount
+                'discount' => $discount,
+                'alamat_id' => $alamatId,
+                'penerima' => $alamat ? $alamat->penerima : null,
+                'label' => $alamat ? $alamat->label : null,
+                'province_name'=> $alamat ? $alamat->province->name : null,
+                'city_name' => $alamat ? $alamat->city->name: null,
+                'kecamatan' => $alamat ? $alamat->kecamatan : null,
+                'kelurahan' => $alamat ? $alamat->kelurahan : null,
+                'street' => $alamat ? $alamat->street : null,
+                'postal_code' => $alamat ? $alamat->postal_code : null,
+                'no_telp' => $alamat ? $alamat->no_telp : null,
             ]);
 
             $productSize = ProductSize::where('product_id', $productId)->where('id', $sizeId)->first();
@@ -213,7 +226,7 @@ class ChekoutController extends Controller
 
             return redirect()->route('payment', ['invoice_number' => $invoice_number])
             ->with(compact('user', 'order', 'shipping', 'subtotal'));
-        }
+    }
 
     public function pembayaran(Request $request, $invoice_number)
     {

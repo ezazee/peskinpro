@@ -18,6 +18,8 @@
                                     @include('frontend.components.status-order.processing')
                                 @elseif ($orders->status == 'shipping')
                                     @include('frontend.components.status-order.shipping')
+                                @elseif ($orders->status == 'completed')
+                                    @include('frontend.components.status-order.completed')
                                 @else
                                     @include('frontend.components.status-order.default')
                                 @endif
@@ -81,6 +83,8 @@
                             @endforeach
                         </div>
 
+
+
                         <!-- Shipping and Payment Information Section -->
                         <div class="shipping-info py-5">
                             <h6 class="section-title">Info Pengiriman</h6>
@@ -95,21 +99,23 @@
                                         <p class="highlight-text text-right">{{ $orders->shipping->tracking_number }}</p>
                                 </div>
                                 @endif
+                                @foreach ($orders->products as $Dtpengiriman)
                                 <div class="flex justify-between">
                                     <p class="highlight-text text-bold">Alamat:</p>
-                                    <p class="highlight-text text-right">{{ $orders->alamat->street  }}<br>
-                                        Kecamatan {{ $orders->alamat->kecamatan  }}, Kelurahan {{ $orders->alamat->kelurahan  }} <br>
-                                        Kota/Kab {{ $orders->alamat->city->name }} , {{ $orders->alamat->province->name }}<br>
-                                        {{ $orders->alamat->postal_code }}</p>
+                                    <p class="highlight-text text-right">{{ $Dtpengiriman->pivot->street  }}<br>
+                                        Kecamatan {{ $Dtpengiriman->pivot->kecamatan  }}, Kelurahan {{ $Dtpengiriman->pivot->kelurahan  }} <br>
+                                        Kota/Kab {{ $Dtpengiriman->city_name }} , {{ $Dtpengiriman->pivot->province_name }}<br>
+                                        {{ $Dtpengiriman->pivot->postal_code }}</p>
                                 </div>
                                 <div class="flex justify-between items-center">
                                     <p class="highlight-text text-bold">Nama Penerima:</p>
-                                    <p class="highlight-text text-right">{{ $orders->alamat->penerima }}</p>
+                                    <p class="highlight-text text-right">{{ $Dtpengiriman->pivot->penerima }}</p>
                                 </div>
                                 <div class="flex justify-between items-center">
                                     <p class="highlight-text text-bold">No Whatsapp:</p>
-                                    <p class="highlight-text text-right">{{ $orders->alamat->no_telp }}</p>
+                                    <p class="highlight-text text-right">{{ $Dtpengiriman->pivot->no_telp }}</p>
                                 </div>
+                                @endforeach
                             </div>
                         </div>
                         <div class="shipping-info py-5">
@@ -141,9 +147,26 @@
                                 </div>
                             </div>
                         </div>
+                        @if ($orders->status == 'pending')
+                        <form action="{{ route('order.OrderBatal', $orders->order_number) }}" method="POST">
+                            @csrf
+                            <div class="prd_item flex justify-center py-5 border-b border-line">
+                                <button type="submit" class="bg-red text-white font-semibold rounded-md px-5 py-2 w-full text-center bg-red-500">
+                                    Batalkan
+                                </button>
+                            </div>
+                        </form>
+                        @elseif ($orders->status == 'shipping')
+                        <form action="{{ route('order.Orderselesai', $orders->order_number) }}" method="POST">
+                            @csrf
+                            <div class="prd_item flex justify-center py-5 border-b border-line">
+                                <button type="submit" class="button-main text-secondaryy font-semibold rounded-md px-5 py-2 w-full text-center hover:bg-blue-700">
+                                    Pesanan di terima
+                                </button>
+                            </div>
+                        </form>
+                        @endif
                     </div>
-
-
                 </div>
             </div>
         </div>

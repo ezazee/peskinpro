@@ -2,7 +2,7 @@
     <div class="step-icon"></div>
     <div class="step-info">
         <p class="step-title">Pesanan Dibuat</p>
-        <p class="step-date">10 November 2024, 01:00 WIB</p>
+        <p class="step-date">{{ \Carbon\Carbon::parse($orders->created_at)->format('d F Y h:i') }}</p>
     </div>
 </div>
 <!-- Step 2 -->
@@ -14,7 +14,7 @@
     </div>
 </div>
 <!-- Step 3 -->
-<div class="step active">
+<div class="step">
     <div class="step-icon"></div>
     <div class="step-info">
         <p class="step-title">Pesanan Dikirim</p>

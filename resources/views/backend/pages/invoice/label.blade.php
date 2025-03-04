@@ -135,12 +135,14 @@
 
     <!-- Informasi Penerima -->
     <div>
+      @foreach ($order->products as $Dtpengiriman)
       <div class="section-title">Penerima:</div>
-      <div><strong>{{ $order->user->name }}</strong></div>
-      <div>{{ $order->alamat->street }},</div>
-      <div>Kecamatan {{ $order->alamat->kecamatan  }}, Kelurahan {{ $order->alamat->kelurahan  }}</div>
-      <div>Kota/Kab {{ $order->alamat->city->name }} , {{ $order->alamat->province->name }} ,</div>
-      <div>Indonesia ({{ $order->alamat->postal_code }})</div>
+      <div><strong>{{ $Dtpengiriman->pivot->penerima }}</strong></div>
+      <div>{{ $Dtpengiriman->pivot->street }},</div>
+      <div>Kecamatan {{ $Dtpengiriman->pivot->kecamatan  }}, Kelurahan {{ $Dtpengiriman->pivot->kelurahan  }}</div>
+      <div>Kota/Kab {{ $Dtpengiriman->pivot->city_name }} , {{ $Dtpengiriman->pivot->province_name }} ,</div>
+      <div>Indonesia ({{ $Dtpengiriman->pivot->postal_code }})</div>
+      @endforeach
     </div>
 
     <!-- Informasi Kontak -->

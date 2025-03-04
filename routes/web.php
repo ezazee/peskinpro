@@ -88,6 +88,9 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::post('/set-default-address/{id}', [ProfileController::class, 'setDefaultAddress'])->name('set_default_address');
     Route::get('/order', [ProfileController::class, 'recent_order'])->name('recent_order');
     Route::get('/detail-order/{order_number}', [ProfileController::class, 'detail_order'])->name('detail-order');
+
+    Route::post('/order/selesai/{order:order_number}', [ProfileController::class, 'Orderselesai'])->name('order.Orderselesai');
+    Route::post('/order/batal/{order:order_number}', [ProfileController::class, 'OrderBatal'])->name('order.OrderBatal');
 });
 
 

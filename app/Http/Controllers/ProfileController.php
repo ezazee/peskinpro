@@ -131,11 +131,12 @@ class ProfileController extends Controller
                 $orders = Order::with('products')
                     ->where('status', $activeTab)
                     ->orderBy('created_at', 'desc')
-                    ->get();
+                    ->paginate(10);
             } else {
-                $orders = Order::with('products')->get();
+                $orders = Order::with('products')
+                    ->orderBy('created_at', 'desc') 
+                    ->paginate(10);
             }
-
         return view('frontend.pages.profile.recent-order', compact('user', 'orders', 'activeTab','tabs', 'settings'));
     }
 
@@ -227,4 +228,25 @@ class ProfileController extends Controller
         return redirect()->back()->with('success', 'Alamat berhasil diperbarui.');
     }
 
+
+    public function Orderselesai(Order $order)
+    {
+        $order->update([
+            'status' => 'completed',
+        ]);
+    
+        Alert::success('Terimakasih', 'Pesanan Telah Di Selesaikan!');
+        return redirect()->back()->with('success', 'Order and payment status updated successfully.');
+    }
+
+    public function OrderBatal(Order $order)
+    {    
+        $order->update([
+            'status' => 'canceled',
+        ]);
+    
+        Alert::info('Terimakasih', 'Pesanan Telah Dibatalkan!');
+        return redirect()->route('recent_order')->with('success', 'Pesanan berhasil diperbarui.');
+    }
+    
 }

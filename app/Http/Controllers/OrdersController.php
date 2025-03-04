@@ -488,7 +488,6 @@ class OrdersController extends Controller
         if (!$order) {
             return redirect()->route('orders.index')->with('error', 'Order not found');
         }
-        // dd($order);
     return view('receipt.print-pos', compact('order'));
     }
 }
