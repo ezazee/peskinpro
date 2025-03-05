@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Province;
+use App\Models\ProductSize;
+use App\Models\Affiliate;
 use App\Models\Order;
 use App\Models\City;
 use App\Models\Alamat;
@@ -231,6 +233,33 @@ class ProfileController extends Controller
 
     public function Orderselesai(Order $order)
     {
+        if ($order->referral_code) {
+            $referrer = User::where('referral_code', $order->referral_code)->first();
+    
+            if ($referrer && $referrer->id !== $order->user_id) {
+                $totalCommission = 0;
+    
+                foreach ($order->products as $product) {
+                    $sizeId = $product->pivot->size_id; 
+                    $size = ProductSize::find($sizeId);
+    
+                    if ($size) {
+                        $harga = $size->price - $product->pivot->discount;
+                        $productCommission = ($harga * $size->commission) / 100;
+                        $totalCommission += $productCommission * $product->pivot->quantity; 
+                    }
+                }
+    
+                Affiliate::create([
+                    'user_id' => $order->user_id,
+                    'referred_user_id' => $referrer->id,
+                    'order_id' => $order->id,
+                    'referral_code' => $order->referral_code,
+                    'commission' => $totalCommission,
+                ]);
+            }
+        }
+    
         $order->update([
             'status' => 'completed',
         ]);
@@ -238,6 +267,8 @@ class ProfileController extends Controller
         Alert::success('Terimakasih', 'Pesanan Telah Di Selesaikan!');
         return redirect()->back()->with('success', 'Order and payment status updated successfully.');
     }
+    
+    
 
     public function OrderBatal(Order $order)
     {    
@@ -248,5 +279,5 @@ class ProfileController extends Controller
         Alert::info('Terimakasih', 'Pesanan Telah Dibatalkan!');
         return redirect()->route('recent_order')->with('success', 'Pesanan berhasil diperbarui.');
     }
-    
+        
 }

@@ -20,6 +20,7 @@ use App\Models\Coupons;
 use App\Models\Alamat;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Session;
 
 
 class ChekoutController extends Controller
@@ -33,6 +34,8 @@ class ChekoutController extends Controller
 
     public function Checkout(Request $request)
     {
+        $referralCode = Session::get('referral_code');
+        // dd($referralCode);
         $settings = Settings::all();
         $user = Auth::user();
         $defaultAddresses = $user->alamat()
@@ -150,6 +153,13 @@ class ChekoutController extends Controller
             'alamat_id' => $alamatId
         ]);
 
+        $referrerCode = session('referral_code');
+        if ($referrerCode) {
+            $order->referral_code = $referrerCode;
+            $order->save();
+        }
+    
+
         if (!empty($discount_chekout)) {
             $couponCode = $request->coupon_code; 
             $coupon = Coupons::where('coupons_code', $couponCode)->first();
@@ -187,6 +197,7 @@ class ChekoutController extends Controller
                 'no_telp' => $alamat ? $alamat->no_telp : null,
             ]);
 
+
             $productSize = ProductSize::where('product_id', $productId)->where('id', $sizeId)->first();
             if ($productSize) {
                 $productSize->stock -= $quantity;
@@ -223,7 +234,6 @@ class ChekoutController extends Controller
             }
             
             $invoice_number = $invoice->invoice_number;
-
             return redirect()->route('payment', ['invoice_number' => $invoice_number])
             ->with(compact('user', 'order', 'shipping', 'subtotal'));
     }
@@ -258,7 +268,7 @@ class ChekoutController extends Controller
                 'bukti_tf' => $payment,
             ]);
         }
-
+        Session::forget('referral_code');
         return redirect()->route('profile.index')->with(['user' => $user, 'orders' => $orders]);
     }
 

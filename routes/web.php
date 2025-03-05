@@ -22,6 +22,7 @@ use App\Http\Controllers\BankController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\AffiliateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,7 +74,7 @@ Route::middleware(['userOrGuest'])->group(function () {
 });
 
 Route::middleware(['auth', 'role:user'])->group(function () {
-    Route::get('/checkout', [ChekoutController::class, 'index'])->name('chekout.index');
+    // Route::get('/checkout', [ChekoutController::class, 'index'])->name('chekout.index');
     // Route::get('/checkout/process', [ChekoutController::class, 'Checkout'])->name('checkout.process');
     Route::post('/checkout/process', [ChekoutController::class, 'Checkout'])->name('checkout.process');
     Route::get('/pembayaran/{invoice_number}', [ChekoutController::class, 'payment'])->name('payment');
@@ -95,6 +96,12 @@ Route::middleware(['auth', 'role:user'])->group(function () {
 
     Route::post('/order/selesai/{order:order_number}', [ProfileController::class, 'Orderselesai'])->name('order.Orderselesai');
     Route::post('/order/batal/{order:order_number}', [ProfileController::class, 'OrderBatal'])->name('order.OrderBatal');
+
+    // afiliate
+    Route::get('/profile/affiliate', [AffiliateController::class, 'index'])->name('affiliate.index');
+    Route::get('/share-referral', [AffiliateController::class, 'share'])->name('referral.share');
+    Route::get('/checkout', [AffiliateController::class, 'checkout'])->name('referral.checkout');
+
 });
 
 
