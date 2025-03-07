@@ -243,6 +243,12 @@ Route::middleware(['auth', 'role:Administrator,Management,Admin,Finance,Writter'
 
     // Inventory Management (Detail Supplier)
     Route::get('/inventory/detail-supplier', [InventoryController::class, 'detailSupplierIndex'])->name('detailSupplier.index');
+
+    // affiliate
+    Route::get('/affiliate/commision', [AffiliateController::class, 'CommisionAffiliate'])->name('commision.affiliate');
+    Route::post('/products/bulk-update-commission', [AffiliateController::class, 'bulkUpdateCommission'])->name('commision.bulkUpdateCommission');
+
+
 });
 
 

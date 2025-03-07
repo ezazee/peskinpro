@@ -226,6 +226,30 @@
                                   <span class="nav-text"> Report </span>
                               </a>
                           </li>
+                          @if (in_array(auth()->user()->role->name, ['Administrator', 'Admin', 'Finance', 'Management']))
+                          <li class="nav-item">
+                              <a class="nav-link menu-arrow" href="#affiliate" data-bs-toggle="collapse"
+                                  role="button" aria-expanded="false" aria-controls="affiliate">
+                                  <span class="nav-icon">
+                                      <iconify-icon icon="solar:reorder-linear"></iconify-icon>
+                                  </span>
+                                  <span class="nav-text"> Affiliate </span>
+                              </a>
+                              <div class="collapse" id="affiliate">
+                                  <ul class="nav sub-navbar-nav">
+                                      <li class="sub-nav-item">
+                                          <a class="sub-nav-link" href="{{ route('commision.affiliate') }}">Commision</a>
+                                      </li>
+                                      <li class="sub-nav-item">
+                                          <a class="sub-nav-link" href="{{ route('orders.returnlist') }}">Request Withdraw</a>
+                                      </li>
+                                      <li class="sub-nav-item">
+                                        <a class="sub-nav-link" href="{{ route('orders.returnrefundlist') }}">List Member</a>
+                                    </li>
+                                  </ul>
+                              </div>
+                          </li>
+                      @endif
                       @endif
 
                       @if (in_array(auth()->user()->role->name, ['Administrator', 'Management']))
