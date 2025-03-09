@@ -248,6 +248,8 @@ Route::middleware(['auth', 'role:Administrator,Management,Admin,Finance,Writter'
     Route::get('/affiliate/commision', [AffiliateController::class, 'CommisionAffiliate'])->name('commision.affiliate');
     Route::post('/products/bulk-update-commission', [AffiliateController::class, 'bulkUpdateCommission'])->name('commision.bulkUpdateCommission');
 
+    Route::get('/affiliate/member', [AffiliateController::class, 'MemberAffiliate'])->name('member.affiliate');
+
 
 });
 

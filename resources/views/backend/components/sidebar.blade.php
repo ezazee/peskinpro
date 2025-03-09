@@ -244,7 +244,7 @@
                                           <a class="sub-nav-link" href="{{ route('orders.returnlist') }}">Request Withdraw</a>
                                       </li>
                                       <li class="sub-nav-item">
-                                        <a class="sub-nav-link" href="{{ route('orders.returnrefundlist') }}">List Member</a>
+                                        <a class="sub-nav-link" href="{{ route('member.affiliate') }}">List Member</a>
                                     </li>
                                   </ul>
                               </div>

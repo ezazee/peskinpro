@@ -9,6 +9,7 @@ use App\Models\Order;
 use App\Models\Settings;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\Product;
+use App\Models\Affiliate;
 use App\Models\ProductSize;
 
 
@@ -70,6 +71,18 @@ class AffiliateController extends Controller
         }
 
         return redirect()->route('commision.affiliate')->with('success', 'Product created successfully');
+    }
+
+
+    public function MemberAffiliate(){
+        $user = Auth::user();
+        $welcomeMessage = 'Affiliate Member';
+
+        $memberAffiliate = Affiliate::with('user')
+        ->orderByDesc('commission')
+        ->paginate(5);
+        // dd($memberAffiliate);
+        return view('backend.pages.affiliate.memberlist',compact('welcomeMessage','user','memberAffiliate'));
     }
     
 }
