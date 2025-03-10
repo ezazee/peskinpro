@@ -99,9 +99,13 @@ Route::middleware(['auth', 'role:user'])->group(function () {
 
     // afiliate
     Route::get('/profile/affiliate', [AffiliateController::class, 'index'])->name('affiliate.index');
+    Route::get('/affiliate/transaksi', [AffiliateController::class, 'AffiliateTransaksi'])->name('affiliate.transaksi');
+    Route::get('/affiliate/history/komisi', [AffiliateController::class, 'HistoryKomisi'])->name('affiliatehistory.komisi');
+    Route::get('/affiliate/history/transaksi', [AffiliateController::class, 'HistoryTransaksi'])->name('affiliatehistory.transaksi');
+    Route::post('/affiliate/withdraw', [AffiliateController::class, 'Withdraw'])->name('affiliate.Withdraw');
     Route::get('/share-referral', [AffiliateController::class, 'share'])->name('referral.share');
     Route::get('/checkout', [AffiliateController::class, 'checkout'])->name('referral.checkout');
-
+    
 });
 
 
@@ -247,8 +251,10 @@ Route::middleware(['auth', 'role:Administrator,Management,Admin,Finance,Writter'
     // affiliate
     Route::get('/affiliate/commision', [AffiliateController::class, 'CommisionAffiliate'])->name('commision.affiliate');
     Route::post('/products/bulk-update-commission', [AffiliateController::class, 'bulkUpdateCommission'])->name('commision.bulkUpdateCommission');
-
     Route::get('/affiliate/member', [AffiliateController::class, 'MemberAffiliate'])->name('member.affiliate');
+    Route::get('/affiliate/withdraw', [AffiliateController::class, 'WithdrawAffiliate'])->name('Withdraw.affiliate');
+    Route::post('/affiliate/withdraw/accept/{id}', [AffiliateController::class, 'acceptWithdraw'])->name('withdraw.accept');
+    Route::post('/affiliate/withdraw/reject/{id}', [AffiliateController::class, 'rejectWithdraw'])->name('withdraw.reject');
 
 
 });

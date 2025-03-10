@@ -231,7 +231,7 @@
                               <a class="nav-link menu-arrow" href="#affiliate" data-bs-toggle="collapse"
                                   role="button" aria-expanded="false" aria-controls="affiliate">
                                   <span class="nav-icon">
-                                      <iconify-icon icon="solar:reorder-linear"></iconify-icon>
+                                      <iconify-icon icon="solar:hand-money-outline"></iconify-icon>
                                   </span>
                                   <span class="nav-text"> Affiliate </span>
                               </a>
@@ -241,7 +241,7 @@
                                           <a class="sub-nav-link" href="{{ route('commision.affiliate') }}">Commision</a>
                                       </li>
                                       <li class="sub-nav-item">
-                                          <a class="sub-nav-link" href="{{ route('orders.returnlist') }}">Request Withdraw</a>
+                                          <a class="sub-nav-link" href="{{ route('Withdraw.affiliate') }}">Request Withdraw</a>
                                       </li>
                                       <li class="sub-nav-item">
                                         <a class="sub-nav-link" href="{{ route('member.affiliate') }}">List Member</a>

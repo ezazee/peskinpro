@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="d-flex card-header justify-content-between align-items-center">
                     <div>
-                        <h4 class="card-title">All Prodduct Affiliate</h4>
+                        <h4 class="card-title"></h4>
                     </div>
                     <div class="d-flex align-items-center gap-2">
                         <!-- Form Search -->
@@ -28,37 +28,44 @@
                                         <tr>
                                             <th style="width: 20px;">No</th>
                                             <th>Customer Name</th>
-                                            <th>Customer Email</th>
-                                            <th>Phone Number</th>
+                                            <th>Bank / E-wallet</th>
+                                            <th>Nama Rekening</th>
+                                            <th>Nomor Rekening</th>
                                             <th>Commission</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($memberAffiliate as $index => $item)
-                                            <tr>
-                                                <td>{{ $index + 1 }}</td>
-                                    
-                                                @php $us = $item->user; @endphp
-                                                <td>
-                                                    @if ($us)
-                                                        <img src="{{ $us->images ? asset('storage/' . $us->images) : asset('/backend/assets/images/blank-profile.png') }}"
-                                                             class="avatar-sm rounded-circle me-2" alt="...">
-                                                        {{ $us->name }}
-                                                    @else
-                                                        <img src="{{ asset('/backend/assets/images/blank-profile.png') }}"
-                                                             class="avatar-sm rounded-circle me-2" alt="...">
-                                                        <span>{{ $us->name }}</span>
-                                                    @endif
-                                                </td>
-                                                <td>{{ $us->email }}</td>
-                                                <td>{{ $us->no_telp }}</td>
-                                                <td>{{ 'Rp ' . number_format($item->total_commission, 0, ',', '.') }}</td>
-                                                <td> <a href=""
-                                                    class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken"
-                                                        class="align-middle fs-18"></iconify-icon></a></td>
-                                            </tr>
+                                        @foreach ($withdrawRequests as $index => $withdraw)
+                                        <tr>
+                                            <td>{{ $index + 1 }}</td>
+                                            @php $us = $withdraw->user; @endphp
+                                            <td>
+                                                @if ($us)
+                                                    <img src="{{ $us->images ? asset('storage/' . $us->images) : asset('/backend/assets/images/blank-profile.png') }}"
+                                                         class="avatar-sm rounded-circle me-2" alt="...">
+                                                    {{ $us->name }}
+                                                @else
+                                                    <img src="{{ asset('/backend/assets/images/blank-profile.png') }}"
+                                                         class="avatar-sm rounded-circle me-2" alt="...">
+                                                    <span>{{ $us->name }}</span>
+                                                @endif
+                                            </td>
+                                            <td>{{ $withdraw->payment_method }}</td>
+                                            <td>{{ $withdraw->account_number }}</td>
+                                            <td>{{ $withdraw->account_name }}</td>
+                                            <td class="px-4 py-2">Rp {{ number_format($withdraw->amount, 0, ',', '.') }}</td>
+                                            <td>
+                                                <form action="{{ route('withdraw.reject', $withdraw->id) }}" method="POST" class="inline" onsubmit="return confirm('Apakah Anda yakin ingin menolak withdraw ini?');">
+                                                    @csrf
+                                                    <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700">
+                                                        Tolak
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
                                         @endforeach
+
                                     </tbody>
                                 </table>
                             </div>

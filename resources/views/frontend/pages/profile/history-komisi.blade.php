@@ -10,38 +10,10 @@
             <div class="right list-filter md:w-2/3 w-full pl-2.5">
                 <div class="filter-item text-content w-full active">
                     {{-- Main Dashboard --}}
-                    <div class="overview grid sm:grid-cols-3 gap-5">
-                        <div
-                            class="overview-item flex items-center justify-between p-5 border border-line rounded-lg box-shadow-xs">
-                            <div class="counter">
-                                <span class="text-secondary">Komisi</span>
-                                <h5 class="heading5 mt-1">{{ 'Rp' . number_format($totalCommission, 0, ',', '.') }}</h5>
-                            </div>
-                            <span class="ph ph-money text-4xl"></span>
-                        </div>
-                        <a href="{{ route('affiliate.transaksi') }}">
-                            <div
-                                class="overview-item flex items-center justify-between p-8 border border-line rounded-lg box-shadow-xs">
-                                <div class="counter">
-                                    <span class="text-secondary mt-1 heading5">Transaksi</span>
-                                </div>
-                                <span class="ph ph-arrows-left-right text-4xl"></span>
-                            </div>
-                        </a>
-                        <div
-                            class="overview-item flex items-center justify-between p-5 border border-line rounded-lg box-shadow-xs">
-                            <div class="counter">
-                                <span class="text-secondary">Produk Terjual</span>
-                                <h5 class="heading5 mt-1">{{ $totalProductsSold }}</h5>
-                            </div>
-                            <span class="ph ph-package text-4xl"></span>
-                        </div>
-                    </div>
-                    <h6 class="mt-3">*Klik transaksi untuk pencairan dana</h6>
                     <div class="recent_order pt-5 px-5 pb-2 mt-5 border border-line rounded-xl">
                         <div class="flex justify-between">
                             <h6 class="heading6">Riwayat Komisi</h6>
-                            <a href="{{ route('affiliatehistory.komisi') }}" class="link-text">Lihat Semua</a>
+                            <a href="{{ route('recent_order') }}" class="link-text">Lihat Semua</a>
                         </div>
                         <div class="list overflow-x-auto w-full mt-5">
                             <table class="w-full max-[1400px]:w-[700px] max-md:w-[700px]">

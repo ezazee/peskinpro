@@ -15,10 +15,10 @@ use App\Models\Order;
 use App\Models\City;
 use App\Models\Alamat;
 use App\Models\Settings;
+use App\Models\AffiliateHistory;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use RealRashid\SweetAlert\Facades\Alert;
-
 
 
 class ProfileController extends Controller
@@ -112,8 +112,8 @@ class ProfileController extends Controller
 
     public function recent_order(Request $request)
     {
-        $settings = Settings::all();
-        $user = Auth::user();
+            $settings = Settings::all();
+            $user = Auth::user();
             $orders = Order::where('user_id', $user->id)
             ->with(['user', 'alamat', 'products', 'invoice', 'shipping'])
             ->orderBy('created_at', 'desc')
@@ -131,12 +131,14 @@ class ProfileController extends Controller
 
             if ($activeTab !== 'all') {
                 $orders = Order::with('products')
+                    ->where('user_id', $user->id)
                     ->where('status', $activeTab)
                     ->orderBy('created_at', 'desc')
                     ->paginate(10);
             } else {
                 $orders = Order::with('products')
-                    ->orderBy('created_at', 'desc') 
+                    ->where('user_id', $user->id)
+                    ->orderBy('created_at', 'desc')
                     ->paginate(10);
             }
         return view('frontend.pages.profile.recent-order', compact('user', 'orders', 'activeTab','tabs', 'settings'));
@@ -246,16 +248,25 @@ class ProfileController extends Controller
                     if ($size) {
                         $harga = $size->price - $product->pivot->discount;
                         $productCommission = ($harga * $size->commission) / 100;
-                        $totalCommission += $productCommission * $product->pivot->quantity; 
+                        $totalCommission += $productCommission * $product->pivot->quantity;
                     }
                 }
     
-                Affiliate::create([
-                    'user_id' => $order->user_id,
-                    'referred_user_id' => $referrer->id,
+                $affiliate = Affiliate::create([
+                    'user_id' => $referrer->id,
+                    'referred_user_id' => $order->user_id,
                     'order_id' => $order->id,
                     'referral_code' => $order->referral_code,
                     'commission' => $totalCommission,
+                ]);
+    
+                AffiliateHistory::create([
+                    'user_id' => $referrer->id,
+                    'affiliate_id' => $affiliate->id, 
+                    'type' => 'addcommission',
+                    'amount' => $totalCommission,
+                    'history_status' => 'pending',
+                    'description' => 'Komisi dari order #' . $order->id,
                 ]);
             }
         }
@@ -267,6 +278,7 @@ class ProfileController extends Controller
         Alert::success('Terimakasih', 'Pesanan Telah Di Selesaikan!');
         return redirect()->back()->with('success', 'Order and payment status updated successfully.');
     }
+    
     
     
 
