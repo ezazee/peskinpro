@@ -349,40 +349,6 @@
     </div>
 </div>
 
-<div class="md:pb-20 pb-10">
-    <div class="news-block md:pt-20 pt-10">
-        <div class="container">
-            <div class="heading3 text-center">Artikel Kami</div>
-            <div class="list grid lg:grid-cols-3 sm:grid-cols-2 md:gap-[30px] gap-4 md:mt-10 mt-6">
-                @foreach ($articles as $item)
-                <a href="{{ route('articlebyTittle', $item->slug) }}">
-                    <div class="blog-item style-one h-full cursor-pointer" data-item="16">
-                        <div class="blog-main h-full block">
-                            <div class="blog-thumb rounded-[20px] overflow-hidden">
-                                <img src="{{ asset('storage/' . $item->images) }}" alt="{{ $item->tittle }}"
-                                    class="w-full duration-500" />
-                            </div>
-                            <div class="blog-infor mt-7">
-                                @foreach ($item->tag as $t)
-                                <div
-                                    class="blog-tag bg-primary text-white py-1 px-2.5 rounded-full text-button-uppercase inline-block">
-                                    {{ $t->nama_tags }}</div>
-                                @endforeach
-                                <div class="heading6 blog-title mt-3 duration-300">{{ $item->tittle }}</div>
-                                <div class="flex items-center gap-2 mt-2">
-                                    <div class="blog-date caption1 text-secondary">
-                                        {{ $item->created_at->format('M d, Y') }}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                @endforeach
-            </div>
-        </div>
-    </div>
-</div>
-
 @include('frontend.components.banner-knowledge-2')
 
 @include('frontend.components.modal-landing')

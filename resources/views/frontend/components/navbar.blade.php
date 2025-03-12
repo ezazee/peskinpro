@@ -39,9 +39,15 @@
                     </li>
 
                     <li class="h-full relative">
-                        <a href="/artikel"
-                            class="text-button-uppercase duration-300 h-full flex items-center justify-center gap-1 {{ request()->is('artikel') ? 'active' : '' }}">
-                            Update
+                        <a href="{{ route('about.index') }}"
+                            class="text-button-uppercase duration-300 h-full flex items-center justify-center gap-1">
+                            Tentang Kami
+                        </a>
+                    </li>
+                    <li class="h-full relative">
+                        <a href="{{ route('about.affiliate') }}"
+                            class="text-button-uppercase duration-300 h-full flex items-center justify-center gap-1">
+                            PE Skinpro Affiliate
                         </a>
                     </li>
                 </ul>
@@ -63,7 +69,7 @@
                 @if (Auth::check())
                     <div class="user-info flex items-center justify-center cursor-pointer relative">
                         <div class="avatar w-7 h-7 rounded-full bg-gray-300 overflow-hidden">
-                            <img src="{{ Auth::user()->images ? asset('storage/' . Auth::user()->images) : 'https://media.istockphoto.com/id/517998264/vector/male-user-icon.jpg?b=1&s=612x612&w=0&k=20&c=XQPO5sxBVwANqHTIVNli3gnXLCbmcpOn-23biJPkO3E=' }}" 
+                            <img src="{{ Auth::user()->images ? asset('storage/' . Auth::user()->images) : 'https://media.istockphoto.com/id/517998264/vector/male-user-icon.jpg?b=1&s=612x612&w=0&k=20&c=XQPO5sxBVwANqHTIVNli3gnXLCbmcpOn-23biJPkO3E=' }}"
                                 alt="User Avatar" class="w-full h-full object-cover">
                         </div>
                         <div
@@ -136,8 +142,8 @@
                             </a>
                         </li>
                         <li>
-                            <a href="/artikel"
-                                class="text-xl font-semibold flex items-center justify-between mt-5">Update
+                            <a href="{{ route('about.index') }}"
+                                class="text-xl font-semibold flex items-center justify-between mt-5">Tentang PE
                             </a>
                         </li>
                     </ul>

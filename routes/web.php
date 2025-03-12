@@ -22,6 +22,7 @@ use App\Http\Controllers\BankController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\AffiliateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,7 +61,31 @@ Route::get('/faq/detail/{slug}', [FaqController::class, 'faqdetail'])->name('faq
 Route::get('/return-and-refunds', [HomeController::class, 'returnrefund'])->name('returnrefund');
 Route::get('/syarat-ketentuan', [HomeController::class, 'ketentuanPengguna'])->name('ketentuan');
 
+// About
+
 Route::get('/about', [AboutController::class, 'index'])->name('about.index');
+
+Route::get('/about/list-products', [AboutController::class, 'ListProducts'])->name('about.ListProducts');
+Route::get('/about/products/cica-refreshing-toner', [AboutController::class, 'TonerProducts'])->name('about.TonerProducts');
+Route::get('/about/products/honey-cleansing-gel', [AboutController::class, 'CleansingProducts'])->name('about.CleansingProducts');
+Route::get('/about/products/hydro-resorative-cream', [AboutController::class, 'HydroProducts'])->name('about.HydroProducts');
+Route::get('/about/products/prebiotic-feminime-mousse-cleanser', [AboutController::class, 'FeminimeProducts'])->name('about.FeminimeProducts');
+Route::get('/about/products/prebiotic-pore-ex-facial-pad', [AboutController::class, 'PoreExProducts'])->name('about.PoreExProducts');
+Route::get('/about/products/skin-awakening-glow-serum', [AboutController::class, 'SerumProducts'])->name('about.SerumProducts');
+Route::get('/about/products/vit-c-tone-up-day-cream-spf50', [AboutController::class, 'ToneProducts'])->name('about.ToneProducts');
+
+Route::get('/about/contact', [AboutController::class, 'AboutContact'])->name('about.contact');
+
+Route::get('/about/news', [AboutController::class, 'AboutNews'])->name('about.news');
+Route::get('/about/news/detail', [AboutController::class, 'AboutNewsDetail'])->name('about.newsDetail');
+
+
+// Affiliate
+Route::get('/about/affiliate', [AffiliateController::class, 'index'])->name('about.affiliate');
+Route::get('/about/affiliate/cara-raih-komisi', [AffiliateController::class, 'RaihKomisi'])->name('about.RaihKomisi');
+Route::get('/about/affiliate/keuntungan', [AffiliateController::class, 'Keuntungan'])->name('about.Keuntungan');
+
+
 
 
 
