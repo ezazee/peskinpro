@@ -68,7 +68,7 @@
                                 <div class="phone-number">
                                     <label for="phoneNumber" class="caption1 capitalize">Nomor Rekening <span
                                             class="text-red">*</span></label>
-                                    <input class="border-line mt-2 px-4 py-3 w-full rounded-lg" type="text"
+                                    <input class="border-line mt-2 px-4 py-3 w-full rounded-lg" type="number"
                                         name="account_number" placeholder="Masukan Nomor Rekening" />
                                 </div>
                                 <div class="email">

@@ -251,9 +251,10 @@ Route::middleware(['auth', 'role:Administrator,Management,Admin,Finance,Writter'
     // affiliate
     Route::get('/affiliate/commision', [AffiliateController::class, 'CommisionAffiliate'])->name('commision.affiliate');
     Route::post('/products/bulk-update-commission', [AffiliateController::class, 'bulkUpdateCommission'])->name('commision.bulkUpdateCommission');
+    Route::get('/affiliate/history/{id}', [AffiliateController::class, 'HistoryUserAffiliate'])->name('history.affiliate');
     Route::get('/affiliate/member', [AffiliateController::class, 'MemberAffiliate'])->name('member.affiliate');
     Route::get('/affiliate/withdraw', [AffiliateController::class, 'WithdrawAffiliate'])->name('Withdraw.affiliate');
-    Route::post('/affiliate/withdraw/accept/{id}', [AffiliateController::class, 'acceptWithdraw'])->name('withdraw.accept');
+    Route::get('/affiliate/withdraw/accept/{id}', [AffiliateController::class, 'acceptWithdraw'])->name('withdraw.accept');
     Route::post('/affiliate/withdraw/reject/{id}', [AffiliateController::class, 'rejectWithdraw'])->name('withdraw.reject');
 
 

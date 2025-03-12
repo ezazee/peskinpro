@@ -54,9 +54,11 @@
                                                 <td>{{ $us->email }}</td>
                                                 <td>{{ $us->no_telp }}</td>
                                                 <td>{{ 'Rp ' . number_format($item->total_commission, 0, ',', '.') }}</td>
-                                                <td> <a href=""
-                                                    class="btn btn-light btn-sm"><iconify-icon icon="solar:eye-broken"
-                                                        class="align-middle fs-18"></iconify-icon></a></td>
+                                                <td>
+                                                    <a href="{{ route('history.affiliate', $us->id) }}" class="btn btn-light btn-sm">
+                                                        <iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon>
+                                                     </a>
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>

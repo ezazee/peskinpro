@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Order;
+use App\Models\User;
 use App\Models\Settings;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\Product;
@@ -52,6 +53,7 @@ class AffiliateController extends Controller
         ->with(['affiliate.order.products', 'referredUser'])
         ->orderByDesc('created_at')
         ->paginate(10);
+
         return view('frontend.pages.profile.history-komisi', compact('user', 'settings','affiliateHistory'));
     }
 
@@ -60,12 +62,11 @@ class AffiliateController extends Controller
         $user = Auth::user();
 
         $affiliateHistory = AffiliateHistory::where('user_id', $user->id)
-        ->where('type','withdraw')
+        ->whereIn('type', ['withdraw', 'approved','rejected'])
         ->with(['user', 'affiliate', 'withdraw'])
         ->orderByDesc('created_at')
         ->paginate(10);
 
-        // dd($affiliateHistory);
         return view('frontend.pages.profile.history-transaksi', compact('user', 'settings','affiliateHistory'));
     }
 
@@ -82,12 +83,19 @@ class AffiliateController extends Controller
         $user = Auth::user();
     
         if (!Hash::check($request->password, $user->password)) {
+            Alert::toast('Password salah.', 'info');
             return back()->with('error', 'Password salah.');
         }
     
         $totalCommission = Affiliate::where('user_id', $user->id)->sum('commission');
-    
+
+        if ($request->nominal < 50000) {
+            Alert::toast('Minimal penarikan adalah Rp 50.000.', 'info');
+            return back()->with('error', 'Minimal penarikan adalah Rp 50.000.');
+        }
+        
         if ($request->nominal > $totalCommission) {
+            Alert::toast('Saldo tidak mencukupi untuk pencairan.', 'info');
             return back()->with('error', 'Saldo tidak mencukupi untuk pencairan.');
         }
     
@@ -137,7 +145,6 @@ class AffiliateController extends Controller
     }
     
 
-    // backend
     public function CommisionAffiliate(Request $request){
         $user = Auth::user();
         $welcomeMessage = 'Affiliate Commision';
@@ -214,7 +221,7 @@ class AffiliateController extends Controller
     
             if ($history) {
                 $history->update([
-                    'type' => 'refund',
+                    'type' => 'rejected',
                     'amount' => $restoredAmount,
                     'history_status' => 'rejected',
                     'description' => 'Pengembalian saldo dari withdraw yang ditolak',
@@ -223,14 +230,53 @@ class AffiliateController extends Controller
     
             break;
         }
-    
         return back()->with('success', 'Withdraw telah ditolak, saldo dikembalikan.');
     }
 
     
-    public function acceptWithdraw(){
-
+    public function acceptWithdraw($id)
+    {
+        $withdraw = Withdraw::findOrFail($id);
+    
+        if ($withdraw->status === 'pending') {
+            $withdraw->update([
+                'status' => 'approved'
+            ]);
+    
+            AffiliateHistory::create([
+                'user_id' => $withdraw->user_id,
+                'withdraw_id' => $withdraw->id,
+                'type' => 'approved',
+                'history_status' => 'approved',
+                'amount' => $withdraw->amount,
+                'description' => 'Pencairan dana telah diterima',
+            ]);
+            
+            Alert::success('success', 'Withdraw berhasil diterima.');
+            return redirect()->back()->with('success', 'Withdraw berhasil diterima.');
+        }
+    
+        return redirect()->back()->with('error', 'Withdraw sudah diproses sebelumnya.');
     }
+
+
+    public function HistoryUserAffiliate($id)
+    {
+        $user = User::with(['affiliates', 'affiliateHistory'])->findOrFail($id);
+        $welcomeMessage = 'Affiliate History';
+        $totalCommission = Affiliate::where('user_id', $id)
+        ->sum('commission');
+    
+        $his = AffiliateHistory::where('user_id', $id)
+            ->whereIn('type', ['withdraw', 'approved', 'rejected','addcommission'])
+            ->with(['user', 'affiliate', 'withdraw','affiliate.order.products', 'referredUser'])
+            ->orderByDesc('created_at')
+            ->paginate(10);
+    
+        return view('backend.pages.affiliate.detailhistory', compact('welcomeMessage', 'user', 'his','totalCommission'));
+    }
+    
+    
     
 
     public function WithdrawAffiliate()

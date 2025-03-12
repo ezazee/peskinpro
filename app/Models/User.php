@@ -61,6 +61,15 @@ class User extends Authenticatable
         return $this->hasOne(Cart::class);
     }
 
+    public function affiliates()
+    {
+        return $this->hasMany(Affiliate::class, 'user_id');
+    }
+
+    public function affiliateHistory()
+    {
+        return $this->hasMany(AffiliateHistory::class, 'user_id');
+    }
 
     /**
      * The attributes that should be cast.

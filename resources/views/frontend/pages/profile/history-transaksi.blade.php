@@ -37,22 +37,11 @@
                                         <tr class="item duration-300 border-b border-line">
                                             <td>Rp {{ number_format(optional($item)->amount, 0, ',', '.') }}</td>
                                             <td>{{ $item->description }}</td>
-                                            <td class="">{{ optional($item)->status ?? '-' }}</td>
-                                            <td class="py-3 text-right">{{ $item->created_at->format('d M Y') }}</td>
+                                            <td class="">{{ optional($item)->history_status ?? '-' }}</td>
+                                            <td class="py-3 text-right">{{ $item->created_at->format('d M Y H:i') }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
-                                
-                                {{-- <tbody>
-                                    @foreach ($affiliateHistory as $index => $item)
-                                    <tr class="item duration-300 border-b border-line">
-                                        <td>Rp {{ isset($item->withdraw) ? number_format($item->withdraw->amount, 0, ',', '.') : '-' }}</td>
-                                        <td>{{ $item->description }}</td>
-                                        <td class="">{{ isset($item->withdraw) ? $item->withdraw->status : '-' }}</td>
-                                        <td class="py-3 text-right">{{ $item->created_at->format('d M Y') }}</td>
-                                    </tr>
-                                    @endforeach
-                                </tbody> --}}
                             </table>
                         </div>
                     </div>

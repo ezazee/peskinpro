@@ -56,12 +56,20 @@
                                             <td>{{ $withdraw->account_name }}</td>
                                             <td class="px-4 py-2">Rp {{ number_format($withdraw->amount, 0, ',', '.') }}</td>
                                             <td>
-                                                <form action="{{ route('withdraw.reject', $withdraw->id) }}" method="POST" class="inline" onsubmit="return confirm('Apakah Anda yakin ingin menolak withdraw ini?');">
-                                                    @csrf
-                                                    <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700">
-                                                        Tolak
-                                                    </button>
-                                                </form>
+                                                <div class="d-flex gap-2">
+                                                    <a href="{{ route('withdraw.accept', $withdraw->id) }}" 
+                                                        onclick="return confirm('Apakah Anda yakin ingin menerima withdraw ini?');" 
+                                                        class="btn btn-success btn-sm">
+                                                         Terima
+                                                     </a>
+                                                                                                  
+                                                    <form action="{{ route('withdraw.reject', $withdraw->id) }}" method="POST" class="inline" onsubmit="return confirm('Apakah Anda yakin ingin menolak withdraw ini?');">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-danger btn-sm">
+                                                            Tolak
+                                                        </button>
+                                                    </form>
+                                                </div>
                                             </td>
                                         </tr>
                                         @endforeach
