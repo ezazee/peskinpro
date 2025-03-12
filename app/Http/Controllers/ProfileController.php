@@ -9,14 +9,16 @@ use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Province;
+use App\Models\ProductSize;
+use App\Models\Affiliate;
 use App\Models\Order;
 use App\Models\City;
 use App\Models\Alamat;
 use App\Models\Settings;
+use App\Models\AffiliateHistory;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use RealRashid\SweetAlert\Facades\Alert;
-
 
 
 class ProfileController extends Controller
@@ -45,7 +47,6 @@ class ProfileController extends Controller
     {
         $settings = Settings::all();
         $user = Auth::user()->load('role', 'alamat', 'cart');
-        // dd($user);
         $provinces = Province::pluck('name', 'province_id');
         return view('frontend.pages.profile.addres', compact('user', 'provinces', 'settings'));
     }
@@ -110,8 +111,8 @@ class ProfileController extends Controller
 
     public function recent_order(Request $request)
     {
-        $settings = Settings::all();
-        $user = Auth::user();
+            $settings = Settings::all();
+            $user = Auth::user();
             $orders = Order::where('user_id', $user->id)
             ->with(['user', 'alamat', 'products', 'invoice', 'shipping'])
             ->orderBy('created_at', 'desc')
@@ -129,12 +130,14 @@ class ProfileController extends Controller
 
             if ($activeTab !== 'all') {
                 $orders = Order::with('products')
+                    ->where('user_id', $user->id)
                     ->where('status', $activeTab)
                     ->orderBy('created_at', 'desc')
                     ->paginate(10);
             } else {
                 $orders = Order::with('products')
-                    ->orderBy('created_at', 'desc') 
+                    ->where('user_id', $user->id)
+                    ->orderBy('created_at', 'desc')
                     ->paginate(10);
             }
         return view('frontend.pages.profile.recent-order', compact('user', 'orders', 'activeTab','tabs', 'settings'));
@@ -231,6 +234,42 @@ class ProfileController extends Controller
 
     public function Orderselesai(Order $order)
     {
+        if ($order->referral_code) {
+            $referrer = User::where('referral_code', $order->referral_code)->first();
+    
+            if ($referrer && $referrer->id !== $order->user_id) {
+                $totalCommission = 0;
+    
+                foreach ($order->products as $product) {
+                    $sizeId = $product->pivot->size_id; 
+                    $size = ProductSize::find($sizeId);
+    
+                    if ($size) {
+                        $harga = $size->price - $product->pivot->discount;
+                        $productCommission = ($harga * $size->commission) / 100;
+                        $totalCommission += $productCommission * $product->pivot->quantity;
+                    }
+                }
+    
+                $affiliate = Affiliate::create([
+                    'user_id' => $referrer->id,
+                    'referred_user_id' => $order->user_id,
+                    'order_id' => $order->id,
+                    'referral_code' => $order->referral_code,
+                    'commission' => $totalCommission,
+                ]);
+    
+                AffiliateHistory::create([
+                    'user_id' => $referrer->id,
+                    'affiliate_id' => $affiliate->id, 
+                    'type' => 'addcommission',
+                    'amount' => $totalCommission,
+                    'history_status' => 'pending',
+                    'description' => 'Komisi dari order #' . $order->id,
+                ]);
+            }
+        }
+    
         $order->update([
             'status' => 'completed',
         ]);
@@ -238,6 +277,9 @@ class ProfileController extends Controller
         Alert::success('Terimakasih', 'Pesanan Telah Di Selesaikan!');
         return redirect()->back()->with('success', 'Order and payment status updated successfully.');
     }
+    
+    
+    
 
     public function OrderBatal(Order $order)
     {    
@@ -248,5 +290,5 @@ class ProfileController extends Controller
         Alert::info('Terimakasih', 'Pesanan Telah Dibatalkan!');
         return redirect()->route('recent_order')->with('success', 'Pesanan berhasil diperbarui.');
     }
-    
+        
 }

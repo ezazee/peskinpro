@@ -98,7 +98,7 @@ Route::middleware(['userOrGuest'])->group(function () {
 });
 
 Route::middleware(['auth', 'role:user'])->group(function () {
-    Route::get('/checkout', [ChekoutController::class, 'index'])->name('chekout.index');
+    // Route::get('/checkout', [ChekoutController::class, 'index'])->name('chekout.index');
     // Route::get('/checkout/process', [ChekoutController::class, 'Checkout'])->name('checkout.process');
     Route::post('/checkout/process', [ChekoutController::class, 'Checkout'])->name('checkout.process');
     Route::get('/pembayaran/{invoice_number}', [ChekoutController::class, 'payment'])->name('payment');
@@ -120,6 +120,16 @@ Route::middleware(['auth', 'role:user'])->group(function () {
 
     Route::post('/order/selesai/{order:order_number}', [ProfileController::class, 'Orderselesai'])->name('order.Orderselesai');
     Route::post('/order/batal/{order:order_number}', [ProfileController::class, 'OrderBatal'])->name('order.OrderBatal');
+
+    // afiliate
+    Route::get('/profile/affiliate', [AffiliateController::class, 'index'])->name('affiliate.index');
+    Route::get('/affiliate/transaksi', [AffiliateController::class, 'AffiliateTransaksi'])->name('affiliate.transaksi');
+    Route::get('/affiliate/history/komisi', [AffiliateController::class, 'HistoryKomisi'])->name('affiliatehistory.komisi');
+    Route::get('/affiliate/history/transaksi', [AffiliateController::class, 'HistoryTransaksi'])->name('affiliatehistory.transaksi');
+    Route::post('/affiliate/withdraw', [AffiliateController::class, 'Withdraw'])->name('affiliate.Withdraw');
+    Route::get('/share-referral', [AffiliateController::class, 'share'])->name('referral.share');
+    Route::get('/checkout', [AffiliateController::class, 'checkout'])->name('referral.checkout');
+    
 });
 
 
@@ -261,6 +271,17 @@ Route::middleware(['auth', 'role:Administrator,Management,Admin,Finance,Writter'
 
     // Inventory Management (Detail Supplier)
     Route::get('/inventory/detail-supplier', [InventoryController::class, 'detailSupplierIndex'])->name('detailSupplier.index');
+
+    // affiliate
+    Route::get('/affiliate/commision', [AffiliateController::class, 'CommisionAffiliate'])->name('commision.affiliate');
+    Route::post('/products/bulk-update-commission', [AffiliateController::class, 'bulkUpdateCommission'])->name('commision.bulkUpdateCommission');
+    Route::get('/affiliate/history/{id}', [AffiliateController::class, 'HistoryUserAffiliate'])->name('history.affiliate');
+    Route::get('/affiliate/member', [AffiliateController::class, 'MemberAffiliate'])->name('member.affiliate');
+    Route::get('/affiliate/withdraw', [AffiliateController::class, 'WithdrawAffiliate'])->name('Withdraw.affiliate');
+    Route::get('/affiliate/withdraw/accept/{id}', [AffiliateController::class, 'acceptWithdraw'])->name('withdraw.accept');
+    Route::post('/affiliate/withdraw/reject/{id}', [AffiliateController::class, 'rejectWithdraw'])->name('withdraw.reject');
+
+
 });
 
 

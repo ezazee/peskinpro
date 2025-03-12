@@ -32,6 +32,12 @@
                 <strong class="heading6">Riwayat Order</strong>
             </a>
 
+            <a href="{{ route('affiliate.index') }}"
+                class="category-item flex items-center gap-3 w-full px-5 py-4 rounded-lg cursor-pointer duration-300 hover:bg-white mt-1.5 {{ request()->is('profile/affiliate') ? 'active' : '' }}">
+                <span class="ph ph-hand-coins text-xl"></span>
+                <strong class="heading6">Affiliate</strong>
+            </a>
+
             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
                 @csrf
             </form>

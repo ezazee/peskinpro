@@ -7,9 +7,11 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Settings;
 use App\Models\Cart;
+use App\Models\User;
 use App\Models\CartItem;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Session;
 
 
 class CartController extends Controller
@@ -26,7 +28,7 @@ class CartController extends Controller
             $cart = Cart::where('guest_id', $guestCartId)->first();
             $cartItems = $cart ? $cart->items()->with(['product', 'productSize'])->get() : [];
         }
-
+        // dd(Session::get('referral_code')); 
         $cartCollection = collect($cartItems);
         return view('frontend.pages.cart', compact('cartCollection','settings'));
 
@@ -34,6 +36,8 @@ class CartController extends Controller
     
     public function add(Request $request)
     {    
+        $referralCode = Session::get('referral_code');
+        $referrer = User::where('referral_code', $referralCode)->first();
 
         $product = Product::findOrFail($request->product_id);
         $productSizeId = $request->selected_size;
@@ -52,6 +56,10 @@ class CartController extends Controller
                     'product_size_id' => $productSizeId, 
                     'quantity' => $request->quantity,
                 ]);
+            }
+
+            if ($referrer) {
+                session(['referral_code' => $referrer->referral_code]);
             }
         } else {
             $guestCartId = session()->getId();
