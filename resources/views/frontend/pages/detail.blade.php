@@ -42,12 +42,12 @@
                         $currentUrl = url()->current();
                         $url = $user ? $currentUrl . '?ref=' . $user->referral_code : $currentUrl;
                     @endphp
-                    
+
                     <!-- Tombol untuk menyalin URL -->
                     <button id="copyButton" class="w-10 h-10 flex-shrink-0 flex items-center justify-center cursor-pointer rounded-lg">
                         <i class="ph ph-share-network text-xl"></i>
                     </button>
-                    
+
 
                     </div>
                     <div class="flex items-center gap-3 flex-wrap mt-5 pb-6 border-b border-line">
@@ -216,6 +216,9 @@
                                             <div
                                                 class="product-tag text-button-uppercase text-white bg-red px-3 py-0.5 inline-block rounded-full absolute top-3 left-3 z-[1]">
                                                 Diskon
+                                            </div>
+                                            <div class="product-tag text-button-uppercase text-white bg-red px-3 py-0.5 inline-block rounded-full absolute top-3 right-3 z-[1]">
+                                                FREE GIFT
                                             </div>
                                         @endif
                                         <div class="product-img w-full h-full aspect-[3/4]">
