@@ -81,7 +81,7 @@ Route::get('/about/news/detail', [AboutController::class, 'AboutNewsDetail'])->n
 
 
 // Affiliate
-Route::get('/about/affiliate', [AffiliateController::class, 'index'])->name('about.affiliate');
+Route::get('/about/affiliate', [AffiliateController::class, 'IndexAffiliate'])->name('about.affiliate');
 Route::get('/about/affiliate/cara-raih-komisi', [AffiliateController::class, 'RaihKomisi'])->name('about.RaihKomisi');
 Route::get('/about/affiliate/keuntungan', [AffiliateController::class, 'Keuntungan'])->name('about.Keuntungan');
 
@@ -129,7 +129,7 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::post('/affiliate/withdraw', [AffiliateController::class, 'Withdraw'])->name('affiliate.Withdraw');
     Route::get('/share-referral', [AffiliateController::class, 'share'])->name('referral.share');
     Route::get('/checkout', [AffiliateController::class, 'checkout'])->name('referral.checkout');
-    
+
 });
 
 
