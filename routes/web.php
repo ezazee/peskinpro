@@ -50,6 +50,10 @@ Route::post('/login/user', [AuthenticationController::class, 'userLogin'])->name
 
 Route::get('/pskinpro', [AuthenticationController::class, 'showadminLogin'])->name('showadminLogin');
 
+
+
+Route::get('/affiliate-register', [AuthenticationController::class, 'affiliateRegister'])->name('affiliate_register');
+
 Route::get('/register', [AuthenticationController::class, 'show_register'])->name('show_register');
 Route::post('/register', [AuthenticationController::class, 'register'])->name('register');
 Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logout');

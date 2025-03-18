@@ -44,19 +44,30 @@
                         </div>
                     </form>
                 </div>
-                <div class="right md:w-1/2 w-full lg:pl-[60px] md:pl-[40px] flex items-center">
-                    <div class="text-content">
+                <div class="right md:w-1/2 w-full lg:pl-[60px] md:pl-[40px] flex flex-col items-start space-y-6">
+                    <div class="text-content" style="margin-bottom: 30px">
                         <div class="heading4">Pengguna Baru?</div>
                         <div class="mt-2 text-secondary">
                             Belum punya akun? Daftar sekarang dan nikmati berbagai fitur menarik yang memudahkan
                             aktivitasmu.
-                            Ayo, mulai perjalanan serumu bersama kami!
                         </div>
-                        <div class="block-button md:mt-7 mt-4">
+                        <div class="block-button mt-4">
                             <a href="/register" class="button-main">Daftar</a>
                         </div>
                     </div>
+
+                    <div class="text-content">
+                        <div class="heading4">Gabung Jadi Affiliator & Raih Penghasilan!</div>
+                        <div class="mt-2 text-secondary">
+                            Hasilkan uang dengan mudah! Dapatkan komisi menarik dari setiap referensi yang kamu berikan.
+                            Pendaftaran <b>GRATIS</b> dan tanpa modal!
+                        </div>
+                        <div class="block-button mt-4">
+                            <a href="{{ route('affiliate_register') }}" class="button-main">Gabung Sekarang</a>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>

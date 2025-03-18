@@ -8,7 +8,7 @@
             <!-- Slide 1 -->
             <div class="slider-item h-full w-full relative overflow-hidden">
                 <div class="sub-img absolute left-0 top-0 w-full h-full z-[-2]">
-                    <img src="https://peskinpro.com/wp-content/uploads/2023/03/about-us.jpg" alt="bg-cos3-1"
+                    <img src="https://peskinpro.com/wp-content/uploads/2023/03/about-us.jpg" loading="lazy" alt="PE Skinpro"
                         class="w-full h-full object-cover img-desktop" />
                 </div>
             </div>

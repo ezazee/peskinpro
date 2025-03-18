@@ -721,3 +721,41 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 </script>
 
+
+
+{{-- Backdrop Modal Ganti Alamat Checkout --}}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const modal = document.getElementById('customPKS');
+        const backdrop = document.getElementById('modal-pks-backdrop');
+        const openModalButton = document.getElementById('customPKSButton');
+        const closeModalButtons = document.querySelectorAll('.modal-pks-close');
+
+        // Cek jika modal dan backdrop ada sebelum melanjutkan
+        if (modal && backdrop) {
+            if (openModalButton) {
+                openModalButton.addEventListener('click', function() {
+                    modal.classList.remove('hidden');
+                    backdrop.classList.remove('hidden');
+                });
+            }
+
+            // Cek jika ada tombol untuk menutup modal
+            if (closeModalButtons.length > 0) {
+                closeModalButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        modal.classList.add('hidden');
+                        backdrop.classList.add('hidden');
+                    });
+                });
+            }
+
+            // Cek jika backdrop ada sebelum menambahkan event listener
+            backdrop.addEventListener('click', function() {
+                modal.classList.add('hidden');
+                backdrop.classList.add('hidden');
+            });
+        } else {
+        }
+    });
+</script>

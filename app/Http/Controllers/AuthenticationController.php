@@ -34,7 +34,7 @@ class AuthenticationController extends Controller
     }
 
     public function showadminLogin(){
-        
+
         if (Auth::check()) {
             return redirect()->route('dashboard.index');
         }
@@ -93,6 +93,15 @@ class AuthenticationController extends Controller
         return back()->withErrors(['password' => 'Password salah.'])->withInput();
     }
 
+
+    public function affiliateRegister(){
+        if (Auth::check()) {
+            return redirect()->route('home.index');
+        }
+        $settings = Settings::all();
+
+        return view('frontend.pages.auth.affiliateRegist', compact('settings'));
+    }
 
 
 

@@ -10,11 +10,14 @@
                 @foreach ($banners as $item)
                 <div class="swiper-slide slider-item h-full w-full relative overflow-hidden">
                     <div class="sub-img absolute left-0 top-0 w-full h-full z-[-2]">
-                        <img src="{{ asset($item->banner_desktop) }}" alt="bg-cos3-1"
-                            class="w-full h-full object-cover img-desktop" />
-                        <img src="{{ asset($item->banner_mobile) }}" alt="bg-cos3-1"
-                            class="w-full h-full object-cover img-mobile" />
+                        <img src="{{ asset($item->banner_desktop) }}" alt="PE Skinpro ID"
+                             class="w-full h-full object-cover img-desktop"
+                             loading="eager" fetchpriority="high" />
+                        <img src="{{ asset($item->banner_mobile) }}" alt="PE Skinpro ID"
+                             class="w-full h-full object-cover img-mobile"
+                             loading="lazy" />
                     </div>
+
                 </div>
                 @endforeach
             </div>
