@@ -8,6 +8,7 @@
             @include('frontend.components.profile-user')
             {{-- Bagian Kanan --}}
             <div class="right list-filter md:w-2/3 w-full pl-2.5">
+                @if (in_array(auth()->user()->role->name, ['Affiliate']) && auth()->user()->affiliate_status === 'approve')
                 <div class="filter-item text-content w-full active">
                     {{-- Main Dashboard --}}
                     <div class="overview grid sm:grid-cols-3 gap-5">
@@ -81,6 +82,9 @@
                         </div>
                     </div>
                 </div>
+                @else
+                <h3>Pengajuan anda sedang kami tinjau mohon tunggu</h3>
+                @endif
             </div>
         </div>
     </div>

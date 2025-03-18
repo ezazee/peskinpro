@@ -121,15 +121,6 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::post('/order/selesai/{order:order_number}', [ProfileController::class, 'Orderselesai'])->name('order.Orderselesai');
     Route::post('/order/batal/{order:order_number}', [ProfileController::class, 'OrderBatal'])->name('order.OrderBatal');
 
-    // afiliate
-    Route::get('/profile/affiliate', [AffiliateController::class, 'index'])->name('affiliate.index');
-    Route::get('/affiliate/transaksi', [AffiliateController::class, 'AffiliateTransaksi'])->name('affiliate.transaksi');
-    Route::get('/affiliate/history/komisi', [AffiliateController::class, 'HistoryKomisi'])->name('affiliatehistory.komisi');
-    Route::get('/affiliate/history/transaksi', [AffiliateController::class, 'HistoryTransaksi'])->name('affiliatehistory.transaksi');
-    Route::post('/affiliate/withdraw', [AffiliateController::class, 'Withdraw'])->name('affiliate.Withdraw');
-    Route::get('/share-referral', [AffiliateController::class, 'share'])->name('referral.share');
-    Route::get('/checkout', [AffiliateController::class, 'checkout'])->name('referral.checkout');
-
 });
 
 
@@ -284,6 +275,18 @@ Route::middleware(['auth', 'role:Administrator,Management,Admin,Finance,Writter'
 
 });
 
+
+Route::middleware(['auth', 'role:Affiliate'])->group(function () {
+
+    // user afiliate
+    Route::get('/dashboard/affiliate', [AffiliateController::class, 'index'])->name('affiliate.index');
+    Route::get('/affiliate/transaksi', [AffiliateController::class, 'AffiliateTransaksi'])->name('affiliate.transaksi');
+    Route::get('/affiliate/history/komisi', [AffiliateController::class, 'HistoryKomisi'])->name('affiliatehistory.komisi');
+    Route::get('/affiliate/history/transaksi', [AffiliateController::class, 'HistoryTransaksi'])->name('affiliatehistory.transaksi');
+    Route::post('/affiliate/withdraw', [AffiliateController::class, 'Withdraw'])->name('affiliate.Withdraw');
+    Route::get('/share-referral', [AffiliateController::class, 'share'])->name('referral.share');
+    Route::get('/checkout', [AffiliateController::class, 'checkout'])->name('referral.checkout');
+});
 
 
 Route::get('/search-result', function () {

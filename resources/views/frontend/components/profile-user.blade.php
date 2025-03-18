@@ -15,6 +15,7 @@
                 {{ $user->email }}</div>
         </div>
         <div class="menu-tab list-category w-full max-w-none lg:mt-10 mt-6">
+            @if (in_array(auth()->user()->role->name, ['user']))
             <a href="{{ route('profile.index') }}"
                 class="category-item flex items-center gap-3 w-full px-5 py-4 rounded-lg cursor-pointer duration-300 hover:bg-white {{ request()->is('profile') ? 'active' : '' }}">
                 <span class="ph ph-house-line text-xl"></span>
@@ -31,12 +32,23 @@
                 <span class="ph ph-receipt text-xl"></span>
                 <strong class="heading6">Riwayat Order</strong>
             </a>
+            @endif
 
+            {{-- AFFILIATE SIDE BAR --}}
+            @if (in_array(auth()->user()->role->name, ['Affiliate']))
             <a href="{{ route('affiliate.index') }}"
-                class="category-item flex items-center gap-3 w-full px-5 py-4 rounded-lg cursor-pointer duration-300 hover:bg-white mt-1.5 {{ request()->is('profile/affiliate') ? 'active' : '' }}">
-                <span class="ph ph-hand-coins text-xl"></span>
-                <strong class="heading6">Affiliate</strong>
+                class="category-item flex items-center gap-3 w-full px-5 py-4 rounded-lg cursor-pointer duration-300 hover:bg-white {{ request()->is('dashboard/affiliate') ? 'active' : '' }}">
+                <span class="ph ph-house-line text-xl"></span>
+                <strong class="heading6">Dashboard</strong>
             </a>
+            @endif
+            @if (in_array(auth()->user()->role->name, ['Affiliate']) && auth()->user()->affiliate_status === 'approve')
+            <a href="#"
+                class="category-item flex items-center gap-3 w-full px-5 py-4 rounded-lg cursor-pointer duration-300 hover:bg-white mt-1.5 ">
+                <span class="ph ph-hand-coins text-xl"></span>
+                <strong class="heading6">List Product</strong>
+            </a>
+            @endif
 
             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
                 @csrf

@@ -1,5 +1,5 @@
 @extends('backend.master.master-app')
-@section('title', 'Affiliate Commision')
+@section('title', 'Affiliate Withdraw')
 @section('content')
 <div class="container-xxl">
     <div class="row">

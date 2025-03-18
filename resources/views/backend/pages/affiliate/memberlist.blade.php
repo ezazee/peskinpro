@@ -1,5 +1,5 @@
 @extends('backend.master.master-app')
-@section('title', 'Affiliate Commision')
+@section('title', 'Affiliate Member')
 @section('content')
 <div class="container-xxl">
     <div class="row">
@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="d-flex card-header justify-content-between align-items-center">
                     <div>
-                        <h4 class="card-title">All Prodduct Affiliate</h4>
+                        <h4 class="card-title">All Member Affiliate</h4>
                     </div>
                     <div class="d-flex align-items-center gap-2">
                         <!-- Form Search -->
