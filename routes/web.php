@@ -89,6 +89,7 @@ Route::get('/about/affiliate', [AffiliateController::class, 'IndexAffiliate'])->
 Route::get('/about/affiliate/cara-raih-komisi', [AffiliateController::class, 'RaihKomisi'])->name('about.RaihKomisi');
 Route::get('/about/affiliate/keuntungan', [AffiliateController::class, 'Keuntungan'])->name('about.Keuntungan');
 
+Route::post('/register-affiliate', [AuthenticationController::class, 'registerAffiliate'])->name('register.affiliate');
 
 
 
@@ -282,7 +283,6 @@ Route::middleware(['auth', 'role:Administrator,Management,Admin,Finance,Writter'
 
 Route::middleware(['auth', 'role:Affiliate'])->group(function () {
 
-    // user afiliate
     Route::get('/dashboard/affiliate', [AffiliateController::class, 'index'])->name('affiliate.index');
     Route::get('/affiliate/transaksi', [AffiliateController::class, 'AffiliateTransaksi'])->name('affiliate.transaksi');
     Route::get('/affiliate/history/komisi', [AffiliateController::class, 'HistoryKomisi'])->name('affiliatehistory.komisi');

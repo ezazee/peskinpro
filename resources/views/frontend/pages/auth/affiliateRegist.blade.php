@@ -24,42 +24,43 @@
 
         <div class="container">
             <div class="heading4 text-center" style="margin-bottom:50px">Daftar Affiliator PE Skinpro</div>
-            <form action="#">
+            <form action="{{ route('register.affiliate') }}" method="POST" enctype="multipart/form-data">
+                @csrf
                 <div class="content-main flex gap-y-8 max-md:flex-col">
                     <div class="left md:w-1/2 w-full lg:pr-[60px] md:pr-[40px] md:border-r border-line">
                         <div>
-                            <input class="border-line px-4 pt-3 pb-3 w-full rounded-lg" id="username" type="email"
+                            <input class="border-line px-4 pt-3 pb-3 w-full rounded-lg" name="email" type="email"
                                 placeholder="Email" required />
                         </div>
                         <div class="mt-5">
-                            <input class="border-line px-4 pt-3 pb-3 w-full rounded-lg" id="password" type="password"
+                            <input class="border-line px-4 pt-3 pb-3 w-full rounded-lg" name="password" type="password"
                                 placeholder="Password" required />
                         </div>
                         <div class="mt-5">
-                            <input class="border-line px-4 pt-3 pb-3 w-full rounded-lg" id="namaLengkap" type="text"
+                            <input class="border-line px-4 pt-3 pb-3 w-full rounded-lg" name="namaLengkap" type="text"
                                 placeholder="Nama Lengkap" required />
                         </div>
                         <div class="mt-5">
-                            <input class="border-line px-4 pt-3 pb-3 w-full rounded-lg" id="nomorRekening" type="number"
+                            <input class="border-line px-4 pt-3 pb-3 w-full rounded-lg" name="nomorRekening" type="number"
                                 placeholder="Nomor Rekening" required />
                         </div>
                         <div class="mt-5">
-                            <input class="border-line px-4 pt-3 pb-3 w-full rounded-lg" id="nomorWhatsapp" type="number"
+                            <input class="border-line px-4 pt-3 pb-3 w-full rounded-lg" name="nomorWhatsapp" type="number"
                                 placeholder="Nomor WhatsApp" required />
                         </div>
                         <div class="mt-5">
-                            <input class="border-line px-4 pt-3 pb-3 w-full rounded-lg" id="nomorKTP" type="number"
+                            <input class="border-line px-4 pt-3 pb-3 w-full rounded-lg" name="nomorKTP" type="number"
                                 placeholder="Nomor KTP" required />
                         </div>
                         <div class="upload_file flex items-center gap-3 mt-5 px-3 py-2 border border-line rounded">
                             <label for="uploadImage"
                                 class="caption2 py-1 px-3 rounded bg-line whitespace-nowrap cursor-pointer">Upload KTP
                                 Kamu</label>
-                            <input type="file" name="uploadImage" id="uploadImage" accept="image/*"
+                            <input type="file" name="uploadImage" accept="image/*"
                                 class="caption2 cursor-pointer" required="" />
                         </div>
                         <div class="mt-5">
-                            <textarea class="border-line px-4 pt-3 pb-3 w-full rounded-lg form-control" id="alamatLengkap"
+                            <textarea class="border-line px-4 pt-3 pb-3 w-full rounded-lg form-control" name="alamatLengkap"
                                 placeholder="Alamat Lengkap" required rows="9"></textarea>
                         </div>
 
@@ -72,37 +73,37 @@
                             <div class="flex items-center">
                                 <i class="ph-bold ph-instagram-logo text-3xl mr-2"></i>
                                 <input class="border-line px-4 pt-3 pb-3 w-full rounded-lg" style="margin-left: 10px"
-                                    id="sosmedInstagram" type="text" placeholder="Isi Link atau Username Instagram" />
+                                    name="sosmedInstagram" type="text" placeholder="Isi Link atau Username Instagram" />
                             </div>
                             <div class="flex items-center mt-5">
                                 <i class="ph-bold ph-youtube-logo text-3xl mr-2"></i>
                                 <input class="border-line px-4 pt-3 pb-3 w-full rounded-lg" style="margin-left: 10px"
-                                    id="sosmedYoutube" type="text" placeholder="Isi Link atau Nama Channel Youtube" />
+                                name="sosmedYoutube" type="text" placeholder="Isi Link atau Nama Channel Youtube" />
                             </div>
                             <div class="flex items-center mt-5">
                                 <i class="ph-bold ph-twitter-logo text-3xl mr-2"></i>
                                 <input class="border-line px-4 pt-3 pb-3 w-full rounded-lg" style="margin-left: 10px"
-                                    id="sosmedX" type="text" placeholder="Isi Link atau Username X / Twitter" />
+                                name="sosmedX" type="text" placeholder="Isi Link atau Username X / Twitter" />
                             </div>
                             <div class="flex items-center mt-5">
                                 <i class="ph-bold ph-tiktok-logo text-3xl mr-2"></i>
                                 <input class="border-line px-4 pt-3 pb-3 w-full rounded-lg" style="margin-left: 10px"
-                                    id="sosmedTiktok" type="text" placeholder="Isi Link atau Username Tiktok" />
+                                name="sosmedTiktok" type="text" placeholder="Isi Link atau Username Tiktok" />
                             </div>
                             <div class="flex items-center mt-5">
                                 <i class="ph-bold ph-facebook-logo text-3xl mr-2"></i>
                                 <input class="border-line px-4 pt-3 pb-3 w-full rounded-lg" style="margin-left: 10px"
-                                    id="sosmedFacebook" type="text" placeholder="Isi Link atau Username Facebook" />
+                                name="sosmedFacebook" type="text" placeholder="Isi Link atau Username Facebook" />
                             </div>
                             <div class="flex items-center mt-5">
                                 <i class="ph-bold ph-globe text-3xl mr-2"></i>
                                 <input class="border-line px-4 pt-3 pb-3 w-full rounded-lg" style="margin-left: 10px"
-                                    id="sosmmedBlog" type="text" placeholder="Isi Link Blog Pribadi Kamu" />
+                                name="sosmmedBlog" type="text" placeholder="Isi Link Blog Pribadi Kamu" />
                             </div>
                             <div class="flex items-center mt-5">
                                 <i class="ph-bold ph-link text-3xl mr-2"></i>
                                 <input class="border-line px-4 pt-3 pb-3 w-full rounded-lg" style="margin-left: 10px"
-                                    id="sosmedLainnya" type="text" placeholder="Isi Link Sosmed Yang Lainnya" />
+                                name="sosmedLainnya" type="text" placeholder="Isi Link Sosmed Yang Lainnya" />
                             </div>
 
                             <div class="flex items-center mt-5">

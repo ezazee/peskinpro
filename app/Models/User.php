@@ -29,6 +29,12 @@ class User extends Authenticatable
         'role_id',
         'status',
         'images',
+        'ktp',
+        'nik',
+        'no_rek',
+        'data_sosmed',
+        'affiliate_alamat',
+        'affiliate_status'
     ];
 
     /**
@@ -78,6 +84,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'data_sosmed' => 'array',
     ];
 
     // protected static function boot()

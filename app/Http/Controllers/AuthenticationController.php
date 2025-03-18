@@ -156,4 +156,68 @@ class AuthenticationController extends Controller
         Alert::toast('Anda Logout.', 'info');
         return redirect()->route('home.index');
     }
+
+
+    public function registerAffiliate(Request $request){
+        $messages = [
+            'password.required' => 'Kata sandi wajib diisi.',
+            'password.min' => 'Kata sandi harus terdiri dari minimal :min karakter.',
+            'email.unique' => 'Email telah digunakan. Coba memakai email lain.',
+            'uploadImage.required' => 'Gambar KTP wajib diupload.',
+            'uploadImage.image' => 'File harus berupa gambar.',
+            'uploadImage.mimes' => 'Format gambar harus jpg, png, atau jpeg.',
+            'uploadImage.max' => 'Ukuran gambar maksimal 2MB.',
+        ];
+    
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:6',
+            'uploadImage' => 'required|image|mimes:jpg,png,jpeg|max:2048',
+        ], $messages);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        if ($request->hasFile('uploadImage')) {
+            $image = $request->file('uploadImage');
+            $imageName = Str::random(10) . '.' . $image->getClientOriginalExtension();
+            $imagePath = $image->storeAs('ktp', $imageName, 'public');
+        } else {
+            $imagePath = null;
+        }
+
+        $dataSosmed = [
+            'instagram' => $request->sosmedInstagram,
+            'youtube' => $request->sosmedYoutube,
+            'twitter' => $request->sosmedX,
+            'tiktok' => $request->sosmedTiktok,
+            'facebook' => $request->sosmedFacebook,
+            'blog' => $request->sosmmedBlog,
+            'lainnya' => $request->sosmedLainnya,
+        ];
+    
+        if (empty(array_filter($dataSosmed))) {
+            return response()->json(['message' => 'Minimal satu sosial media harus diisi!'], 400);
+        }
+
+        $user = User::create([
+            'name' => $request->namaLengkap,
+            'slug' => Str::slug($request->namaLengkap),
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'no_rek' => $request->nomorRekening,
+            'no_telp' => $request->nomorWhatsapp,
+            'nik' => $request->nomorKTP,
+            'ktp' => $imagePath,
+            'data_sosmed' => $dataSosmed,
+            'status' => 'active',
+            'affiliate_alamat' => $request->alamatLengkap,
+            'affiliate_status' => 'pending',
+            'images' => '',
+            'role_id' => 7,
+        ]);
+        Alert::toast('Register Berhasil Silahkan Login.', 'success');
+        return redirect()->route('login')->with('success', 'Registration successful! Please login.');
+    }
 }
