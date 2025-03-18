@@ -8,11 +8,16 @@ use App\Models\Banner;
 use App\Models\Product;
 use App\Models\Article;
 use App\Models\Settings;
+use Illuminate\Support\Facades\Auth;
 
 
 class HomeController extends Controller
 {
     public function index(){
+        if (Auth::check() && in_array(auth()->user()->role->name, ['Affiliate'])) {
+            return redirect()->route('affiliate.index');
+        }
+
         $banners = Banner::all();
         $productsfacialcare = Product::whereHas('category', function ($query) {
             $query->where('name', 'Facial Care');

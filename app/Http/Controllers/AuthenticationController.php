@@ -82,11 +82,15 @@ class AuthenticationController extends Controller
                 $guestCart->delete();
             }
 
-            if ($user->role === 'user') {
+            if ($user->role->name === 'user') {
                 Alert::toast('Login Berhasil.', 'success');
                 return redirect()->route('home.index');
-            } elseif ($user->role === 'Administrator') {
+            } elseif ($user->role->name === 'Administrator') {
+                Alert::toast('Login Berhasil.', 'success');
                 return redirect()->route('dashboard.index');
+            }elseif ($user->role->name === 'Affiliate') {
+                Alert::toast('Login Berhasil.', 'success');
+                return redirect()->route('affiliate.index');
             }
         }
 

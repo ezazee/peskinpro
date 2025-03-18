@@ -10,6 +10,7 @@
             </a>
             <div class="menu-main h-full max-lg:hidden">
                 <ul class="flex items-center gap-8 h-full">
+                    @if (!auth()->check() || (auth()->user()->role && auth()->user()->role->name === 'user'))
                     <li class="h-full relative">
                         <a href="/"
                             class="text-button-uppercase duration-300 h-full flex items-center justify-center gap-1 {{ request()->is('/') ? 'active' : '' }}">
@@ -38,6 +39,7 @@
                         </a>
                     </li>
 
+                    @endif
                     <li class="h-full relative">
                         <a href="{{ route('about.index') }}"
                             class="text-button-uppercase duration-300 h-full flex items-center justify-center gap-1">
@@ -50,6 +52,15 @@
                             PE Skinpro Affiliate
                         </a>
                     </li>
+                    @if (auth()->check() && in_array(auth()->user()->role->name, ['Affiliate']))
+                    <li class="h-full relative">
+                        <a href="{{ route('about.affiliate') }}"
+                            class="text-button-uppercase duration-300 h-full flex items-center justify-center gap-1">
+                            Berita
+                        </a>
+                    </li>
+                    @endif
+
                 </ul>
             </div>
             <div class="right flex gap-5">
@@ -72,9 +83,13 @@
                             <img src="{{ Auth::user()->images ? asset('storage/' . Auth::user()->images) : 'https://media.istockphoto.com/id/517998264/vector/male-user-icon.jpg?b=1&s=612x612&w=0&k=20&c=XQPO5sxBVwANqHTIVNli3gnXLCbmcpOn-23biJPkO3E=' }}"
                                 alt="User Avatar" class="w-full h-full object-cover">
                         </div>
-                        <div
-                            class="user-popup absolute top-[74px] right-[200px] w-[320px] p-7 rounded-xl bg-white shadow-lg">
+                        <div class="user-popup absolute top-[74px] right-[200px] w-[320px] p-7 rounded-xl bg-white shadow-lg">
+                            @if (in_array(auth()->user()->role->name, ['user']))
                             <a href="/profile" class="button-main w-full text-center">Profile</a>
+                            @endif
+                            @if (in_array(auth()->user()->role->name, ['Affiliate']))
+                            <a href="{{ route('affiliate.index') }}" class="button-main w-full text-center">Profile</a>
+                            @endif
                             <div class="text-secondary text-center mt-3 pb-4">
                                 Want to log out?
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"

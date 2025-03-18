@@ -190,9 +190,14 @@ class AffiliateController extends Controller
         $memberAffiliate = Affiliate::select('user_id')
         ->selectRaw('SUM(commission) as total_commission')
         ->with('user')
+        ->whereHas('user', function ($query) {
+            $query->whereHas('role', function ($roleQuery) {
+                $roleQuery->where('name', 'Affiliate');
+            })->where('affiliate_status', 'approve');
+        })
         ->groupBy('user_id')
         ->orderByDesc('total_commission')
-        ->paginate(5);
+        ->paginate(5);    
 
         return view('backend.pages.affiliate.memberlist',compact('welcomeMessage','user','memberAffiliate'));
     }
@@ -275,9 +280,6 @@ class AffiliateController extends Controller
 
         return view('backend.pages.affiliate.detailhistory', compact('welcomeMessage', 'user', 'his','totalCommission'));
     }
-
-
-
 
     public function WithdrawAffiliate()
     {
