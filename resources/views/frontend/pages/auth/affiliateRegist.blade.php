@@ -24,7 +24,7 @@
 
         <div class="container">
             <div class="heading4 text-center" style="margin-bottom:50px">Daftar Affiliator PE Skinpro</div>
-            <form action="{{ route('register.affiliate') }}" method="POST" enctype="multipart/form-data">
+            <form id="registerForm" action="{{ route('register.affiliate') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="content-main flex gap-y-8 max-md:flex-col">
                     <div class="left md:w-1/2 w-full lg:pr-[60px] md:pr-[40px] md:border-r border-line">
@@ -72,56 +72,56 @@
                                 Diisi</p>
                             <div class="flex items-center">
                                 <i class="ph-bold ph-instagram-logo text-3xl mr-2"></i>
-                                <input class="border-line px-4 pt-3 pb-3 w-full rounded-lg" style="margin-left: 10px"
+                                <input class="social-media border-line px-4 pt-3 pb-3 w-full rounded-lg" style="margin-left: 10px"
                                     name="sosmedInstagram" type="text" placeholder="Isi Link atau Username Instagram" />
                             </div>
                             <div class="flex items-center mt-5">
                                 <i class="ph-bold ph-youtube-logo text-3xl mr-2"></i>
-                                <input class="border-line px-4 pt-3 pb-3 w-full rounded-lg" style="margin-left: 10px"
+                                <input class="social-media border-line px-4 pt-3 pb-3 w-full rounded-lg" style="margin-left: 10px"
                                 name="sosmedYoutube" type="text" placeholder="Isi Link atau Nama Channel Youtube" />
                             </div>
                             <div class="flex items-center mt-5">
                                 <i class="ph-bold ph-twitter-logo text-3xl mr-2"></i>
-                                <input class="border-line px-4 pt-3 pb-3 w-full rounded-lg" style="margin-left: 10px"
+                                <input class="social-media border-line px-4 pt-3 pb-3 w-full rounded-lg" style="margin-left: 10px"
                                 name="sosmedX" type="text" placeholder="Isi Link atau Username X / Twitter" />
                             </div>
                             <div class="flex items-center mt-5">
                                 <i class="ph-bold ph-tiktok-logo text-3xl mr-2"></i>
-                                <input class="border-line px-4 pt-3 pb-3 w-full rounded-lg" style="margin-left: 10px"
+                                <input class="social-media border-line px-4 pt-3 pb-3 w-full rounded-lg" style="margin-left: 10px"
                                 name="sosmedTiktok" type="text" placeholder="Isi Link atau Username Tiktok" />
                             </div>
                             <div class="flex items-center mt-5">
                                 <i class="ph-bold ph-facebook-logo text-3xl mr-2"></i>
-                                <input class="border-line px-4 pt-3 pb-3 w-full rounded-lg" style="margin-left: 10px"
+                                <input class="social-media border-line px-4 pt-3 pb-3 w-full rounded-lg" style="margin-left: 10px"
                                 name="sosmedFacebook" type="text" placeholder="Isi Link atau Username Facebook" />
                             </div>
                             <div class="flex items-center mt-5">
                                 <i class="ph-bold ph-globe text-3xl mr-2"></i>
-                                <input class="border-line px-4 pt-3 pb-3 w-full rounded-lg" style="margin-left: 10px"
+                                <input class="social-media border-line px-4 pt-3 pb-3 w-full rounded-lg" style="margin-left: 10px"
                                 name="sosmmedBlog" type="text" placeholder="Isi Link Blog Pribadi Kamu" />
                             </div>
                             <div class="flex items-center mt-5">
                                 <i class="ph-bold ph-link text-3xl mr-2"></i>
-                                <input class="border-line px-4 pt-3 pb-3 w-full rounded-lg" style="margin-left: 10px"
+                                <input class="social-media border-line px-4 pt-3 pb-3 w-full rounded-lg" style="margin-left: 10px"
                                 name="sosmedLainnya" type="text" placeholder="Isi Link Sosmed Yang Lainnya" />
                             </div>
 
                             <div class="flex items-center mt-5">
                                 <div class="block-input">
-                                    <input type="checkbox" name="remember" id="customPKSButton" />
+                                    <input type="checkbox" name="remember" id="checkPKS" required />
                                     <i class="ph-fill ph-check-square icon-checkbox text-2xl"></i>
                                 </div>
-                                <label for="customPKSButton" class="pl-2 cursor-pointer text-secondary2">Dengan Ini Saya
+                                <label for="checkPKS" class="pl-2 cursor-pointer text-secondary2">Dengan Ini Saya
                                     Menyetujui Akan
                                     <a href="#!" class="text-black hover:underline pl-1 text-primary">Ketentuan
                                         Pengguna</a>
                                     dan
                                     <a href="#!" class="text-black hover:underline pl-1 text-primary">Perjanjian
                                         Kerjasama (PKS)</a>
-                                </label>
+                                </label=>
                             </div>
                             <div class="block-button md:mt-7 mt-4">
-                                <button type="submit" class="button-main">Register</button>
+                                <button id="customPKSButton" type="submit" class="button-main">Register</button>
                             </div>
                         </div>
                     </div>

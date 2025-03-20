@@ -1,4 +1,4 @@
-<section class="vs-cta-wrapper vs-cta-layout1 background-image space-md" data-vs-img="https://placehold.co/1920x526"
+<section class="vs-cta-wrapper vs-cta-layout1 background-image space-md" data-vs-img="{{ asset('asset-about/img/offer-banner/Banner-Join-Program-Affiliate-1920x526.png') }}"
     data-overlay="body" data-opacity="6" id="cta">
     <div class="container">
         <div class="row justify-content-center my-lg-0 my-30">

@@ -1,16 +1,12 @@
-<!-- 🌟 Preconnect ke Google Fonts untuk mempercepat -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<!-- 🌟 Preload CSS utama untuk prioritas tinggi -->
 <link rel="preload" href="{{ asset('frontend/dist/output-scss.css') }}" as="style">
 <link rel="preload" href="{{ asset('frontend/dist/output-tailwind.css') }}" as="style">
 
-<!-- 🌟 CSS Prioritas Tinggi (utama untuk tampilan awal) -->
 <link rel="stylesheet" href="{{ asset('frontend/dist/output-scss.css') }}" />
 <link rel="stylesheet" href="{{ asset('frontend/dist/output-tailwind.css') }}" />
 
-<!-- 🌟 CSS Non-Kritis (dimuat setelah halaman utama) -->
 <link rel="stylesheet" href="{{ asset('frontend/assets/css/style.css') }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ asset('frontend/assets/css/icomoon/style.css') }}" media="print"
     onload="this.media='all'">
@@ -19,7 +15,6 @@
 <link rel="stylesheet" href="{{ asset('frontend/assets/css/swiper-bundle.min.css') }}" media="print"
     onload="this.media='all'">
 
-<!-- 🌟 Critical CSS (dimuat langsung untuk tampilan awal) -->
 <style>
     .overlay {
         background: linear-gradient(to top, rgba(0, 0, 0, 0.57), rgba(0, 0, 0, 0.315) 60%);
@@ -39,8 +34,8 @@
     }
 
     .border-ktp {
-    border: 2px solid var(--primary) !important;
-    border-radius: 5px;
-    padding: 8px;
-}
+        border: 2px solid var(--primary) !important;
+        border-radius: 5px;
+        padding: 8px;
+    }
 </style>

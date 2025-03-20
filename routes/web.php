@@ -53,6 +53,7 @@ Route::get('/pskinpro', [AuthenticationController::class, 'showadminLogin'])->na
 
 
 Route::get('/affiliate-register', [AuthenticationController::class, 'affiliateRegister'])->name('affiliate_register');
+Route::get('/affiliate-register/succes', [AuthenticationController::class, 'affiliateRegisterSucces'])->name('affiliate_register_succes');
 
 Route::get('/register', [AuthenticationController::class, 'show_register'])->name('show_register');
 Route::post('/register', [AuthenticationController::class, 'register'])->name('register');
@@ -138,6 +139,11 @@ Route::middleware(['auth', 'role:Affiliate'])->group(function () {
     Route::post('/affiliate/withdraw', [AffiliateController::class, 'Withdraw'])->name('affiliate.Withdraw');
 
     Route::get('/affiliate/product', [AffiliateController::class, 'ProductAffiliate'])->name('affiliate.product');
+
+    
+    Route::get('/dashboard/affiliate/list-product', [AffiliateController::class, 'productLink'])->name('affiliate.product');
+
+    Route::get('/dashboard/affiliate/settings', [AffiliateController::class, 'affiliateSettings'])->name('affiliate.settings');
 });
 
 
@@ -295,7 +301,6 @@ Route::middleware(['auth', 'role:Administrator,Management,Admin,Finance,Writter'
     Route::get('/affiliate/member/reject/{id}', [AffiliateController::class, 'rejectMemberAffiliate'])->name('member.reject');
 
 });
-
 
 Route::get('/search-result', function () {
     return view('frontend.pages.search-result');

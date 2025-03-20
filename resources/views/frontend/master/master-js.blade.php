@@ -281,7 +281,7 @@
                 // Arahkan ke halaman lain jika ada href
                 if (link.getAttribute('href') !== '#') {
                     window.location.href = link.getAttribute(
-                    'href'); // Navigasi ke halaman lain
+                        'href'); // Navigasi ke halaman lain
                 }
             });
         });
@@ -400,7 +400,7 @@
             }, null, 2);
         }
     }
-    </script>
+</script>
 
 
 
@@ -436,81 +436,80 @@
                 modal.classList.add('hidden');
                 backdrop.classList.add('hidden');
             });
-        } else {
-        }
+        } else {}
     });
 </script>
 
 {{-- Backdrop Modal Order History --}}
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-    // JavaScript for showing/hiding modal
-    const modal = document.getElementById('customModalOrder');
-    const backdrop = document.getElementById('modal-order-backdrop');
-    const openModalButtons = document.querySelectorAll('.historyOrderButton');
-    const closeModalButtons = document.querySelectorAll('.modal-order-close');
+    document.addEventListener("DOMContentLoaded", function() {
+        // JavaScript for showing/hiding modal
+        const modal = document.getElementById('customModalOrder');
+        const backdrop = document.getElementById('modal-order-backdrop');
+        const openModalButtons = document.querySelectorAll('.historyOrderButton');
+        const closeModalButtons = document.querySelectorAll('.modal-order-close');
 
-    // Tambahkan event listener untuk setiap tombol dengan kelas .historyOrderButton
-    openModalButtons.forEach(button => {
-        button.addEventListener('click', function () {
-            modal.classList.remove('hidden');
-            backdrop.classList.remove('hidden');
+        // Tambahkan event listener untuk setiap tombol dengan kelas .historyOrderButton
+        openModalButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                modal.classList.remove('hidden');
+                backdrop.classList.remove('hidden');
+            });
         });
-    });
 
-    closeModalButtons.forEach(button => {
-        button.addEventListener('click', function () {
+        closeModalButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                modal.classList.add('hidden');
+                backdrop.classList.add('hidden');
+            });
+        });
+
+        backdrop.addEventListener('click', function() {
             modal.classList.add('hidden');
             backdrop.classList.add('hidden');
         });
     });
-
-    backdrop.addEventListener('click', function () {
-        modal.classList.add('hidden');
-        backdrop.classList.add('hidden');
-    });
-});
-
 </script>
 
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-    const countdownElement = document.querySelector(".countdown-time");
-    const timerFlashsale = countdownElement.getAttribute("data-timer");
+    document.addEventListener("DOMContentLoaded", () => {
+        const countdownElement = document.querySelector(".countdown-time");
+        const timerFlashsale = countdownElement.getAttribute("data-timer");
 
-    if (!timerFlashsale || isNaN(new Date(timerFlashsale).getTime())) {
-        document.querySelector(".countdown-day").textContent = "0";
-        document.querySelector(".countdown-hour").textContent = "00";
-        document.querySelector(".countdown-minute").textContent = "00";
-        document.querySelector(".countdown-second").textContent = "00";
-        countdownElement.innerHTML = "<div class='heading6 text-white'>Flash Sale Ended</div>";
-        return;
-    }
-
-    const countdownDate = new Date(timerFlashsale).getTime();
-
-    const countdownFunction = setInterval(() => {
-        const now = new Date().getTime();
-        const timeRemaining = countdownDate - now;
-
-        const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
-
-        document.querySelector(".countdown-day").textContent = days;
-        document.querySelector(".countdown-hour").textContent = hours.toString().padStart(2, '0');
-        document.querySelector(".countdown-minute").textContent = minutes.toString().padStart(2, '0');
-        document.querySelector(".countdown-second").textContent = seconds.toString().padStart(2, '0');
-
-        if (timeRemaining < 0) {
-            clearInterval(countdownFunction);
+        if (!timerFlashsale || isNaN(new Date(timerFlashsale).getTime())) {
+            document.querySelector(".countdown-day").textContent = "0";
+            document.querySelector(".countdown-hour").textContent = "00";
+            document.querySelector(".countdown-minute").textContent = "00";
+            document.querySelector(".countdown-second").textContent = "00";
             countdownElement.innerHTML = "<div class='heading6 text-white'>Flash Sale Ended</div>";
+            return;
         }
-    }, 1000);
-});
 
+        const countdownDate = new Date(timerFlashsale).getTime();
+
+        const countdownFunction = setInterval(() => {
+            const now = new Date().getTime();
+            const timeRemaining = countdownDate - now;
+
+            const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+            document.querySelector(".countdown-day").textContent = days;
+            document.querySelector(".countdown-hour").textContent = hours.toString().padStart(2, '0');
+            document.querySelector(".countdown-minute").textContent = minutes.toString().padStart(2,
+                '0');
+            document.querySelector(".countdown-second").textContent = seconds.toString().padStart(2,
+                '0');
+
+            if (timeRemaining < 0) {
+                clearInterval(countdownFunction);
+                countdownElement.innerHTML = "<div class='heading6 text-white'>Flash Sale Ended</div>";
+            }
+        }, 1000);
+    });
 </script>
 
 
@@ -627,49 +626,49 @@ document.addEventListener("DOMContentLoaded", () => {
 
 {{-- Navbar Link --}}
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-    // Fungsi untuk mengatur kelas active pada link yang sesuai
-    function setActiveLink() {
-        const hash = window.location.hash.substring(1); // Ambil hash tanpa tanda #
-        const links = document.querySelectorAll('.menu-main a');
+    document.addEventListener("DOMContentLoaded", function() {
+        // Fungsi untuk mengatur kelas active pada link yang sesuai
+        function setActiveLink() {
+            const hash = window.location.hash.substring(1); // Ambil hash tanpa tanda #
+            const links = document.querySelectorAll('.menu-main a');
 
-        links.forEach(link => {
-            // Menghapus kelas active dari semua link
-            link.classList.remove('active');
-            // Menambahkan kelas active pada link yang sesuai dengan hash
-            if (link.dataset.hash === hash) {
-                link.classList.add('active');
-            }
-        });
-    }
-
-    // Memeriksa jika berada di halaman "shop"
-    if (window.location.pathname.includes('/shop')) {
-        // Panggil fungsi saat halaman dimuat
-        setActiveLink();
-
-        // Tambahkan event listener untuk mengatur active link saat hash berubah
-        window.addEventListener('hashchange', setActiveLink);
-
-        // Tambahkan event listener untuk scroll agar aktif berdasarkan section
-        const sections = document.querySelectorAll('section[id]');
-        window.addEventListener('scroll', () => {
-            let scrollPos = document.documentElement.scrollTop || document.body.scrollTop;
-            sections.forEach(section => {
-                if (section.offsetTop <= scrollPos && (section.offsetTop + section.offsetHeight) > scrollPos) {
-                    const currentId = section.getAttribute('id');
-                    links.forEach(link => {
-                        link.classList.remove('active');
-                        if (link.dataset.hash === currentId) {
-                            link.classList.add('active');
-                        }
-                    });
+            links.forEach(link => {
+                // Menghapus kelas active dari semua link
+                link.classList.remove('active');
+                // Menambahkan kelas active pada link yang sesuai dengan hash
+                if (link.dataset.hash === hash) {
+                    link.classList.add('active');
                 }
             });
-        });
-    }
-});
+        }
 
+        // Memeriksa jika berada di halaman "shop"
+        if (window.location.pathname.includes('/shop')) {
+            // Panggil fungsi saat halaman dimuat
+            setActiveLink();
+
+            // Tambahkan event listener untuk mengatur active link saat hash berubah
+            window.addEventListener('hashchange', setActiveLink);
+
+            // Tambahkan event listener untuk scroll agar aktif berdasarkan section
+            const sections = document.querySelectorAll('section[id]');
+            window.addEventListener('scroll', () => {
+                let scrollPos = document.documentElement.scrollTop || document.body.scrollTop;
+                sections.forEach(section => {
+                    if (section.offsetTop <= scrollPos && (section.offsetTop + section
+                            .offsetHeight) > scrollPos) {
+                        const currentId = section.getAttribute('id');
+                        links.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.dataset.hash === currentId) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            });
+        }
+    });
 </script>
 
 
@@ -685,7 +684,7 @@ document.addEventListener("DOMContentLoaded", () => {
         passwordField.type = type;
         // Menentukan ikon berdasarkan visibilitas password
         const icon = type === "password" ? "ph ph-eye" :
-        "ph ph-eye-slash"; // Jika password terlihat, tampilkan ikon mata tertutup
+            "ph ph-eye-slash"; // Jika password terlihat, tampilkan ikon mata tertutup
         this.innerHTML = `<i class="${icon}"></i>`; // Memperbarui ikon dalam tombol
     });
 </script>
@@ -711,12 +710,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Event listener untuk tombol register password
-    toggleRegisterPasswordButton.addEventListener("click", function () {
+    toggleRegisterPasswordButton.addEventListener("click", function() {
         togglePasswordVisibility(registerPasswordField, toggleRegisterPasswordButton);
     });
 
     // Event listener untuk tombol confirm password
-    toggleConfirmPasswordButton.addEventListener("click", function () {
+    toggleConfirmPasswordButton.addEventListener("click", function() {
         togglePasswordVisibility(confirmPasswordField, toggleConfirmPasswordButton);
     });
 </script>
@@ -730,32 +729,96 @@ document.addEventListener("DOMContentLoaded", () => {
         const backdrop = document.getElementById('modal-pks-backdrop');
         const openModalButton = document.getElementById('customPKSButton');
         const closeModalButtons = document.querySelectorAll('.modal-pks-close');
+        const agreeButton = document.getElementById('agreeButton');
+        const disagreeButton = document.getElementById('disagreeButton');
+        const form = document.getElementById('registerForm');
+        const checkbox = document.getElementById('checkPKS'); // Ambil checkbox
 
-        // Cek jika modal dan backdrop ada sebelum melanjutkan
-        if (modal && backdrop) {
-            if (openModalButton) {
-                openModalButton.addEventListener('click', function() {
-                    modal.classList.remove('hidden');
-                    backdrop.classList.remove('hidden');
-                });
+        // Ambil semua input biasa (kecuali sosial media)
+        const inputs = document.querySelectorAll(
+            '#registerForm input:not([type="hidden"]):not(.social-media):not([type="checkbox"]), #registerForm select, #registerForm textarea'
+        );
+
+        // Ambil semua input sosial media (pakai class khusus)
+        const socialMediaInputs = document.querySelectorAll('.social-media');
+
+        // Fungsi untuk mengecek apakah semua input biasa sudah diisi
+        function isFormFilled() {
+            for (let input of inputs) {
+                if (input.value.trim() === "") {
+                    console.log(`Input kosong: ${input.name}`); // Debugging
+                    return false;
+                }
             }
+            return true;
+        }
 
-            // Cek jika ada tombol untuk menutup modal
-            if (closeModalButtons.length > 0) {
-                closeModalButtons.forEach(button => {
-                    button.addEventListener('click', function() {
-                        modal.classList.add('hidden');
-                        backdrop.classList.add('hidden');
-                    });
-                });
+        // Fungsi untuk mengecek apakah minimal 1 sosial media diisi
+        function isSocialMediaFilled() {
+            for (let input of socialMediaInputs) {
+                if (input.value.trim() !== "") {
+                    return true; // Jika ada 1 yang diisi, valid
+                }
             }
+            return false; // Jika semua kosong, tidak valid
+        }
 
-            // Cek jika backdrop ada sebelum menambahkan event listener
-            backdrop.addEventListener('click', function() {
-                modal.classList.add('hidden');
-                backdrop.classList.add('hidden');
+        // Fungsi untuk mengecek apakah checkbox dicentang
+        function isCheckboxChecked() {
+            return checkbox.checked;
+        }
+
+        // Fungsi untuk menutup modal
+        function closeModal() {
+            console.log("Modal ditutup");
+            modal.classList.add('hidden');
+            backdrop.classList.add('hidden');
+        }
+
+        // Fungsi untuk membuka modal jika form lengkap
+        function openModal(event) {
+            event.preventDefault(); // Mencegah form langsung submit
+            console.log("Cek apakah form sudah lengkap...");
+
+            if (isFormFilled() && isSocialMediaFilled() && isCheckboxChecked()) {
+                console.log("Form lengkap, buka modal.");
+                modal.classList.remove('hidden');
+                backdrop.classList.remove('hidden');
+            } else {
+                console.log("Form belum lengkap.");
+                alert(
+                    "Harap isi semua kolom sebelum melanjutkan! Pastikan minimal 1 sosial media diisi dan checkbox dicentang."
+                    );
+            }
+        }
+
+        // Event listener untuk tombol Register
+        if (openModalButton) {
+            openModalButton.addEventListener('click', openModal);
+        }
+
+        // Tambahkan event listener ke semua tombol yang menutup modal
+        closeModalButtons.forEach(button => {
+            button.addEventListener('click', closeModal);
+        });
+
+        // Tambahkan event listener ke backdrop agar modal tertutup jika diklik
+        if (backdrop) {
+            backdrop.addEventListener('click', closeModal);
+        }
+
+        // Jika "Setuju" ditekan, submit form
+        if (agreeButton) {
+            agreeButton.addEventListener('click', function() {
+                console.log("Form disubmit.");
+                form.submit(); // Kirim form setelah menyetujui perjanjian
+                closeModal();
             });
-        } else {
+        }
+
+        // Jika "Tidak Setuju" ditekan, hanya tutup modal
+        if (disagreeButton) {
+            disagreeButton.addEventListener('click', closeModal);
         }
     });
 </script>
