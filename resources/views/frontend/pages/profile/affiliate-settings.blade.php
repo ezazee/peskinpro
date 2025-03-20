@@ -8,10 +8,10 @@
                 {{-- Bagian Kanan --}}
                 <div class="right list-filter md:w-2/3 w-full pl-2.5">
                     @if (in_array(auth()->user()->role->name, ['Affiliate']) && auth()->user()->affiliate_status === 'approve')
+                    <form action="{{ route('affiliate.SettingsUpdate') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
                         <div class="filter-item text-content w-full p-7 mt-5 border border-line rounded-xl active">
-                            <form action="https://peskinpro.id/profiles/4/update" method="POST" enctype="multipart/form-data">
-                                <input type="hidden" name="_token" value="bfZ4fWVinBOPsQzuKPTXCXQzmv8BYmrICv8CtKCL"
-                                    autocomplete="off"> <input type="hidden" name="_method" value="PUT">
+
                                 <div class="heading5 pb-4">Informasi</div>
                                 <div class="upload_image col-span-full">
                                     <label for="uploadImage">Upload Avatar: <span class="text-red">*</span></label>
@@ -20,10 +20,13 @@
                                             class="bg_img flex-shrink-0 relative w-[7.5rem] h-[7.5rem] rounded-lg overflow-hidden bg-surface">
                                             <span
                                                 class="ph ph-image text-5xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-secondary"></span>
-
-                                            <img src="https://media.istockphoto.com/id/517998264/vector/male-user-icon.jpg?b=1&s=612x612&w=0&k=20&c=XQPO5sxBVwANqHTIVNli3gnXLCbmcpOn-23biJPkO3E="
-                                                alt="User Image"
+                                            @if ($user->images)
+                                            <img src="{{ asset('storage/' . $user->images) }}" alt="User Image"
                                                 class="upload_img relative z-[1] w-full h-full object-cover">
+                                            @else
+                                            <img src="https://media.istockphoto.com/id/517998264/vector/male-user-icon.jpg?b=1&s=612x612&w=0&k=20&c=XQPO5sxBVwANqHTIVNli3gnXLCbmcpOn-23biJPkO3E="
+                                                alt="avatar" class="upload_img relative z-[1] w-full h-full object-cover" />
+                                            @endif
                                         </div>
                                         <div>
                                             <strong class="text-button">Upload File:</strong>
@@ -41,31 +44,30 @@
                                 <div class="first-name mt-5">
                                     <label for="namaLengkap" class="caption1 capitalize">Nama Lengkap</label>
                                     <input class="border-line mt-2 px-4 py-3 w-full rounded-lg" id="namaLengkap"
-                                        type="text" name="first_name" value="Affiliate Admin"
+                                        type="text" name="name" value="{{ $user->name }}"
                                         placeholder="Masukan Nama Depan">
                                 </div>
                                 <div class="grid sm:grid-cols-2 gap-4 gap-y-5 mt-5">
                                     <div class="phone-number">
                                         <label for="phoneNumber" class="caption1 capitalize">No WhatsApp</label>
                                         <input class="border-line bg-readonly mt-2 px-4 py-3 bg-gray w-full rounded-lg"
-                                            id="phoneNumber" type="number" value="029832742938" readonly="true"
+                                            id="phoneNumber" type="number" value="{{ $user->no_telp }}" readonly="true"
                                             placeholder="Masukan Email Address">
                                     </div>
                                     <div class="email">
                                         <label for="email" class="caption1 capitalize">Email</label>
                                         <input class="border-line bg-readonly mt-2 px-4 py-3 bg-gray w-full rounded-lg"
-                                            id="email" type="email" value="yukiirima123@gmail.com" readonly="true"
+                                            id="email" type="email" value="{{ $user->email }}" readonly="true"
                                             placeholder="Masukan Email Address">
                                     </div>
                                 </div>
                                 <div class="mt-5">
                                     <label class="mt-5" for="alamat">Alamat</label>
                                     <div class="">
-                                        <textarea class="border-line px-4 pt-3 pb-3 w-full rounded-lg form-control" id="alamat" placeholder="Alamat Lengkap"
-                                            required="" rows="9"></textarea>
+                                        <textarea class="border-line px-4 pt-3 pb-3 w-full rounded-lg form-control" name="affiliate_alamat" value="{{ $user->affiliate_alamat }}"
+                                            required="" rows="9">{{ $user->affiliate_alamat }}</textarea>
                                     </div>
                                 </div>
-                            </form>
                         </div>
 
                         <div class="filter-item text-content w-full p-7 mt-5 border border-line rounded-xl active">
@@ -90,6 +92,8 @@
                             </div>
 
                         </div>
+                    </form>
+
                     @else
                         <div class="container flex justify-center items-center"
                             style="padding-top: 50px; padding-bottom: 50px;">

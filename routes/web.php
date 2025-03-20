@@ -23,6 +23,7 @@ use App\Http\Controllers\FaqController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\AffiliateController;
+use App\Models\Product;
 
 /*
 |--------------------------------------------------------------------------
@@ -101,6 +102,15 @@ Route::middleware(['userOrGuest'])->group(function () {
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart/increase', [CartController::class, 'increaseQuantity'])->name('cart.increase');
     Route::post('/cart/decrease', [CartController::class, 'decreaseQuantity'])->name('cart.decrease');
+    Route::get('/s/{code}', function ($code) {
+        $linkreal = Cache::get('shortlink_' . $code);
+    
+        if (!$linkreal) {
+            abort(404);
+        }
+    
+        return redirect($linkreal);
+    })->name('shortlink.redirect');
 });
 
 Route::middleware(['auth', 'role:user'])->group(function () {
@@ -137,13 +147,10 @@ Route::middleware(['auth', 'role:Affiliate'])->group(function () {
     Route::get('/affiliate/history/komisi', [AffiliateController::class, 'HistoryKomisi'])->name('affiliatehistory.komisi');
     Route::get('/affiliate/history/transaksi', [AffiliateController::class, 'HistoryTransaksi'])->name('affiliatehistory.transaksi');
     Route::post('/affiliate/withdraw', [AffiliateController::class, 'Withdraw'])->name('affiliate.Withdraw');
-
     Route::get('/affiliate/product', [AffiliateController::class, 'ProductAffiliate'])->name('affiliate.product');
-
-    
     Route::get('/dashboard/affiliate/list-product', [AffiliateController::class, 'productLink'])->name('affiliate.product');
-
     Route::get('/dashboard/affiliate/settings', [AffiliateController::class, 'affiliateSettings'])->name('affiliate.settings');
+    Route::post('/dashboard/affiliate/settings/update', [AffiliateController::class, 'affiliateSettingsUpdate'])->name('affiliate.SettingsUpdate');
 });
 
 

@@ -16,6 +16,7 @@ use App\Models\ProductSize;
 use App\Models\Withdraw;
 use App\Models\AffiliateHistory;
 use Hashids\Hashids;
+use Illuminate\Support\Facades\Cache;
 
 
 
@@ -142,16 +143,6 @@ class AffiliateController extends Controller
         }
 
         return back()->with('success', 'Pencairan dana berhasil diajukan.');
-    }
-
-
-    public function ProductAffiliate()
-    {
-        $settings = Settings::all();
-        $user = Auth::user(); // Get the logged-in user
-        $products = Product::get(); // Fetch products
-        dd($products);
-        return view('frontend.pages.profile.affiliate_product', compact('user', 'settings', 'products'));
     }
 
 
@@ -366,12 +357,58 @@ class AffiliateController extends Controller
     public function productLink(){
         $settings = Settings::all();
         $user = Auth::user();
-        return view('frontend.pages.profile.affiliate-product-link', compact('settings', 'user'));
+        $products = Product::with('category', 'sizes')->orderBy('created_at', 'desc')->paginate(10);
+
+        foreach ($products as $product) {
+            $referralCode = auth()->check() ? auth()->user()->referral_code : 'default_ref';
+        
+            $linkreal = route('shop.detail', ['slug' => $product->slug, 'ref' => $referralCode]);
+        
+            $shortCode = substr(hash('sha256', $linkreal), 0, 10);
+        
+            $linkshort = url('/s/' . $shortCode);
+        
+            Cache::put('shortlink_' . $shortCode, $linkreal, now()->addDays(30));
+            $shortLinks[$product->id] = $linkshort;
+        }
+        return view('frontend.pages.profile.affiliate-product-link', compact('settings', 'user','products','shortLinks'));
     }
 
     public function affiliateSettings(){
         $settings = Settings::all();
         $user = Auth::user();
         return view('frontend.pages.profile.affiliate-settings', compact('settings', 'user'));
+    }
+
+    public function affiliateSettingsUpdate(Request $request){
+        $user = Auth::user();
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'affiliate_alamat' => 'nullable|string',
+            'password' => 'nullable|string|min:8|confirmed',
+            'images' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
+        $user->name = $request->name;
+        $user->affiliate_alamat = $request->affiliate_alamat;
+
+        if ($request->hasFile('images')) {
+            if ($user->images) {
+                Storage::delete('public/' . $user->images);
+            }
+
+            $path = $request->file('images')->store('avatars', 'public');
+            $user->images = $path;
+        }
+
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
+
+        $user->save();
+        Alert::toast('Profil berhasil diperbarui.', 'success');
+
+        return back()->with('success', 'Profil berhasil diperbarui.');
     }
 }

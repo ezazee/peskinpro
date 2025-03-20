@@ -60,342 +60,45 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @foreach ($products as $index => $item)
                                             <tr>
                                                 <td>
-                                                    1
+                                                    {{ $index+1 }}
                                                 </td>
                                                 <td>
                                                     <div
                                                         class="flex flex-col items-center gap-2 md:w-[100px] w-20 rounded-lg">
                                                         <div
                                                             class="bg-img flex-shrink-0 aspect-square overflow-hidden rounded">
-                                                            <img src="https://peskinpro.id/storage/product_images/5NihMOl3NwIEY8oPObQ39wiBB8vRAepGQ4R8U7Ys.jpg"
+                                                            <img src="{{ asset('storage/' . $item->front_image) }}"
                                                                 alt="Product PE Skinpro"
                                                                 class="w-full h-full object-cover p-2">
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <p class="text-xs font-semibold md:text-sm">Prebiotic Feminine Mousse
-                                                        Cleanser</p>
+                                                    <p class="text-xs font-semibold md:text-sm">{{ $item->name }}</p>
                                                 </td>
 
                                                 <td>
-                                                    <p>Rp.50.000</p>
+                                                    @foreach ($item->sizes as $com)
+                                                    <p>{{ intval($com->commission) }}%</p>
+                                                    @endforeach
                                                 </td>
                                                 <td class="text-center">
-                                                    <button class="button-main p-1 flex items-center justify-center">
+                                                    <button class="button-main p-1 flex items-center justify-center copy-btn" 
+                                                            data-link="{{ $shortLinks[$item->id] }}">
                                                         <i style="margin-right: 7px" class="ph-bold ph-link text-xl"></i>
                                                         <p class="text-xs">Copy Link</p>
                                                     </button>
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td>
-                                                    2
-                                                </td>
-                                                <td>
-                                                    <div
-                                                        class="flex flex-col items-center gap-2 md:w-[100px] w-20 rounded-lg">
-                                                        <div
-                                                            class="bg-img flex-shrink-0 aspect-square overflow-hidden rounded">
-                                                            <img src="https://peskinpro.id/storage/product_images/5NihMOl3NwIEY8oPObQ39wiBB8vRAepGQ4R8U7Ys.jpg"
-                                                                alt="Product PE Skinpro"
-                                                                class="w-full h-full object-cover p-2">
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <p class="text-xs font-semibold md:text-sm">Prebiotic Feminine Mousse
-                                                        Cleanser</p>
-                                                </td>
-
-                                                <td>
-                                                    <p>Rp.50.000</p>
-                                                </td>
-                                                <td class="text-center">
-                                                    <button class="button-main p-1 flex items-center justify-center">
-                                                        <i style="margin-right: 7px" class="ph-bold ph-link text-xl"></i>
-                                                        <p class="text-xs">Copy Link</p>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    3
-                                                </td>
-                                                <td>
-                                                    <div
-                                                        class="flex flex-col items-center gap-2 md:w-[100px] w-20 rounded-lg">
-                                                        <div
-                                                            class="bg-img flex-shrink-0 aspect-square overflow-hidden rounded">
-                                                            <img src="https://peskinpro.id/storage/product_images/5NihMOl3NwIEY8oPObQ39wiBB8vRAepGQ4R8U7Ys.jpg"
-                                                                alt="Product PE Skinpro"
-                                                                class="w-full h-full object-cover p-2">
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <p class="text-xs font-semibold md:text-sm">Prebiotic Feminine Mousse
-                                                        Cleanser</p>
-                                                </td>
-
-                                                <td>
-                                                    <p>Rp.50.000</p>
-                                                </td>
-                                                <td class="text-center">
-                                                    <button class="button-main p-1 flex items-center justify-center">
-                                                        <i style="margin-right: 7px" class="ph-bold ph-link text-xl"></i>
-                                                        <p class="text-xs">Copy Link</p>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    4
-                                                </td>
-                                                <td>
-                                                    <div
-                                                        class="flex flex-col items-center gap-2 md:w-[100px] w-20 rounded-lg">
-                                                        <div
-                                                            class="bg-img flex-shrink-0 aspect-square overflow-hidden rounded">
-                                                            <img src="https://peskinpro.id/storage/product_images/5NihMOl3NwIEY8oPObQ39wiBB8vRAepGQ4R8U7Ys.jpg"
-                                                                alt="Product PE Skinpro"
-                                                                class="w-full h-full object-cover p-2">
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <p class="text-xs font-semibold md:text-sm">Prebiotic Feminine Mousse
-                                                        Cleanser</p>
-                                                </td>
-
-                                                <td>
-                                                    <p>Rp.50.000</p>
-                                                </td>
-                                                <td class="text-center">
-                                                    <button class="button-main p-1 flex items-center justify-center">
-                                                        <i style="margin-right: 7px" class="ph-bold ph-link text-xl"></i>
-                                                        <p class="text-xs">Copy Link</p>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    6
-                                                </td>
-                                                <td>
-                                                    <div
-                                                        class="flex flex-col items-center gap-2 md:w-[100px] w-20 rounded-lg">
-                                                        <div
-                                                            class="bg-img flex-shrink-0 aspect-square overflow-hidden rounded">
-                                                            <img src="https://peskinpro.id/storage/product_images/5NihMOl3NwIEY8oPObQ39wiBB8vRAepGQ4R8U7Ys.jpg"
-                                                                alt="Product PE Skinpro"
-                                                                class="w-full h-full object-cover p-2">
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <p class="text-xs font-semibold md:text-sm">Prebiotic Feminine Mousse
-                                                        Cleanser</p>
-                                                </td>
-
-                                                <td>
-                                                    <p>Rp.50.000</p>
-                                                </td>
-                                                <td class="text-center">
-                                                    <button class="button-main p-1 flex items-center justify-center">
-                                                        <i style="margin-right: 7px" class="ph-bold ph-link text-xl"></i>
-                                                        <p class="text-xs">Copy Link</p>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    7
-                                                </td>
-                                                <td>
-                                                    <div
-                                                        class="flex flex-col items-center gap-2 md:w-[100px] w-20 rounded-lg">
-                                                        <div
-                                                            class="bg-img flex-shrink-0 aspect-square overflow-hidden rounded">
-                                                            <img src="https://peskinpro.id/storage/product_images/5NihMOl3NwIEY8oPObQ39wiBB8vRAepGQ4R8U7Ys.jpg"
-                                                                alt="Product PE Skinpro"
-                                                                class="w-full h-full object-cover p-2">
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <p class="text-xs font-semibold md:text-sm">Prebiotic Feminine Mousse
-                                                        Cleanser</p>
-                                                </td>
-
-                                                <td>
-                                                    <p>Rp.50.000</p>
-                                                </td>
-                                                <td class="text-center">
-                                                    <button class="button-main p-1 flex items-center justify-center">
-                                                        <i style="margin-right: 7px" class="ph-bold ph-link text-xl"></i>
-                                                        <p class="text-xs">Copy Link</p>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    8
-                                                </td>
-                                                <td>
-                                                    <div
-                                                        class="flex flex-col items-center gap-2 md:w-[100px] w-20 rounded-lg">
-                                                        <div
-                                                            class="bg-img flex-shrink-0 aspect-square overflow-hidden rounded">
-                                                            <img src="https://peskinpro.id/storage/product_images/5NihMOl3NwIEY8oPObQ39wiBB8vRAepGQ4R8U7Ys.jpg"
-                                                                alt="Product PE Skinpro"
-                                                                class="w-full h-full object-cover p-2">
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <p class="text-xs font-semibold md:text-sm">Prebiotic Feminine Mousse
-                                                        Cleanser</p>
-                                                </td>
-
-                                                <td>
-                                                    <p>Rp.50.000</p>
-                                                </td>
-                                                <td class="text-center">
-                                                    <button class="button-main p-1 flex items-center justify-center">
-                                                        <i style="margin-right: 7px" class="ph-bold ph-link text-xl"></i>
-                                                        <p class="text-xs">Copy Link</p>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    8
-                                                </td>
-                                                <td>
-                                                    <div
-                                                        class="flex flex-col items-center gap-2 md:w-[100px] w-20 rounded-lg">
-                                                        <div
-                                                            class="bg-img flex-shrink-0 aspect-square overflow-hidden rounded">
-                                                            <img src="https://peskinpro.id/storage/product_images/5NihMOl3NwIEY8oPObQ39wiBB8vRAepGQ4R8U7Ys.jpg"
-                                                                alt="Product PE Skinpro"
-                                                                class="w-full h-full object-cover p-2">
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <p class="text-xs font-semibold md:text-sm">Prebiotic Feminine Mousse
-                                                        Cleanser</p>
-                                                </td>
-
-                                                <td>
-                                                    <p>Rp.50.000</p>
-                                                </td>
-                                                <td class="text-center">
-                                                    <button class="button-main p-1 flex items-center justify-center">
-                                                        <i style="margin-right: 7px" class="ph-bold ph-link text-xl"></i>
-                                                        <p class="text-xs">Copy Link</p>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    9
-                                                </td>
-                                                <td>
-                                                    <div
-                                                        class="flex flex-col items-center gap-2 md:w-[100px] w-20 rounded-lg">
-                                                        <div
-                                                            class="bg-img flex-shrink-0 aspect-square overflow-hidden rounded">
-                                                            <img src="https://peskinpro.id/storage/product_images/5NihMOl3NwIEY8oPObQ39wiBB8vRAepGQ4R8U7Ys.jpg"
-                                                                alt="Product PE Skinpro"
-                                                                class="w-full h-full object-cover p-2">
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <p class="text-xs font-semibold md:text-sm">Prebiotic Feminine Mousse
-                                                        Cleanser</p>
-                                                </td>
-
-                                                <td>
-                                                    <p>Rp.50.000</p>
-                                                </td>
-                                                <td class="text-center">
-                                                    <button class="button-main p-1 flex items-center justify-center">
-                                                        <i style="margin-right: 7px" class="ph-bold ph-link text-xl"></i>
-                                                        <p class="text-xs">Copy Link</p>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    10
-                                                </td>
-                                                <td>
-                                                    <div
-                                                        class="flex flex-col items-center gap-2 md:w-[100px] w-20 rounded-lg">
-                                                        <div
-                                                            class="bg-img flex-shrink-0 aspect-square overflow-hidden rounded">
-                                                            <img src="https://peskinpro.id/storage/product_images/5NihMOl3NwIEY8oPObQ39wiBB8vRAepGQ4R8U7Ys.jpg"
-                                                                alt="Product PE Skinpro"
-                                                                class="w-full h-full object-cover p-2">
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <p class="text-xs font-semibold md:text-sm">Prebiotic Feminine Mousse
-                                                        Cleanser</p>
-                                                </td>
-
-                                                <td>
-                                                    <p>Rp.50.000</p>
-                                                </td>
-                                                <td class="text-center">
-                                                    <button class="button-main p-1 flex items-center justify-center">
-                                                        <i style="margin-right: 7px" class="ph-bold ph-link text-xl"></i>
-                                                        <p class="text-xs">Copy Link</p>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    11
-                                                </td>
-                                                <td>
-                                                    <div
-                                                        class="flex flex-col items-center gap-2 md:w-[100px] w-20 rounded-lg">
-                                                        <div
-                                                            class="bg-img flex-shrink-0 aspect-square overflow-hidden rounded">
-                                                            <img src="https://peskinpro.id/storage/product_images/5NihMOl3NwIEY8oPObQ39wiBB8vRAepGQ4R8U7Ys.jpg"
-                                                                alt="Product PE Skinpro"
-                                                                class="w-full h-full object-cover p-2">
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <p class="text-xs font-semibold md:text-sm">Prebiotic Feminine Mousse
-                                                        Cleanser</p>
-                                                </td>
-
-                                                <td>
-                                                    <p>Rp.50.000</p>
-                                                </td>
-                                                <td class="text-center">
-                                                    <button class="button-main p-1 flex items-center justify-center">
-                                                        <i style="margin-right: 7px" class="ph-bold ph-link text-xl"></i>
-                                                        <p class="text-xs">Copy Link</p>
-                                                    </button>
-                                                </td>
-                                            </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                     <div class="list-pagination w-full flex items-center justify-center gap-4 mt-10">
-                                        <button
-                                            class="active">1</button><button>2</button><button>3</button><button>&gt;</button><button>&gt;&gt;</button>
-                                    </div>
+                                        {{ $products->links() }}
+                                    </div>                                    
                                 </div>
                             </div>
                         </div>
@@ -447,4 +150,19 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelectorAll('.copy-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    let link = this.getAttribute('data-link');
+                    navigator.clipboard.writeText(link).then(() => {
+                        alert("Shortlink copied: " + link);
+                    }).catch(err => {
+                        console.error("Failed to copy:", err);
+                    });
+                });
+            });
+        });
+        </script>
 @endsection
