@@ -42,40 +42,23 @@
                                     name="nominal" placeholder="Nominal" />
                             </div>
                             <div class="grid sm:grid-cols-2 gap-4 gap-y-5 mt-5">
-                                <div class="first-name">
-                                    <label for="paymentMethod" class="caption1 capitalize">
-                                        Bank / E-wallet<span class="text-red">*</span>
-                                    </label>
-                                    <select class="border-line mt-2 px-4 py-3 w-full rounded-lg" id="paymentMethod" name="payment_method">
-                                        <option value="" disabled selected>Pilih Bank / E-Wallet</option>
-                                        <option value="bca">BCA</option>
-                                        <option value="bri">BRI</option>
-                                        <option value="mandiri">Mandiri</option>
-                                        <option value="bni">BNI</option>
-                                        <option value="gopay">GoPay</option>
-                                        <option value="ovo">OVO</option>
-                                        <option value="dana">Dana</option>
-                                        <option value="shopeepay">ShopeePay</option>
-                                    </select>
-                                </div>                                
                                 <div class="last-name">
                                     <label for="lastName" class="caption1 capitalize">Nama Rekening <span
                                             class="text-red">*</span></label>
                                     <input class="border-line mt-2 px-4 py-3 w-full rounded-lg" type="text"
-                                        name="account_name"
-                                        placeholder="Masukan Nama Rekening" />
+                                        name="account_name" value="{{ $user->name }}" readonly/>
                                 </div>
                                 <div class="phone-number">
                                     <label for="phoneNumber" class="caption1 capitalize">Nomor Rekening <span
                                             class="text-red">*</span></label>
                                     <input class="border-line mt-2 px-4 py-3 w-full rounded-lg" type="number"
-                                        name="account_number" placeholder="Masukan Nomor Rekening" />
+                                        name="account_number" value="{{ $user->no_rek }}" readonly/>
                                 </div>
-                                <div class="email">
-                                    <label class="caption1 capitalize">Password</label>
-                                    <input class="border-line mt-2 px-4 py-3 bg-gray w-full rounded-lg" type="password" name="password"
-                                        placeholder="Masukan Password" />
-                                </div>
+                            </div>
+                            <div class="email">
+                                <label class="caption1 capitalize">Password</label>
+                                <input class="border-line mt-2 px-4 py-3 bg-gray w-full rounded-lg" type="password" name="password"
+                                    placeholder="Masukan Password" />
                             </div>
                             <div class="block-button lg:mt-10 mt-6">
                                 <button class="button-main">Confirm</button>

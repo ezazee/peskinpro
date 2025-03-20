@@ -55,6 +55,11 @@ class AuthenticationController extends Controller
             return back()->withErrors(['email' => 'Email tidak ditemukan. Silahkan Register terlebih dahulu.'])->withInput();
         }
 
+        if ($user->status === 'blocked') {
+            Alert::error('Akun Diblokir', 'Akun Anda telah diblokir. Silahkan hubungi admin.');
+            return back()->withInput();
+        }
+
         if (Auth::attempt($request->only('email', 'password'))) {
             $guestCartId = session()->getId();
             $guestCart = Cart::where('guest_id', $guestCartId)->first();
@@ -202,6 +207,7 @@ class AuthenticationController extends Controller
         }
 
         $user = User::create([
+            'referral_code' => strtoupper(Str::random(8)),
             'name' => $request->namaLengkap,
             'slug' => Str::slug($request->namaLengkap),
             'email' => $request->email,

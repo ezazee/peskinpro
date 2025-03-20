@@ -244,6 +244,9 @@
                                           <a class="sub-nav-link" href="{{ route('Withdraw.affiliate') }}">Request Withdraw</a>
                                       </li>
                                       <li class="sub-nav-item">
+                                        <a class="sub-nav-link" href="{{ route('member.request') }}">Request Member</a>
+                                      </li>
+                                      <li class="sub-nav-item">
                                         <a class="sub-nav-link" href="{{ route('member.affiliate') }}">List Member</a>
                                     </li>
                                   </ul>

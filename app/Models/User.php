@@ -87,13 +87,16 @@ class User extends Authenticatable
         'data_sosmed' => 'array',
     ];
 
-    // protected static function boot()
-    // {
-    //     parent::boot();
-    //     static::creating(function ($user) {
-    //         $user->referral_code = strtoupper(Str::random(8)); // Kode unik 8 karakter
-    //     });
-    // }
+    protected static function boot()
+    {
+        parent::boot();
+    
+        static::creating(function ($user) {
+            if ($user->role->name === 'Affiliate') {
+                $user->referral_code = strtoupper(Str::random(8));
+            }
+        });
+    }    
 
 
 }

@@ -68,15 +68,17 @@
                 <!--    <i class="ph-bold ph-magnifying-glass text-2xl"></i>-->
                 <!--    <div class="line absolute bg-line w-px h-6 -right-6"></div>-->
                 <!--</div>-->
-                <div class="list-action flex items-center gap-4">
-                    <a href="/cart">
-                        <div class="max-md:hidden cart-icon flex items-center relative cursor-pointer">
-                            <i class="ph-bold ph-handbag text-2xl"></i>
-                            <span
-                                class="quantity cart-quantity absolute -right-1.5 -top-1.5 text-xs text-white bg-primary w-4 h-4 flex items-center justify-center rounded-full">{{ $cartItemCount }}</span>
-                        </div>
-                    </a>
-                </div>
+                @if (!auth()->check() || (auth()->user()->role && auth()->user()->role->name === 'user'))
+                    <div class="list-action flex items-center gap-4">
+                        <a href="/cart">
+                            <div class="max-md:hidden cart-icon flex items-center relative cursor-pointer">
+                                <i class="ph-bold ph-handbag text-2xl"></i>
+                                <span
+                                    class="quantity cart-quantity absolute -right-1.5 -top-1.5 text-xs text-white bg-primary w-4 h-4 flex items-center justify-center rounded-full">{{ $cartItemCount }}</span>
+                            </div>
+                        </a>
+                    </div>
+                @endif
                 @if (Auth::check())
                     <div class="user-info flex items-center justify-center cursor-pointer relative">
                         <div class="avatar w-7 h-7 rounded-full bg-gray-300 overflow-hidden">

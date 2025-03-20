@@ -15,6 +15,7 @@ use App\Models\Affiliate;
 use App\Models\ProductSize;
 use App\Models\Withdraw;
 use App\Models\AffiliateHistory;
+use Hashids\Hashids;
 
 
 
@@ -47,7 +48,6 @@ class AffiliateController extends Controller
     public function HistoryKomisi(){
         $settings = Settings::all();
         $user = Auth::user();
-
         $affiliateHistory = AffiliateHistory::where('user_id', $user->id)
         ->where('type','addcommission')
         ->with(['affiliate.order.products', 'referredUser'])
@@ -145,6 +145,36 @@ class AffiliateController extends Controller
     }
 
 
+    public function ProductAffiliate()
+    {
+        $settings = Settings::all();
+        $user = Auth::user(); // Get the logged-in user
+        $products = Product::get(); // Fetch products
+        dd($products);
+        return view('frontend.pages.profile.affiliate_product', compact('user', 'settings', 'products'));
+    }
+
+
+    public function redirectToProduct($short_hash)
+    {
+        $hashids = new Hashids('', 6);
+        $decoded = $hashids->decode($short_hash);
+
+        if (count($decoded) != 2) {
+            abort(404);
+        }
+
+        list($slug, $referral_code) = $decoded;
+
+        $product = Product::where('slug', $slug)->first();
+
+        if (!$product) {
+            abort(404);
+        }
+
+        return redirect()->route('shop.detail', ['slug' => $product->slug]) . '?ref=' . $referral_code;
+    }
+
     public function CommisionAffiliate(Request $request){
         $user = Auth::user();
         $welcomeMessage = 'Affiliate Commision';
@@ -187,22 +217,45 @@ class AffiliateController extends Controller
         $user = Auth::user();
         $welcomeMessage = 'Affiliate Member';
 
-        $memberAffiliate = Affiliate::select('user_id')
-        ->selectRaw('SUM(commission) as total_commission')
-        ->with('user')
-        ->whereHas('user', function ($query) {
-            $query->whereHas('role', function ($roleQuery) {
-                $roleQuery->where('name', 'Affiliate');
-            })->where('affiliate_status', 'approve');
+        $memberAffiliate = User::whereHas('role', function ($roleQuery) {
+            $roleQuery->where('name', 'Affiliate');
         })
-        ->groupBy('user_id')
-        ->orderByDesc('total_commission')
-        ->paginate(5);    
+        ->where('affiliate_status', 'approve')
+        ->paginate(10);  
 
         return view('backend.pages.affiliate.memberlist',compact('welcomeMessage','user','memberAffiliate'));
     }
 
+    public function MemberRequest(){
+        $user = Auth::user();
+        $welcomeMessage = 'Affiliate Member Request';
 
+        $memberAffiliate = User::whereHas('role', function ($roleQuery) {
+            $roleQuery->where('name', 'Affiliate');
+        })
+        ->where('affiliate_status', 'pending')
+        ->paginate(10);  
+
+        return view('backend.pages.affiliate.member_request',compact('welcomeMessage','user','memberAffiliate'));
+    }
+
+    public function approveMemberAffiliate($id)
+    {
+        $user = User::findOrFail($id);
+        $user->update(['affiliate_status' => 'approve']);
+        Alert::success('success', 'Member Approve successfully.');
+        return redirect()->route('member.request')->with('success', 'Member approved successfully');
+    }
+
+    public function rejectMemberAffiliate($id)
+    {
+        $user = User::findOrFail($id);
+        $user->update(['affiliate_status' => 'reject']);
+        Alert::info('INFO', 'Member Reject successfully.');
+        return redirect()->route('member.request')->with('success', 'Member reject successfully');
+    }
+    
+    
     public function rejectWithdraw(Request $request, $id)
     {
         $withdraw = Withdraw::findOrFail($id);
@@ -274,11 +327,19 @@ class AffiliateController extends Controller
 
         $his = AffiliateHistory::where('user_id', $id)
             ->whereIn('type', ['withdraw', 'approved', 'rejected','addcommission'])
-            ->with(['user', 'affiliate', 'withdraw','affiliate.order.products', 'referredUser'])
+            ->with(['user', 'affiliate', 'withdraw','affiliate.order.products', 'referredUser','order.products'])
             ->orderByDesc('created_at')
             ->paginate(10);
 
+        // dd($his);
         return view('backend.pages.affiliate.detailhistory', compact('welcomeMessage', 'user', 'his','totalCommission'));
+    }
+
+    public function DetailRequest($id){
+
+        $user = User::with(['affiliates', 'affiliateHistory'])->findOrFail($id);
+        $welcomeMessage = 'Detail Request Affiliate';
+        return view('backend.pages.affiliate.detail_request', compact('user','welcomeMessage'));
     }
 
     public function WithdrawAffiliate()

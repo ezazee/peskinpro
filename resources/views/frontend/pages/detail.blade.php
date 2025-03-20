@@ -40,10 +40,9 @@
                         @php
                         $user = Auth::user();
                         $currentUrl = url()->current();
-                        $url = $user ? $currentUrl . '?ref=' . $user->referral_code : $currentUrl;
+                        $url = $currentUrl;
                     @endphp
 
-                    <!-- Tombol untuk menyalin URL -->
                     <button id="copyButton" class="w-10 h-10 flex-shrink-0 flex items-center justify-center cursor-pointer rounded-lg">
                         <i class="ph ph-share-network text-xl"></i>
                     </button>

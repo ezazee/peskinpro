@@ -1,5 +1,5 @@
 @extends('backend.master.master-app')
-@section('title', 'Affiliate Member')
+@section('title', 'Affiliate Member Request')
 @section('content')
 <div class="container-xxl">
     <div class="row">
@@ -37,31 +37,36 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($memberAffiliate as $index => $item)
-                                        <tr>
-                                            <td>{{ $index + 1 }}</td>
-                                            <td>
-                                                @if ($item->image)
-                                                    <img src="{{ $item->images ? asset('storage/' . $item->images) : asset('/backend/assets/images/blank-profile.png') }}"
-                                                         class="avatar-sm rounded-circle me-2" alt="...">
-                                                    {{ $item->name }}
-                                                @else
-                                                    <img src="{{ asset('/backend/assets/images/blank-profile.png') }}"
-                                                         class="avatar-sm rounded-circle me-2" alt="...">
-                                                    <span>{{ $item->name }}</span>
-                                                @endif
-                                            </td>
-                                            <td>{{ $item->email }}</td>
-                                            <td>{{ $item->no_telp }}</td>
-                                            <td>{{ $item->nik }}</td>
-                                            <td>{{ $item->no_rek }}</td>
-
-                                            <td>
-                                                <a href="{{ route('history.affiliate', $item->id) }}" class="btn btn-light btn-sm">
-                                                    <iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon>
-                                                 </a>
-                                            </td> 
-                                        </tr>
-                                    @endforeach
+                                            <tr>
+                                                <td>{{ $index + 1 }}</td>
+                                                <td>
+                                                    @if ($item->image)
+                                                        <img src="{{ $item->images ? asset('storage/' . $item->images) : asset('/backend/assets/images/blank-profile.png') }}"
+                                                             class="avatar-sm rounded-circle me-2" alt="...">
+                                                        {{ $item->name }}
+                                                    @else
+                                                        <img src="{{ asset('/backend/assets/images/blank-profile.png') }}"
+                                                             class="avatar-sm rounded-circle me-2" alt="...">
+                                                        <span>{{ $item->name }}</span>
+                                                    @endif
+                                                </td>
+                                                <td>{{ $item->email }}</td>
+                                                <td>{{ $item->no_telp }}</td>
+                                                <td>{{ $item->nik }}</td>
+                                                <td>{{ $item->no_rek }}</td>
+                                                <td>
+                                                    <a href="{{ route('detail.request', $item->id) }}" class="btn btn-light btn-sm">
+                                                        <iconify-icon icon="solar:eye-broken" class="align-middle fs-18"></iconify-icon>
+                                                     </a>
+                                                     <a href="{{ route('member.approve', $item->id) }}" class="btn btn-light btn-sm">
+                                                        <iconify-icon icon="solar:check-read-outline" class="align-middle fs-18"></iconify-icon>
+                                                     </a>
+                                                     <a href="{{ route('member.reject', $item->id) }}" class="btn btn-light btn-sm">
+                                                        <iconify-icon icon="solar:close-square-linear" class="align-middle fs-18"></iconify-icon>
+                                                     </a>
+                                                </td> 
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

@@ -126,6 +126,18 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::post('/order/selesai/{order:order_number}', [ProfileController::class, 'Orderselesai'])->name('order.Orderselesai');
     Route::post('/order/batal/{order:order_number}', [ProfileController::class, 'OrderBatal'])->name('order.OrderBatal');
 
+    Route::get('/share-referral', [AffiliateController::class, 'share'])->name('referral.share');
+    Route::get('/checkout', [AffiliateController::class, 'checkout'])->name('referral.checkout');
+});
+
+Route::middleware(['auth', 'role:Affiliate'])->group(function () {
+    Route::get('/dashboard/affiliate', [AffiliateController::class, 'index'])->name('affiliate.index');
+    Route::get('/affiliate/transaksi', [AffiliateController::class, 'AffiliateTransaksi'])->name('affiliate.transaksi');
+    Route::get('/affiliate/history/komisi', [AffiliateController::class, 'HistoryKomisi'])->name('affiliatehistory.komisi');
+    Route::get('/affiliate/history/transaksi', [AffiliateController::class, 'HistoryTransaksi'])->name('affiliatehistory.transaksi');
+    Route::post('/affiliate/withdraw', [AffiliateController::class, 'Withdraw'])->name('affiliate.Withdraw');
+
+    Route::get('/affiliate/product', [AffiliateController::class, 'ProductAffiliate'])->name('affiliate.product');
 });
 
 
@@ -277,19 +289,11 @@ Route::middleware(['auth', 'role:Administrator,Management,Admin,Finance,Writter'
     Route::get('/affiliate/withdraw/accept/{id}', [AffiliateController::class, 'acceptWithdraw'])->name('withdraw.accept');
     Route::post('/affiliate/withdraw/reject/{id}', [AffiliateController::class, 'rejectWithdraw'])->name('withdraw.reject');
 
+    Route::get('/affiliate/member/request', [AffiliateController::class, 'MemberRequest'])->name('member.request');
+    Route::get('/affiliate/detail/request/{id}', [AffiliateController::class, 'DetailRequest'])->name('detail.request');
+    Route::get('/affiliate/member/approve/{id}', [AffiliateController::class, 'approveMemberAffiliate'])->name('member.approve');
+    Route::get('/affiliate/member/reject/{id}', [AffiliateController::class, 'rejectMemberAffiliate'])->name('member.reject');
 
-});
-
-
-Route::middleware(['auth', 'role:Affiliate'])->group(function () {
-
-    Route::get('/dashboard/affiliate', [AffiliateController::class, 'index'])->name('affiliate.index');
-    Route::get('/affiliate/transaksi', [AffiliateController::class, 'AffiliateTransaksi'])->name('affiliate.transaksi');
-    Route::get('/affiliate/history/komisi', [AffiliateController::class, 'HistoryKomisi'])->name('affiliatehistory.komisi');
-    Route::get('/affiliate/history/transaksi', [AffiliateController::class, 'HistoryTransaksi'])->name('affiliatehistory.transaksi');
-    Route::post('/affiliate/withdraw', [AffiliateController::class, 'Withdraw'])->name('affiliate.Withdraw');
-    Route::get('/share-referral', [AffiliateController::class, 'share'])->name('referral.share');
-    Route::get('/checkout', [AffiliateController::class, 'checkout'])->name('referral.checkout');
 });
 
 
