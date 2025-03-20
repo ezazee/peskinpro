@@ -799,8 +799,8 @@
          <div class="col-lg-3">
             <div class="vs-service">
                <div class="service-icon">
-                  <span class="icon text-theme bg-white"><img src="https://placehold.co/50x50" alt=""></span>
-                  <span class="bg-icon ani-moving icon-6x text-theme"><img src="https://placehold.co/70x70" alt=""></span>
+                  <span class="icon text-theme bg-white"><img src="{{ asset('asset-about/img/about/icon/Mencerahkan-Kulit.png') }}" alt="PE Skinpro Mencerahkan Kulit"></span>
+                  <span class="bg-icon ani-moving icon-6x text-theme"><img src="{{ asset('asset-about/img/about/icon/Mencerahkan-Kulit-2.png') }}" alt="PE Skinpro Mencerahkan Kulit"></span>
                </div>
                <div class="service-content">
                   <h3 class="service-title h4">
@@ -815,8 +815,8 @@
          <div class="col-lg-3">
             <div class="vs-service">
                <div class="service-icon">
-                  <span class="icon text-theme bg-white"><i class="fa-3x flaticon-stones-1"></i></span>
-                  <span class="bg-icon ani-moving icon-6x text-theme"><i class="flaticon-mortar"></i></span>
+                  <span class="icon text-theme bg-white"><img src="{{ asset('asset-about/img/about/icon/Menghaluskan-Kulit.png') }}" alt="PE Skinpro Menghaluskan Kulit"></span>
+                  <span class="bg-icon ani-moving icon-6x text-theme"><img src="{{ asset('asset-about/img/about/icon/Menghaluskan-Kulit-2.png') }}" alt="PE Skinpro Menghaluskan Kulit"></span>
                </div>
                <div class="service-content">
                   <h3 class="service-title h4">
@@ -831,8 +831,8 @@
          <div class="col-lg-3">
             <div class="vs-service">
                <div class="service-icon">
-                  <span class="icon text-theme bg-white"><i class="fa-3x flaticon-facial-treatment"></i></span>
-                  <span class="bg-icon ani-moving icon-6x text-theme"><i class="flaticon-teapot"></i></span>
+                  <span class="icon text-theme bg-white"><img src="{{ asset('asset-about/img/about/icon/Melembabkan-Kulit.png') }}" alt="PE Skinpro Melembabkan Kulit"></span>
+                  <span class="bg-icon ani-moving icon-6x text-theme"><img src="{{ asset('asset-about/img/about/icon/Melembabkan-Kulit-2.png') }}" alt="PE Skinpro Melembabkan Kulit"></span>
                </div>
                <div class="service-content">
                   <h3 class="service-title h4">
@@ -847,8 +847,8 @@
          <div class="col-lg-3">
             <div class="vs-service">
                <div class="service-icon">
-                  <span class="icon text-theme bg-white"><i class="fa-3x flaticon-cosmetics"></i></span>
-                  <span class="bg-icon ani-moving icon-6x text-theme"><i class="flaticon-lotus"></i></span>
+                  <span class="icon text-theme bg-white"><img src="{{ asset('asset-about/img/about/icon/Melembutkan-Kulit.png') }}" alt="PE Skinpro Melembutkan Kulit"></span>
+                  <span class="bg-icon ani-moving icon-6x text-theme"><img src="{{ asset('asset-about/img/about/icon/Melembutkan-Kulit-2.png') }}" alt="PE Skinpro Melembutkan Kulit"></span>
                </div>
                <div class="service-content">
                   <h3 class="service-title h4">
@@ -863,9 +863,8 @@
          <div class="col-lg-3">
             <div class="vs-service">
                <div class="service-icon">
-                  <span class="icon text-theme bg-white"><i class="fa-3x flaticon-beauty-treatment"></i></span>
-                  <span class="bg-icon ani-moving icon-6x text-theme"><i
-                     class="flaticon-cosmetics-1"></i></span>
+                  <span class="icon text-theme bg-white"><img src="{{ asset('asset-about/img/about/icon/Menjaga-Kesehatan-Kulit.png') }}" alt="PE Skinpro Menjaga Kesehatan Kulit"></span>
+                  <span class="bg-icon ani-moving icon-6x text-theme"><img src="{{ asset('asset-about/img/about/icon/Menjaga-Kesehatan-Kulit-2.png') }}" alt="PE Skinpro Menjaga Kesehatan Kulit"></span>
                </div>
                <div class="service-content">
                   <h3 class="service-title h4">
@@ -884,43 +883,7 @@
          </div>
       </div>
 </section>
-<section class="vs-appointment-wrapper vs-appointment-layout1 position-relative space-top space-md-bottom"
-   id="contact">
-   <div class="container">
-    <div class="row">
-        <div class="col-xl-6 wow fadeInUp" data-wow-delay="0.3s">
-            <div class="appointment-form-style1 input-white bg-light-theme mb-30">
-                <img src="https://placehold.co/600x680" alt="Form Image" class="w-100 h-100 object-fit-cover" />
-            </div>
-        </div>
-        <div class="col-xl-6">
-            <div class="row">
-                <div class="col-lg-6 col-xl-12 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="offer-banner-style1 mb-30">
-                        <div class="banner-image">
-                            <img src="https://placehold.co/570x311"
-                                alt="PE Skinpro Promo" class="w-100" />
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-xl-12 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="offer-banner-style2 mb-30">
-                        <div class="banner-image">
-                            <img src="https://placehold.co/570x311"
-                            alt="PE Skinpro Promo" class="w-100" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</section>
-<div class="divider-style1 wow fadeIn" data-wow-delay="0.3s">
-   <div class="container text-center position-relative">
-      <span class="divider-icon"><img src="{{ asset('asset-about/img/logo/logo-white.png') }}" width="50" alt="PE Skinpro"></span>
-   </div>
-</div>
+
 <section class="vs-about-wrapper vs-about-layout2 position-relative space-top space-md-bottom">
    <div class="container">
       <div class="row flex-row-reverse">
@@ -947,6 +910,7 @@
       </div>
    </div>
 </section>
+
 <div class="vs-brand-wrapper vs-brand-layout1 px-180">
    <div class="container-fluid">
       <div class="row vs-carousel text-center wow fadeInUp" data-wow-delay="0.3s" data-slidetoshow="5"
@@ -980,8 +944,9 @@
       </div>
    </div>
 </div>
+
 <section class="vs-pricing-wrapper bg-auto bg-top vs-pricing-layout1 background-image space-top"
-   data-vs-img="https://placehold.co/1920x919" id="price">
+   data-vs-img="{{ asset('asset-about/img/about/Banner-Diskon-Menarik-Landing-About-1920-x-919.png') }}" id="price">
    <div class="container">
       <div class="row flex-row-reverse">
          <div class="col-md-10 col-lg-7 col-xl-6 wow fadeInUp" data-wow-delay="0.3s">

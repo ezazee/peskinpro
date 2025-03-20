@@ -107,6 +107,15 @@ class AuthenticationController extends Controller
         return view('frontend.pages.auth.affiliateRegist', compact('settings'));
     }
 
+    public function affiliateRegisterSucces(){
+        if (Auth::check()) {
+            return redirect()->route('home.index');
+        }
+        $settings = Settings::all();
+
+        return view('frontend.pages.auth.affiliateSuccessRegist', compact('settings'));
+    }
+
 
 
     public function register(Request $request){
@@ -168,7 +177,7 @@ class AuthenticationController extends Controller
             'uploadImage.mimes' => 'Format gambar harus jpg, png, atau jpeg.',
             'uploadImage.max' => 'Ukuran gambar maksimal 2MB.',
         ];
-    
+
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
@@ -196,7 +205,7 @@ class AuthenticationController extends Controller
             'blog' => $request->sosmmedBlog,
             'lainnya' => $request->sosmedLainnya,
         ];
-    
+
         if (empty(array_filter($dataSosmed))) {
             return response()->json(['message' => 'Minimal satu sosial media harus diisi!'], 400);
         }

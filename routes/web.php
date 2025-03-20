@@ -53,6 +53,7 @@ Route::get('/pskinpro', [AuthenticationController::class, 'showadminLogin'])->na
 
 
 Route::get('/affiliate-register', [AuthenticationController::class, 'affiliateRegister'])->name('affiliate_register');
+Route::get('/affiliate-register/succes', [AuthenticationController::class, 'affiliateRegisterSucces'])->name('affiliate_register_succes');
 
 Route::get('/register', [AuthenticationController::class, 'show_register'])->name('show_register');
 Route::post('/register', [AuthenticationController::class, 'register'])->name('register');
@@ -290,6 +291,12 @@ Route::middleware(['auth', 'role:Affiliate'])->group(function () {
     Route::post('/affiliate/withdraw', [AffiliateController::class, 'Withdraw'])->name('affiliate.Withdraw');
     Route::get('/share-referral', [AffiliateController::class, 'share'])->name('referral.share');
     Route::get('/checkout', [AffiliateController::class, 'checkout'])->name('referral.checkout');
+
+
+    Route::get('/dashboard/affiliate/list-product', [AffiliateController::class, 'productLink'])->name('affiliate.product');
+
+    Route::get('/dashboard/affiliate/settings', [AffiliateController::class, 'affiliateSettings'])->name('affiliate.settings');
+
 });
 
 

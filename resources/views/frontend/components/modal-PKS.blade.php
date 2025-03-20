@@ -2,96 +2,89 @@
     <div class="modal-content">
         <!-- Tombol Close -->
         <span class="modal-pks-close">&times;</span>
-
         <!-- Container Modal -->
         <div class="modal-container">
             <div class="modal-left">
                 <!-- Detail Produk -->
-                <h6 class="section-title text-center">Perjanjian Kerja Sama</h6>
-                <h6 class="section-title text-center">PKS</h6>
+                <h6 class="section-title text-center">PERJANJIAN KERJASAMA AFFILIATE</h6>
+                <h6 class="section-title text-center">PESKINPRO.ID</h6>
                 <div class="mt-5">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima dignissimos id odit fugit nihil
-                        quisquam, officia eos ratione alias aut ut quos facere eaque libero omnis dolores rem
-                        exercitationem, quis necessitatibus inventore? Similique voluptate hic eum optio repellendus
-                        dolores vel modi, quis aliquam perferendis quibusdam nisi quae non commodi repellat recusandae!
-                        Illum architecto quas ipsa perspiciatis vero voluptatem nostrum maiores. Maiores, provident
-                        deserunt. Ipsum aliquam maxime nostrum vitae incidunt molestiae mollitia est, earum labore eaque
-                        veritatis illo consequatur nam pariatur exercitationem magni deleniti asperiores aperiam ex
-                        molestias. Libero placeat et iure? Quos necessitatibus adipisci amet saepe doloribus dolorem
-                        corporis dolore!</p>
-                    <p>The standard Lorem Ipsum passage, used since the 1500s
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                        non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                    <!-- PASAL 1 -->
+                    <div class="pasal">
+                        <h2><strong>PASAL 1 - MAKSUD</strong></h2>
+                        <ol>
+                            <li>Perjanjian ini mengatur Program Affiliate yang disediakan oleh PESKINPRO.ID.</li>
+                            <li>Dengan mengikuti program Affiliate PESKINPRO.ID, Pihak Pendaftar telah setuju untuk
+                                mematuhi semua syarat dan ketentuan Program Affiliate ini.</li>
+                        </ol>
+                    </div>
 
-                        Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
-                        "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-                        laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto
-                        beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut
-                        odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
-                        Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit,
-                        sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat
-                        voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit
-                        laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui
-                        in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat
-                        quo voluptas nulla pariatur?"
+                    <!-- PASAL 2 -->
+                    <div class="pasal">
+                        <h2><strong>PASAL 2 - LINK ORDER</strong></h2>
+                        <ol>
+                            <li>PESKINPRO.ID akan memberikan link order untuk dipromosikan dan digunakan sebagai link
+                                yang dipakai untuk pembelian produk di web PESKINPRO.ID.</li>
+                            <li>Link order Pihak Pendaftar Affiliate akan terdata di sistem web PESKINPRO.ID.</li>
+                            <li>Pihak Pendaftar Affiliate tidak diperbolehkan mengubah link yang telah dibuat termasuk
+                                cookie dengan cara apa pun.</li>
+                        </ol>
+                    </div>
 
-                        1914 translation by H. Rackham
-                        "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain
-                        was born and I will give you a complete account of the system, and expound the actual teachings
-                        of the great explorer of the truth, the master-builder of human happiness. No one rejects,
-                        dislikes, or avoids pleasure itself, because it is pleasure, but because those who do not know
-                        how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again
-                        is there anyone who loves or pursues or desires to obtain pain of itself, because it is pain,
-                        but because occasionally circumstances occur in which toil and pain can procure him some great
-                        pleasure. To take a trivial example, which of us ever undertakes laborious physical exercise,
-                        except to obtain some advantage from it? But who has any right to find fault with a man who
-                        chooses to enjoy a pleasure that has no annoying consequences, or one who avoids a pain that
-                        produces no resultant pleasure?"
+                    <!-- PASAL 3 -->
+                    <div class="pasal">
+                        <h2><strong>PASAL 3 - KOMISI DAN PEMBAYARAN</strong></h2>
+                        <ol>
+                            <li>Pihak Pendaftar Affiliate berhak menerima komisi dari setiap pembelanjaan yang dilakukan
+                                melalui link order yang telah dibuat. Besaran komisi yang didapatkan adalah 10% dari
+                                masing-masing harga jual produk PESKINPRO.ID setelah dikurangi pajak penjualan 11%, dan
+                                akan diberikan apabila pesanan sudah diterima customer.</li>
+                            <li>Semua komisi hanya akan dibayarkan dalam bentuk Rupiah. Pembayaran akan dilakukan
+                                melalui Transfer Bank sesuai nomor rekening yang tertera pada waktu pendaftaran. (diluar
+                                bank BCA, biaya admin bank akan dipotong dari komisi).</li>
+                            <li>Transfer akan dilakukan jika komisi sudah mencapai minimal Rp. 150.000.</li>
+                            <li>Pentransferan akan dilakukan di jam kerja kantor. Senin-Jumat 09.00-17.00, Sabtu,
+                                Minggu, dan hari libur tidak ada pentransferan.</li>
+                        </ol>
+                    </div>
 
-                        Section 1.10.33 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
-                        "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
-                        voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
-                        cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est
-                        laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero
-                        tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime
-                        placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem
-                        quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates
-                        repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente
-                        delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus
-                        asperiores repellat."
+                    <!-- PASAL 4 -->
+                    <div class="pasal">
+                        <h2><strong>PASAL 4 - LARANGAN</strong></h2>
+                        <ol>
+                            <li>PESKINPRO.ID akan melakukan pengecekan terhadap detail order dari Pihak Pendaftar
+                                Affiliate sehingga pembelian untuk pribadi tidak diperbolehkan.</li>
+                            <li>Jika ditemukan adanya indikasi kecurangan, PESKINPRO.ID akan melakukan penyesuaian
+                                komisi yang didapatkan dan tidak akan memproses pencairan dana kepada Pihak Pendaftar
+                                Affiliate.</li>
+                        </ol>
+                    </div>
 
-                        1914 translation by H. Rackham
-                        "On the other hand, we denounce with righteous indignation and dislike men who are so beguiled
-                        and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot
-                        foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail
-                        in their duty through weakness of will, which is the same as saying through shrinking from toil
-                        and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our
-                        power of choice is untrammelled and when nothing prevents our being able to do what we like
-                        best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances and
-                        owing to the claims of duty or the obligations of business it will frequently occur that
-                        pleasures have to be repudiated and annoyances accepted. The wise man therefore always holds in
-                        these matters to this principle of selection: he rejects pleasures to secure other greater
-                        pleasures, or else he endures pains to avoid worse pains."</p>
+                    <!-- PASAL 5 -->
+                    <div class="pasal">
+                        <h2><strong>PASAL 5 - PENGHENTIAN</strong></h2>
+                        <ol>
+                            <li>PESKINPRO.ID memiliki hak untuk membatalkan kerjasama dengan Pihak Pendaftar Affiliate
+                                atas kebijakannya sendiri, atas pelanggaran Perjanjian ini, atau aktivitas apa pun yang
+                                merugikan bisnis PESKINPRO.ID.</li>
+                            <li>Setelah pengakhiran, Pihak Pendaftar Affiliate akan dicabut aksesnya dan akan kehilangan
+                                semua potensi dan/atau komisi yang belum dibayar.</li>
+                        </ol>
+                    </div>
                 </div>
-
             </div>
         </div>
-
         <div class="modal-footer mt-5 flex gap-5 justify-center">
-            <button type="submit" class="button-main text-xs py-1 rounded-lg flex items-end">Setuju</button>
-            <button type="submit" class=" text-danger text-xs py-1 rounded-lg flex items-end">Tidak Setuju</button>
+            <button id="agreeButton" class="button-main text-xs py-1 rounded-lg flex items-end">Setuju</button>
+            <button id="disagreeButton" class="text-danger text-xs py-1 rounded-lg flex items-end">Tidak Setuju</button>
+
         </div>
     </div>
 </div>
 
-{{-- Backdrop --}}
 <div id="modal-pks-backdrop" class="hidden modal-pks-backdrop"></div>
 
 <style>
-    /* Layout */
     .modal-container {
         display: flex;
         gap: 16px;
@@ -118,7 +111,6 @@
         align-items: flex-start;
     }
 
-    /* Styling untuk Teks dan Elemen */
     .transaction-status .status-title {
         font-weight: bold;
         font-size: 16px;
@@ -148,7 +140,6 @@
         cursor: pointer;
     }
 
-    /* Tombol Aksi di Kanan */
     .action-btn {
         width: 100%;
         padding: 8px;
@@ -165,7 +156,6 @@
         background-color: var(--primary);
     }
 
-    /* Scroll Styling */
     .modal-left::-webkit-scrollbar {
         width: 8px;
     }
@@ -175,24 +165,19 @@
         border-radius: 4px;
     }
 
-    /* Adjust Tracking Steps Layout */
     .tracking-steps {
         display: flex;
         justify-content: space-between;
         gap: 16px;
-        /* Space between steps */
     }
 
-    /* Each Step */
     .step {
         display: flex;
         align-items: center;
         gap: 16px;
         flex-direction: row;
-        /* Ensures step items are laid out horizontally */
     }
 
-    /* Step Icons */
     .step-icon {
         width: 30px;
         height: 30px;
@@ -209,7 +194,6 @@
         position: relative;
     }
 
-    /* Add Icon through CSS */
     .step-icon::before {
         content: '●';
         font-size: 16px;
@@ -224,13 +208,11 @@
         content: '◉';
     }
 
-    /* Step Info */
     .step-info {
         display: flex;
         flex-direction: column;
     }
 
-    /* Optional: Adjust the size of the titles and dates for horizontal layout */
     .step-title {
         font-weight: bold;
         margin: 0;
@@ -242,7 +224,6 @@
         color: #666;
     }
 
-    /* Step States */
     .step.completed .step-icon {
         background-color: var(--light-primary);
         color: var(--primary);
@@ -261,7 +242,6 @@
         border-color: #e0e0e0;
     }
 
-    /* Responsive */
     @media (max-width: 768px) {
         .modal-container {
             flex-direction: column;
@@ -391,5 +371,22 @@
             font-size: 12px;
             padding: 8px 10px;
         }
+    }
+
+    /* Pasal Styling */
+    .pasal {
+        margin-bottom: 20px;
+    }
+
+    .pasal h2 {
+        margin-bottom: 10px;
+    }
+
+    .pasal ol {
+        margin-left: 20px;
+    }
+
+    .pasal li {
+        margin: 15px 0 15px 0;
     }
 </style>

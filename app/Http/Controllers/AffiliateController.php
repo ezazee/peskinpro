@@ -197,7 +197,7 @@ class AffiliateController extends Controller
         })
         ->groupBy('user_id')
         ->orderByDesc('total_commission')
-        ->paginate(5);    
+        ->paginate(5);
 
         return view('backend.pages.affiliate.memberlist',compact('welcomeMessage','user','memberAffiliate'));
     }
@@ -302,5 +302,17 @@ class AffiliateController extends Controller
 
     public function Keuntungan(){
         return view('affiliate.pages.keuntungan');
+    }
+
+    public function productLink(){
+        $settings = Settings::all();
+        $user = Auth::user();
+        return view('frontend.pages.profile.affiliate-product-link', compact('settings', 'user'));
+    }
+
+    public function affiliateSettings(){
+        $settings = Settings::all();
+        $user = Auth::user();
+        return view('frontend.pages.profile.affiliate-settings', compact('settings', 'user'));
     }
 }
