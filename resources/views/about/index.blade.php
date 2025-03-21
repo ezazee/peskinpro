@@ -1055,73 +1055,28 @@
             </div>
          </div>
       </div>
-      <div class="row vs-carousel wow fadeInUp" data-wow-delay="0.3s" data-slidetoshow="3" data-mdslidetoshow="2"
-         data-smslidetoshow="1" data-xsslidetoshow="1">
+      <div class="row vs-carousel wow fadeInUp" data-wow-delay="0.3s" 
+               data-slidetoshow="{{ $articles->count() >= 3 ? 3 : $articles->count() }}" 
+               data-mdslidetoshow="{{ $articles->count() >= 2 ? 2 : $articles->count() }}" 
+               data-smslidetoshow="1" data-xsslidetoshow="1">
+         @foreach ($articles as $item)
          <div class="col-lg-4">
             <div class="vs-blog">
                <div class="blog-image image-scale-hover">
-                  <a href="{{ route('about.newsDetail') }}"><img src="{{ asset('asset-about/img/blog/blog-img-1-1.jpg') }}"
+                  <a href="{{ route('about.newsDetail', $item->slug) }}"><img src="{{ asset('storage/'. $item->images) }}"
                      alt="Blog Image" class="w-100" /></a>
                </div>
                <div class="blog-content bg-white">
                   <div class="blog-meta">
-                     <a href="{{ route('about.newsDetail') }}"><i class="fal fa-calendar-alt"></i>14th March 2023</a>
+                     <i class="fal fa-calendar-alt"></i> {{ \Carbon\Carbon::parse($item->created_at)->translatedFormat('d F Y') }}
                   </div>
                   <h3 class="blog-title h4 mb-10">
-                     <a href="{{ route('about.newsDetail') }}">We also offer outside catering; take-away</a>
+                     <a href="{{ route('about.newsDetail', $item->slug) }}">{{ $item->tittle }}</a>
                   </h3>
                </div>
             </div>
          </div>
-         <div class="col-lg-4">
-            <div class="vs-blog">
-               <div class="blog-image image-scale-hover">
-                  <a href="{{ route('about.newsDetail') }}"><img src="{{ asset('asset-about/img/blog/blog-img-1-2.jpg') }}"
-                     alt="Blog Image" class="w-100" /></a>
-               </div>
-               <div class="blog-content bg-white">
-                  <div class="blog-meta">
-                     <a href="{{ route('about.newsDetail') }}"><i class="fal fa-calendar-alt"></i>16th March 2023</a>
-                  </div>
-                  <h3 class="blog-title h4 mb-10">
-                     <a href="{{ route('about.newsDetail') }}">We giving special service for vip.</a>
-                  </h3>
-               </div>
-            </div>
-         </div>
-         <div class="col-lg-4">
-            <div class="vs-blog">
-               <div class="blog-image image-scale-hover">
-                  <a href="{{ route('about.newsDetail') }}"><img src="{{ asset('asset-about/img/blog/blog-img-1-3.jpg') }}"
-                     alt="Blog Image" class="w-100" /></a>
-               </div>
-               <div class="blog-content bg-white">
-                  <div class="blog-meta">
-                     <a href="{{ route('about.newsDetail') }}"><i class="fal fa-calendar-alt"></i>22th April 2023</a>
-                  </div>
-                  <h3 class="blog-title h4 mb-10">
-                     <a href="{{ route('about.newsDetail') }}">We giving special service for vip.</a>
-                  </h3>
-               </div>
-            </div>
-         </div>
-         <div class="col-lg-4">
-            <div class="vs-blog">
-               <div class="blog-image image-scale-hover">
-                  <a href="{{ route('about.newsDetail') }}"><img src="{{ asset('asset-about/img/blog/blog-img-1-4.jpg') }}"
-                     alt="Blog Image" class="w-100" /></a>
-               </div>
-               <div class="blog-content bg-white">
-                  <div class="blog-meta">
-                     <a href="{{ route('about.newsDetail') }}"><i class="fal fa-calendar-alt"></i>05th May 2023</a>
-                     <a href="{{ route('about.newsDetail') }}"><i class="fal fa-user"></i>By User</a>
-                  </div>
-                  <h3 class="blog-title h4 mb-10">
-                     <a href="{{ route('about.newsDetail') }}">The house of care famous Spa Service.</a>
-                  </h3>
-               </div>
-            </div>
-         </div>
+         @endforeach
       </div>
    </div>
 </section>

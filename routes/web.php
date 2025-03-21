@@ -43,7 +43,7 @@ Route::get('/ongkir', [CheckOngkirController::class, 'index'])->name('index');
 Route::post('/ongkir', [CheckOngkirController::class, 'check_ongkir'])->name('check_ongkir');
 Route::get('/cities/{province_id}', [CheckOngkirController::class, 'getCities'])->name('getCities');
 
-Route::get('/artikel', [ArticleController::class, 'blogarticle'])->name('blogarticle');
+// Route::get('/artikel', [ArticleController::class, 'blogarticle'])->name('blogarticle');
 Route::get('/artikel/{slug}', [ArticleController::class, 'articlebyTittle'])->name('articlebyTittle');
 
 Route::get('/login', [AuthenticationController::class, 'index'])->name('login');
@@ -83,7 +83,7 @@ Route::get('/about/products/vit-c-tone-up-day-cream-spf50', [AboutController::cl
 Route::get('/about/contact', [AboutController::class, 'AboutContact'])->name('about.contact');
 
 Route::get('/about/news', [AboutController::class, 'AboutNews'])->name('about.news');
-Route::get('/about/news/detail', [AboutController::class, 'AboutNewsDetail'])->name('about.newsDetail');
+Route::get('/about/news/detail/{slug}', [AboutController::class, 'AboutNewsDetail'])->name('about.newsDetail');
 
 
 // Affiliate

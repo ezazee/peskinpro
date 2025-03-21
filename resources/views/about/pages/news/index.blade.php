@@ -4,33 +4,27 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
+                    @foreach ($articles as $item)
                     <div class="vs-blog">
-                        <div class="blog-image image-scale-hover"><a href="#"><img
-                                    src="{{ asset('asset-about/img/blog/blog-img-1-4.jpg') }}" alt="Blog Image"></a></div>
+                        <div class="blog-image image-scale-hover"><a href="{{ route('about.newsDetail', $item->slug) }}"><img
+                            src="{{ asset('storage/' . $item->images) }}" alt="{{ $item->tittle }}"></a></div>
                         <div class="blog-content bg-light-theme">
-                            <div class="blog-category"><a href="#">Business</a></div>
-                            <h2 class="blog-title"><a href="#">Lorem ipsum dolor sit amet, consecte
-                                    cing elit, sed do eiusmod tempor.</a></h2>
+                            <h2 class="blog-title"><a href="{{ route('about.newsDetail', $item->slug) }}">{{ $item->tittle }}</a></h2>
                             <div class="blog-meta">
-                                <a href="#"><i class="fal fa-calendar-alt text-theme"></i>22 June, 2023</a>
+                                <i class="fal fa-calendar-alt text-theme"></i> {{ \Carbon\Carbon::parse($item->created_at)->translatedFormat('d F Y') }}
                             </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-                                dolor in reprehenderit in voluptate velit esse cillum dolore.</p>
+                            <p>{!! Str::limit(strip_tags($item->content),200) !!}</p>
                             <div class="blog-footer d-flex justify-content-between align-items-center">
-                                <a href="#" class="link-btn"><i class="fal fa-long-arrow-right mr-2 ml-0"></i>Read
+                                <a href="{{ route('about.newsDetail', $item->slug) }}" class="link-btn"><i class="fal fa-long-arrow-right mr-2 ml-0"></i>Read
                                     More</a>
                             </div>
                         </div>
                     </div>
+                    @endforeach
+                    
                     <div class="pagination-wrapper pagination-layout1 list-style-none pb-30">
-                        <ul>
-                            <li><a href="#"><i class="fas fa-chevron-left"></i></a></li>
-                            <li><a href="#" class="active">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#"><i class="fas fa-chevron-right"></i></a></li>
+                        <ul class="pagination justify-content-end mb-0">
+                            {{ $articles->onEachSide(1)->links('pagination::bootstrap-5') }}
                         </ul>
                     </div>
                 </div>
@@ -39,43 +33,23 @@
                         <div class="widget">
                             <h3 class="widget_title">Popular Post</h3>
                             <div class="vs-widget-recent-post has-border-theme">
+                                @foreach ($popularArticles as $popular)
                                 <div class="recent-post media">
-                                    <div class="media-img"><img width="150" height="100" src="{{ asset('asset-about/img/blog/blog-img-1-4.jpg') }}"
-                                            alt="Recent Post Image"></div>
+                                    <div class="media-img"><img width="150" height="100" src="{{ asset('storage/' . $popular->images) }}" alt="{{ $popular->tittle }}"></div>
                                     <div class="media-body pl-20">
-                                        <h4 class="recent-post-title h6 mb-0"><a href="#">Managing Partner
-                                                along with Senior Counsels.</a></h4><span><i
-                                                class="fal fa-calendar-alt text-theme"></i> 05 June, 2023.</span>
+                                        <h4 class="recent-post-title h6 mb-0"><a href="{{ route('about.newsDetail', $popular->slug) }}">{{ $popular->tittle }}</a></h4><span><i
+                                                class="fal fa-calendar-alt text-theme"></i> {{ \Carbon\Carbon::parse($popular->created_at)->translatedFormat('d F Y') }}</span>
                                     </div>
                                 </div>
-                                <div class="recent-post media">
-                                    <div class="media-img"><img width="150" height="100" src="{{ asset('asset-about/img/blog/blog-img-2-1.jpg') }}"
-                                            alt="Recent Post Image"></div>
-                                    <div class="media-body pl-20">
-                                        <h4 class="recent-post-title h6 mb-0"><a href="#">Managing Partner
-                                                along with Senior Counsels.</a></h4><span><i
-                                                class="fal fa-calendar-alt text-theme"></i> 05 June, 2023.</span>
-                                    </div>
-                                </div>
-                                <div class="recent-post media">
-                                    <div class="media-img"><img width="150" height="100" src="{{ asset('asset-about/img/blog/blog-img-1-1.jpg') }}"
-                                            alt="Recent Post Image"></div>
-                                    <div class="media-body pl-20">
-                                        <h4 class="recent-post-title h6 mb-0"><a href="#">Managing Partner
-                                                along with Senior Counsels.</a></h4><span><i
-                                                class="fal fa-calendar-alt text-theme"></i> 05 June, 2023.</span>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                         <div class="widget widget_tag_cloud">
-                            <h3 class="widget_title">Popular Tags</h3>
-                            <div class="tagcloud"><a href="#">Popular</a> <a href="#">desgin</a> <a
-                                    href="#">ux</a> <a href="#">usability</a> <a href="#">develop</a>
-                                <a href="#">icon</a> <a href="#">business</a> <a href="#">consult</a>
-                                <a href="#">keyboard</a> <a href="#">mouse</a>
-                                <div href="#">tech</a>
-                                </div>
+                            <h3 class="widget_title">Tags</h3>
+                            <div class="tagcloud">
+                                @foreach ($tags as $t)
+                                <a href="#">{{ $t->nama_tags }}</a>
+                                @endforeach
                             </div>
                     </aside>
                 </div>
