@@ -86,7 +86,6 @@ Route::get('/about/news', [AboutController::class, 'AboutNews'])->name('about.ne
 Route::get('/about/news/tags/{slug}', [AboutController::class, 'newsTag'])->name('about.newsTag');
 Route::get('/about/news/detail/{slug}', [AboutController::class, 'AboutNewsDetail'])->name('about.newsDetail');
 
-
 // Affiliate
 Route::get('/about/affiliate', [AffiliateController::class, 'IndexAffiliate'])->name('about.affiliate');
 Route::get('/about/affiliate/cara-raih-komisi', [AffiliateController::class, 'RaihKomisi'])->name('about.RaihKomisi');
