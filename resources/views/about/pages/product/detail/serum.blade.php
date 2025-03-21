@@ -45,7 +45,7 @@
                                 <div class="col-xl-4">
                                     <div class="vs-service border-light-theme">
                                         <div class="text-theme service-icon mb-30">
-                                            <img src="https://placehold.co/70x70" alt="Vitamin C PE Skinpro">
+                                            <img src="{{ asset('asset-about/img/phtproduct/icon/Vitamin-C.png') }}" alt="Vitamin C PE Skinpro">
                                         </div>
                                         <h3 class="h4 service-title mb-2">Vitamin C</h3>
                                         <p class="service-text">
@@ -58,7 +58,7 @@
                                 <div class="col-xl-4">
                                     <div class="vs-service border-light-theme">
                                         <div class="text-theme service-icon mb-30">
-                                            <img src="https://placehold.co/70x70" alt="Arbutin PE Skinpro">
+                                            <img src="{{ asset('asset-about/img/phtproduct/icon/Arbutin.png') }}" alt="Arbutin PE Skinpro">
                                         </div>
                                         <h3 class="h4 service-title mb-2">Arbutin</h3>
                                         <p class="service-text">
@@ -71,7 +71,7 @@
                                 <div class="col-xl-4">
                                     <div class="vs-service border-light-theme">
                                         <div class="text-theme service-icon mb-30">
-                                            <img src="https://placehold.co/70x70" alt="Hyaluronic Acid PE Skinpro">
+                                            <img src="{{ asset('asset-about/img/phtproduct/icon/Hyaluronic-Acid.png') }}" alt="Hyaluronic Acid PE Skinpro">
                                         </div>
                                         <h3 class="h4 service-title mb-2">Hyaluronic Acid</h3>
                                         <p class="service-text">
@@ -331,11 +331,6 @@
                                 </div>
                             </div>
                         </div>
-                        <p>
-                            <em><strong style="color:red">Peringatan: </strong>Produk ini mengandung AHA yang dapat meningkatkan kerentanan
-                                kulit terhadap sinar UV. Mohon gunakan tabir surya setiap hari selama rutinitas
-                                pagi hari</em>
-                        </p>
                         <h4 class="h3 primary-color-bold mt-5">Cara Pemakaian & Hasil</h4>
                         <div class="row">
                             <div class="col-lg-12">

@@ -15,7 +15,7 @@
                 <div class="col-lg-6">
                     <div class="ps-lg-5 text-center">
                         <img loading="lazy" decoding="async"
-                            src="https://assets.tokopedia.net/assets-tokopedia-lite/v2/arael/kratos/4336c1b0.png"
+                            src="{{ asset('asset-affiliate/images/Affiliate-1200-x-1107.png') }}"
                             alt="Banner Affiliate PE Skinpro" class="w-100">
                     </div>
                 </div>
@@ -78,7 +78,7 @@
                         <p class="text-primary text-uppercase fw-bold mb-3">Berani Bersaing</p>
                         <h1>Banyak Banget Keuntungannya!!</h1>
                         <div class="content mb-0 mt-4">
-                            <p>PE Skinpro Affiliate berani bersaing dengan memberikan komisi lebih dari 15%, menjadikan
+                            <p>PE Skinpro Affiliate berani bersaing dengan memberikan komisi lebih dari 10% menjadikan
                                 setiap promosi produk kecantikan berkualitas semakin menguntungkan bagi Anda. Tingkatkan
                                 penghasilan dengan mudah melalui program afiliasi yang transparan dan menjanjikan!</p>
                         </div>
@@ -87,21 +87,17 @@
                 <div class="col-lg-6">
                     <div class="difference-of-us-item p-3 rounded mr-0 me-lg-4">
                         <div class="d-block d-sm-flex align-items-center m-2">
-                            <div class="icon me-4 mb-4 mb-sm-0"> <i class="fas fa-shield-alt mt-4"
-                                    style="font-size:36px"></i>
-                            </div>
+                            <div class="icon me-4 mb-4 mb-sm-0"> <img src="{{ asset('asset-affiliate/images/Komisi-yang-kompetitif.png') }}" alt="PE Skinpro Affiliate"> </div>
                             <div class="block">
                                 <h3 class="mb-3">Komisi Yang Kompetitif</h3>
-                                <p class="mb-3">Komisi hingga +15% Dan Bisa Bersaing Dengan Program Affiliate Lainnya.</p>
+                                <p class="mb-3">Komisi hingga 10% Dan Bisa Bersaing Dengan Program Affiliate Lainnya.</p>
                                 <a href="#"> <strong>Daftar Affiliate</strong> </a>
                             </div>
                         </div>
                     </div>
                     <div class="difference-of-us-item p-3 rounded mr-0 me-lg-4">
                         <div class="d-block d-sm-flex align-items-center m-2">
-                            <div class="icon me-4 mb-4 mb-sm-0"> <i class="fas fa-blender-phone mt-4"
-                                    style="font-size:36px"></i>
-                            </div>
+                            <div class="icon me-4 mb-4 mb-sm-0"> <img src="{{ asset('asset-affiliate/images/Syarat-Mudah,-Semua-Bisa.png') }}" alt="PE Skinpro Affiliate"> </div>
                             <div class="block">
                                 <h3 class="mb-3">Syarat Mudah, Semua Bisa</h3>
                                 <p class="mb-3">Cukup Jadi Pengguna Aktif di Website PE Skinpro dan Share ke Social Media
@@ -112,9 +108,7 @@
                     </div>
                     <div class="difference-of-us-item p-3 rounded mr-0 me-lg-4">
                         <div class="d-block d-sm-flex align-items-center m-2">
-                            <div class="icon me-4 mb-4 mb-sm-0"> <i class="fas fa-money-bill-alt mt-4"
-                                    style="font-size:36px"></i>
-                            </div>
+                            <div class="icon me-4 mb-4 mb-sm-0"> <img src="{{ asset('asset-affiliate/images/Tips-Affiliate-&-Konsultasi.png') }}" alt="PE Skinpro Affiliate"> </div>
                             <div class="block">
                                 <h3 class="mb-3">Baca Tips Affiliate & Konsultasi GRATIS</h3>
                                 <p class="mb-3">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Incidunt, soluta

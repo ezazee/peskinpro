@@ -83,6 +83,7 @@ Route::get('/about/products/vit-c-tone-up-day-cream-spf50', [AboutController::cl
 Route::get('/about/contact', [AboutController::class, 'AboutContact'])->name('about.contact');
 
 Route::get('/about/news', [AboutController::class, 'AboutNews'])->name('about.news');
+Route::get('/about/news/tags', [AboutController::class, 'newsTag'])->name('about.newsTag');
 Route::get('/about/news/detail/{slug}', [AboutController::class, 'AboutNewsDetail'])->name('about.newsDetail');
 
 
@@ -104,11 +105,11 @@ Route::middleware(['userOrGuest'])->group(function () {
     Route::post('/cart/decrease', [CartController::class, 'decreaseQuantity'])->name('cart.decrease');
     Route::get('/s/{code}', function ($code) {
         $linkreal = Cache::get('shortlink_' . $code);
-    
+
         if (!$linkreal) {
             abort(404);
         }
-    
+
         return redirect($linkreal);
     })->name('shortlink.redirect');
 });

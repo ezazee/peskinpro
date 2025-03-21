@@ -44,7 +44,7 @@
                                 <div class="col-xl-4">
                                     <div class="vs-service border-light-theme">
                                         <div class="text-theme service-icon mb-30">
-                                            <img src="https://placehold.co/70x70" alt="Vitamin C PE Skinpro">
+                                            <img src="{{ asset('asset-about/img/phtproduct/icon/Vitamin-C.png') }}" alt="Vitamin C PE Skinpro">
                                         </div>
                                         <h3 class="h4 service-title mb-2">Vitamin C</h3>
                                         <p class="service-text">
@@ -57,7 +57,7 @@
                                 <div class="col-xl-4">
                                     <div class="vs-service border-light-theme">
                                         <div class="text-theme service-icon mb-30">
-                                            <img src="https://placehold.co/70x70" alt="Hyaluronic Acid PE Skinpro">
+                                            <img src="{{ asset('asset-about/img/phtproduct/icon/Hyaluronic-Acid.png') }}" alt="Hyaluronic Acid PE Skinpro">
                                         </div>
                                         <h3 class="h4 service-title mb-2">Hyaluronic Acid</h3>
                                         <p class="service-text">
@@ -70,7 +70,7 @@
                                 <div class="col-xl-4">
                                     <div class="vs-service border-light-theme">
                                         <div class="text-theme service-icon mb-30">
-                                            <img src="https://placehold.co/70x70" alt="Trehalose PE Skinpro">
+                                            <img src="{{ asset('asset-about/img/phtproduct/icon/Trehalose.png') }}" alt="Trehalose PE Skinpro">
                                         </div>
                                         <h3 class="h4 service-title mb-2">Trehalose</h3>
                                         <p class="service-text">

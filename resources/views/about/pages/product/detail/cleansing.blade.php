@@ -10,8 +10,8 @@
                     <div class="vs-gallery-content">
                         <h1 class="h1 mt-5">Honey Cleansing Gel</h1>
                         <div class="image-scale-hover mb-30">
-                            <img src="{{ asset('asset-about/img/banner/HONEY-Cleansing-Gel.jpg') }}" alt="Honey Cleansing Gel" class="w-100"
-                                style="height: 350px; object-fit: contain" />
+                            <img src="{{ asset('asset-about/img/banner/HONEY-Cleansing-Gel.jpg') }}"
+                                alt="Honey Cleansing Gel" class="w-100" style="height: 350px; object-fit: contain" />
                         </div>
                         <div class="pb-60 pt-60 border-top border-light-theme">
                             <div class="row">
@@ -32,7 +32,9 @@
                             </div>
                         </div>
                         <p>
-                            Honey Cleansing Gel adalah produk pembersih wajah yang dirancang untuk memberikan perawatan kulit yang lembut dan menyegarkan. Dengan kombinasi bahan-bahan alami dan aktif, gel ini membantu membersihkan kulit secara mendalam sambil menjaga kelembapan dan kesehatan kulit Anda.
+                            Honey Cleansing Gel adalah produk pembersih wajah yang dirancang untuk memberikan perawatan
+                            kulit yang lembut dan menyegarkan. Dengan kombinasi bahan-bahan alami dan aktif, gel ini
+                            membantu membersihkan kulit secara mendalam sambil menjaga kelembapan dan kesehatan kulit Anda.
                             Berikut Dibawah adalah List Bahan Aktif dari Honey Cleansing Gel :
                         </p>
                         <h4 class="h3 primary-color-bold mt-5">Bahan Aktif & Bahan Lainnya</h4>
@@ -42,33 +44,45 @@
                                 <div class="col-xl-4">
                                     <div class="vs-service border-light-theme">
                                         <div class="text-theme service-icon mb-30">
-                                            <img src="https://placehold.co/70x70" alt="Honey PE Skinpro">
+                                            <img src="{{ asset('asset-about/img/phtproduct/icon/Honey.png') }}" alt="Honey PE Skinpro">
                                         </div>
                                         <h3 class="h4 service-title mb-2">Honey</h3>
                                         <p class="service-text">
-                                            Madu memiliki sifat humektan alami yang membuatnya menjadi pelembab efektif. Enzim dalam madu membantu menembus lapisan kulit dan membawa nutrisi ke lapisan dalam. Sifat antibakteri dan anti-inflamasi madu dapat melawan jerawat dan mengurangi peradangan. Selain itu, madu juga meningkatkan produksi kolagen, membuat kulit lebih kenyal dan awet muda.
+                                            Madu memiliki sifat humektan alami yang membuatnya menjadi pelembab efektif.
+                                            Enzim dalam madu membantu menembus lapisan kulit dan membawa nutrisi ke lapisan
+                                            dalam. Sifat antibakteri dan anti-inflamasi madu dapat melawan jerawat dan
+                                            mengurangi peradangan. Selain itu, madu juga meningkatkan produksi kolagen,
+                                            membuat kulit lebih kenyal dan awet muda.
                                         </p>
                                     </div>
                                 </div>
                                 <div class="col-xl-4">
                                     <div class="vs-service border-light-theme">
                                         <div class="text-theme service-icon mb-30">
-                                            <img src="https://placehold.co/70x70" alt="Aloe Vera PE Skinpro">
+                                            <img src="{{ asset('asset-about/img/phtproduct/icon/Aloe-Vera.png') }}" alt="Aloe Vera PE Skinpro">
                                         </div>
                                         <h3 class="h4 service-title mb-2">Aloe Vera</h3>
                                         <p class="service-text">
-                                            Aloe Vera dikenal karena sifat melembapkan dan anti-inflamasinya. Ini merupakan solusi populer untuk kulit terbakar sinar matahari. Aloe Vera berfungsi sebagai pelindung kulit dan mempertahankan kelembaban. Ekstrak Aloe Vera kaya akan vitamin C, E, dan B-complex, serta memiliki sifat antiseptik yang mencegah infeksi pada kulit.
+                                            Aloe Vera dikenal karena sifat melembapkan dan anti-inflamasinya. Ini merupakan
+                                            solusi populer untuk kulit terbakar sinar matahari. Aloe Vera berfungsi sebagai
+                                            pelindung kulit dan mempertahankan kelembaban. Ekstrak Aloe Vera kaya akan
+                                            vitamin C, E, dan B-complex, serta memiliki sifat antiseptik yang mencegah
+                                            infeksi pada kulit.
                                         </p>
                                     </div>
                                 </div>
                                 <div class="col-xl-4">
                                     <div class="vs-service border-light-theme">
                                         <div class="text-theme service-icon mb-30">
-                                            <img src="https://placehold.co/70x70" alt="Jojoba PE Skinpro">
+                                            <img src="{{ asset('asset-about/img/phtproduct/icon/Jojoba.png') }}" alt="Jojoba PE Skinpro">
                                         </div>
                                         <h3 class="h4 service-title mb-2">Jojoba</h3>
                                         <p class="service-text">
-                                            Jojoba mengandung Vitamin E alami dan antioksidan yang melindungi kulit dari radikal bebas seperti polusi dan sinar UV. Antioksidan ini juga mencegah kerusakan oksidatif, menjaga kulit sehat dan cerah. Minyak Jojoba mirip dengan sebum alami kulit, sehingga membantu menjaga keseimbangan kelembapan dan mencegah kulit kering atau berminyak berlebihan.
+                                            Jojoba mengandung Vitamin E alami dan antioksidan yang melindungi kulit dari
+                                            radikal bebas seperti polusi dan sinar UV. Antioksidan ini juga mencegah
+                                            kerusakan oksidatif, menjaga kulit sehat dan cerah. Minyak Jojoba mirip dengan
+                                            sebum alami kulit, sehingga membantu menjaga keseimbangan kelembapan dan
+                                            mencegah kulit kering atau berminyak berlebihan.
                                         </p>
                                     </div>
                                 </div>
@@ -150,7 +164,8 @@
                                                                 </g>
                                                             </g>
                                                         </g>
-                                                    </svg></div>
+                                                    </svg>
+                                                </div>
                                                 <div style="padding-top: 8px;">
                                                     <div
                                                         style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">
@@ -205,7 +220,8 @@
                                                 <a href="https://www.instagram.com/p/DFSbtyWxwGy/?utm_source=ig_embed&amp;utm_campaign=loading"
                                                     style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;"
                                                     target="_blank">A post shared by PE SKINPRO ID OFFICIAL
-                                                    (@peskinproid)</a></p>
+                                                    (@peskinproid)</a>
+                                            </p>
                                         </div>
                                     </blockquote>
                                     <script async src="//www.instagram.com/embed.js"></script>
@@ -251,7 +267,8 @@
                                                                 </g>
                                                             </g>
                                                         </g>
-                                                    </svg></div>
+                                                    </svg>
+                                                </div>
                                                 <div style="padding-top: 8px;">
                                                     <div
                                                         style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">
@@ -306,18 +323,14 @@
                                                 <a href="https://www.instagram.com/p/DFmSAOcxPsS/?utm_source=ig_embed&amp;utm_campaign=loading"
                                                     style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;"
                                                     target="_blank">A post shared by PE SKINPRO ID OFFICIAL
-                                                    (@peskinproid)</a></p>
+                                                    (@peskinproid)</a>
+                                            </p>
                                         </div>
                                     </blockquote>
                                     <script async src="//www.instagram.com/embed.js"></script>
                                 </div>
                             </div>
                         </div>
-                        <p>
-                            <em><strong style="color:red">Peringatan: </strong>Produk ini mengandung AHA yang dapat meningkatkan kerentanan
-                                kulit terhadap sinar UV. Mohon gunakan tabir surya setiap hari selama rutinitas
-                                pagi hari</em>
-                        </p>
                         <h4 class="h3 primary-color-bold mt-5">Cara Pemakaian & Hasil</h4>
                         <div class="row">
                             <div class="col-lg-12">

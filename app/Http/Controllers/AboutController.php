@@ -13,12 +13,12 @@ class AboutController extends Controller
     public function index()
     {
         $articles = Article::with('tag')
-        ->where('status', 'public')
-        ->orderby('id', 'desc')
-        ->take(6)
-        ->get();
+            ->where('status', 'public')
+            ->orderby('id', 'desc')
+            ->take(6)
+            ->get();
         // dd($articles);
-        return view('about.index',compact('articles'));
+        return view('about.index', compact('articles'));
     }
     public function ListProducts()
     {
@@ -68,33 +68,33 @@ class AboutController extends Controller
     public function AboutNews()
     {
         $articles = Article::with('tag')
-        ->where('status', 'public')
-        ->orderby('id', 'desc')
-        ->paginate(15);
+            ->where('status', 'public')
+            ->orderby('id', 'desc')
+            ->paginate(15);
 
         $startOfWeek = Carbon::now()->startOfWeek();
         $endOfWeek = Carbon::now()->endOfWeek();
 
         $popularArticles = Article::where('status', 'public')
-        ->whereBetween('created_at', [$startOfWeek, $endOfWeek])
-        ->orderBy('view', 'desc')
-        ->take(4)
-        ->get();
+            ->whereBetween('created_at', [$startOfWeek, $endOfWeek])
+            ->orderBy('view', 'desc')
+            ->take(4)
+            ->get();
 
         if ($popularArticles->isEmpty()) {
-        $startOfLastWeek = Carbon::now()->subWeek()->startOfWeek();
-        $endOfLastWeek = Carbon::now()->subWeek()->endOfWeek();
+            $startOfLastWeek = Carbon::now()->subWeek()->startOfWeek();
+            $endOfLastWeek = Carbon::now()->subWeek()->endOfWeek();
 
-        $popularArticles = Article::where('status', 'public')
-                    ->whereBetween('created_at', [$startOfLastWeek, $endOfLastWeek])
-                    ->orderBy('view', 'desc')
-                    ->take(4)
-                    ->get();
+            $popularArticles = Article::where('status', 'public')
+                ->whereBetween('created_at', [$startOfLastWeek, $endOfLastWeek])
+                ->orderBy('view', 'desc')
+                ->take(4)
+                ->get();
         }
 
         $tags = Tag::take(10)->get();
 
-        return view('about.pages.news.index',compact('articles','popularArticles','tags'));
+        return view('about.pages.news.index', compact('articles', 'popularArticles', 'tags'));
     }
 
     public function AboutNewsDetail($slug)
@@ -107,14 +107,19 @@ class AboutController extends Controller
         $articles->increment('view');
 
         $relatedArticles = Article::where('status', 'public')
-        ->whereHas('tag', function ($query) use ($articles) {
-            $query->whereIn('tags.id', $articles->tag->pluck('id'));
-        })
-        ->where('id', '!=', $articles->id)
-        ->orderBy('view', 'desc')
-        ->take(3)
-        ->get();
+            ->whereHas('tag', function ($query) use ($articles) {
+                $query->whereIn('tags.id', $articles->tag->pluck('id'));
+            })
+            ->where('id', '!=', $articles->id)
+            ->orderBy('view', 'desc')
+            ->take(3)
+            ->get();
 
-        return view('about.pages.news.detail',compact('articles','relatedArticles'));
+        return view('about.pages.news.detail', compact('articles', 'relatedArticles'));
+    }
+
+    public function newsTag()
+    {
+        return view('about.pages.news.tag');
     }
 }

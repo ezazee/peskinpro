@@ -21,10 +21,12 @@
                 <div class="col-lg-3">
                     <div class="vs-service">
                         <div class="service-icon">
-                            <span class="icon text-theme bg-white"><img src="https://placehold.co/50x50"
-                                    alt=""></span>
-                            <span class="bg-icon ani-moving icon-6x text-theme"><img src="https://placehold.co/70x70"
-                                    alt=""></span>
+                            <span class="icon text-theme bg-white"><img
+                                    src="{{ asset('asset-about/img/about/icon/Mencerahkan-Kulit.png') }}"
+                                    alt="PE Skinpro Mencerahkan Kulit"></span>
+                            <span class="bg-icon ani-moving icon-6x text-theme"><img
+                                    src="{{ asset('asset-about/img/about/icon/Mencerahkan-Kulit-2.png') }}"
+                                    alt="PE Skinpro Mencerahkan Kulit"></span>
                         </div>
                         <div class="service-content">
                             <h3 class="service-title h4">
@@ -39,8 +41,12 @@
                 <div class="col-lg-3">
                     <div class="vs-service">
                         <div class="service-icon">
-                            <span class="icon text-theme bg-white"><i class="fa-3x flaticon-stones-1"></i></span>
-                            <span class="bg-icon ani-moving icon-6x text-theme"><i class="flaticon-mortar"></i></span>
+                            <span class="icon text-theme bg-white"><img
+                                    src="{{ asset('asset-about/img/about/icon/Menghaluskan-Kulit.png') }}"
+                                    alt="PE Skinpro Menghaluskan Kulit"></span>
+                            <span class="bg-icon ani-moving icon-6x text-theme"><img
+                                    src="{{ asset('asset-about/img/about/icon/Menghaluskan-Kulit-2.png') }}"
+                                    alt="PE Skinpro Menghaluskan Kulit"></span>
                         </div>
                         <div class="service-content">
                             <h3 class="service-title h4">
@@ -55,8 +61,12 @@
                 <div class="col-lg-3">
                     <div class="vs-service">
                         <div class="service-icon">
-                            <span class="icon text-theme bg-white"><i class="fa-3x flaticon-facial-treatment"></i></span>
-                            <span class="bg-icon ani-moving icon-6x text-theme"><i class="flaticon-teapot"></i></span>
+                            <span class="icon text-theme bg-white"><img
+                                    src="{{ asset('asset-about/img/about/icon/Melembabkan-Kulit.png') }}"
+                                    alt="PE Skinpro Melembabkan Kulit"></span>
+                            <span class="bg-icon ani-moving icon-6x text-theme"><img
+                                    src="{{ asset('asset-about/img/about/icon/Melembabkan-Kulit-2.png') }}"
+                                    alt="PE Skinpro Melembabkan Kulit"></span>
                         </div>
                         <div class="service-content">
                             <h3 class="service-title h4">
@@ -71,8 +81,12 @@
                 <div class="col-lg-3">
                     <div class="vs-service">
                         <div class="service-icon">
-                            <span class="icon text-theme bg-white"><i class="fa-3x flaticon-cosmetics"></i></span>
-                            <span class="bg-icon ani-moving icon-6x text-theme"><i class="flaticon-lotus"></i></span>
+                            <span class="icon text-theme bg-white"><img
+                                    src="{{ asset('asset-about/img/about/icon/Melembutkan-Kulit.png') }}"
+                                    alt="PE Skinpro Melembutkan Kulit"></span>
+                            <span class="bg-icon ani-moving icon-6x text-theme"><img
+                                    src="{{ asset('asset-about/img/about/icon/Melembutkan-Kulit-2.png') }}"
+                                    alt="PE Skinpro Melembutkan Kulit"></span>
                         </div>
                         <div class="service-content">
                             <h3 class="service-title h4">
@@ -87,8 +101,12 @@
                 <div class="col-lg-3">
                     <div class="vs-service">
                         <div class="service-icon">
-                            <span class="icon text-theme bg-white"><i class="fa-3x flaticon-beauty-treatment"></i></span>
-                            <span class="bg-icon ani-moving icon-6x text-theme"><i class="flaticon-cosmetics-1"></i></span>
+                            <span class="icon text-theme bg-white"><img
+                                    src="{{ asset('asset-about/img/about/icon/Menjaga-Kesehatan-Kulit.png') }}"
+                                    alt="PE Skinpro Menjaga Kesehatan Kulit"></span>
+                            <span class="bg-icon ani-moving icon-6x text-theme"><img
+                                    src="{{ asset('asset-about/img/about/icon/Menjaga-Kesehatan-Kulit-2.png') }}"
+                                    alt="PE Skinpro Menjaga Kesehatan Kulit"></span>
                         </div>
                         <div class="service-content">
                             <h3 class="service-title h4">

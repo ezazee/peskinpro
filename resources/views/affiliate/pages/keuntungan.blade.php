@@ -12,12 +12,12 @@
                 <div class="col-lg-10">
                     <div class="rounded shadow bg-white p-5 tab-content" id="pills-tabContent">
                         <div class="d-flex justify-content-center mb-3">
-                            <img src="https://assets.tokopedia.net/assets-tokopedia-lite/v2/arael/kratos/3edfe484.png"
+                            <img src="{{ asset('asset-affiliate/images/Komisi-Hingga-10-%-270-x-270.png') }}"
                                 alt="PE Skinpro" class="img-fluid">
                         </div>
 
                         <p class="text-center">Bagikan link produk atau toko favorit Anda, dan setiap kali ada orang yang
-                            belanja melalui link tersebut, Anda langsung mendapat komisi sebesar 15%.</p>
+                            belanja melalui link tersebut, Anda langsung mendapat komisi sebesar 10%.</p>
                         <p class="text-center">Dapatkan komisi jika ada yang belanja dari link produk atau toko yang kamu
                             bagikan. Semakin banyak yang belanja, semakin besar penghasilan Anda. Jadi, jangan ragu untuk
                             membagikan linknya ke teman-teman, keluarga, atau siapa saja yang mungkin tertarik.</p>

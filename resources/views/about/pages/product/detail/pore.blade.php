@@ -44,7 +44,7 @@
                                 <div class="col-xl-4">
                                     <div class="vs-service border-light-theme">
                                         <div class="text-theme service-icon mb-30">
-                                            <img src="https://placehold.co/70x70" alt="Prebiotic PE Skinpro">
+                                            <img src="{{ asset('asset-about/img/phtproduct/icon/Prebiotic.png') }}" alt="Prebiotic PE Skinpro">
                                         </div>
                                         <h3 class="h4 service-title mb-2">Prebiotic</h3>
                                         <p class="service-text">
@@ -57,7 +57,7 @@
                                 <div class="col-xl-4">
                                     <div class="vs-service border-light-theme">
                                         <div class="text-theme service-icon mb-30">
-                                            <img src="https://placehold.co/70x70" alt="Niacinamide PE Skinpro">
+                                            <img src="{{ asset('asset-about/img/phtproduct/icon/Niacinamide.png') }}" alt="Niacinamide PE Skinpro">
                                         </div>
                                         <h3 class="h4 service-title mb-2">Niacinamide</h3>
                                         <p class="service-text">
@@ -70,7 +70,7 @@
                                 <div class="col-xl-4">
                                     <div class="vs-service border-light-theme">
                                         <div class="text-theme service-icon mb-30">
-                                            <img src="https://placehold.co/70x70" alt="Vitamin B5 PE Skinpro">
+                                            <img src="{{ asset('asset-about/img/phtproduct/icon/Vitamin-B5.png') }}" alt="Vitamin B5 PE Skinpro">
                                         </div>
                                         <h3 class="h4 service-title mb-2">Vitamin B5</h3>
                                         <p class="service-text">
