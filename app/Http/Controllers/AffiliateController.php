@@ -103,7 +103,7 @@ class AffiliateController extends Controller
         $withdraw = Withdraw::create([
             'user_id' => $user->id,
             'amount' => $request->nominal,
-            'payment_method' => $request->payment_method,
+            'payment_method' => "Transfer",
             'account_name' => $request->account_name,
             'account_number' => $request->account_number,
             'status' => 'pending',

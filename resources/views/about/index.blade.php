@@ -789,7 +789,7 @@
                   Semua Manfaat <br> Kandungan <br> Produk PE Skinpro
                </h2>
                <p class="sec-text-style1">
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga ipsa aliquam asperiores reprehenderit assumenda dolorum, eos placeat quas ullam libero, officia commodi temporibus possimus debitis quis beatae? Tempora, ipsum id.
+                  Terbuat dari natural vegan yang diolah menggunakan plant-based technologies.
                </p>
             </div>
         </div>
@@ -831,8 +831,8 @@
          <div class="col-lg-3">
             <div class="vs-service">
                <div class="service-icon">
-                  <span class="icon text-theme bg-white"><img src="{{ asset('asset-about/img/about/icon/Melembabkan-Kulit.png') }}" alt="PE Skinpro Melembabkan Kulit"></span>
-                  <span class="bg-icon ani-moving icon-6x text-theme"><img src="{{ asset('asset-about/img/about/icon/Melembabkan-Kulit-2.png') }}" alt="PE Skinpro Melembabkan Kulit"></span>
+                  <span class="icon text-theme bg-white"><img src="{{ asset('asset-about/img/phtproduct/icon/Honey.png') }}" alt="PE Skinpro Melembabkan Kulit"></span>
+                  <span class="bg-icon ani-moving icon-6x text-theme"><img src="{{ asset('asset-about/img/phtproduct/icon/Honey.png') }}" alt="PE Skinpro Melembabkan Kulit"></span>
                </div>
                <div class="service-content">
                   <h3 class="service-title h4">
