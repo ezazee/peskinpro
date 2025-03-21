@@ -2733,6 +2733,28 @@ textarea.form-control.is-invalid {
   margin-right: -5px;
   margin-bottom: -10px;
 }
+.wp-block-tag-cloud a,
+.tagcloudIndex a {
+  display: inline-block;
+  border: none;
+  font-size: 14px;
+  text-transform: uppercase;
+  line-height: 1;
+  padding: 11px 18px;
+  margin-right: 5px;
+  margin-bottom: 10px;
+  background-color: var(--white-color);
+  color: var(--body-color);
+  font-weight: 500;
+}
+.tagcloudIndex a {
+  background-color: var(--theme-color);
+  color: var(--white-color) !important;
+}
+.tagcloudIndex {
+  margin-right: -5px;
+  margin-bottom: -10px;
+}
 .vs-widget-recent-post a {
   color: inherit;
 }

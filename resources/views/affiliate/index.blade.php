@@ -130,18 +130,18 @@
             <div class="row justify-content-center">
                 <div class="col-lg-8 mb-4">
                     <div class="section-title text-center">
-                        <h1>Cara Promosinya Mudah Banget</h1>
+                        <h1>Rangkaian Skincare PE SkinPro <br> Solusi untuk Kulit Glowing & Sehat</h1>
                     </div>
                 </div>
                 <div class="col-lg-10">
                     <div class="rounded shadow bg-white p-5 tab-content" id="pills-tabContent">
-                        {{-- <video controls width="100%" class="rounded" style="width:100%; height:400px;"
-                            src="https://youtu.be/otej7WLdPh0?si=adQLbV_uxZEcjxkW"></video> --}}
-                        <iframe style="width:100%; height:400px;" width="100%"
+                        <video controls width="100%" class="rounded" style="width:100%; height:400px;"
+                            src="{{ asset('asset-affiliate/video/PE Skinpro ID.mp4') }}"></video>
+                        {{-- <iframe style="width:100%; height:400px;" width="100%"
                             src="https://www.youtube.com/embed/otej7WLdPh0?si=adQLbV_uxZEcjxkW" title="YouTube video player"
                             frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> --}}
                     </div>
                 </div>
             </div>
