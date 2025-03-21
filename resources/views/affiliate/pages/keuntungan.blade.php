@@ -24,30 +24,15 @@
                         <div class="content mt-5">
                             <h2 class="mb-0">Syarat & Ketentuan</h2>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="valid-commission">
-                                        <h4> <span class="icon"><i class="fas fa-check-circle text-success"></i></span>
-                                            Komisi yang sah</h4>
-                                        <p>Komisi dari link yang disebar di:</p>
-                                        <ul>
-                                            <li>Sosial media umum (Instagram, YouTube, Facebook, Twitter, & TikTok)</li>
-                                            <li>Sosial media pribadi (grup chat arisan, RT/RW, komunitas lokal, dll)</li>
-                                            <li>Blog dan website</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="invalid-commission">
-                                        <h4> <span class="icon"><i class="fas fa-times-circle text-danger"></i></span>
-                                            Komisi yang tidak sah</h4>
-                                        <ul>
-                                            <li>Komisi dari transaksi yang dimanipulasi</li>
-                                            <li>Saling tukar link dengan rekan demi komisi</li>
-                                            <li>Transaksi dengan pola dan nominal yang tidak wajar</li>
-                                            <li>Transaksi B2B (dropship, transaksi dalam jumlah besar, reseller, dan
-                                                berbagai jenis transaksi antar bisnis lainnya)</li>
-                                            <li>Transaksi tidak sah yang dilakukan berkali-kali menyebabkan penahanan saldo
-                                                dan penghapusan akun PE Skinpro.</li>
+                                        <ul class="mt-5">
+                                            <li>
+                                                <p>Komisi dari link yang disebar di social media umum (Instagram, YouTube, Facebook, Twitter, & TikTok), Social media pribadi (grup chat arisan, RT/RW, komunitas lokal, dll) atau Blog dan website</p>
+                                            </li>
+                                            <li>
+                                                <p>Content yang dihasilkan affiliate dapat di unggah kembali di Social Media PE Skinpro ID</p>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -116,9 +101,7 @@
                                 class="accordion-collapse collapse border-0 show"
                                 aria-labelledby="heading-ebd23e34fd2ed58299b32c03c521feb0b02f19d9"
                                 data-bs-parent="#accordionFAQ">
-                                <div class="accordion-body py-0 content">Lorem ipsum dolor sit amet consectetur adipisicing
-                                    elit. Adipisci repellendus mollitia ipsa, accusantium accusamus quidem saepe impedit
-                                    aut, debitis sit reiciendis sequi aliquam dolore fugiat ullam hic doloremque quo illum.
+                                <div class="accordion-body py-0 content">Adalah layanan yang mempertemukan Affiliate dengan PE Skinpro untuk mengkiklankan semua produk PE Skinpro yang ditawarkan melalui Website dan Platform E-Commerce
                                 </div>
                             </div>
                         </div>
@@ -134,10 +117,7 @@
                                 class="accordion-collapse collapse border-0 "
                                 aria-labelledby="heading-a443e01b4db47b3f4a1267e10594576d52730ec1"
                                 data-bs-parent="#accordionFAQ">
-                                <div class="accordion-body py-0 content">Lorem ipsum dolor, sit amet consectetur
-                                    adipisicing elit. Repellat repudiandae magnam odio earum suscipit itaque autem, rerum
-                                    iure impedit, eum porro eos magni facilis praesentium facere soluta odit nulla
-                                    laboriosam.</div>
+                                <div class="accordion-body py-0 content">10%</div>
                             </div>
                         </div>
                         <div class="accordion-item p-1 mb-2">
@@ -152,9 +132,7 @@
                                 class="accordion-collapse collapse border-0 "
                                 aria-labelledby="heading-4b82be4be873c8ad699fa97049523ac86b67a8bd"
                                 data-bs-parent="#accordionFAQ">
-                                <div class="accordion-body py-0 content">Lorem ipsum dolor sit amet consectetur adipisicing
-                                    elit. Quas debitis esse eius necessitatibus quidem quasi, voluptates consequatur eveniet
-                                    aspernatur quia, a cupiditate at saepe eos natus cum ipsum rerum ipsam.</div>
+                                <div class="accordion-body py-0 content">Dengan mengisi form yang affiliate yang tersedia di <a href="{{ route('affiliate_register') }}">Website PE Skinpro</a></div>
                             </div>
                         </div>
                         <div class="accordion-item p-1 mb-2">
@@ -169,9 +147,7 @@
                                 class="accordion-collapse collapse border-0 "
                                 aria-labelledby="heading-3e13e9676a9cd6a6f8bfbe6e1e9fc0881ef247b3"
                                 data-bs-parent="#accordionFAQ">
-                                <div class="accordion-body py-0 content">Lorem ipsum dolor sit amet consectetur adipisicing
-                                    elit. Blanditiis voluptatum quod deleniti natus, minus alias sunt, dolor a porro aliquam
-                                    debitis minima obcaecati ut et aliquid hic! Distinctio, atque accusamus!</div>
+                                <div class="accordion-body py-0 content">Memiliki akun media social pribadi yang aktif, memiliki akun affiliate di website PE Skinpro yang sudah terverifikasi, membagikan content tentang produk PE Skinpro, dilarang membagikan content yang melanggar (hukum, sara, pornografi, kekerasan)</div>
                             </div>
                         </div>
                         <div class="accordion-item p-1 mb-2">
@@ -186,9 +162,7 @@
                                 class="accordion-collapse collapse border-0 "
                                 aria-labelledby="heading-0c2f829793a1f0562fea97120357dd2d43319164"
                                 data-bs-parent="#accordionFAQ">
-                                <div class="accordion-body py-0 content">Lorem ipsum dolor sit amet consectetur adipisicing
-                                    elit. Molestiae unde possimus odio id dolorem, cumque facere beatae eligendi error, eum
-                                    et vero maiores! Fugit dolorem reprehenderit possimus expedita similique neque.</div>
+                                <div class="accordion-body py-0 content">Ketika mencapai nominal yang sudah ditetapkan</div>
                             </div>
                         </div>
                         <div class="accordion-item p-1 mb-2">
@@ -203,9 +177,7 @@
                                 class="accordion-collapse collapse border-0 "
                                 aria-labelledby="heading-8fe6730e26db16f15763887c30a614caa075f518"
                                 data-bs-parent="#accordionFAQ">
-                                <div class="accordion-body py-0 content">Lorem ipsum dolor sit amet consectetur adipisicing
-                                    elit. Aspernatur at, optio incidunt corrupti culpa ad ipsa laborum ullam nemo recusandae
-                                    repellendus est harum ipsum dolor suscipit rem aliquam nostrum soluta.</div>
+                                <div class="accordion-body py-0 content">Komisi anda bisa ditarik ke rekening pribadi</div>
                             </div>
                         </div>
                     </div>
@@ -213,10 +185,10 @@
                 <div class="col-lg-4 mt-4 mt-lg-0">
                     <div class="shadow rounded py-5 px-4 ms-0 ms-lg-4 bg-white position-relative">
                         <div class="block mx-0 mx-lg-3 mt-0">
-                            <h4 class="h5">Masih Ada yang ada yang ditanyakan?</h4>
-                            <div class="content">Kami Akan Senang Jika Anda Meminta Bantuan pada Kami
+                            <h4 class="h5">Info Lebih Lanjut</h4>
+                            <div class="content">Bisa Hubungi Admin Dibawah ini
                                 <br> <a
-                                    href="https://wa.me/6282123167895?text=Saya%20Butuh%20Bantuan%20Admin%20Nich">0821-2316-7895</a>
+                                    href="https://wa.me/6282123167895?text=Saya%20Butuh%20Bantuan%20Admin%20Nich">(WhatsApp) 0821-2316-7895</a>
                                 <br> <a
                                     href="https://mail.google.com/mail/?view=cm&fs=1&to=adm.peskinproid@gmail.com">adm.peskinproid@gmail.com</a>
                             </div>
