@@ -33,7 +33,7 @@
                             <div class="text-center">
                                 <p class="count">03</p>
                                 <h3 class="mb-3">Dapatkan Komisinya!</h3>
-                                <p class="mb-0">Dapatkan Komisinya dan Dapat Diambil Dengan Nominal Yang Sudah Ditentukan
+                                <p class="mb-0">Komisi akan di transfer ke rekening pribadi
                                 </p>
                             </div>
                         </div>
@@ -75,8 +75,8 @@
                                         <img src="{{ asset('asset-affiliate/images/tutor/daftar/ss1.png') }}"
                                             alt="PE Skinpro" width="240" class="rounded mb-3 mb-md-0 me-md-3">
                                         <span style="max-width: 350px">
-                                           Pergi ke website <a href="https://peskinpro.id">PE
-                                            Skinpro ID</a> dan lakukan pendaftaran akun.
+                                           Kunjungi website <a href="https://peskinpro.id">PE
+                                            Skinpro ID</a> dan lakukan pendaftaran akun Affiliate.
                                         </span>
                                     </div>
                                 </div>
@@ -85,7 +85,7 @@
                                         <img src="{{ asset('asset-affiliate/images/tutor/daftar/ss2.png') }}"
                                             alt="PE Skinpro" width="240" class="rounded mb-3 mb-md-0 me-md-3">
                                         <span style="max-width: 350px">
-                                           Isi semua data yang diperlukan dan klik tombol daftar.
+                                           Isi semua data yang diperlukan.
                                         </span>
                                     </div>
                                 </div>
@@ -103,8 +103,7 @@
                                         <img src="{{ asset('asset-affiliate/images/tutor/sharelink/ss1.png') }}"
                                             alt="PE Skinpro" width="240" class="rounded mb-3 mb-md-0 me-md-3">
                                         <span style="max-width: 350px">
-                                           Pergi ke website <a href="https://peskinpro.id">PE
-                                            Skinpro ID</a> dan pilih produk yang ingin Anda bagikan
+                                           Klik pada bagian Product Link
                                         </span>
                                     </div>
                                 </div>
@@ -113,7 +112,7 @@
                                         <img src="{{ asset('asset-affiliate/images/tutor/sharelink/ss2.png') }}"
                                             alt="PE Skinpro" width="240" class="rounded mb-3 mb-md-0 me-md-3">
                                         <span style="max-width: 350px">
-                                           Scroll sedikit kebawah dan klik tombol bagikan dibawah gambar produk
+                                           Copy Link Product, sebarkan pada social media
                                         </span>
                                     </div>
                                 </div>
@@ -122,7 +121,7 @@
                         <hr>
 
                         <h2 id="pantau-performa">Pantau Performa Affiliatemu</h2>
-                        <p>Kamu bisa lihat jumlah komisi yang kamu dapatkan dari link yang telah dipromosikan</p>
+                        <p>Kamu bisa lihat jumlah komisi yang didapat dari link yang telah di promosikan</p>
                         <div class="code-tabs">
                             <ul class="nav nav-tabs"></ul>
                             <div class="tab-content">
@@ -149,16 +148,7 @@
                                         <img src="{{ asset('asset-affiliate/images/tutor/tarik/ss1.png') }}"
                                             alt="PE Skinpro" width="240" class="rounded mb-3 mb-md-0 me-md-3">
                                         <span style="max-width: 350px">
-                                            Pastikan saldo yang kamu dapatkan minimal Rp50.00 untuk bisa tarik komisi
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="tab-pane" title="Kedua">
-                                    <div class="d-flex flex-column flex-md-row align-items-center justify-content-center">
-                                        <img src="{{ asset('asset-affiliate/images/tutor/tarik/ss2.png') }}"
-                                            alt="PE Skinpro" width="240" class="rounded mb-3 mb-md-0 me-md-3">
-                                        <span style="max-width: 350px">
-                                           Scroll sedikit kebawah dan klik tombol bagikan dibawah gambar produk
+                                            Pastikan komisi yang kamu dapatkan minimal <strong>Rp150.000</strong> untuk bisa tarik komisi
                                         </span>
                                     </div>
                                 </div>
