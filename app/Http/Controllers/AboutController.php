@@ -118,8 +118,38 @@ class AboutController extends Controller
         return view('about.pages.news.detail', compact('articles', 'relatedArticles'));
     }
 
-    public function newsTag()
+    public function newsTag($slug)
     {
-        return view('about.pages.news.tag');
+
+        $tag = Tag::where('slug', $slug)->first();
+
+        if ($tag) {
+            $articles = $tag->article()->where('status', 'public')->paginate(10);
+        } else {
+            $articles = collect();
+        }
+
+        // dd($articles);
+        $startOfWeek = Carbon::now()->startOfWeek();
+        $endOfWeek = Carbon::now()->endOfWeek();
+
+        $popularArticles = Article::where('status', 'public')
+            ->whereBetween('created_at', [$startOfWeek, $endOfWeek])
+            ->orderBy('view', 'desc')
+            ->take(4)
+            ->get();
+
+        if ($popularArticles->isEmpty()) {
+            $startOfLastWeek = Carbon::now()->subWeek()->startOfWeek();
+            $endOfLastWeek = Carbon::now()->subWeek()->endOfWeek();
+
+            $popularArticles = Article::where('status', 'public')
+                ->whereBetween('created_at', [$startOfLastWeek, $endOfLastWeek])
+                ->orderBy('view', 'desc')
+                ->take(4)
+                ->get();
+        }
+
+        return view('about.pages.news.tag',compact('articles','tag','popularArticles'));
     }
 }

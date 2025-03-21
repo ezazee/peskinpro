@@ -22,7 +22,7 @@
                                         <h4 class="h5">Tags</h4>
                                         <div class="tagcloud">
                                             @foreach ($articles->tag as $t)
-                                            <a href="blog.html">{{ $t->nama_tags }}</a>
+                                            <a href="{{ route('about.newsTag', $t->slug) }}">{{ $t->nama_tags }}</a>
                                             @endforeach
                                         </div>
                                     </div>

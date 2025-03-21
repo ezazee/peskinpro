@@ -48,7 +48,7 @@
                             <h3 class="widget_title">Tags</h3>
                             <div class="tagcloud">
                                 @foreach ($tags as $t)
-                                <a href="#">{{ $t->nama_tags }}</a>
+                                <a href="{{ route('about.newsTag', $t->slug) }}">{{ $t->nama_tags }}</a>
                                 @endforeach
                             </div>
                     </aside>
