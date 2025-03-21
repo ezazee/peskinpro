@@ -804,11 +804,8 @@
                </div>
                <div class="service-content">
                   <h3 class="service-title h4">
-                     <a href="#">Mecnerahkan Kulit</a>
+                     <a href="#">Mencerahkan Kulit</a>
                   </h3>
-                  <p>
-                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis, mollitia.
-                  </p>
                </div>
             </div>
          </div>
@@ -822,9 +819,6 @@
                   <h3 class="service-title h4">
                      <a href="#">Menghaluskan Kulit</a>
                   </h3>
-                  <p>
-                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit, non!
-                  </p>
                </div>
             </div>
          </div>
@@ -838,9 +832,6 @@
                   <h3 class="service-title h4">
                      <a href="#">Melembabkan Kulit</a>
                   </h3>
-                  <p>
-                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, aliquam?
-                  </p>
                </div>
             </div>
          </div>
@@ -854,9 +845,6 @@
                   <h3 class="service-title h4">
                      <a href="#">Melembutkan Kulit</a>
                   </h3>
-                  <p>
-                     Lorem ipsum dolor, sit amet consectetur adipisicing elit. Recusandae, natus!
-                  </p>
                </div>
             </div>
          </div>
@@ -870,9 +858,6 @@
                   <h3 class="service-title h4">
                      <a href="#">Menjaga Kesehatan Kulit</a>
                   </h3>
-                  <p>
-                     Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illo, facere?
-                  </p>
                </div>
             </div>
          </div>
@@ -1055,9 +1040,9 @@
             </div>
          </div>
       </div>
-      <div class="row vs-carousel wow fadeInUp" data-wow-delay="0.3s" 
-               data-slidetoshow="{{ $articles->count() >= 3 ? 3 : $articles->count() }}" 
-               data-mdslidetoshow="{{ $articles->count() >= 2 ? 2 : $articles->count() }}" 
+      <div class="row vs-carousel wow fadeInUp" data-wow-delay="0.3s"
+               data-slidetoshow="{{ $articles->count() >= 3 ? 3 : $articles->count() }}"
+               data-mdslidetoshow="{{ $articles->count() >= 2 ? 2 : $articles->count() }}"
                data-smslidetoshow="1" data-xsslidetoshow="1">
          @foreach ($articles as $item)
          <div class="col-lg-4">
