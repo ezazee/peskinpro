@@ -42,7 +42,6 @@ class AffiliateController extends Controller
         ->with(['affiliate.order.products', 'referredUser'])
         ->orderByDesc('created_at')
         ->paginate(10);
-
         return view('frontend.pages.profile.affiliate', compact('totalProductsSold','totalCommission','user', 'settings','affiliateHistory'));
     }
 
@@ -63,11 +62,10 @@ class AffiliateController extends Controller
         $user = Auth::user();
 
         $affiliateHistory = AffiliateHistory::where('user_id', $user->id)
-        ->whereIn('type', ['withdraw', 'approved','rejected'])
+        ->whereIn('type', ['approved','rejected'])
         ->with(['user', 'affiliate', 'withdraw'])
         ->orderByDesc('created_at')
         ->paginate(10);
-
         return view('frontend.pages.profile.history-transaksi', compact('user', 'settings','affiliateHistory'));
     }
 

@@ -24,7 +24,7 @@
                                             Produk</th>
                                         <th scope="col"
                                             class="pb-3 text-left text-sm font-bold uppercase text-secondary whitespace-nowrap">
-                                            Referral</th>
+                                            Pengguna Referral</th>
                                         <th scope="col"
                                             class="pb-3 text-left text-sm font-bold uppercase text-secondary whitespace-nowrap">
                                             Komisi</th>
@@ -43,8 +43,8 @@
                                             Produk Tidak Ditemukan
                                         @endif
                                         </td>
-                                        <td>{{ $item->referredUser->referral_code ?? 'Tidak Ada Referral' }}</td>
-                                        <td>Rp {{ number_format($item->affiliate->commission, 0, ',', '.') }}</td>
+                                        <td>{{ $item->referredUser->name ?? 'Tidak Ada Referral' }}</td>
+                                        <td>Rp {{ number_format($item->amount, 0, ',', '.') }}</td>
                                         <td class="py-3 text-right">{{ $item->created_at->format('d M Y') }}</td>
                                     </tr>
                                     @endforeach

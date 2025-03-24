@@ -246,7 +246,7 @@ class ProfileController extends Controller
     
                     if ($size) {
                         $harga = $size->price - $product->pivot->discount;
-                        $productCommission = ($harga * $size->commission) / 100;
+                        $productCommission = (($harga * $size->commission) * 0.89) / 100;
                         $totalCommission += $productCommission * $product->pivot->quantity;
                     }
                 }

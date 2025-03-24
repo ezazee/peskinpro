@@ -74,7 +74,7 @@
                                                         @endif
                                                     </td>
                                                     <td>{{ $item->referredUser->name ?? 'Tidak Ada Referral' }}</td>
-                                                    <td>Rp {{ number_format($item->affiliate->commission, 0, ',', '.') }}
+                                                    <td>Rp {{ number_format($item->amount, 0, ',', '.') }}
                                                     </td>
                                                     <td class="py-3 text-right">{{ $item->created_at->format('d M Y') }}
                                                     </td>
