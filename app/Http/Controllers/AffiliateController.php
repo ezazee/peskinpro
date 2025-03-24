@@ -356,18 +356,23 @@ class AffiliateController extends Controller
         $settings = Settings::all();
         $user = Auth::user();
         $products = Product::with('category', 'sizes')->orderBy('created_at', 'desc')->paginate(10);
-
-        foreach ($products as $product) {
-            $referralCode = auth()->check() ? auth()->user()->referral_code : 'default_ref';
-        
-            $linkreal = route('shop.detail', ['slug' => $product->slug, 'ref' => $referralCode]);
-        
-            $shortCode = substr(hash('sha256', $linkreal), 0, 10);
-        
-            $linkshort = url('/s/' . $shortCode);
-        
-            Cache::put('shortlink_' . $shortCode, $linkreal, now()->addDays(30));
-            $shortLinks[$product->id] = $linkshort;
+    
+        if ($products->isEmpty()) {
+            $shortLinks = null;
+        } else {
+            $shortLinks = [];
+            foreach ($products as $product) {
+                $referralCode = auth()->check() ? auth()->user()->referral_code : 'default_ref';
+    
+                $linkreal = route('shop.detail', ['slug' => $product->slug, 'ref' => $referralCode]);
+    
+                $shortCode = substr(hash('sha256', $linkreal), 0, 10);
+    
+                $linkshort = url('/s/' . $shortCode);
+    
+                Cache::put('shortlink_' . $shortCode, $linkreal, now()->addDays(30));
+                $shortLinks[$product->id] = $linkshort;
+            }
         }
         return view('frontend.pages.profile.affiliate-product-link', compact('settings', 'user','products','shortLinks'));
     }
