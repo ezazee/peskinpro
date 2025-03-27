@@ -32,12 +32,15 @@
                         <div class="flex items-center justify-between mt-5">
                             <div class="flex items-center">
                                 <div class="block-input">
-                                    <input type="checkbox" name="remember" />
+                                    <input type="checkbox" name="remember" id="checkSK" required/>
                                     <i class="ph-fill ph-check-square icon-checkbox text-2xl"></i>
                                 </div>
-                                <label for="remember" class="pl-2 cursor-pointer">Remember me</label>
+                                <label for="checkSK" class="pl-2 cursor-pointer text-secondary2">Dengan Ini Saya
+                                    Menyetujui Akan
+                                    <a href="{{ route('ketentuan') }}" class="text-black hover:underline pl-1 text-primary">Syarat Dan Ketentuan Pengguna</a>
+                                </label=>
                             </div>
-                            <a href="#" class="font-semibold hover:underline">Forgot Your Password? </a>
+                            {{-- <a href="#" class="font-semibold hover:underline">Forgot Your Password? </a> --}}
                         </div>
                         <div class="block-button md:mt-7 mt-4">
                             <button class="button-main">Login</button>

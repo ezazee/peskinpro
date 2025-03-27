@@ -36,15 +36,15 @@
                         <h2><strong>PASAL 3 - KOMISI DAN PEMBAYARAN</strong></h2>
                         <ol>
                             <li>Pihak Pendaftar Affiliate berhak menerima komisi dari setiap pembelanjaan yang dilakukan
-                                melalui link order yang telah dibuat. Besaran komisi yang didapatkan adalah 10% dari
-                                masing-masing harga jual produk PESKINPRO.ID setelah dikurangi pajak penjualan 11%, dan
+                                melalui link order yang telah dibuat. Besaran <strong>komisi yang didapatkan adalah 10%</strong> dari
+                                masing-masing harga jual produk PESKINPRO.ID <strong>setelah dikurangi pajak penjualan 11%</strong>, dan
                                 akan diberikan apabila pesanan sudah diterima customer.</li>
-                            <li>Semua komisi hanya akan dibayarkan dalam bentuk Rupiah. Pembayaran akan dilakukan
+                            <li>Semua komisi hanya akan dibayarkan dalam bentuk Rupiah. <strong> Pembayaran akan dilakukan
                                 melalui Transfer Bank sesuai nomor rekening yang tertera pada waktu pendaftaran. (diluar
-                                bank BCA, biaya admin bank akan dipotong dari komisi).</li>
-                            <li>Transfer akan dilakukan jika komisi sudah mencapai minimal Rp. 150.000.</li>
-                            <li>Pentransferan akan dilakukan di jam kerja kantor. Senin-Jumat 09.00-17.00, Sabtu,
-                                Minggu, dan hari libur tidak ada pentransferan.</li>
+                                bank BCA, biaya admin bank akan dipotong dari komisi).</strong></li>
+                            <li><strong>Transfer akan dilakukan jika komisi sudah mencapai minimal Rp. 150.000.</strong></li>
+                            <li>Pentransferan akan dilakukan di jam kerja kantor. <strong>Senin-Jumat 09.00-17.00, Sabtu,
+                                Minggu</strong>, dan hari libur tidak ada pentransferan.</li>
                         </ol>
                     </div>
 

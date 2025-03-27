@@ -113,9 +113,6 @@
                                 </div>
                                 <label for="checkPKS" class="pl-2 cursor-pointer text-secondary2">Dengan Ini Saya
                                     Menyetujui Akan
-                                    <a href="#!" class="text-black hover:underline pl-1 text-primary">Ketentuan
-                                        Pengguna</a>
-                                    dan
                                     <a href="#!" class="text-black hover:underline pl-1 text-primary">Perjanjian
                                         Kerjasama (PKS)</a>
                                 </label=>

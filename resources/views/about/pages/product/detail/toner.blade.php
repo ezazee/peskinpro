@@ -85,7 +85,7 @@
                                 </div>
                             </div>
                         </div>
-                        <h4 class="h4 primary-color mt-5">Dan Bahan Lainnya</h4>
+                        <h4 class="h4 primary-color mt-5">Bahan Lainnya</h4>
 
                         <div class="row">
                             <div class="col-lg-6">

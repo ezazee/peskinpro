@@ -14,7 +14,7 @@
                         Join Program Affiliate
                     </h2>
                     <div class="vs-btn-group">
-                        <a href="{{ route('about.affiliate') }}" class="vs-btn wave-style1 mb-3 mb-sm-0 mr-sm-4 shadow-none">Join Sekarang<i
+                        <a href="{{ route('affiliate_register') }}" class="vs-btn wave-style1 mb-3 mb-sm-0 mr-sm-4 shadow-none">Join Sekarang<i
                                 class="far fa-arrow-right"></i></a>
                     </div>
                 </div>

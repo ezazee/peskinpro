@@ -15,7 +15,7 @@
                         <li class="nav-item"> <a class="nav-link" href="{{ route('about.RaihKomisi') }}">Cara Raih Komisi</a></li>
                         <li class="nav-item"> <a class="nav-link" href="{{ route('about.Keuntungan') }}">Keuntungan</a></li>
                     </ul>
-                    <a href="{{ route('show_register') }}" class="btn btn-outline-primary">Join Affiliate</a>
+                    <a href="{{ route('affiliate_register') }}" class="btn btn-outline-primary">Join Affiliate</a>
                 </div>
             </div>
         </nav>

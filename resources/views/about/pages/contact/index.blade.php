@@ -27,7 +27,6 @@
                         <h4 class="mb-15">Alamat</h4>
                         <p class="mb-25">Jl. Raya Ragunan No.T.05, RT.8/RW.6, Jati Padang, Ps. Minggu, Jakarta Selatan, DKI
                             Jakarta 12540</p>
-                        <a href="#" class="vs-btn vs-style1">Hubungi Kami</a>
                     </div>
                 </div>
 

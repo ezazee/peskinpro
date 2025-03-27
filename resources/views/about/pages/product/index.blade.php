@@ -9,9 +9,7 @@
                             Semua Manfaat <br> Kandungan <br> Produk PE Skinpro
                         </h2>
                         <p class="sec-text-style1">
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga ipsa aliquam asperiores
-                            reprehenderit assumenda dolorum, eos placeat quas ullam libero, officia commodi temporibus
-                            possimus debitis quis beatae? Tempora, ipsum id.
+                            Terbuat Dari Natural Vegan Yang Diolah Menggunakan Plant-Based Technologies.
                         </p>
                     </div>
                 </div>
@@ -22,19 +20,16 @@
                     <div class="vs-service">
                         <div class="service-icon">
                             <span class="icon text-theme bg-white"><img
-                                    src="{{ asset('asset-about/img/about/icon/Mencerahkan-Kulit.png') }}"
+                                    src="{{ asset('asset-about/img/phtproduct/icon/Allantoin.png') }}"
                                     alt="PE Skinpro Mencerahkan Kulit"></span>
                             <span class="bg-icon ani-moving icon-6x text-theme"><img
-                                    src="{{ asset('asset-about/img/about/icon/Mencerahkan-Kulit-2.png') }}"
+                                    src="{{ asset('asset-about/img/phtproduct/icon/Allantoin.png') }}"
                                     alt="PE Skinpro Mencerahkan Kulit"></span>
                         </div>
                         <div class="service-content">
                             <h3 class="service-title h4">
-                                <a href="#">Mecnerahkan Kulit</a>
+                                <a href="{{ route('about.ListProducts') }}">Mencerahkan Kulit</a>
                             </h3>
-                            <p>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis, mollitia.
-                            </p>
                         </div>
                     </div>
                 </div>
@@ -42,19 +37,16 @@
                     <div class="vs-service">
                         <div class="service-icon">
                             <span class="icon text-theme bg-white"><img
-                                    src="{{ asset('asset-about/img/about/icon/Menghaluskan-Kulit.png') }}"
+                                    src="{{ asset('asset-about/img/phtproduct/icon/Aloe-Vera.png') }}"
                                     alt="PE Skinpro Menghaluskan Kulit"></span>
                             <span class="bg-icon ani-moving icon-6x text-theme"><img
-                                    src="{{ asset('asset-about/img/about/icon/Menghaluskan-Kulit-2.png') }}"
+                                    src="{{ asset('asset-about/img/phtproduct/icon/Aloe-Vera.png') }}"
                                     alt="PE Skinpro Menghaluskan Kulit"></span>
                         </div>
                         <div class="service-content">
                             <h3 class="service-title h4">
-                                <a href="#">Menghaluskan Kulit</a>
+                                <a href="{{ route('about.ListProducts') }}">Menghaluskan Kulit</a>
                             </h3>
-                            <p>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit, non!
-                            </p>
                         </div>
                     </div>
                 </div>
@@ -62,19 +54,16 @@
                     <div class="vs-service">
                         <div class="service-icon">
                             <span class="icon text-theme bg-white"><img
-                                    src="{{ asset('asset-about/img/about/icon/Melembabkan-Kulit.png') }}"
+                                    src="{{ asset('asset-about/img/phtproduct/icon/Honey.png') }}"
                                     alt="PE Skinpro Melembabkan Kulit"></span>
                             <span class="bg-icon ani-moving icon-6x text-theme"><img
-                                    src="{{ asset('asset-about/img/about/icon/Melembabkan-Kulit-2.png') }}"
+                                    src="{{ asset('asset-about/img/phtproduct/icon/Honey.png') }}"
                                     alt="PE Skinpro Melembabkan Kulit"></span>
                         </div>
                         <div class="service-content">
                             <h3 class="service-title h4">
-                                <a href="#">Melembabkan Kulit</a>
+                                <a href="{{ route('about.ListProducts') }}">Melembabkan Kulit</a>
                             </h3>
-                            <p>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, aliquam?
-                            </p>
                         </div>
                     </div>
                 </div>
@@ -82,19 +71,16 @@
                     <div class="vs-service">
                         <div class="service-icon">
                             <span class="icon text-theme bg-white"><img
-                                    src="{{ asset('asset-about/img/about/icon/Melembutkan-Kulit.png') }}"
+                                    src="{{ asset('asset-about/img/phtproduct/icon/Arbutin.png') }}"
                                     alt="PE Skinpro Melembutkan Kulit"></span>
                             <span class="bg-icon ani-moving icon-6x text-theme"><img
-                                    src="{{ asset('asset-about/img/about/icon/Melembutkan-Kulit-2.png') }}"
+                                    src="{{ asset('asset-about/img/phtproduct/icon/Arbutin.png') }}"
                                     alt="PE Skinpro Melembutkan Kulit"></span>
                         </div>
                         <div class="service-content">
                             <h3 class="service-title h4">
-                                <a href="#">Melembutkan Kulit</a>
+                                <a href="{{ route('about.ListProducts') }}">Melembutkan Kulit</a>
                             </h3>
-                            <p>
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Recusandae, natus!
-                            </p>
                         </div>
                     </div>
                 </div>
@@ -102,19 +88,16 @@
                     <div class="vs-service">
                         <div class="service-icon">
                             <span class="icon text-theme bg-white"><img
-                                    src="{{ asset('asset-about/img/about/icon/Menjaga-Kesehatan-Kulit.png') }}"
+                                    src="{{ asset('asset-about/img/phtproduct/icon/Orange-Oil.png') }}"
                                     alt="PE Skinpro Menjaga Kesehatan Kulit"></span>
                             <span class="bg-icon ani-moving icon-6x text-theme"><img
-                                    src="{{ asset('asset-about/img/about/icon/Menjaga-Kesehatan-Kulit-2.png') }}"
+                                    src="{{ asset('asset-about/img/phtproduct/icon/Orange-Oil.png') }}"
                                     alt="PE Skinpro Menjaga Kesehatan Kulit"></span>
                         </div>
                         <div class="service-content">
                             <h3 class="service-title h4">
-                                <a href="#">Menjaga Kesehatan Kulit</a>
+                                <a href="{{ route('about.ListProducts') }}">Menjaga Kesehatan Kulit</a>
                             </h3>
-                            <p>
-                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illo, facere?
-                            </p>
                         </div>
                     </div>
                 </div>

@@ -89,6 +89,15 @@
                                         </span>
                                     </div>
                                 </div>
+                                <div class="tab-pane" title="Ketiga">
+                                    <div class="d-flex flex-column flex-md-row align-items-center justify-content-center">
+                                        <img src="{{ asset('asset-affiliate/images/tutor/daftar/ss3.png') }}"
+                                            alt="PE Skinpro" width="240" class="rounded mb-3 mb-md-0 me-md-3">
+                                        <span style="max-width: 350px">
+                                           Tunggu Hingga Verifikasi Dari Admin Selesai.
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <hr>
