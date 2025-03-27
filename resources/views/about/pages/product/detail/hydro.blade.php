@@ -37,7 +37,7 @@
                             aktif, gel ini membantu menjaga kelembapan dan kesehatan kulit Anda.
                             Berikut Dibawah adalah List Bahan Aktif dari Hydro Resorative Cream :
                         </p>
-                        <h4 class="h3 primary-color-bold mt-5">Bahan Aktif & Bahan Lainnya</h4>
+                        <h4 class="h3 primary-color-bold mt-5">Plant-Based Technology</h4>
 
                         <div class="service-layout4 border-top border-bottom border-light-theme my-55 py-60">
                             <div class="row">

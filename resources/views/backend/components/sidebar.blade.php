@@ -76,7 +76,7 @@
                               </a>
                           </li>
                       @endif
-                      @if (in_array(auth()->user()->role->name, ['Administrator', 'Admin']))
+                      {{-- @if (in_array(auth()->user()->role->name, ['Administrator', 'Admin']))
                           <li class="nav-item">
                               <a class="nav-link menu-arrow" href="#sidebarInventory" data-bs-toggle="collapse"
                                   role="button" aria-expanded="false" aria-controls="sidebarInventory">
@@ -109,7 +109,7 @@
                                   </ul>
                               </div>
                           </li>
-                      @endif
+                      @endif --}}
                       @if (in_array(auth()->user()->role->name, ['Administrator', 'Finance', 'Admin', 'Management']))
                           <li class="nav-item">
                               <a class="nav-link menu-arrow" href="#sidebarOrders" data-bs-toggle="collapse"

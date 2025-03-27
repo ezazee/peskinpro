@@ -37,7 +37,7 @@
                             aktif, pad ini membantu mengurangi iritasi dan meningkatkan kesehatan kulit secara keseluruhan.
                             Berikut Dibawah adalah List Bahan Aktif dari Prebiotic Pore Ex Facial Pad :
                         </p>
-                        <h4 class="h3 primary-color-bold mt-5">Bahan Aktif & Bahan Lainnya</h4>
+                        <h4 class="h3 primary-color-bold mt-5">Plant-Based Technology</h4>
 
                         <div class="service-layout4 border-top border-bottom border-light-theme my-55 py-60">
                             <div class="row">
