@@ -6,7 +6,7 @@
     </div>
 </div>
 <!-- Step 2 -->
-<div class="step completed">
+<div class="step">
     <div class="step-icon"></div>
     <div class="step-info">
         <p class="step-title">Pesanan Diproses</p>
@@ -14,7 +14,7 @@
     </div>
 </div>
 <!-- Step 3 -->
-<div class="step completed">
+<div class="step">
     <div class="step-icon"></div>
     <div class="step-info">
         <p class="step-title">Pesanan Dikirim</p>

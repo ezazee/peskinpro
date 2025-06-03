@@ -59,7 +59,8 @@
                                 <i class="ph-fill ph-check-square icon-checkbox text-2xl"></i>
                             </div>
                             <label for="remember" class="pl-2 cursor-pointer text-secondary2">Dengan ini saya menyetujui
-                                <a href="{{ route('ketentuan') }}" class="text-black hover:underline pl-1">Ketentuan Pengguna</a>
+                                <a href="{{ route('ketentuan') }}" class="text-black hover:underline pl-1">Ketentuan
+                                    Pengguna</a>
                             </label>
                         </div>
                         @if ($errors->has('term'))
@@ -70,19 +71,28 @@
                         </div>
                     </form>
                 </div>
-                <div class="right md:w-1/2 w-full lg:pl-[60px] md:pl-[40px] flex items-center">
-                    <div class="text-content">
+                <div class="right md:w-1/2 w-full lg:pl-[60px] md:pl-[40px] flex flex-col items-start space-y-6">
+                    <div class="text-content" style="margin-bottom: 30px">
                         <div class="heading4">Sudah Punya Akun?</div>
                         <div class="mt-2 text-secondary">
-                            Kalau kamu sudah punya akun, langsung aja login untuk menikmati semua fitur dan kemudahan yang
-                            kami tawarkan.
-                            Yuk, lanjutkan perjalananmu bersama kami!
+                            Kalau sudah punya akun, langsung login dan nikmati semua fitur yang kami tawarkan!
                         </div>
-                        <div class="block-button md:mt-7 mt-4">
+                        <div class="block-button mt-4">
                             <a href="/login" class="button-main">Login</a>
                         </div>
                     </div>
+
+                    <div class="text-content">
+                        <div class="heading4">Gabung Jadi Affiliator & Raih Penghasilan!</div>
+                        <div class="mt-2 text-secondary">
+                            Dapatkan komisi dari setiap referensi yang kamu berikan. <b>GRATIS</b> dan tanpa modal!
+                        </div>
+                        <div class="block-button mt-4">
+                            <a href="{{ route('affiliate_register') }}" class="button-main">Gabung Sekarang</a>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>

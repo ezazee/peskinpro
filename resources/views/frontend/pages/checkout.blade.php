@@ -226,18 +226,150 @@
 
 @endsection
 
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById('shipping-form');
+    const overlay = document.getElementById('loading-overlay');
+    const container = document.getElementById('nested-options-container');
+    const select = document.getElementById('ongkir-select');
+    
+    async function submitForm() {
+        const formData = new FormData(form);
+        overlay.classList.remove('hidden');
+
+        try {
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}' 
+                }
+            });
+
+            if (!response.ok) throw new Error(response.statusText);
+            const results = await response.json();
+            overlay.classList.add('hidden');
+            container.style.display = 'block';
+
+            displayResults(results);
+        } catch (error) {
+            overlay.classList.add('hidden');
+        }
+    }
+
+    function displayResults(results) {
+        select.innerHTML = ''; 
+
+        const defaultOption = document.createElement('option');
+        defaultOption.value = "";
+        defaultOption.disabled = true;
+        defaultOption.selected = true;
+        defaultOption.textContent = "Pilih Layanan";
+        select.appendChild(defaultOption);
+
+        for (const [courier, services] of Object.entries(results)) {
+            const groupOption = document.createElement('optgroup');
+            groupOption.label = courier.toUpperCase();
+
+            services.forEach(service => {
+                (service.cost || []).forEach(costDetail => {
+                    if (!["T15", "T25", "T60", "TRC"].includes(service.service)) {
+                        const option = document.createElement('option');
+                        option.value = `${courier.toUpperCase()}|${service.description}|${costDetail.value}|${costDetail.etd}|${service.service}`;
+                        option.textContent = `${service.description} (${service.service}) - Estimasi ${costDetail.etd} Hari: Rp${formatNumber(costDetail.value)} ${courier.toUpperCase()}`;
+                        groupOption.appendChild(option);
+                    }
+                });
+            });
+
+            select.appendChild(groupOption);
+        }
+
+        select.addEventListener('change', function () {
+            const selectedOption = select.options[select.selectedIndex];
+            const [courier, description, costValue, etd] = selectedOption.value.split('|');
+            const selectedCost = parseFloat(costValue) || 0;
+
+            if (selectedCost > 0) {
+                document.getElementById('pengiriman').textContent = `Rp${formatNumber(selectedCost)}`;
+                document.getElementById('shipping_cost').value = selectedCost;
+                document.getElementById('shipping_courier').value = courier;
+                document.getElementById('estimated_days').value = `${etd} Hari`;
+            } else {
+                document.getElementById('pengiriman').textContent = '-';
+                document.getElementById('shipping_cost').value = '';
+                document.getElementById('estimated_days').value = '';
+            }
+
+            
+
+            calculateTotal();
+        });
+
+        const discountElement = document.getElementById('discount-chekout');
+        if (discountElement) {
+            const observer = new MutationObserver(() => {
+                calculateTotal();
+            });
+            observer.observe(discountElement, { childList: true, subtree: true });
+        }
+
+        calculateTotal();
+    }
+
+    function calculateTotal() {
+        const subtotal = parseFloat(document.getElementById('subtotal').value) || 0;
+        const shippingCost = parseFloat(document.getElementById('shipping_cost').value) || 0;
+        const discountElement = document.getElementById('discount-chekout');
+        const discountInput = document.getElementById('discount_value');
+
+        const discount = discountElement
+            ? parseFloat(discountElement.textContent.replace('Rp', '').replace(/\./g, '').trim()) || 0
+            : 0;
+
+        if (discountInput) {
+            discountInput.value = discount;
+        }
+
+        const totalAmount = subtotal + shippingCost - discount;
+        const formattedTotal = totalAmount > 0 ? `Rp${formatNumber(totalAmount)}` : 'Pilih Ongkir Terlebih Dahulu';
+
+        document.getElementById('total').textContent = formattedTotal;
+        document.getElementById('total_amount').value = totalAmount > 0 ? totalAmount : '';
+    }
+
+    function formatNumber(num) {
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }
+
+    submitForm();
+});
+</script>
+
+
 
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
         const termsCheckbox = document.getElementById('termsCheckbox');
         const checkoutButton = document.getElementById('checkoutButton');
+        const shippingCostInput = document.getElementById('shipping_cost');
 
-        // Toggle button disabled state based on checkbox
-        termsCheckbox.addEventListener('change', () => {
-            checkoutButton.disabled = !termsCheckbox.checked;
-        });
-    });
+        function updateCheckoutButtonState() {
+            const hasShippingCost = shippingCostInput.value && parseFloat(shippingCostInput.value) > 0;
+            const hasTermsChecked = termsCheckbox.checked;
+
+            checkoutButton.disabled = !(hasShippingCost && hasTermsChecked);
+        }
+
+        termsCheckbox.addEventListener('change', updateCheckoutButtonState);
+
+        shippingCostInput.addEventListener('input', updateCheckoutButtonState);
+
+        updateCheckoutButtonState();
+});
 </script>
+
 
 
 

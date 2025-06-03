@@ -462,6 +462,7 @@
                 </div>
             </div>
             @if($orders->alamat)
+
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">Customer Details</h4>
@@ -481,26 +482,29 @@
                             <a href="#!" class="link-primary fw-medium">{{$orders->user->email}}</a>
                         </div>
                     </div>
+                    @foreach ($orders->products as $Dtpengiriman)
                     <div class="d-flex justify-content-between mt-3">
                         <h5 class="">Recipient</h5>
                     </div>
-                    <p class="mb-1">{{ $orders->alamat->penerima }}</p>
+                    <p class="mb-1">{{ $Dtpengiriman->pivot->penerima }}</p>
                     <div class="d-flex justify-content-between mt-3">
                         <h5 class="">Contact Number</h5>
                     </div>
-                    <p class="mb-1">{{ $orders->alamat->no_telp }}</p>
+                    <p class="mb-1">{{ $Dtpengiriman->pivot->no_telp }}</p>
 
                     <div class="d-flex justify-content-between mt-3">
                         <h5 class="">Shipping Address</h5>
                     </div>
 
                     <div>
-                        <p class="mb-1">{{ $orders->alamat->street }}</p>
-                        <p class="mb-1">{{ $orders->alamat->city->name }} , {{ $orders->alamat->province->name }}</p>
+                        <p class="mb-1">{{ $Dtpengiriman->pivot->street }}</p>
+                        <p class="mb-1">{{ $Dtpengiriman->pivot->city_name }} , {{ $Dtpengiriman->pivot->province_name }}</p>
                         <p class="mb-1">Indonesia</p>
                     </div>
+                    @endforeach
                 </div>
             </div>
+
             @endif
         </div>
     </div>

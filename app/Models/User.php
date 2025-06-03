@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -28,6 +29,12 @@ class User extends Authenticatable
         'role_id',
         'status',
         'images',
+        'ktp',
+        'nik',
+        'no_rek',
+        'data_sosmed',
+        'affiliate_alamat',
+        'affiliate_status'
     ];
 
     /**
@@ -60,6 +67,15 @@ class User extends Authenticatable
         return $this->hasOne(Cart::class);
     }
 
+    public function affiliates()
+    {
+        return $this->hasMany(Affiliate::class, 'user_id');
+    }
+
+    public function affiliateHistory()
+    {
+        return $this->hasMany(AffiliateHistory::class, 'user_id');
+    }
 
     /**
      * The attributes that should be cast.
@@ -68,7 +84,19 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'data_sosmed' => 'array',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+    
+        static::creating(function ($user) {
+            if ($user->role->name === 'Affiliate') {
+                $user->referral_code = strtoupper(Str::random(8));
+            }
+        });
+    }    
 
 
 }

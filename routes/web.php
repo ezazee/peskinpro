@@ -21,6 +21,9 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\BankController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\AffiliateController;
+use App\Models\Product;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,13 +43,18 @@ Route::get('/ongkir', [CheckOngkirController::class, 'index'])->name('index');
 Route::post('/ongkir', [CheckOngkirController::class, 'check_ongkir'])->name('check_ongkir');
 Route::get('/cities/{province_id}', [CheckOngkirController::class, 'getCities'])->name('getCities');
 
-Route::get('/artikel', [ArticleController::class, 'blogarticle'])->name('blogarticle');
+// Route::get('/artikel', [ArticleController::class, 'blogarticle'])->name('blogarticle');
 Route::get('/artikel/{slug}', [ArticleController::class, 'articlebyTittle'])->name('articlebyTittle');
 
 Route::get('/login', [AuthenticationController::class, 'index'])->name('login');
 Route::post('/login/user', [AuthenticationController::class, 'userLogin'])->name('userLogin');
 
 Route::get('/pskinpro', [AuthenticationController::class, 'showadminLogin'])->name('showadminLogin');
+
+
+
+Route::get('/affiliate-register', [AuthenticationController::class, 'affiliateRegister'])->name('affiliate_register');
+Route::get('/affiliate-register/succes', [AuthenticationController::class, 'affiliateRegisterSucces'])->name('affiliate_register_succes');
 
 Route::get('/register', [AuthenticationController::class, 'show_register'])->name('show_register');
 Route::post('/register', [AuthenticationController::class, 'register'])->name('register');
@@ -59,6 +67,34 @@ Route::get('/faq/detail/{slug}', [FaqController::class, 'faqdetail'])->name('faq
 Route::get('/return-and-refunds', [HomeController::class, 'returnrefund'])->name('returnrefund');
 Route::get('/syarat-ketentuan', [HomeController::class, 'ketentuanPengguna'])->name('ketentuan');
 
+// About
+
+Route::get('/about', [AboutController::class, 'index'])->name('about.index');
+
+Route::get('/about/list-products', [AboutController::class, 'ListProducts'])->name('about.ListProducts');
+Route::get('/about/products/cica-refreshing-toner', [AboutController::class, 'TonerProducts'])->name('about.TonerProducts');
+Route::get('/about/products/honey-cleansing-gel', [AboutController::class, 'CleansingProducts'])->name('about.CleansingProducts');
+Route::get('/about/products/hydro-resorative-cream', [AboutController::class, 'HydroProducts'])->name('about.HydroProducts');
+Route::get('/about/products/prebiotic-feminime-mousse-cleanser', [AboutController::class, 'FeminimeProducts'])->name('about.FeminimeProducts');
+Route::get('/about/products/prebiotic-pore-ex-facial-pad', [AboutController::class, 'PoreExProducts'])->name('about.PoreExProducts');
+Route::get('/about/products/skin-awakening-glow-serum', [AboutController::class, 'SerumProducts'])->name('about.SerumProducts');
+Route::get('/about/products/vit-c-tone-up-day-cream-spf50', [AboutController::class, 'ToneProducts'])->name('about.ToneProducts');
+
+Route::get('/about/contact', [AboutController::class, 'AboutContact'])->name('about.contact');
+
+Route::get('/about/news', [AboutController::class, 'AboutNews'])->name('about.news');
+Route::get('/about/news/tags/{slug}', [AboutController::class, 'newsTag'])->name('about.newsTag');
+Route::get('/about/news/detail/{slug}', [AboutController::class, 'AboutNewsDetail'])->name('about.newsDetail');
+
+// Affiliate
+Route::get('/about/affiliate', [AffiliateController::class, 'IndexAffiliate'])->name('about.affiliate');
+Route::get('/about/affiliate/cara-raih-komisi', [AffiliateController::class, 'RaihKomisi'])->name('about.RaihKomisi');
+Route::get('/about/affiliate/keuntungan', [AffiliateController::class, 'Keuntungan'])->name('about.Keuntungan');
+
+Route::post('/register-affiliate', [AuthenticationController::class, 'registerAffiliate'])->name('register.affiliate');
+
+
+
 
 Route::middleware(['userOrGuest'])->group(function () {
     Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
@@ -66,10 +102,19 @@ Route::middleware(['userOrGuest'])->group(function () {
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart/increase', [CartController::class, 'increaseQuantity'])->name('cart.increase');
     Route::post('/cart/decrease', [CartController::class, 'decreaseQuantity'])->name('cart.decrease');
+    Route::get('/s/{code}', function ($code) {
+        $linkreal = Cache::get('shortlink_' . $code);
+
+        if (!$linkreal) {
+            abort(404);
+        }
+
+        return redirect($linkreal);
+    })->name('shortlink.redirect');
 });
 
 Route::middleware(['auth', 'role:user'])->group(function () {
-    Route::get('/checkout', [ChekoutController::class, 'index'])->name('chekout.index');
+    // Route::get('/checkout', [ChekoutController::class, 'index'])->name('chekout.index');
     // Route::get('/checkout/process', [ChekoutController::class, 'Checkout'])->name('checkout.process');
     Route::post('/checkout/process', [ChekoutController::class, 'Checkout'])->name('checkout.process');
     Route::get('/pembayaran/{invoice_number}', [ChekoutController::class, 'payment'])->name('payment');
@@ -88,6 +133,24 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::post('/set-default-address/{id}', [ProfileController::class, 'setDefaultAddress'])->name('set_default_address');
     Route::get('/order', [ProfileController::class, 'recent_order'])->name('recent_order');
     Route::get('/detail-order/{order_number}', [ProfileController::class, 'detail_order'])->name('detail-order');
+
+    Route::post('/order/selesai/{order:order_number}', [ProfileController::class, 'Orderselesai'])->name('order.Orderselesai');
+    Route::post('/order/batal/{order:order_number}', [ProfileController::class, 'OrderBatal'])->name('order.OrderBatal');
+
+    Route::get('/share-referral', [AffiliateController::class, 'share'])->name('referral.share');
+    Route::get('/checkout', [AffiliateController::class, 'checkout'])->name('referral.checkout');
+});
+
+Route::middleware(['auth', 'role:Affiliate'])->group(function () {
+    Route::get('/dashboard/affiliate', [AffiliateController::class, 'index'])->name('affiliate.index');
+    Route::get('/affiliate/transaksi', [AffiliateController::class, 'AffiliateTransaksi'])->name('affiliate.transaksi');
+    Route::get('/affiliate/history/komisi', [AffiliateController::class, 'HistoryKomisi'])->name('affiliatehistory.komisi');
+    Route::get('/affiliate/history/transaksi', [AffiliateController::class, 'HistoryTransaksi'])->name('affiliatehistory.transaksi');
+    Route::post('/affiliate/withdraw', [AffiliateController::class, 'Withdraw'])->name('affiliate.Withdraw');
+    Route::get('/affiliate/product', [AffiliateController::class, 'ProductAffiliate'])->name('affiliate.product');
+    Route::get('/dashboard/affiliate/list-product', [AffiliateController::class, 'productLink'])->name('affiliate.product');
+    Route::get('/dashboard/affiliate/settings', [AffiliateController::class, 'affiliateSettings'])->name('affiliate.settings');
+    Route::post('/dashboard/affiliate/settings/update', [AffiliateController::class, 'affiliateSettingsUpdate'])->name('affiliate.SettingsUpdate');
 });
 
 
@@ -229,9 +292,22 @@ Route::middleware(['auth', 'role:Administrator,Management,Admin,Finance,Writter'
 
     // Inventory Management (Detail Supplier)
     Route::get('/inventory/detail-supplier', [InventoryController::class, 'detailSupplierIndex'])->name('detailSupplier.index');
+
+    // affiliate
+    Route::get('/affiliate/commision', [AffiliateController::class, 'CommisionAffiliate'])->name('commision.affiliate');
+    Route::post('/products/bulk-update-commission', [AffiliateController::class, 'bulkUpdateCommission'])->name('commision.bulkUpdateCommission');
+    Route::get('/affiliate/history/{id}', [AffiliateController::class, 'HistoryUserAffiliate'])->name('history.affiliate');
+    Route::get('/affiliate/member', [AffiliateController::class, 'MemberAffiliate'])->name('member.affiliate');
+    Route::get('/affiliate/withdraw', [AffiliateController::class, 'WithdrawAffiliate'])->name('Withdraw.affiliate');
+    Route::get('/affiliate/withdraw/accept/{id}', [AffiliateController::class, 'acceptWithdraw'])->name('withdraw.accept');
+    Route::post('/affiliate/withdraw/reject/{id}', [AffiliateController::class, 'rejectWithdraw'])->name('withdraw.reject');
+
+    Route::get('/affiliate/member/request', [AffiliateController::class, 'MemberRequest'])->name('member.request');
+    Route::get('/affiliate/detail/request/{id}', [AffiliateController::class, 'DetailRequest'])->name('detail.request');
+    Route::get('/affiliate/member/approve/{id}', [AffiliateController::class, 'approveMemberAffiliate'])->name('member.approve');
+    Route::get('/affiliate/member/reject/{id}', [AffiliateController::class, 'rejectMemberAffiliate'])->name('member.reject');
+
 });
-
-
 
 Route::get('/search-result', function () {
     return view('frontend.pages.search-result');

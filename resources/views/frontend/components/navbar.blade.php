@@ -10,6 +10,7 @@
             </a>
             <div class="menu-main h-full max-lg:hidden">
                 <ul class="flex items-center gap-8 h-full">
+                    @if (!auth()->check() || (auth()->user()->role && auth()->user()->role->name === 'user'))
                     <li class="h-full relative">
                         <a href="/"
                             class="text-button-uppercase duration-300 h-full flex items-center justify-center gap-1 {{ request()->is('/') ? 'active' : '' }}">
@@ -38,12 +39,28 @@
                         </a>
                     </li>
 
+                    @endif
                     <li class="h-full relative">
-                        <a href="/artikel"
-                            class="text-button-uppercase duration-300 h-full flex items-center justify-center gap-1 {{ request()->is('artikel') ? 'active' : '' }}">
-                            Update
+                        <a href="{{ route('about.index') }}"
+                            class="text-button-uppercase duration-300 h-full flex items-center justify-center gap-1">
+                            Tentang Kami
                         </a>
                     </li>
+                    <li class="h-full relative">
+                        <a href="{{ route('about.affiliate') }}"
+                            class="text-button-uppercase duration-300 h-full flex items-center justify-center gap-1">
+                            PE Skinpro Affiliate
+                        </a>
+                    </li>
+                    @if (auth()->check() && in_array(auth()->user()->role->name, ['Affiliate']))
+                    <li class="h-full relative">
+                        <a href="{{ route('about.affiliate') }}"
+                            class="text-button-uppercase duration-300 h-full flex items-center justify-center gap-1">
+                            Berita
+                        </a>
+                    </li>
+                    @endif
+
                 </ul>
             </div>
             <div class="right flex gap-5">
@@ -51,24 +68,30 @@
                 <!--    <i class="ph-bold ph-magnifying-glass text-2xl"></i>-->
                 <!--    <div class="line absolute bg-line w-px h-6 -right-6"></div>-->
                 <!--</div>-->
-                <div class="list-action flex items-center gap-4">
-                    <a href="/cart">
-                        <div class="max-md:hidden cart-icon flex items-center relative cursor-pointer">
-                            <i class="ph-bold ph-handbag text-2xl"></i>
-                            <span
-                                class="quantity cart-quantity absolute -right-1.5 -top-1.5 text-xs text-white bg-primary w-4 h-4 flex items-center justify-center rounded-full">{{ $cartItemCount }}</span>
-                        </div>
-                    </a>
-                </div>
+                @if (!auth()->check() || (auth()->user()->role && auth()->user()->role->name === 'user'))
+                    <div class="list-action flex items-center gap-4">
+                        <a href="/cart">
+                            <div class="max-md:hidden cart-icon flex items-center relative cursor-pointer">
+                                <i class="ph-bold ph-handbag text-2xl"></i>
+                                <span
+                                    class="quantity cart-quantity absolute -right-1.5 -top-1.5 text-xs text-white bg-primary w-4 h-4 flex items-center justify-center rounded-full">{{ $cartItemCount }}</span>
+                            </div>
+                        </a>
+                    </div>
+                @endif
                 @if (Auth::check())
                     <div class="user-info flex items-center justify-center cursor-pointer relative">
                         <div class="avatar w-7 h-7 rounded-full bg-gray-300 overflow-hidden">
-                            <img src="{{ Auth::user()->images ? asset('storage/' . Auth::user()->images) : 'https://media.istockphoto.com/id/517998264/vector/male-user-icon.jpg?b=1&s=612x612&w=0&k=20&c=XQPO5sxBVwANqHTIVNli3gnXLCbmcpOn-23biJPkO3E=' }}" 
+                            <img src="{{ Auth::user()->images ? asset('storage/' . Auth::user()->images) : 'https://media.istockphoto.com/id/517998264/vector/male-user-icon.jpg?b=1&s=612x612&w=0&k=20&c=XQPO5sxBVwANqHTIVNli3gnXLCbmcpOn-23biJPkO3E=' }}"
                                 alt="User Avatar" class="w-full h-full object-cover">
                         </div>
-                        <div
-                            class="user-popup absolute top-[74px] right-[200px] w-[320px] p-7 rounded-xl bg-white shadow-lg">
+                        <div class="user-popup absolute top-[74px] right-[200px] w-[320px] p-7 rounded-xl bg-white shadow-lg">
+                            @if (in_array(auth()->user()->role->name, ['user']))
                             <a href="/profile" class="button-main w-full text-center">Profile</a>
+                            @endif
+                            @if (in_array(auth()->user()->role->name, ['Affiliate']))
+                            <a href="{{ route('affiliate.index') }}" class="button-main w-full text-center">Profile</a>
+                            @endif
                             <div class="text-secondary text-center mt-3 pb-4">
                                 Want to log out?
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
@@ -136,8 +159,8 @@
                             </a>
                         </li>
                         <li>
-                            <a href="/artikel"
-                                class="text-xl font-semibold flex items-center justify-between mt-5">Update
+                            <a href="{{ route('about.index') }}"
+                                class="text-xl font-semibold flex items-center justify-between mt-5">Tentang PE
                             </a>
                         </li>
                     </ul>

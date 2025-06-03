@@ -37,11 +37,16 @@
                         <div>
                             <div class="product-name heading4 mt-1">{{ $products->name }}</div>
                         </div>
-                        <a href="#">
-                            <div class="w-10 h-10 flex-shrink-0 flex items-center justify-center cursor-pointer rounded-lg">
-                                <i class="ph ph-share-network text-xl"></i>
-                            </div>
-                        </a>
+                        @php
+                        $user = Auth::user();
+                        $currentUrl = url()->current();
+                        $url = $currentUrl;
+                    @endphp
+
+                    <button id="copyButton" class="w-10 h-10 flex-shrink-0 flex items-center justify-center cursor-pointer rounded-lg">
+                        <i class="ph ph-share-network text-xl"></i>
+                    </button>
+
 
                     </div>
                     <div class="flex items-center gap-3 flex-wrap mt-5 pb-6 border-b border-line">
@@ -211,6 +216,9 @@
                                                 class="product-tag text-button-uppercase text-white bg-red px-3 py-0.5 inline-block rounded-full absolute top-3 left-3 z-[1]">
                                                 Diskon
                                             </div>
+                                            <div class="product-tag text-button-uppercase text-white bg-red px-3 py-0.5 inline-block rounded-full absolute top-3 right-3 z-[1]">
+                                                FREE GIFT
+                                            </div>
                                         @endif
                                         <div class="product-img w-full h-full aspect-[3/4]">
                                             <img class="w-full h-full object-cover duration-700"
@@ -345,12 +353,25 @@
                     originalPriceElement.style.display = 'block';
                     saleElement.style.display = 'inline-block';
                 } else {
-                    // Hide original price and sale if no discount
                     document.querySelector('.product-origin-price').style.display = 'none';
                     document.querySelector('.product-sale').style.display = 'none';
                 }
             }
         }
     </script>
+    <script>
+        document.getElementById("copyButton").addEventListener("click", function() {
+            var url = "{{ $url }}";
 
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(url).then(() => {
+                    alert("URL berhasil disalin!");
+                }).catch(err => {
+                    console.error("Gagal menyalin URL:", err);
+                });
+            } else {
+                alert("Browser tidak mendukung fitur salin otomatis!");
+            }
+        });
+    </script>
 @endsection

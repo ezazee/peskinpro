@@ -4,7 +4,7 @@
     @php
         use Carbon\Carbon;
 
-        $flashSaleEndTime = Carbon::parse($timerFlashsale ?? ''); 
+        $flashSaleEndTime = Carbon::parse($timerFlashsale ?? '');
         $currentTime = Carbon::now();
         $isFlashSaleExpired = $flashSaleEndTime->isPast();
     @endphp
@@ -55,7 +55,7 @@
                 <a href="https://wa.me/6282123167895?text=Saya%20Mau%20Barang%20Di%20Flash%20Sale%20Promotion"
                     target="_blank" class="button-main lg:mt-9 md:mt-6 mt-4">Dapatkan Sekarang</a>
             </div>
-            
+
 
             <!-- Product Carousel on the Right (Desktop) / Bottom (Mobile) -->
             <div
@@ -69,6 +69,9 @@
                                         <div
                                             class="product-tag text-button-uppercase text-white bg-red px-3 py-0.5 inline-block rounded-full absolute top-3 left-3 z-[1]">
                                             Diskon
+                                        </div>
+                                        <div class="product-tag text-button-uppercase text-white bg-red px-3 py-0.5 inline-block rounded-full absolute top-3 right-3 z-[1]">
+                                            FREE GIFT
                                         </div>
                                     @endif
                                     <div class="product-img w-full h-full aspect-[3/4]">
@@ -153,11 +156,11 @@
                                                     @php
                                                         $sizePrices = $size->price;
                                                         $sizeDiscounts = $size->discount;
-                                                        
+
                                                         $minPrice = !empty($sizePrices) ? $sizePrices : $size->price ?? 0;
-                                                        
+
                                                         $maxDiscount = !empty($sizeDiscounts) ? $sizeDiscounts : 0;
-                                                        
+
                                                         $effectivePrice = max($minPrice - $maxDiscount, 0);
                                                     @endphp
                                                         Rp {{ number_format($effectivePrice, 0, ',', '.') }}
@@ -228,6 +231,9 @@
                                                 class="product-tag text-button-uppercase text-white bg-red px-3 py-0.5 inline-block rounded-full absolute top-3 left-3 z-[1]">
                                                 Diskon
                                             </div>
+                                            <div class="product-tag text-button-uppercase text-white bg-red px-3 py-0.5 inline-block rounded-full absolute top-3 right-3 z-[1]">
+                                                FREE GIFT
+                                            </div>
                                         @endif
                                         <div class="product-img w-full h-full aspect-[3/4]">
                                             <img class="w-full h-full object-cover duration-700"
@@ -284,40 +290,5 @@
             </div>
         </div>
     </section>
-
-    <div class="md:pb-20 pb-10">
-        <div class="news-block md:pt-20 pt-10">
-            <div class="container">
-                <div class="heading3 text-center">Artikel Kami</div>
-                <div class="list grid lg:grid-cols-3 sm:grid-cols-2 md:gap-[30px] gap-4 md:mt-10 mt-6">
-                    @foreach ($articles as $item)
-                        <a href="{{ route('articlebyTittle', $item->slug) }}">
-                            <div class="blog-item style-one h-full cursor-pointer" data-item="16">
-                                <div class="blog-main h-full block">
-                                    <div class="blog-thumb rounded-[20px] overflow-hidden">
-                                        <img src="{{ asset('storage/' . $item->images) }}" alt="{{ $item->tittle }}"
-                                            class="w-full duration-500" />
-                                    </div>
-                                    <div class="blog-infor mt-7">
-                                        @foreach ($item->tag as $t)
-                                            <div
-                                                class="blog-tag bg-primary text-white py-1 px-2.5 rounded-full text-button-uppercase inline-block">
-                                                {{ $t->nama_tags }}</div>
-                                        @endforeach
-                                        <div class="heading6 blog-title mt-3 duration-300">{{ $item->tittle }}</div>
-                                        <div class="flex items-center gap-2 mt-2">
-                                            <div class="blog-date caption1 text-secondary">
-                                                {{ $item->created_at->format('M d, Y') }}</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    @endforeach
-                </div>
-            </div>
-        </div>
-    </div>
-
     @include('frontend.components.banner-knowledge-1')
 @endsection

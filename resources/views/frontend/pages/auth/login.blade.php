@@ -32,31 +32,45 @@
                         <div class="flex items-center justify-between mt-5">
                             <div class="flex items-center">
                                 <div class="block-input">
-                                    <input type="checkbox" name="remember" />
+                                    <input type="checkbox" name="remember" id="checkSK" required/>
                                     <i class="ph-fill ph-check-square icon-checkbox text-2xl"></i>
                                 </div>
-                                <label for="remember" class="pl-2 cursor-pointer">Remember me</label>
+                                <label for="checkSK" class="pl-2 cursor-pointer text-secondary2">Dengan Ini Saya
+                                    Menyetujui Akan
+                                    <a href="{{ route('ketentuan') }}" class="text-black hover:underline pl-1 text-primary">Syarat Dan Ketentuan Pengguna</a>
+                                </label=>
                             </div>
-                            <a href="#" class="font-semibold hover:underline">Forgot Your Password? </a>
+                            {{-- <a href="#" class="font-semibold hover:underline">Forgot Your Password? </a> --}}
                         </div>
                         <div class="block-button md:mt-7 mt-4">
                             <button class="button-main">Login</button>
                         </div>
                     </form>
                 </div>
-                <div class="right md:w-1/2 w-full lg:pl-[60px] md:pl-[40px] flex items-center">
-                    <div class="text-content">
+                <div class="right md:w-1/2 w-full lg:pl-[60px] md:pl-[40px] flex flex-col items-start space-y-6">
+                    <div class="text-content" style="margin-bottom: 30px">
                         <div class="heading4">Pengguna Baru?</div>
                         <div class="mt-2 text-secondary">
                             Belum punya akun? Daftar sekarang dan nikmati berbagai fitur menarik yang memudahkan
                             aktivitasmu.
-                            Ayo, mulai perjalanan serumu bersama kami!
                         </div>
-                        <div class="block-button md:mt-7 mt-4">
+                        <div class="block-button mt-4">
                             <a href="/register" class="button-main">Daftar</a>
                         </div>
                     </div>
+
+                    <div class="text-content">
+                        <div class="heading4">Gabung Jadi Affiliator & Raih Penghasilan!</div>
+                        <div class="mt-2 text-secondary">
+                            Hasilkan uang dengan mudah! Dapatkan komisi menarik dari setiap referensi yang kamu berikan.
+                            Pendaftaran <b>GRATIS</b> dan tanpa modal!
+                        </div>
+                        <div class="block-button mt-4">
+                            <a href="{{ route('affiliate_register') }}" class="button-main">Gabung Sekarang</a>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>

@@ -24,22 +24,54 @@ class CheckOngkirController extends Controller
 
     public function check_ongkir(Request $request)
     {
-        $availableCouriers = ['jne', 'tiki', 'pos'];
+        $availableCouriers = ['jne', 'tiki'];
         $originCityId = 152;
         $results = [];
 
         foreach ($availableCouriers as $courier) {
-            $cost = RajaOngkir::ongkosKirim([
-                'origin'        => $originCityId, 
-                'destination'   => $request->city_destination, 
-                'weight'        => $request->weight, 
-                'courier'       => $courier
-            ])->get();
-        
-            if ($cost) {
-                $results[$courier] = $cost;
+            $curl = curl_init();
+
+            curl_setopt_array($curl, [
+                CURLOPT_URL => "https://api.rajaongkir.com/starter/cost",
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_POST => true,
+                CURLOPT_POSTFIELDS => http_build_query([
+                    'origin'      => $originCityId,
+                    'destination' => $request->city_destination,
+                    'weight'      => $request->weight,
+                    'courier'     => $courier,
+                ]),
+                CURLOPT_HTTPHEADER => [
+                    "key: " . env('RAJAONGKIR_API_KEY'),
+                    "content-type: application/x-www-form-urlencoded",
+                ],
+            ]);
+
+            $response = curl_exec($curl);
+
+            if (curl_errno($curl)) {
+                $error = curl_error($curl);
+                curl_close($curl);
+                return response()->json(['error' => "cURL Error: $error"], 500);
             }
-        }   
+
+            curl_close($curl);
+
+            $data = json_decode($response, true);
+
+            if (
+                isset($data['rajaongkir']['results'][0]) &&
+                isset($data['rajaongkir']['results'][0]['costs'])
+            ) {
+                $results[$courier] = $data['rajaongkir']['results'][0]['costs'];
+            } else {
+                $results[$courier] = [
+                    ['service' => '-', 'description' => '-', 'cost' => [['value' => 0, 'etd' => '-', 'note' => 'Data not found']]]
+                ];
+            }
+        }
+
         return response()->json($results);
     }
+
 }

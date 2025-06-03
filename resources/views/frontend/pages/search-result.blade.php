@@ -27,6 +27,9 @@
                                     class="product-tag text-button-uppercase text-white bg-red px-3 py-0.5 inline-block rounded-full absolute top-3 left-3 z-[1]">
                                     Diskon
                                 </div>
+                                <div class="product-tag text-button-uppercase text-white bg-red px-3 py-0.5 inline-block rounded-full absolute top-3 right-3 z-[1]">
+                                    FREE GIFT
+                                </div>
                                 <div class="product-img w-full h-full aspect-[3/4]">
                                     <img class="w-full h-full object-cover duration-700"
                                         src="{{ asset('frontend/assets/images/product/peskin/contoh1.png') }}"

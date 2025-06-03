@@ -9,6 +9,7 @@ use App\Models\Article;
 use App\Models\Settings;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class ShopController extends Controller
 {
@@ -78,7 +79,7 @@ class ShopController extends Controller
         return view('frontend.pages.shop',compact('products','articles','expandedPromo','productbestseller','settings','timerFlashsale'));
     }
 
-    public function detail($slug){
+    public function detail($slug,Request $request){
         $settings = Settings::all();
         $products = Product::with(['category', 'imagedetail','sizes'])->where('slug', $slug)->firstOrFail();
         $produkserupa = Product::with(['category', 'imagedetail'])
@@ -91,6 +92,10 @@ class ShopController extends Controller
         $meta_description = Str::limit(strip_tags($products->description), 160);
         $meta_keywords = $products->category->name . ', Skincare, Peskinpro ID';
         $meta_price = $products->sizes->first()->price;
+
+        if ($request->has('ref')) {
+            Session::put('referral_code', $request->ref);
+        }
 
         return view('frontend.pages.detail',compact('products','produkserupa','meta_title','meta_description','meta_keywords','meta_price','settings'));
     }
