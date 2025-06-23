@@ -67,7 +67,15 @@ class ChekoutController extends Controller
                 ->where('end_date', '>=', now())
                 ->get();
             
-            $userCity = strtolower(optional($user->alamat->first()->city)->name ?? '');
+            $alamatPertama = $user->alamat->first();
+
+            if (!$alamatPertama || !$alamatPertama->city || empty($alamatPertama->city->name)) {
+                Alert::toast('Silakan lengkapi alamat Anda terlebih dahulu di profil.', 'warning');
+                return redirect()->back()->with('error', 'Silakan lengkapi alamat Anda terlebih dahulu di profil.');
+            }
+
+            $userCity = strtolower($alamatPertama->city->name);
+
 
             $userScope = $user->scope ?? 'all';
 
