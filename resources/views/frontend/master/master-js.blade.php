@@ -26,7 +26,6 @@
         speed: 800,
         on: {
             slideChange: function() {
-                // Callback untuk mengupdate gambar
                 let currentSlide = this.slides[this.activeIndex];
                 let imgDesktop = currentSlide.querySelector(".img-desktop");
                 let imgMobile = currentSlide.querySelector(".img-mobile");
@@ -354,57 +353,106 @@
 </script>
 
 
-<script>
-    function applyCoupon(event, couponCode, discountAmount) {
-        const button = event.target;
-        const couponId = button.getAttribute('data-coupon-id');
-
-        button.disabled = true;
-        button.innerText = "Sedang Digunakan...";
-
-        const discountElement = document.getElementById('discount-chekout');
-        if (discountElement) {
-            discountElement.innerText = `Rp.${discountAmount}`;
-        }
-
-        const cartTotalElement = document.getElementById('cart-total');
-        if (cartTotalElement) {
-            const cartTotal = parseInt(cartTotalElement.innerText.replace('Rp.', '').replace(',', '')) || 0;
-            const updatedCartTotal = cartTotal - discountAmount;
-            cartTotalElement.innerText = `Rp.${updatedCartTotal.toLocaleString()}`;
-        }
-
-        const couponCodeInput = document.getElementById('coupon_code');
-        if (couponCodeInput) {
-            couponCodeInput.value = couponCode;
-        }
-
-        const allCouponButtons = document.querySelectorAll('.coupon-button');
-        allCouponButtons.forEach(btn => {
-            if (btn !== button) {
-                btn.disabled = false;
-                btn.innerText = "Gunakan";
-            }
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            sessionStorage.removeItem('appliedCoupons');
         });
+        function applyCoupon(event, couponCode, discountAmount, couponType = 'fixed_amount') {
+            event.preventDefault();
 
-        button.innerText = "Dipakai";
-        button.classList.add('disabled');
-        button.setAttribute('disabled', 'true');
+            const button = event.target;
+            const couponId = button.getAttribute('data-coupon-id');
 
-        const jsonDisplayElement = document.getElementById('json-display');
-        if (jsonDisplayElement) {
-            jsonDisplayElement.innerText = JSON.stringify({
+            let appliedCoupons = JSON.parse(sessionStorage.getItem('appliedCoupons') || '{}');
+
+            if (couponType === 'free_shipping') {
+                const shippingInput = document.getElementById('shipping_cost');
+                const originalShippingCost = parseInt(shippingInput?.value || 0);
+
+                const reducedShippingCost = discountAmount === 0 ? 0 : Math.max(originalShippingCost - discountAmount, 0);
+                shippingInput.value = reducedShippingCost;
+
+                const shippingLabel = document.getElementById('pengiriman');
+                if (shippingLabel) {
+                    shippingLabel.innerText = reducedShippingCost === 0 ? 'Gratis' : `Rp${formatNumber(reducedShippingCost)}`;
+                }
+
+                const estimatedDays = document.getElementById('estimated_days');
+                if (reducedShippingCost === 0 && estimatedDays) estimatedDays.value = '-';
+            }
+
+            appliedCoupons[couponType] = {
                 coupon_id: couponId,
                 coupon_code: couponCode,
-                discount_amount: discountAmount
-            }, null, 2);
+                discount_amount: discountAmount,
+                used: true 
+            };
+            sessionStorage.setItem('appliedCoupons', JSON.stringify(appliedCoupons));
+
+            const couponCodes = Object.values(appliedCoupons)
+                    .filter(coupon => coupon.used)
+                    .map(coupon => coupon.coupon_code);
+
+                const couponInput = document.getElementById('coupon_code');
+                if (couponInput) {
+                    couponInput.value = JSON.stringify(couponCodes);
+                }
+
+            const allCouponButtons = document.querySelectorAll('.coupon-button');
+            allCouponButtons.forEach(btn => {
+                if (btn !== button && btn.getAttribute('data-type') === couponType) {
+                    btn.disabled = false;
+                    btn.innerText = "Gunakan";
+                }
+            });
+
+            button.innerText = "Dipakai";
+            button.classList.add('disabled');
+            button.setAttribute('disabled', 'true');
+
+            const jsonDisplayElement = document.getElementById('json-display');
+            if (jsonDisplayElement) {
+                jsonDisplayElement.innerText = JSON.stringify(appliedCoupons, null, 2);
+            }
+
+            if (typeof calculateTotal === 'function') {
+                calculateTotal();
+            }
         }
-    }
-</script>
+
+
+        function calculateTotal() {
+            const shippingInput = document.getElementById('shipping_cost');
+            const shipping = parseInt(shippingInput?.value || 0);
+            const subtotal = parseInt(document.getElementById('subtotal')?.getAttribute('data-original') || 0);
+
+            const appliedCoupons = JSON.parse(sessionStorage.getItem('appliedCoupons') || '{}');
+            let fixedAmountDiscount = 0;
+            let freeShippingDiscount = 0;
+
+            if (appliedCoupons.fixed_amount && appliedCoupons.fixed_amount.discount_amount && appliedCoupons.fixed_amount.used === true) {
+                fixedAmountDiscount = parseInt(appliedCoupons.fixed_amount.discount_amount || 0);
+            }
+
+            if (appliedCoupons.free_shipping && appliedCoupons.free_shipping.discount_amount && appliedCoupons.free_shipping.used === true) {
+                freeShippingDiscount = parseInt(appliedCoupons.free_shipping.discount_amount || 0);
+            }
+
+            const totalDiscount = freeShippingDiscount + fixedAmountDiscount;
+            const finalTotal = Math.max(shipping - totalDiscount, 0);
+            document.getElementById('discount-chekout').innerText = `Rp.${totalDiscount.toLocaleString('id-ID')}`;
+            document.getElementById('cart-total').innerText = `Rp.${finalTotal.toLocaleString('id-ID')}`;
+        }
+
+
+        function formatNumber(num) {
+            return num.toLocaleString('id-ID');
+        }
+    </script>
 
 
 
-{{-- Backdrop Modal Ganti Alamat Checkout --}}
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const modal = document.getElementById('customGantiAlamat');
@@ -412,7 +460,6 @@
         const openModalButton = document.getElementById('gantiAlamatButton');
         const closeModalButtons = document.querySelectorAll('.modal-ganti-alamat-close');
 
-        // Cek jika modal dan backdrop ada sebelum melanjutkan
         if (modal && backdrop) {
             if (openModalButton) {
                 openModalButton.addEventListener('click', function() {
@@ -421,7 +468,6 @@
                 });
             }
 
-            // Cek jika ada tombol untuk menutup modal
             if (closeModalButtons.length > 0) {
                 closeModalButtons.forEach(button => {
                     button.addEventListener('click', function() {
@@ -431,7 +477,6 @@
                 });
             }
 
-            // Cek jika backdrop ada sebelum menambahkan event listener
             backdrop.addEventListener('click', function() {
                 modal.classList.add('hidden');
                 backdrop.classList.add('hidden');
@@ -440,16 +485,13 @@
     });
 </script>
 
-{{-- Backdrop Modal Order History --}}
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        // JavaScript for showing/hiding modal
         const modal = document.getElementById('customModalOrder');
         const backdrop = document.getElementById('modal-order-backdrop');
         const openModalButtons = document.querySelectorAll('.historyOrderButton');
         const closeModalButtons = document.querySelectorAll('.modal-order-close');
 
-        // Tambahkan event listener untuk setiap tombol dengan kelas .historyOrderButton
         openModalButtons.forEach(button => {
             button.addEventListener('click', function() {
                 modal.classList.remove('hidden');
@@ -770,7 +812,6 @@
 
         // Fungsi untuk menutup modal
         function closeModal() {
-            console.log("Modal ditutup");
             modal.classList.add('hidden');
             backdrop.classList.add('hidden');
         }
@@ -778,14 +819,11 @@
         // Fungsi untuk membuka modal jika form lengkap
         function openModal(event) {
             event.preventDefault(); // Mencegah form langsung submit
-            console.log("Cek apakah form sudah lengkap...");
 
             if (isFormFilled() && isSocialMediaFilled() && isCheckboxChecked()) {
-                console.log("Form lengkap, buka modal.");
                 modal.classList.remove('hidden');
                 backdrop.classList.remove('hidden');
             } else {
-                console.log("Form belum lengkap.");
                 alert(
                     "Harap isi semua kolom sebelum melanjutkan! Pastikan minimal 1 sosial media diisi dan checkbox dicentang."
                     );
@@ -810,7 +848,6 @@
         // Jika "Setuju" ditekan, submit form
         if (agreeButton) {
             agreeButton.addEventListener('click', function() {
-                console.log("Form disubmit.");
                 form.submit(); // Kirim form setelah menyetujui perjanjian
                 closeModal();
             });

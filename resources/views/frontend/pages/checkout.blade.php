@@ -39,7 +39,6 @@
                             <div class="total-cart-block pt-5 flex justify-between">
                                 <div class="heading5">Total</div>
                                 <div class="heading5 total-cart" id="total">
-
                                 </div>
                             </div>
                         </div>
@@ -227,148 +226,304 @@
 @endsection
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-    const form = document.getElementById('shipping-form');
-    const overlay = document.getElementById('loading-overlay');
-    const container = document.getElementById('nested-options-container');
-    const select = document.getElementById('ongkir-select');
-    
-    async function submitForm() {
-        const formData = new FormData(form);
-        overlay.classList.remove('hidden');
+    document.addEventListener("DOMContentLoaded", function () {
+        const shippingForm = document.getElementById('shipping-form');
+        const overlay = document.getElementById('loading-overlay');
+        const container = document.getElementById('nested-options-container');
+        const select = document.getElementById('ongkir-select');
 
-        try {
-            const response = await fetch(form.action, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}' 
+        if (shippingForm) {
+            async function submitForm() {
+                const formData = new FormData(shippingForm);
+                overlay.classList.remove('hidden');
+
+                try {
+                    const response = await fetch(shippingForm.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        }
+                    });
+
+                    if (!response.ok) throw new Error(response.statusText);
+                    const results = await response.json();
+                    overlay.classList.add('hidden');
+                    container.style.display = 'block';
+
+                    displayResults(results);
+                } catch (error) {
+                    overlay.classList.add('hidden');
+                    console.error('Shipping Fetch Error:', error);
                 }
-            });
-
-            if (!response.ok) throw new Error(response.statusText);
-            const results = await response.json();
-            overlay.classList.add('hidden');
-            container.style.display = 'block';
-
-            displayResults(results);
-        } catch (error) {
-            overlay.classList.add('hidden');
-        }
-    }
-
-    function displayResults(results) {
-        select.innerHTML = ''; 
-
-        const defaultOption = document.createElement('option');
-        defaultOption.value = "";
-        defaultOption.disabled = true;
-        defaultOption.selected = true;
-        defaultOption.textContent = "Pilih Layanan";
-        select.appendChild(defaultOption);
-
-        for (const [courier, services] of Object.entries(results)) {
-            const groupOption = document.createElement('optgroup');
-            groupOption.label = courier.toUpperCase();
-
-            services.forEach(service => {
-                (service.cost || []).forEach(costDetail => {
-                    if (!["T15", "T25", "T60", "TRC"].includes(service.service)) {
-                        const option = document.createElement('option');
-                        option.value = `${courier.toUpperCase()}|${service.description}|${costDetail.value}|${costDetail.etd}|${service.service}`;
-                        option.textContent = `${service.description} (${service.service}) - Estimasi ${costDetail.etd} Hari: Rp${formatNumber(costDetail.value)} ${courier.toUpperCase()}`;
-                        groupOption.appendChild(option);
-                    }
-                });
-            });
-
-            select.appendChild(groupOption);
-        }
-
-        select.addEventListener('change', function () {
-            const selectedOption = select.options[select.selectedIndex];
-            const [courier, description, costValue, etd] = selectedOption.value.split('|');
-            const selectedCost = parseFloat(costValue) || 0;
-
-            if (selectedCost > 0) {
-                document.getElementById('pengiriman').textContent = `Rp${formatNumber(selectedCost)}`;
-                document.getElementById('shipping_cost').value = selectedCost;
-                document.getElementById('shipping_courier').value = courier;
-                document.getElementById('estimated_days').value = `${etd} Hari`;
-            } else {
-                document.getElementById('pengiriman').textContent = '-';
-                document.getElementById('shipping_cost').value = '';
-                document.getElementById('estimated_days').value = '';
             }
 
-            
+            function displayResults(results) {
+                select.innerHTML = '';
+                    const destinationProvince = results.jne.destination_province || null;
+                    if (destinationProvince === "DKI Jakarta") {
+                        results["ANTAR PE"] = {
+                            destination_province: "DKI Jakarta",
+                            costs: [
+                                {
+                                    service: "PEANTAR",
+                                    description: "PESKIN ANTAR",
+                                    cost: [
+                                        {
+                                            value: 20000,
+                                            etd: "1-2",
+                                            note: ""
+                                        }
+                                    ]
+                                }
+                            ]
+                        };
+                    }
 
-            calculateTotal();
-        });
+                    let allCosts = [];
+                for (const [courier, data] of Object.entries(results)) {
+                    const services = data.costs;
 
-        const discountElement = document.getElementById('discount-chekout');
-        if (discountElement) {
-            const observer = new MutationObserver(() => {
+                    services.forEach(service => {
+                        if (!["T15", "T25", "T60", "TRC", "DAT","CTCYES","ECO","SRP","TRX","FRZ","ONS"].includes(service.service)) {
+                            (service.cost || []).forEach(costDetail => {
+                                allCosts.push({
+                                    courier: courier.toUpperCase(),
+                                    service: service.service,
+                                    description: service.description,
+                                    value: costDetail.value,
+                                    etd: costDetail.etd
+                                });
+                            });
+                        }
+                    });
+                }
+
+
+                const getTop2Bottom2 = (courierName) => {
+                    const filtered = allCosts.filter(x => x.courier === courierName.toUpperCase()).sort((a, b) => a.value - b.value);
+                    return {
+                        cheapest: filtered.slice(0, 2),
+                        mostExpensive: filtered.slice(-2)
+                    };
+                };
+
+                const jneCosts = getTop2Bottom2('JNE');
+                const tikiCosts = getTop2Bottom2('TIKI');
+
+                const defaultTop = jneCosts.cheapest.length > 0 ? jneCosts.cheapest[0] : allCosts.sort((a, b) => a.value - b.value)[0];
+
+                if (defaultTop) {
+                    const defaultOption = document.createElement('option');
+                    defaultOption.value = `${defaultTop.courier}|${defaultTop.description}|${defaultTop.value}|${defaultTop.etd}|${defaultTop.service}`;
+                    defaultOption.selected = true;
+                    defaultOption.textContent = `${defaultTop.description} (${defaultTop.service}) - Estimasi ${defaultTop.etd} Hari: Rp${formatNumber(defaultTop.value)} ${defaultTop.courier}`;
+                    select.appendChild(defaultOption);
+
+                    document.getElementById('pengiriman').textContent = `Rp${formatNumber(defaultTop.value)}`;
+                    document.getElementById('shipping_cost').value = defaultTop.value;
+                    document.getElementById('shipping_courier').value = defaultTop.courier;
+                    document.getElementById('estimated_days').value = `${defaultTop.etd} Hari`;
+                }
+
+                const grouped = {};
+                allCosts.forEach(service => {
+                    const courier = service.courier;
+                    if (!grouped[courier]) grouped[courier] = [];
+                    grouped[courier].push(service);
+                });
+
+                for (const [courier, services] of Object.entries(grouped)) {
+                    const groupOption = document.createElement('optgroup');
+                    groupOption.label = courier;
+
+                    services.sort((a, b) => a.value - b.value);
+
+                    services.forEach(service => {
+                        const option = document.createElement('option');
+                        option.value = `${service.courier}|${service.description}|${service.value}|${service.etd}|${service.service}`;
+                        option.textContent = `${service.description} (${service.service}) - Estimasi ${service.etd} Hari: Rp${formatNumber(service.value)} ${service.courier}`;
+                        groupOption.appendChild(option);
+                    });
+
+                    select.appendChild(groupOption);
+                }
+
+                // Event saat select berubah
+                select.addEventListener('change', function () {
+                    const selectedOption = select.options[select.selectedIndex];
+                    const [courier, description, costValue, etd] = selectedOption.value.split('|');
+                    const selectedCost = parseFloat(costValue) || 0;
+
+                    if (selectedCost > 0) {
+                        document.getElementById('pengiriman').textContent = `Rp${formatNumber(selectedCost)}`;
+                        document.getElementById('shipping_cost').value = selectedCost;
+                        document.getElementById('shipping_courier').value = courier;
+                        document.getElementById('estimated_days').value = `${etd} Hari`;
+                    } else {
+                        document.getElementById('pengiriman').textContent = '-';
+                        document.getElementById('shipping_cost').value = '';
+                        document.getElementById('estimated_days').value = '';
+                    }
+
+                    calculateTotal();
+                });
+
+                const discountElement = document.getElementById('discount-chekout');
+                if (discountElement) {
+                    const observer = new MutationObserver(() => {
+                        calculateTotal();
+                    });
+                    observer.observe(discountElement, { childList: true, subtree: true });
+                }
+
                 calculateTotal();
-            });
-            observer.observe(discountElement, { childList: true, subtree: true });
+            }
+
+            submitForm();
         }
 
-        calculateTotal();
+    const couponForm = document.getElementById('applyCouponForm');
+    if (couponForm) {
+        couponForm.addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(couponForm);
+            const messageEl = document.getElementById('coupon-message');
+
+            try {
+                const res = await fetch('{{ route('voucher.apply') }}', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: formData
+                });
+
+                const data = await res.json();
+
+                if (data.status) {
+                    messageEl.classList.remove('text-red-500');
+                    messageEl.classList.add('text-green-600');
+                    messageEl.textContent = data.message;
+
+                    const discountValue = parseInt(data.discount) || 0;
+                    const couponType = data.type;
+                    if (couponType === 'free_shipping') {
+                        const shippingInput = document.getElementById('shipping_cost');
+                        const originalShippingCost = parseInt(shippingInput?.value || 0);
+                        
+                        const reducedShippingCost = discountValue === 0 ? 0 : Math.max(originalShippingCost - discountValue, 0);
+                        shippingInput.value = reducedShippingCost;
+                        shippingInput.dataset.original = originalShippingCost;
+
+                        const shippingLabel = document.getElementById('pengiriman');
+                        if (shippingLabel) {
+                            shippingLabel.innerText = reducedShippingCost === 0 ? 'Gratis' : `Rp${formatNumber(reducedShippingCost)}`;
+                        }
+                        const estimatedDays = document.getElementById('estimated_days');
+                        if (reducedShippingCost === 0 && estimatedDays) estimatedDays.value = '-';
+
+                        document.getElementById('discount-chekout').value = discountValue;
+                    } else {
+                        document.getElementById('discount-chekout').textContent = `Rp.${formatNumber(discountValue)}`;
+                        document.getElementById('discount_value').value = discountValue;
+                    }
+                        
+                    const couponInput = document.getElementById('coupon_code');
+    
+                    const newCouponCode = data.coupon_code;
+
+                    let currentCoupons = [];
+                        try {
+                            currentCoupons = couponInput.value ? JSON.parse(couponInput.value) : [];
+                        } catch (error) {
+                            currentCoupons = [];
+                        }
+                        if (!currentCoupons.includes(newCouponCode)) {
+                             currentCoupons.push(newCouponCode);
+                        }
+
+                    couponInput.value = JSON.stringify(currentCoupons);
+                    calculateTotal();
+
+                } else {
+                    messageEl.classList.remove('text-green-600');
+                    messageEl.classList.add('text-red-500');
+                    messageEl.textContent = data.message;
+
+                    document.getElementById('discount-chekout').textContent = `Rp0`;
+                    document.getElementById('discount_value').value = 0;
+                    document.getElementById('discount-chekout').value = 0;
+
+                    calculateTotal();
+                }
+
+            } catch (error) {
+                console.error('Fetch Error:', error);
+                messageEl.classList.remove('text-green-600');
+                messageEl.classList.add('text-red-500');
+            }
+        });
     }
 
-    function calculateTotal() {
-        const subtotal = parseFloat(document.getElementById('subtotal').value) || 0;
-        const shippingCost = parseFloat(document.getElementById('shipping_cost').value) || 0;
-        const discountElement = document.getElementById('discount-chekout');
-        const discountInput = document.getElementById('discount_value');
 
-        const discount = discountElement
-            ? parseFloat(discountElement.textContent.replace('Rp', '').replace(/\./g, '').trim()) || 0
-            : 0;
+    function calculateTotal() {
+        const subtotalEl = document.getElementById('subtotal');
+        const shippingEl = document.getElementById('shipping_cost');
+        const discountEl = document.getElementById('discount-chekout');
+        const discountInput = document.getElementById('discount_value');
+        const totalTextEl = document.getElementById('total');
+        const totalInputEl = document.getElementById('total_amount');
+
+        const subtotal = parseFloat(subtotalEl?.value || 0);
+        const shippingCost = parseFloat(shippingEl?.value || 0);
+
+        let discount = 0;
+        if (discountEl) {
+            discount = parseFloat(
+                discountEl.textContent.replace(/[^\d]/g, '')
+            ) || 0;
+        }
 
         if (discountInput) {
             discountInput.value = discount;
         }
 
         const totalAmount = subtotal + shippingCost - discount;
-        const formattedTotal = totalAmount > 0 ? `Rp${formatNumber(totalAmount)}` : 'Pilih Ongkir Terlebih Dahulu';
 
-        document.getElementById('total').textContent = formattedTotal;
-        document.getElementById('total_amount').value = totalAmount > 0 ? totalAmount : '';
+        const formattedTotal = totalAmount > 0
+            ? `Rp${formatNumber(totalAmount)}`
+            : 'Pilih Ongkir Terlebih Dahulu';
+
+        if (totalTextEl) totalTextEl.textContent = formattedTotal;
+        if (totalInputEl) totalInputEl.value = totalAmount > 0 ? totalAmount : '';
     }
 
-    function formatNumber(num) {
-        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-    }
-
-    submitForm();
-});
-</script>
-
-
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-        const termsCheckbox = document.getElementById('termsCheckbox');
-        const checkoutButton = document.getElementById('checkoutButton');
-        const shippingCostInput = document.getElementById('shipping_cost');
-
-        function updateCheckoutButtonState() {
-            const hasShippingCost = shippingCostInput.value && parseFloat(shippingCostInput.value) > 0;
-            const hasTermsChecked = termsCheckbox.checked;
-
-            checkoutButton.disabled = !(hasShippingCost && hasTermsChecked);
+        function formatNumber(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         }
+    });
+    </script>
 
-        termsCheckbox.addEventListener('change', updateCheckoutButtonState);
 
-        shippingCostInput.addEventListener('input', updateCheckoutButtonState);
 
-        updateCheckoutButtonState();
-});
-</script>
+
+        <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const termsCheckbox = document.getElementById('termsCheckbox');
+            const checkoutButton = document.getElementById('checkoutButton');
+
+            function updateCheckoutButtonState() {
+                checkoutButton.disabled = !termsCheckbox.checked;
+            }
+
+            termsCheckbox.addEventListener('change', updateCheckoutButtonState);
+
+            updateCheckoutButtonState();
+        });
+        </script>
 
 
 

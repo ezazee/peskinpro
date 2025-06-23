@@ -9,6 +9,7 @@ use App\Models\Settings;
 use App\Models\Cart;
 use App\Models\User;
 use App\Models\CartItem;
+use App\Models\Coupons;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Session;
@@ -155,6 +156,81 @@ class CartController extends Controller
         return response()->json(['status' => 'error'], 404);
     }
 
+
+public function applyManual(Request $request)
+{
+    try {
+        \Log::info('🟡 Coupon apply request:', $request->all());
+
+        $request->validate([
+            'coupon_code' => 'required|string',
+            'cart_total' => 'required|numeric',
+        ]);
+
+        $coupon = Coupons::where('coupons_code', $request->coupon_code)->first();
+
+        if (!$coupon) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Kupon tidak ditemukan.'
+            ], 404);
+        }
+
+        if (!$coupon->isActive()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Kupon sudah tidak aktif atau masa berlaku habis.'
+            ]);
+        }
+
+        if (!$coupon->hasAvailableUses()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Kupon sudah habis digunakan.'
+            ]);
+        }
+
+        if ($coupon->isUsed()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Kupon sudah digunakan.'
+            ]);
+        }
+
+        if (!$coupon->meetsMinimumPurchase($request->cart_total)) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Belanja tidak memenuhi syarat minimum kupon: Rp' . number_format($coupon->minimum_purchase, 0, ',', '.')
+            ]);
+        }
+
+        session(['applied_coupon' => $coupon]);
+
+        \Log::info('🟢 Kupon berhasil diterapkan:', [
+            'coupon_code' => $coupon->coupons_code,
+            'discount' => $coupon->jumlah,
+            'type' => $coupon->type,
+        ]);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Voucher berhasil diterapkan.',
+            'coupon_id' => $coupon->id,
+            'coupon_code' => $coupon->coupons_code,
+            'discount' => $coupon->jumlah,
+            'type' => $coupon->type,
+        ]);
+    } catch (\Throwable $e) {
+        \Log::error('🔴 Terjadi kesalahan saat menerapkan kupon: ' . $e->getMessage(), [
+            'trace' => $e->getTraceAsString()
+        ]);
+
+        return response()->json([
+            'status' => false,
+            'message' => 'Terjadi kesalahan sistem. Silakan coba lagi.'
+        ], 500);
+    }
+}
 
 
 }

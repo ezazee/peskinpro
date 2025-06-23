@@ -50,6 +50,58 @@
                             </div>
                         </div>
                         <div class="row">
+                            <!-- Type -->
+                            <div class="col-lg-4">
+                                <div class="mb-3">
+                                    <label for="coupons-code" class="form-label">Type</label>
+                                    <select id="coupons-code" name="type" class="form-control">
+                                        <option value="" disabled>Pilih Jenis Voucher</option>
+                                        <option value="fixed_amount" {{ $coupon->type === 'fixed_amount' ? 'selected' : '' }}>Potongan Tetap</option>
+                                        <option value="free_shipping" {{ $coupon->type === 'free_shipping' ? 'selected' : '' }}>Gratis Ongkir</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Scope -->
+                            <div class="col-lg-4">
+                                <div class="mb-3">
+                                    <label for="scope" class="form-label">Scope</label>
+                                    <select id="scope" name="scope" class="form-control" onchange="toggleCities()">
+                                        <option value="all" {{ $coupon->scope === 'all' ? 'selected' : '' }}>Semua Pengguna</option>
+                                        <option value="karyawan" {{ $coupon->scope === 'karyawan' ? 'selected' : '' }}>Karyawan</option>
+                                        <option value="cities" {{ $coupon->scope === 'cities' ? 'selected' : '' }}>Kota Tertentu</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <div class="mb-3">
+                                    <label for="scope" class="form-label">Status</label>
+                                    <select id="scope" name="status" class="form-control" onchange="toggleCities()">
+                                        <option value="active" {{ $coupon->status === 'active' ? 'selected' : '' }}>ACTIVE</option>
+                                        <option value="inactive" {{ $coupon->status === 'inactive' ? 'selected' : '' }}>INACTIVE</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Pilih Kota (tampil hanya saat scope = cities) -->
+                            <div class="col-lg-12" id="cities-container" style="display: none;">
+                                <div class="mb-3">
+                                    <label for="cities" class="form-label">Pilih Kota</label>
+                                    <select id="cities" name="cities[]" class="form-control" multiple>
+                                        @php
+                                            $selectedCities = is_array($coupon->cities) ? $coupon->cities : json_decode($coupon->cities, true);
+                                        @endphp
+                                        @foreach($cities as $city)
+                                            <option value="{{ strtolower($city) }}"
+                                                {{ in_array(strtolower($city), $selectedCities ?? []) ? 'selected' : '' }}>
+                                                {{ $city }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
                             <div class="col-lg-12">
                                 <div class="">
                                     <label class="form-label">Discount Value</label>
@@ -82,6 +134,36 @@
         if (!couponInput.val().startsWith('PE')) {
             couponInput.val('PE');
         }
+    });
+</script>
+
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const scopeSelect = document.getElementById('scope');
+        const citiesContainer = document.getElementById('cities-container');
+        const citiesSelect = $('#cities');
+
+        citiesSelect.select2({
+            placeholder: "Cari dan pilih kota",
+            width: '100%'
+        });
+
+        function toggleCitiesSelect() {
+            if (scopeSelect.value === 'cities') {
+                citiesContainer.style.display = 'block';
+            } else {
+                citiesContainer.style.display = 'none';
+                citiesSelect.val(null).trigger('change');
+            }
+        }
+
+        toggleCitiesSelect();
+
+        scopeSelect.addEventListener('change', toggleCitiesSelect);
     });
 </script>
 @endsection

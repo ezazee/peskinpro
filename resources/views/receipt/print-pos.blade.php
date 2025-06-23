@@ -168,16 +168,20 @@
             </tr>
           </thead>
           <tbody>
+            @php $total = 0; @endphp
             @foreach ($order->products as $product)
-            <tr>
-              @php
-                $subtotal = $product->pivot->harga * $product->pivot->quantity;
-              @endphp
-              <td>{{ $product->sku }}</td>
-              <td>{{ $product->name }}</td>
-              <td>{{ $product->pivot->quantity }} pcs</td>
-              <td>{{ number_format($product['harga'], 0, ',', '.') }} IDR</td>
-            </tr>
+                @php
+                    $harga = (float) $product->pivot->harga;
+                    $qty = (int) $product->pivot->quantity;
+                    $subtotal = $harga * $qty;
+                    $total += $subtotal;
+                @endphp
+                <tr>
+                    <td>{{ $product->sku }}</td>
+                    <td>{{ $product->name }}</td>
+                    <td>{{ $qty }} <small>pcs</small></td>
+                    <td>Rp{{ number_format($harga, 0, ',', '.') }}</td>
+                </tr>
             @endforeach
           </tbody>
         </table>
@@ -188,7 +192,7 @@
           <tbody>
             <tr>
               <td>Subtotal:</td>
-              <td class="total">{{ number_format($subtotal, 0, ',', '.') }} IDR</td>
+              <td class="total">Rp{{ number_format($total, 0, ',', '.') }}</td>
             </tr>
             <tr>
               <td>Discount:</td>
@@ -196,17 +200,17 @@
                 @php
                   $discount = $order->discount_chekout ?? 0;
                 @endphp
-                {{ $discount == 0 ? '-0' : number_format($discount, 0, ',', '.') }} IDR
+                Rp{{ $discount == 0 ? '-0' : number_format($discount, 0, ',', '.') }}
               </td>
             </tr>
             <tr>
               <td>Amount Due:</td>
-              <td class="total">{{ number_format($order->total_amount, 0, ',', '.') }} IDR</td>
+              <td class="total">Rp{{ number_format($order->total_amount, 0, ',', '.') }}</td>
             </tr>
             @if($order->kembali !== null)
             <tr>
                 <td>Return:</td>
-                <td class="total">{{ number_format($order->kembali, 0, ',', '.') }} IDR</td>
+                <td class="total">Rp{{ number_format($order->kembali, 0, ',', '.') }}</td>
             </tr>
             @endif
           </tbody>
