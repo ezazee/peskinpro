@@ -35,9 +35,8 @@ class ChekoutController extends Controller
     public function Checkout(Request $request)
     {
         $referralCode = Session::get('referral_code');
-        // dd($referralCode);
         $settings = Settings::all();
-        $user = Auth::user();
+        $user = Auth::user()->load('alamat.city');
         $defaultAddresses = $user->alamat()
             ->where('default', 'yes')
             ->with(['province', 'city'])
@@ -67,8 +66,31 @@ class ChekoutController extends Controller
                 ->where('start_date', '<=', now())
                 ->where('end_date', '>=', now())
                 ->get();
-    
-            $validCoupons = $validCoupons->filter(function ($coupon) use ($cartTotal) {
+            
+            $alamatPertama = $user->alamat->first();
+
+            if (!$alamatPertama || !$alamatPertama->city || empty($alamatPertama->city->name)) {
+                Alert::toast('Silakan lengkapi alamat Anda terlebih dahulu di profil.', 'warning');
+                return redirect()->back()->with('error', 'Silakan lengkapi alamat Anda terlebih dahulu di profil.');
+            }
+
+            $userCity = strtolower($alamatPertama->city->name);
+
+
+            $userScope = $user->scope ?? 'all';
+
+            $validCoupons = $validCoupons->filter(function ($coupon) use ($cartTotal, $userCity, $userScope) {
+                if ($coupon->scope === 'karyawan') {
+                    return false;
+                }
+
+                if ($coupon->scope === 'cities') {
+                    $couponCities = is_array($coupon->cities) ? $coupon->cities : json_decode($coupon->cities, true);
+                    if (!in_array($userCity, array_map('strtolower', $couponCities ?? []))) {
+                        return false;
+                    }
+                }
+
                 return $coupon->meetsMinimumPurchase($cartTotal) && $coupon->hasAvailableUses();
             });
     
@@ -121,7 +143,6 @@ class ChekoutController extends Controller
 
     public function processpayment(Request $request)
     {
-        // dd($request);
         if (is_null($request->alamat_id) || $request->alamat_id == '') {
             Alert::toast('Tambahkan alamat terlebih dahulu!!', 'warning');
             return redirect()->route('profile.address')->with('error', 'Tambahkan alamat terlebih dahulu!!');
@@ -150,7 +171,10 @@ class ChekoutController extends Controller
             'status' => 'pending',
             'discount_chekout' => $discount_chekout,
             'payment_method' => 'transfer',
-            'alamat_id' => $alamatId
+            'alamat_id' => $alamatId,
+            'coupon_code' => is_array($request->coupon_code) 
+                ? json_encode($request->coupon_code) 
+                : $request->coupon_code
         ]);
 
         $referrerCode = session('referral_code');
@@ -158,17 +182,27 @@ class ChekoutController extends Controller
             $order->referral_code = $referrerCode;
             $order->save();
         }
-    
-
         if (!empty($discount_chekout)) {
-            $couponCode = $request->coupon_code; 
-            $coupon = Coupons::where('coupons_code', $couponCode)->first();
-        
-            if ($coupon) {
-                $coupon->limits = $coupon->limits - 1;
-                $coupon->save();
+            $couponCodes = $request->coupon_code;
+
+            if (is_string($couponCodes) && str_starts_with($couponCodes, '[')) {
+                 $couponCodes = json_decode($couponCodes, true);
+                }
+
+            if (!is_array($couponCodes)) {
+                $couponCodes = [$couponCodes];
+            }
+
+            foreach ($couponCodes as $code) {
+                $coupon = Coupons::whereRaw('LOWER(coupons_code) = ?', [strtolower($code)])->first();
+                if ($coupon) {
+                    $coupon->limits = max(0, $coupon->limits - 1);
+                    $coupon->save();
+                }
             }
         }
+
+
 
         foreach ($request->products as $product) {
             $productId = $product['id'];

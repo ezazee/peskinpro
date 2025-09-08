@@ -234,23 +234,52 @@ class ProfileController extends Controller
 
     public function Orderselesai(Order $order)
     {
+        $order->load(['products', 'shipping']);
+
         if ($order->referral_code) {
             $referrer = User::where('referral_code', $order->referral_code)->first();
     
             if ($referrer && $referrer->id !== $order->user_id) {
                 $totalCommission = 0;
     
+                $totalAmount = $order->total_amount;
+                $totalCommission = 0;
+                $totalItemPrice = 0;
+
                 foreach ($order->products as $product) {
-                    $sizeId = $product->pivot->size_id; 
+                    $sizeId = $product->pivot->size_id;
                     $size = ProductSize::find($sizeId);
-    
+
                     if ($size) {
                         $harga = $size->price - $product->pivot->discount;
-                        $productCommission = (($harga * $size->commission) * 0.89) / 100;
-                        $totalCommission += $productCommission * $product->pivot->quantity;
+                        $subtotal = $harga * $product->pivot->quantity;
+                        $totalItemPrice += $subtotal;
                     }
                 }
-    
+
+                $totalAmount = $order->total_amount;
+
+                if ($order->shipping && $order->shipping->shipping_cost) {
+                    $totalAmount -= $order->shipping->shipping_cost;
+                }
+
+                foreach ($order->products as $product) {
+                    $sizeId = $product->pivot->size_id;
+                    $size = ProductSize::find($sizeId);
+
+                    if ($size) {
+                        $harga = $size->price - $product->pivot->discount;
+                        $subtotal = $harga * $product->pivot->quantity;
+
+                        $proporsi = $subtotal / ($totalItemPrice ?: 1);
+                        $portionAmount = $totalAmount * $proporsi;
+
+                        $productCommission = (($portionAmount * $size->commission)) / 100;
+
+                        $totalCommission += $productCommission;
+                    }
+                }
+
                 $affiliate = Affiliate::create([
                     'user_id' => $referrer->id,
                     'referred_user_id' => $order->user_id,

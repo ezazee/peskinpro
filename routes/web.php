@@ -102,6 +102,7 @@ Route::middleware(['userOrGuest'])->group(function () {
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart/increase', [CartController::class, 'increaseQuantity'])->name('cart.increase');
     Route::post('/cart/decrease', [CartController::class, 'decreaseQuantity'])->name('cart.decrease');
+    Route::post('/apply-voucher', [CartController::class, 'applyManual'])->name('voucher.apply');
     Route::get('/s/{code}', function ($code) {
         $linkreal = Cache::get('shortlink_' . $code);
 
@@ -181,6 +182,8 @@ Route::middleware(['auth', 'role:Administrator,Management,Admin,Finance,Writter'
     Route::get('/completed/list', [OrdersController::class, 'completedlist'])->name('orders.completedlist');
     Route::get('/orders/detail/{orderNumber}', [OrdersController::class, 'detail'])->name('orders.detail');
     Route::get('/pos', [OrdersController::class, 'pos'])->name('orders.pos');
+    Route::post('/cart/increase/pos', [OrdersController::class, 'increasePos'])->name('pos.increase');
+    Route::post('/cart/decrease/pos', [OrdersController::class, 'decreasePos'])->name('pos.decrease');
     Route::post('/add_cart/pos', [OrdersController::class, 'add_cart_pos'])->name('add_cart_pos');
     Route::get('/cart/delete/{id}', [OrdersController::class, 'remove'])->name('cart.delete');
     Route::get('/cart/clearall', [OrdersController::class, 'clearall'])->name('cart.clearall');

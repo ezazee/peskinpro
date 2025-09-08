@@ -93,8 +93,6 @@
                 <a href="{{ route('dashboard.index') }}" class="btn btn-danger mb-xs-3"><span
                         class="me-1 d-flex align-items-center"><i data-feather="skip-back"
                             class="feather-16"></i></span> Close</a>
-                <a href="javascript:void(0);" class="btn btn-info"><span class="me-1 d-flex align-items-center"><i
-                            data-feather="rotate-cw" class="feather-16"></i></span>Reset</a>
                 <a href="javascript:void(0);" class="btn btn-primary" data-bs-toggle="modal"
                     data-bs-target="#recents"><span class="me-1 d-flex align-items-center"><i data-feather="refresh-ccw"
                             class="feather-16"></i></span>Transaction</a>
@@ -189,20 +187,36 @@
                                                     </p>
                                                 </div>
                                             </div>
-                                            <div class="qty-item text-center">
-                                                <a href="javascript:void(0);"
-                                                   class="dec d-flex justify-content-center align-items-center"
-                                                   data-bs-toggle="tooltip" data-bs-placement="top" title="minus">
-                                                    <i data-feather="minus-circle" class="feather-14" data-id="{{ $item->id }}" id="decrease-quantity"></i>
-                                                </a>
-                                                <input type="text" class="form-control text-center quantity" name="qty"
-                                                       value="{{ $item->quantity }}" data-id="{{ $item->id }}">
-                                                <a href="javascript:void(0);"
-                                                   class="inc d-flex justify-content-center align-items-center"
-                                                   data-bs-toggle="tooltip" data-bs-placement="top" title="plus">
-                                                    <i data-feather="plus-circle" class="feather-14" data-id="{{ $item->id }}" id="increase-quantity"></i>
-                                                </a>
-                                            </div>                                            
+                                            <div class="qty-item text-center d-flex justify-content-center align-items-center gap-1">
+
+                                                {{-- Button - --}}
+                                                <form action="{{ route('pos.decrease') }}" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="cart_item_id" value="{{ $item->id }}">
+                                                    <button type="submit" class="btn p-0 border-0 bg-transparent" data-bs-toggle="tooltip" data-bs-placement="top" title="Minus">
+                                                        <i data-feather="minus-circle" class="feather-14"></i>
+                                                    </button>
+                                                </form>
+
+                                                {{-- Quantity --}}
+                                                <input type="text" class="form-control text-center quantity"
+                                                    name="qty"
+                                                    value="{{ $item->quantity }}"
+                                                    data-id="{{ $item->id }}"
+                                                    readonly
+                                                    style="width: 60px;">
+
+                                                {{-- Button + --}}
+                                                <form action="{{ route('pos.increase') }}" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="cart_item_id" value="{{ $item->id }}">
+                                                    <button type="submit" class="btn p-0 border-0 bg-transparent" data-bs-toggle="tooltip" data-bs-placement="top" title="Plus">
+                                                        <i data-feather="plus-circle" class="feather-14"></i>
+                                                    </button>
+                                                </form>
+
+                                            </div>
+
                                             <div class="d-flex align-items-center action">
                                                 <a class="btn-icon delete-icon"
                                                     href="{{ route('cart.delete', ['id' => $item->id]) }}">
@@ -287,10 +301,8 @@
                                         <thead>
                                             <tr>
                                                 <th>Date</th>
-                                                <th>Reference</th>
                                                 <th>Items</th>
                                                 <th>Amount </th>
-                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -604,7 +616,7 @@
                 sessionStorage.removeItem('reload');
             }
         </script>
-   
+
 
     <!-- jQuery -->
     {{-- <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script> --}}

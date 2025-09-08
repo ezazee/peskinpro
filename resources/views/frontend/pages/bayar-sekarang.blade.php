@@ -30,7 +30,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Checkout Button with form submission -->
                         <div class="flex flex-col items-center">
                             @if ($orders->status !== 'canceled')
                             <button type="submit" id="submitButton" class="checkout-btn button-main text-center w-full text-white font-semibold rounded-md px-5 mt-3 py-3">
@@ -43,7 +42,7 @@
                                     </button>
                             </form>
                             @endif
-                            <a class="text-button hover-underline mt-3" href="{{ route('home.index') }}">Lanjutkan Berbelanja</a>
+                            <a class="checkout-btn text-center w-full text-black font-semibold rounded-md px-5 mt-3 py-3 mt-3" href="{{ route('home.index') }}">Lanjutkan Berbelanja</a>
                         </div>
 
                         <div class="text-center mt-3 text-sm text-gray-500">

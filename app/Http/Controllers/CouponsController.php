@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Category;
 use App\Models\Coupons;
+use App\Models\City;
 use RealRashid\SweetAlert\Facades\Alert;
 
 
@@ -23,11 +24,14 @@ class CouponsController extends Controller
         $user = Auth::user();
         $welcomeMessage = 'Add Coupons';
         $categories = Category::all();
-        return view('backend.pages.coupons.create',compact('welcomeMessage','user','categories'));
+        $cities = City::select('name')
+            ->distinct()
+            ->orderBy('name')
+            ->pluck('name');
+        return view('backend.pages.coupons.create',compact('welcomeMessage','user','categories','cities'));
     }
 
     public function add(Request $request){
-
         $coupons = Coupons::create([
             'status' => 'active',
             'start_date' => $request->start_date,
@@ -35,8 +39,10 @@ class CouponsController extends Controller
             'coupons_code' => $request->coupons_code,
             'minimum_purchase' => $request->minimum_purchase,
             'limits' => $request->limits,
-            'type'=> 'fixed_amount',
-            'jumlah' => $request->jumlah
+            'type'=> $request->type,
+            'jumlah' => $request->jumlah,
+            'scope' => $request->scope,
+            'cities' => $request->scope === 'cities' ? $request->cities : null,
           ]);
         Alert::success('Success', 'Add Post Coupons');
         return back()->with('success', 'Coupons created successfully!');
@@ -46,7 +52,13 @@ class CouponsController extends Controller
         $user = Auth::user();
         $welcomeMessage = 'Coupons Article';
         $coupon = Coupons::where('id', $id)->firstOrFail();
-        return view('backend.pages.coupons.edit',compact('welcomeMessage','user','coupon'));
+        $categories = Category::all();
+        $cities = City::select('name')
+            ->distinct()
+            ->orderBy('name')
+            ->pluck('name');
+
+        return view('backend.pages.coupons.edit',compact('welcomeMessage','user','coupon','categories','cities'));
     }
 
     public function update(Request $request, $id)
@@ -54,12 +66,16 @@ class CouponsController extends Controller
         $coupon = Coupons::findOrFail($id);
 
         $coupon->update([
+            'status' => $request->status,
             'coupons_code' => $request->coupons_code,
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
             'minimum_purchase' => $request->minimum_purchase,
             'limits' => $request->limits,
+            'type'=> $request->type,
             'jumlah' => $request->jumlah,
+            'scope' => $request->scope,
+            'cities' => $request->scope === 'cities' ? $request->cities : null,
         ]);
         Alert::success('Success', 'Update Post Coupons');
         return back()->with('success', 'Coupons deleted successfully!');

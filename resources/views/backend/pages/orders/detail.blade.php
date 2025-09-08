@@ -381,7 +381,7 @@
                                             </iconify-icon> Hemat :
                                         </p>
                                     </td>
-                                    <td class="text-end text-dark fw-medium px-0">Rp{{ number_format($hemat, 2) }}</td>
+                                    <td class="text-end text-dark fw-medium px-0">Rp{{ number_format($orders->discount_chekout, 2) }}</td>
                                 </tr>
                                 <tr>
                                     <td class="px-0">

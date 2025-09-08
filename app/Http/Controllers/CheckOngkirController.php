@@ -59,16 +59,25 @@ class CheckOngkirController extends Controller
 
             $data = json_decode($response, true);
 
+            $destinationProvince = $data['rajaongkir']['destination_details']['province'] ?? null;
+
             if (
                 isset($data['rajaongkir']['results'][0]) &&
                 isset($data['rajaongkir']['results'][0]['costs'])
             ) {
-                $results[$courier] = $data['rajaongkir']['results'][0]['costs'];
+                $results[$courier] = [
+                    'destination_province' => $destinationProvince,
+                    'costs' => $data['rajaongkir']['results'][0]['costs']
+                ];
             } else {
                 $results[$courier] = [
-                    ['service' => '-', 'description' => '-', 'cost' => [['value' => 0, 'etd' => '-', 'note' => 'Data not found']]]
+                    'destination_province' => $destinationProvince,
+                    'costs' => [
+                        ['service' => '-', 'description' => '-', 'cost' => [['value' => 0, 'etd' => '-', 'note' => 'Data not found']]]
+                    ]
                 ];
             }
+
         }
 
         return response()->json($results);

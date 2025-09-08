@@ -49,6 +49,51 @@
                             </div>
                         </div>
                         <div class="row">
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label for="coupons-code" class="form-label">Type</label>
+                                    <select id="coupons-code" name="type" class="form-control">
+                                        <option value="" disabled selected>Pilih Jenis Voucher</option>
+                                        <option value="fixed_amount">Potongan Tetap</option>
+                                        <option value="free_shipping">Gratis Ongkir</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- Scope -->
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <label for="scope" class="form-label">Scope</label>
+                                    <select id="scope" name="scope" class="form-control">
+                                        <option value="all">Semua Pengguna</option>
+                                        <option value="karyawan">Karyawan</option>
+                                        <option value="cities">Kota Tertentu</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Pilih Kota (tampil hanya saat scope = cities) -->
+                            <div class="col-lg-12" id="cities-container" style="display: none;">
+                                <div class="mb-3">
+                                    <label for="cities" class="form-label">Pilih Kota</label>
+                                    <select id="cities" name="cities[]" class="form-control" multiple>
+                                        @foreach($cities as $city)
+                                            <option value="{{ strtolower($city) }}">{{ $city }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12" id="cities-container" style="display: none;">
+                                <input type="text" name="cities[]" class="form-control" placeholder="Kota Yang di Pilih">
+                                <div class="mb-3">
+                                    <label for="cities" class="form-label">Pilih Kota</label>
+                                    <select id="cities" name="cities[]" class="form-control" multiple>
+                                        @foreach($cities as $city)
+                                            <option value="{{ strtolower($city) }}">{{ $city }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
                             <div class="col-lg-12">
                                 <div class="">
                                     <label class="form-label">Discount Value</label>
@@ -81,6 +126,34 @@
         if (!couponInput.val().startsWith('PE')) {
             couponInput.val('PE');
         }
+    });
+</script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const scopeSelect = document.getElementById('scope');
+        const citiesContainer = document.getElementById('cities-container');
+        const citiesSelect = $('#cities');
+
+        citiesSelect.select2({
+            placeholder: "Cari dan pilih kota",
+            width: '100%'
+        });
+
+        function toggleCitiesSelect() {
+            if (scopeSelect.value === 'cities') {
+                citiesContainer.style.display = 'block';
+            } else {
+                citiesContainer.style.display = 'none';
+                citiesSelect.val(null).trigger('change');
+            }
+        }
+
+        toggleCitiesSelect();
+
+        scopeSelect.addEventListener('change', toggleCitiesSelect);
     });
 </script>
 @endsection

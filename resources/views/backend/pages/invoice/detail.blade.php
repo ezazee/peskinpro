@@ -171,25 +171,9 @@
                         </div> <!-- end col -->
                     </div> <!-- end row -->
 
-                    <div class="row mt-3">
-                        <div class="col-lg-12">
-                            <div class="alert alert-danger alert-icon p-2" role="alert">
-                                <div class="d-flex align-items-center">
-                                    <div class="avatar-sm rounded bg-danger d-flex justify-content-center align-items-center fs-18 me-2 flex-shrink-0">
-                                        <i class="bx bx-info-circle text-white"></i>
-                                    </div>
-                                    <div class="flex-grow-1">
-                                       All accounts are to be paid within 7 days from receipt of invoice. To be paid by cheque or credit card or direct payment online. If account is not paid within 7 days the credits details supplied as confirmation of work undertaken will be charged the agreed quoted fee noted above.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="mt-3 mb-1">
                         <div class="text-end d-print-none">
                             <a href="javascript:window.print()" class="btn btn-info width-xl">Print</a>
-                            <a href="javascript:void(0);" class="btn btn-outline-primary width-xl">Submit</a>
                         </div>
                     </div>
 

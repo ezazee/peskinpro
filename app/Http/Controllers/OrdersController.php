@@ -195,6 +195,8 @@ class OrdersController extends Controller
         $products = Product::with('sizes', 'category')->get();
         $cartItems = Auth::user()->cart ? Auth::user()->cart->items()->with(['product', 'productSize'])->get() : [];
 
+        // dd($cartItems);
+
         $expandedProducts = $products->flatMap(function ($product) {
             return $product->sizes->map(function ($size) use ($product) {
                 return [
@@ -292,7 +294,10 @@ class OrdersController extends Controller
                 'quantity' => $quantity,
                 'size_id' => $sizeId,
                 'harga' => $harga,
-                'discount' => $discount
+                'discount' => $discount,
+                'street' => "",
+                'postal_code' => "",
+                'no_telp' => ""
             ]);
     
             $productSize = ProductSize::where('product_id', $productId)->where('id', $sizeId)->first();
@@ -338,7 +343,7 @@ class OrdersController extends Controller
             $receiptData['items'][] = [
                 'id' => $productId,
                 'sku' => $productDetails->sku, 
-                'name' => $productDetails->name,  // Get the product name
+                'name' => $productDetails->name,
                 'quantity' => $quantity,
                 'harga' => $harga,
                 'discount' => $discount,
@@ -348,6 +353,51 @@ class OrdersController extends Controller
         return view('receipt.print', compact('receiptData'));
     }
     
+
+        public function increasePos(Request $request)
+        {
+            $cart = Auth::user()->cart;
+
+            if (!$cart) {
+                return redirect()->back()->with('error', 'Cart not found');
+            }
+
+            $cartItem = CartItem::where('cart_id', $cart->id)
+                                ->where('id', $request->cart_item_id)
+                                ->first();
+
+            if (!$cartItem) {
+                return redirect()->back()->with('error', 'Cart item not found');
+            }
+
+            $cartItem->quantity += 1;
+            $cartItem->save();
+
+            return redirect()->back()->with('success', 'Quantity Bertambah!');
+        }
+
+        public function decreasePos(Request $request)
+        {
+            $cart = Auth::user()->cart;
+
+            if (!$cart) {
+                return redirect()->back()->with('error', 'Cart not found');
+            }
+
+            $cartItem = CartItem::where('cart_id', $cart->id)
+                                ->where('id', $request->cart_item_id)
+                                ->first();
+
+            if (!$cartItem) {
+                return redirect()->back()->with('error', 'Cart item not found');
+            }
+
+            $cartItem->quantity -= 1;
+            $cartItem->save();
+
+            return redirect()->back()->with('success', 'Quantity Berkurang!');
+        }
+
 
     public function accept(Order $order)
     {
@@ -402,7 +452,6 @@ class OrdersController extends Controller
     }
     
 
-    // return and refund
     public function returnrefundlist(Request $request){
         $user = Auth::user();
         $welcomeMessage = 'List Return And Refund Orders';
@@ -484,7 +533,6 @@ class OrdersController extends Controller
                 $query->where('invoice_number', $inv_number);
             })
             ->first();
-
         if (!$order) {
             return redirect()->route('orders.index')->with('error', 'Order not found');
         }

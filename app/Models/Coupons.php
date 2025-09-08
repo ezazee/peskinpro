@@ -10,7 +10,11 @@ class Coupons extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'status', 'start_date', 'end_date', 'coupons_code', 'minimum_purchase', 'limits', 'type', 'jumlah',
+        'status', 'start_date', 'end_date', 'coupons_code', 'minimum_purchase', 'limits', 'type', 'jumlah','scope','cities',
+    ];
+
+    protected $casts = [
+        'cities' => 'array',
     ];
 
     public function isActive()
